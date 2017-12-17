@@ -50,8 +50,7 @@ getDataType = function(data, target) {
   if (!is.null(target)) {
     targetidx = which(colnames(data) == target)
     X = colnames(data)[-targetidx]
-  }
-  else X = colnames(data)
+  } else X = colnames(data)
 
   typelist = list(X = X, target = target,
     num = num, int = int, fact = fact,
