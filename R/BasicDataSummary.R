@@ -93,6 +93,7 @@ BasicDataSummary = function(data, target, large = 1e10,
   }
   basicsummarylist = as.list(x)
   basicsummarylist$target = ifelse(!is.null(target), class(data[,target]),NULL)
+  basicsummarylist$DataTypeList
   class(basicsummarylist) = append(class(basicsummarylist), "reportBasicSummary")
   return(basicsummarylist)
 }
