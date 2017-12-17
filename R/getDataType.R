@@ -1,4 +1,24 @@
-getDataType = function(data) {
+#' Get Data Types from a data.frame.
+#'
+#' @param data [\code{data.frame}]\cr
+#'   Data to extract the types from
+#' @param target [\code{character(1)}]\cr
+#'   Target column. If not available please insert as \code{NULL}.
+#' @return [named \code{list}], containing vectors according to types. Vectors contain column names of the data.frame
+#'
+getDataType = function(data, target) {
+  #Argument checking
+  assertDataFrame(data)
+  if (exists("target")) {
+    if (is.null(target)) {
+      target = NULL
+    } else {
+      assertCharacter(target, len = 1)
+    }
+  } else if (!exists("target")) {
+    stop("You did not specify a target value. If the dataset doesn't contain one, enter NULL as target")
+  }
+
   #Initialize vectors which contain colnames
   num = vector(mode = "character")
   int = vector(mode = "character")
@@ -24,7 +44,14 @@ getDataType = function(data) {
       date = c(date, colname)
     }
   }
-  typelist = list(num = num, int = int, fact = fact,
+  if (!is.null(target)) {
+    targetidx = which(colnames(data) == target)
+    X = colnames(data)[-2]
+  }
+  else X = colnames(data)
+
+  typelist = list(X = X, target = target,
+    num = num, int = int, fact = fact,
     char = char, logic = logic, date = date)
   class(typelist) = append(class(typelist), "reportDataType")
   return(typelist)
