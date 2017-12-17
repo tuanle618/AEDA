@@ -4,6 +4,9 @@
 #'   Data to extract the types from
 #' @param target [\code{character(1)}]\cr
 #'   Target column. If not available please insert as \code{NULL}.
+#' @examples
+#' data("iris")
+#' getDataType(iris)
 #' @return [named \code{list}], containing vectors according to types. Vectors contain column names of the data.frame
 #'
 getDataType = function(data, target) {
@@ -46,7 +49,7 @@ getDataType = function(data, target) {
   }
   if (!is.null(target)) {
     targetidx = which(colnames(data) == target)
-    X = colnames(data)[-2]
+    X = colnames(data)[-targetidx]
   }
   else X = colnames(data)
 
@@ -56,16 +59,3 @@ getDataType = function(data, target) {
   class(typelist) = append(class(typelist), "reportDataType")
   return(typelist)
 }
-
-##testing
-data("diamonds", package = "ggplot2")
-data("Boston", package = "MASS")
-data("iris")
-
-diamondstype = getDataType(diamonds)
-diamondstype
-iristype = getDataType(iris)
-iristype
-bostontype = getDataType(Boston)
-bostontype
-
