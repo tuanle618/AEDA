@@ -92,7 +92,7 @@ BasicDataSummary = function(data, target, large = 1e10,
     x["class.quot"] = x["class.max"] / x["class.min"]
   }
   basicsummarylist = as.list(x)
-  basicsummarylist$target = ifelse(!is.null(target), class(data[,target]),NULL)
+  basicsummarylist$target = ifelse(!is.null(target), class(data[,target]), NULL)
   basicsummarylist$DataTypeList = DataTypeList
   class(basicsummarylist) = append(class(basicsummarylist), "reportBasicSummary")
   return(basicsummarylist)
