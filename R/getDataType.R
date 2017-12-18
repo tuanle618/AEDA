@@ -37,10 +37,10 @@ getDataType = function(data, target) {
     } else if (is.numeric(coldata)) {
       num = c(num, colname)
     } else if (is.factor(coldata) || is.ordered(coldata)) { #check if column is either ordered or factored
-      if(is.factor(coldata) & is.ordered(coldata)) { #check if column is both factored and ordered. then assign ordered
+      if (is.factor(coldata) & is.ordered(coldata)) { #check if column is both factored and ordered. then assign ordered
         ord = c(ord, colname)
       } else {
-          if(is.ordered(coldata)) {
+          if (is.ordered(coldata)) {
             ord = c(ord, colname) #check if only ordered, then assign ordered
           }
           else {
@@ -61,9 +61,9 @@ getDataType = function(data, target) {
   } else X = colnames(data)
 
   typelist = list(X = X, target = target,
-    num = num, int = int, ord= ord, fact = fact,
+    num = num, int = int, ord = ord, fact = fact,
     char = char, logic = logic, date = date)
-  class(typelist) = append(class(typelist), "reportDataType")
+  addClasses(typelist, "reportDataType")
   return(typelist)
 }
 
