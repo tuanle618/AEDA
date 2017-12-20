@@ -18,6 +18,8 @@
 #'   data("iris")
 #'   BasicDataSummary(iris, target = "Species")
 #' @return [named \code{list}], containing characteristics.
+#' @import checkmate
+#' @import BBmisc
 #' @export
 
 BasicDataSummary = function(data, target, large = 1e10,
