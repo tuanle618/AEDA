@@ -3,5 +3,7 @@
 S3method(print,NumTask)
 export(BasicDataSummary)
 export(makeNumSumTask)
+export(plotFeatDistr)
 import(BBmisc)
 import(checkmate)
+import(ggplot2)

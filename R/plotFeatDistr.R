@@ -1,0 +1,40 @@
+#' Plots univariate distribution of a feature.
+#'
+#' @param data [\code{data.frame}]\cr 
+#'   Data. 
+#' @param target [\code{character(1)}]\cr 
+#'   Target column. If no target is available in the dataset please insert \code{NULL}
+#' @param col [\code{character(1)} | \code{integer(1)}]\cr 
+#'   Selected feature from \code{data}. 
+#' @return A ggplot2 object. Print it to plot it.
+#' @import checkmate
+#' @import ggplot2
+#' @import BBmisc
+#' @export
+#' @title Plots univariate distribution of a feature.
+
+
+plotFeatDistr = function(data, target, col) {
+  #check if user inserted the column number. If so, get colname 
+  if (is.numeric(col))  {
+    col = colnames(data)[col]
+  }
+  assertDataFrame(data, col.names = "strict")
+  if(!is.null(target)) {
+    assertCharacter(target, min.len = 1)
+  }
+  x = data[, col]
+  if (is.numeric(x) | is.integer(x)) {
+    a = aes_string(x=col, colour=target)
+    ggplot(data, a) + 
+      geom_density(size=3) + 
+      geom_histogram(aes(y = ..density..), alpha=0.5)
+  } else if (is.factor(x) | is.logical(x) | is.character(x)){ ##do further improvements in facet_wrap
+    a = aes_string(x=col)
+    ggplot(data, a) +
+      geom_histogram(aes(y=..density..)) +
+      facet_wrap(as.formula(paste("~", target))) 
+  } else {
+    stop("Unsupported column class: ", class(x))
+  }
+}
