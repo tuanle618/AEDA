@@ -6,9 +6,9 @@
 #'   Target column. If not available please insert as \code{NULL}.
 #' @examples
 #' data("iris")
-#' getDataType(iris)
+#' getDataType(iris, target = NULL)
 #' @return [named \code{list}], containing vectors according to types. Vectors contain column names of the data.frame
-#'
+#' @export
 getDataType = function(data, target) {
   #Argument checking
   assertDataFrame(data)
@@ -29,8 +29,8 @@ getDataType = function(data, target) {
   logic = vector(mode = "character")
   date = vector(mode = "character")
   #Loop through each column and get class
-  for (i in 1:ncol(data)) {
-    coldata = data[,i]
+  for (i in seq_len(ncol(data))) {
+    coldata = data[, i]
     colname = colnames(data)[i]
     if (is.integer(coldata)) {
       int   = c(int, colname)
