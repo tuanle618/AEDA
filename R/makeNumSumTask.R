@@ -44,6 +44,8 @@ makeNumSumTask = function(id, data, target){
 print.NumTask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Observations: %i", x$size)
-  catf("Amount Numeric Columns: %i", length(x$numdatatypes$numeric)) #check : Question: print columns?
-  catf("Amount Integer Columns: %i", length(x$numdatatypes$integer)) #right now not really working
+  catf("Amount Numeric Columns: %i", length(x$numdatatypes$numeric))
+  catf("Selected Numerics: %s", collapse(x$numdatatypes$numeric, sep = ", "))
+  catf("Amount Integer Columns: %i", length(x$numdatatypes$integer))
+  catf("Selected Integers: %s", collapse(x$numdatatypes$integer, sep = ", "))
 }
