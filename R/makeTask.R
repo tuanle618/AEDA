@@ -47,7 +47,7 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
     features = data.type[c("num", "int", "ord")],
     size = nrow(data),
     method = method,
-    missing.values = FALSE)
+    missing.values = sum(is.na(data)))
 }
 
 #' @export
