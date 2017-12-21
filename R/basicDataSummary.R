@@ -21,7 +21,6 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-
 basicDataSummary = function(data, target, large = 1e10,
   feat.perc = FALSE, na.perc = FALSE, class.perc = FALSE, large.perc = FALSE) {
 
