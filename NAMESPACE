@@ -2,5 +2,7 @@
 
 export(basicDataSummary)
 export(getDataType)
+S3method(print,CorrTask)
+export(makeCorrTask)
 import(BBmisc)
 import(checkmate)
