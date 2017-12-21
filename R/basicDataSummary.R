@@ -9,7 +9,7 @@
 #' @param feat.perc [\code{logical(1)}]\cr
 #'   Portion of features in percent? Default is \code{FALSE}.
 #' @param na.perc [\code{logical(1)}]\cr
-#'   Portion of nas in percent? Default is \code{FALSE}.
+#'   Portion of NAs in percent? Default is \code{FALSE}.
 #' @param class.perc [\code{logical(1)}]\cr
 #'   Portion of classes in percent? Default is \code{FALSE}.
 #' @param large.perc [\code{logical(1)}]\cr
@@ -46,7 +46,7 @@ basicDataSummary = function(data, target, large = 1e10,
   cols.with.missings = sum(apply(data, 2, function(x) any(is.na(x))))
 
   x["obs"] = nrow(data)
-  x["nas"] = nas
+  x["NAs"] = nas
   x["dim"] = length(data.type.list$X)
 
   x["num"] = length(data.type.list$num) - ifelse(is.null(tt), 1, 0)
