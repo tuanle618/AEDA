@@ -11,6 +11,8 @@
 #'   Defines the correlation method
 #'   Possible choices are:
 #'   \dQuote{pearson}
+#' @param vars [\code{character(1)}]\cr
+#'    Column names to use for correlation
 #'
 #'
 #' @return CorrTask
@@ -22,19 +24,27 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeCorrTask = function(id, data, method = "pearson"){
+makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict", any.missing = FALSE)
   assertSubset(method, c("pearson"), empty.ok = FALSE)
+  if (!is.null(vars)) {
+    assertCharacter(vars, min.chars = 1L, min.len = 2L)
+    data.type = getDataType(data[,vars], target = NULL)
+  } else{
+    data.type = getDataType(data, target = NULL)
+  }
   # Encapsulate Data into new env
   env = new.env(parent = emptyenv())
   env$data = data
+
 
   makeS3Obj("CorrTask",
     id = id,
     type = "Correlation",
     env = env,
+    features = data.type[c("num", "int", "ord")],
     size = nrow(data),
     method = method,
     missing.values = FALSE)
@@ -44,8 +54,10 @@ makeCorrTask = function(id, data, method = "pearson"){
 # Print fuction for CorrTask Object
 print.CorrTask = function(x, ...) {
   catf("Task: %s", x$id)
-  catf("Type: %s", x$type)
+  catf("Type: %2s", x$type)
+  catf("Selected Features: %s", collapse(unlist(x$features), sep = ", "))
   catf("Observations: %i", x$size)
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
 }
+

@@ -4,7 +4,7 @@
 \alias{makeCorrTask}
 \title{Creates a CorrTask Objects}
 \usage{
-makeCorrTask(id, data, method = "pearson")
+makeCorrTask(id, data, method = "pearson", vars = NULL)
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -17,6 +17,9 @@ A Dataframe with different variables}
 Defines the correlation method
 Possible choices are:
 \dQuote{pearson}}
+
+\item{vars}{[\code{character(1)}]\cr
+Column names to use for correlation}
 }
 \value{
 CorrTask
