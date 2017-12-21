@@ -28,10 +28,10 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
-  assertSubset(method, c("pearson"), empty.ok = FALSE)
+  assertSubset(method, "pearson", empty.ok = FALSE) #remove c("pearson") c and write single bc of lintr
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
-    data.type = getDataType(data[,vars], target = NULL)
+    data.type = getDataType(data[, vars], target = NULL)
   } else{
     data.type = getDataType(data, target = NULL)
   }

@@ -7,13 +7,13 @@
 plotFeatDistr(data, target, col)
 }
 \arguments{
-\item{data}{[\code{data.frame}]\cr 
+\item{data}{[\code{data.frame}]\cr
 Data.}
 
-\item{target}{[\code{character(1)}]\cr 
+\item{target}{[\code{character(1)}]\cr
 Target column. If no target is available in the dataset please insert \code{NULL}}
 
-\item{col}{[\code{character(1)} | \code{integer(1)}]\cr 
+\item{col}{[\code{character(1)} | \code{integer(1)}]\cr
 Selected feature from \code{data}.}
 }
 \value{
