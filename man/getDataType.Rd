@@ -21,5 +21,5 @@ Get Data Types from a data.frame.
 }
 \examples{
 data("iris")
-getDataType(iris)
+getDataType(iris, target = NULL)
 }
