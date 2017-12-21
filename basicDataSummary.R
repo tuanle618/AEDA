@@ -9,20 +9,20 @@
 #' @param feat.perc [\code{logical(1)}]\cr
 #'   Portion of features in percent? Default is \code{FALSE}.
 #' @param na.perc [\code{logical(1)}]\cr
-#'   Portion of NAs in percent? Default is \code{FALSE}.
+#'   Portion of nas in percent? Default is \code{FALSE}.
 #' @param class.perc [\code{logical(1)}]\cr
 #'   Portion of classes in percent? Default is \code{FALSE}.
 #' @param large.perc [\code{logical(1)}]\cr
 #'   Portion of large values in percent? Default is \code{FALSE}.
 #' @examples
 #'   data("iris")
-#'   BasicDataSummary(iris, target = "Species")
+#'   basicDataSummary(iris, target = "Species")
 #' @return [named \code{list}], containing characteristics.
 #' @import checkmate
 #' @import BBmisc
 #' @export
 
-BasicDataSummary = function(data, target, large = 1e10,
+basicDataSummary = function(data, target, large = 1e10,
   feat.perc = FALSE, na.perc = FALSE, class.perc = FALSE, large.perc = FALSE) {
 
   #Argument checking:
@@ -32,7 +32,7 @@ BasicDataSummary = function(data, target, large = 1e10,
   assertLogical(class.perc, len = 1)
   assertLogical(large.perc, len = 1)
 
-  DataTypeList = getDataType(data, target)
+  data.type.list = getDataType(data, target)
   if (!is.null(target)) {
     tt = data[, target]
   } else tt = NULL
@@ -41,20 +41,20 @@ BasicDataSummary = function(data, target, large = 1e10,
   #Defining output vector
   x = numeric(0)
 
-  NAs = sum(is.na(data))
+  nas = sum(is.na(data))
   rows.with.missings = sum(apply(data, 1, function(x) any(is.na(x))))
   cols.with.missings = sum(apply(data, 2, function(x) any(is.na(x))))
 
   x["obs"] = nrow(data)
-  x["NAs"] = NAs
-  x["dim"] = length(DataTypeList$X)
+  x["nas"] = nas
+  x["dim"] = length(data.type.list$X)
 
-  x["num"] = length(DataTypeList$num) - ifelse(is.null(tt),1,0)
-  x["int"] = length(DataTypeList$int) - is.integer(tt)
-  x["fact"] = length(DataTypeList$fact) - is.factor(tt)
-  x["char"] = length(DataTypeList$char) - is.character(tt)
-  x["log"] = length(DataTypeList$logic) - is.logical(tt)
-  x["Date"] = length(DataTypeList$date)
+  x["num"] = length(data.type.list$num) - ifelse(is.null(tt), 1, 0)
+  x["int"] = length(data.type.list$int) - is.integer(tt)
+  x["fact"] = length(data.type.list$fact) - is.factor(tt)
+  x["char"] = length(data.type.list$char) - is.character(tt)
+  x["log"] = length(data.type.list$logic) - is.logical(tt)
+  x["Date"] = length(data.type.list$date)
   if (feat.perc) {
     x["num"] = x["num"] / x["dim"]
     x["int"] = x["int"] / x["dim"]
@@ -64,7 +64,7 @@ BasicDataSummary = function(data, target, large = 1e10,
     x["Date"] = x["Date"] / x["dim"]
   }
 
-  x["na.row.max"] = max(Reduce(function(a,b) is.na(a) + is.na(b), data, init = 0))
+  x["na.row.max"] = max(Reduce(function(a, b) is.na(a) + is.na(b), data, init = 0))
   x["na.col.max"] = max(sapply(data, function(y) sum(is.na(y))))
   if (na.perc) {
     x["na.row.max"] = x["na.row.max"] / x["dim"]
@@ -72,7 +72,7 @@ BasicDataSummary = function(data, target, large = 1e10,
   }
 
   g = function(y) if (is.numeric(y)) as.integer(y >= large) else 0
-  x["large.row.max"] = max(Reduce(function(a,b) a + g(b), data, init = 0))
+  x["large.row.max"] = max(Reduce(function(a, b) a + g(b), data, init = 0))
   x["large.col.max"] = max(sapply(data, function(y)
     if (is.numeric(y)) sum(abs(y) >= large) else 0))
   if (large.perc) {
@@ -94,8 +94,8 @@ BasicDataSummary = function(data, target, large = 1e10,
     x["class.quot"] = x["class.max"] / x["class.min"]
   }
   basicsummarylist = as.list(x)
-  basicsummarylist$target = ifelse(!is.null(target), class(data[,target]),NULL)
-  basicsummarylist$DataTypeList = DataTypeList
+  basicsummarylist$target = ifelse(!is.null(target), class(data[, target]), NULL)
+  basicsummarylist$data.type.list = data.type.list
   addClasses(basicsummarylist, "reportBasicSummary")
   return(basicsummarylist)
 }
