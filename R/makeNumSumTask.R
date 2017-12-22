@@ -9,15 +9,15 @@
 #'   A Dataframe with different variables
 #' @param target [\code{character(1)}]\cr
 #'  Target column. If not available please insert as \code{NULL}.
-#' @return NumericSummaryTask
+#' @return NumSumTask object
 #'
 #' @import checkmate
 #' @import BBmisc
 #' @examples
 #'  data("Boston", package = "MASS")
-#'  numTask = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
 #'  #get Data
-#'  numTask$env$data
+#'  num.sum.task$env$data
 #' @export
 makeNumSumTask = function(id, data, target){
   #Argument Checks
@@ -30,7 +30,7 @@ makeNumSumTask = function(id, data, target){
   env$data = data
   env$datatypes = getDataType(data, target)
 
-  makeS3Obj("NumTask",
+  makeS3Obj("NumSumTask",
     id = id,
     type = "NumericSummary",
     env = env,
@@ -44,6 +44,8 @@ makeNumSumTask = function(id, data, target){
 print.NumTask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Observations: %i", x$size)
-  catf("Amount Numeric Columns: %i", length(x$numdatatypes$numeric)) #check : Question: print columns?
-  catf("Amount Integer Columns: %i", length(x$numdatatypes$integer)) #right now not really working
+  catf("Amount Numeric Columns: %i", length(x$numdatatypes$numeric))
+  catf("Selected Numerics: %s", collapse(x$numdatatypes$numeric, sep = ", "))
+  catf("Amount Integer Columns: %i", length(x$numdatatypes$integer))
+  catf("Selected Integers: %s", collapse(x$numdatatypes$integer, sep = ", "))
 }
