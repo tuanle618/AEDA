@@ -18,9 +18,10 @@ writeReport = function(x,y){
   close(zz)
 }
 
-save(cars, file="cars")
-my.task = makeCorrTask(id = "test", data = cars)
-my.task$data
-my.corr = makeCorr(my.task)
-my.plot = generateCorrPlot(my.corr)
-writeReport(my.corr, my.plot)
+# Example
+# save(cars, file="cars")
+# my.task = makeCorrTask(id = "test", data = cars)
+# my.task$data
+# my.corr = makeCorr(my.task)
+# my.plot = generateCorrPlot(my.corr)
+# writeReport(my.corr, my.plot)
