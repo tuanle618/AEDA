@@ -14,8 +14,10 @@ getNumSum = function(data, features) {
   max = apply(num.data, 2, function(x) max(x, na.rm = TRUE))
   range = max - min
   iqr = apply(num.data, 2, function(x) stats::IQR(x, na.rm = TRUE))
+  l.bound = q0.25 - 1.5*iqr
+  u.bound = q0.25 + 1.5*iqr
+  no.outliers = sapply(colnames(num.data), FUN = function(x) length(which(num.data[[x]] < l.bound[x] | num.data[[x]] > u.bound[x])))
   no.zero = apply(num.data, 2, function(x) length(which(x == 0)))
   no.unique = apply(num.data, 2, function(x) length(unique(x)))
   #num.sum.df =
 }
-
