@@ -12,8 +12,9 @@
 #'   Possible choices are:
 #'   \dQuote{pearson}
 #' @param vars [\code{character(1)}]\cr
-#'    Column names to use for correlation
-#'
+#'   Column names to use for correlation
+#' @param data.path [\code{character(1)}]\cr
+#'   The path from where the data should be loaded. Default is the working directory
 #'
 #' @return CorrTask
 #'
@@ -24,7 +25,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeCorrTask = function(id, data, method = "pearson", vars = NULL){
+makeCorrTask = function(id, data, method = "pearson", vars = NULL, data.path = getwd()){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -47,6 +48,9 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
     features = data.type[c("num", "int")],
     size = nrow(data),
     method = method,
+    data.name = deparse(substitute(data)),
+    data.path = data.path,
+    needed.pkgs = NULL,
     missing.values = sum(is.na(data)))
 }
 
