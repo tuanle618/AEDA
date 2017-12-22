@@ -18,6 +18,6 @@ getNumSum = function(data, features) {
   no.outliers = sapply(colnames(num.data), FUN = function(x) length(which(num.data[[x]] < l.bound[x] | num.data[[x]] > u.bound[x])))
   no.zero = apply(num.data, 2, function(x) length(which(x == 0)))
   no.unique = apply(num.data, 2, function(x) length(unique(x)))
-  num.sum.df = t(as.data.frame(rbind(no.obs, nas, nas.perc, mean, kurtosis, skewness, sd, min, quantiles, max, range, iqr,
-    l.bound, u.bound, no.outliers, no.zero, no.unique)))
+  num.sum.df = round(t(as.data.frame(rbind(no.obs, nas, nas.perc, mean, kurtosis, skewness, sd, min, quantiles, max, range, iqr,
+    l.bound, u.bound, no.outliers, no.zero, no.unique))), digits = 3)
 }
