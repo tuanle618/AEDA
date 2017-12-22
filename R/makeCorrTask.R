@@ -28,11 +28,11 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
-  assertSubset(method, c("pearson"), empty.ok = FALSE)
+  assertSubset(method, "pearson", empty.ok = FALSE)
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
-    data.type = getDataType(data[,vars], target = NULL)
-  } else{
+    data.type = getDataType(data[, vars], target = NULL)
+  } else {
     data.type = getDataType(data, target = NULL)
   }
   # Encapsulate Data into new env
