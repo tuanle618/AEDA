@@ -10,6 +10,9 @@
 #' @import checkmate
 #' @import ggplot2
 #' @import BBmisc
+#' @examples
+#'  data("diamonds", package = "ggplot2")
+#'  ggplot = plotFeatDistr(diamonds, target = "cut", col = "carat")
 #' @export
 #' @title Plots univariate distribution of a feature.
 
