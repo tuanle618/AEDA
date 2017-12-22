@@ -28,6 +28,7 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
+
   assertSubset(method, c("pearson", "spearman"), empty.ok = FALSE)
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
@@ -60,4 +61,3 @@ print.CorrTask = function(x, ...) {
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
 }
-
