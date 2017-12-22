@@ -20,7 +20,7 @@ makeNumSum = function(num.sum.task){
 
   data = num.sum.task$env$data
   features = unlist(num.sum.task$numdatatypes)
-  num.sum = "getNumSum(num.sum.task$env$data, unlist(numSum.task$numdatatypes))" #toDo : create this function
+  num.sum = "getNumSum(data, features)" #toDo : create this function
 
   makeS3Obj("NumSumObj",
     num.sum = num.sum,
