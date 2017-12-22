@@ -31,5 +31,6 @@ getNumSum = function(data, features, target) {
   for (col in names(merged.list)) {
     merged.list[[col]] = list(summary = num.sum.df[col, ], plot = plot.list[[col]])
   }
-  return(merged.list)
+  out.list = list(num.sum.df = num.sum.df, merged.list = merged.list)
+  return(out.list)
 }

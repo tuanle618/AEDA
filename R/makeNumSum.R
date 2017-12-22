@@ -25,6 +25,15 @@ makeNumSum = function(num.sum.task){
   num.sum = getNumSum(data, features, target)
 
   makeS3Obj("NumSumObj",
-    num.sum = num.sum,
+    num.sum = num.sum$merged.list,
+    num.sum.df = num.sum$num.sum.df,
     task = num.sum.task)
+}
+
+#' @export
+# Print function for NumSum Object
+print.NumSumObj = function(x, ...) {
+  catf("Result of numeric/integer summary for: %s", x$task$id)
+  cat("\n")
+  print(x$num.sum.df)
 }
