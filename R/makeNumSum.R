@@ -17,7 +17,7 @@
 #' @import stats
 #' @export
 makeNumSum = function(num.sum.task){
-  assertClass(num.sum.task, "NumTask") #ToDO: change to NumSumTask (class) for more clarification (hence change makeNumSumTask.R)
+  assertClass(num.sum.task, "NumSumTask")
 
   data = num.sum.task$env$data
   features = unlist(num.sum.task$numdatatypes)
