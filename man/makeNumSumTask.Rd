@@ -17,14 +17,14 @@ A Dataframe with different variables}
 Target column. If not available please insert as \code{NULL}.}
 }
 \value{
-NumericSummaryTask
+NumSumTask object
 }
 \description{
 A Task encapsulates the Data with some additional information
 }
 \examples{
  data("Boston", package = "MASS")
- numTask = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+ num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
  #get Data
- numTask$env$data
+ num.sum.task$env$data
 }
