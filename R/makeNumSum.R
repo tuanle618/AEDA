@@ -11,7 +11,6 @@
 #'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
 #'  #get the numeric summary task object
 #'  num.sum = makeNumSum(num.sum.task)
-#' @export
 #' @import checkmate
 #' @import BBmisc
 #' @import moments
