@@ -15,4 +15,3 @@ import(ggplot2)
 import(moments)
 import(stats)
 importFrom(stats,cor)
-
