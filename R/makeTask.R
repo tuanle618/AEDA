@@ -28,19 +28,11 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
-<<<<<<< HEAD
   assertSubset(method, "pearson", empty.ok = FALSE) #remove c("pearson") c and write single bc of lintr
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
     data.type = getDataType(data[, vars], target = NULL)
   } else{
-=======
-  assertSubset(method, "pearson", empty.ok = FALSE)
-  if (!is.null(vars)) {
-    assertCharacter(vars, min.chars = 1L, min.len = 2L)
-    data.type = getDataType(data[, vars], target = NULL)
-  } else {
->>>>>>> master
     data.type = getDataType(data, target = NULL)
   }
   # Encapsulate Data into new env
@@ -68,4 +60,3 @@ print.CorrTask = function(x, ...) {
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
 }
-
