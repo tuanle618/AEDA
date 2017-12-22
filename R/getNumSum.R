@@ -28,8 +28,8 @@ getNumSum = function(data, features, target) {
   #merge num.sum.df with plotlist
   merged.list = vector(mode = "list", length = nrow(num.sum.df))
   names(merged.list) = row.names(num.sum.df)
-  for(col in names(merged.list)) {
-    merged.list[[col]] = list(summary = num.sum.df[col,], plot = plot.list[[col]])
+  for (col in names(merged.list)) {
+    merged.list[[col]] = list(summary = num.sum.df[col, ], plot = plot.list[[col]])
   }
   return(merged.list)
 }
