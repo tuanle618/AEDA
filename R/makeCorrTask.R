@@ -28,7 +28,8 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
-  assertSubset(method, "pearson", empty.ok = FALSE) #remove c("pearson") c and write single bc of lintr
+
+  assertSubset(method, c("pearson", "spearman"), empty.ok = FALSE)
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
     data.type = getDataType(data[, vars], target = NULL)
@@ -44,7 +45,7 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
     id = id,
     type = "Correlation",
     env = env,
-    features = data.type[c("num", "int", "ord")],
+    features = data.type[c("num", "int")],
     size = nrow(data),
     method = method,
     missing.values = sum(is.na(data)))
@@ -60,4 +61,3 @@ print.CorrTask = function(x, ...) {
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
 }
-

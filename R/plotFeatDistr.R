@@ -10,6 +10,9 @@
 #' @import checkmate
 #' @import ggplot2
 #' @import BBmisc
+#' @examples
+#'  data("diamonds", package = "ggplot2")
+#'  ggplot = plotFeatDistr(diamonds, target = "cut", col = "carat")
 #' @export
 #' @title Plots univariate distribution of a feature.
 
@@ -22,7 +25,7 @@ plotFeatDistr = function(data, target, col) {
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
   }
-  x = data[, col]
+  x = data[[col]]
   if (is.numeric(x) | is.integer(x)) {
     a = aes_string(x = col, colour = target)
     ggplot(data, a) +

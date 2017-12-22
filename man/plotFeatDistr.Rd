@@ -22,3 +22,7 @@ A ggplot2 object. Print it to plot it.
 \description{
 Plots univariate distribution of a feature.
 }
+\examples{
+ data("diamonds", package = "ggplot2")
+ ggplot = plotFeatDistr(diamonds, target = "cut", col = "carat")
+}

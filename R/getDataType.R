@@ -30,7 +30,7 @@ getDataType = function(data, target) {
   date = vector(mode = "character")
   #Loop through each column and get class
   for (i in seq_len(ncol(data))) {
-    coldata = data[, i]
+    coldata = data[[i]]
     colname = colnames(data)[i]
     if (is.integer(coldata)) {
       int   = c(int, colname)
@@ -49,7 +49,7 @@ getDataType = function(data, target) {
       }
     } else if (is.character(coldata)) {
       char  = c(char, colname)
-    } else if (is.logical()) {
+    } else if (is.logical(coldata)) {
       logic = c(logic, colname)
     } else if (class(coldata) == "Date") {
       date = c(date, colname)
