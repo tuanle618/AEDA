@@ -3,14 +3,14 @@
 #' @description
 #' makeNumSum calculates a numeric summary and wrapes an object around it
 #'
-#' @param corr.task [\code{CorrTask}]\cr
+#' @param num.sum.task [\code{NumTask}]\cr
 #'   A NumSumTask Object
 #' @return NumSumObj
 #' @examples
 #'  data("Boston", package = "MASS")
 #'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
 #'  #get the numeric summary task object
-#'  num.sum = makeNumSum(numSum.task)
+#'  num.sum = makeNumSum(num.sum.task)
 #' @export
 #' @import checkmate
 #' @import BBmisc
