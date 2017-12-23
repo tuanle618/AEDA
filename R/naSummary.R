@@ -61,9 +61,12 @@ summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     if (show.plot){
       image.code()
     }
-
-    makeS3Obj("naSumObj", nas = na.summary, image = list(image.components = list(color = color, data.new = data.new,
-      margin.left = margin.left, num = num), image.code = image.code))
+    env = new.env(parent = emptyenv())
+    env$color = color
+    env$data.new = data.new
+    env$margin.left = margin.left
+    env$num = num
+    makeS3Obj("naSumObj", nas = na.summary, env = env)
 
   }
   else{
