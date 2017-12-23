@@ -66,11 +66,35 @@ summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     env$data.new = data.new
     env$margin.left = margin.left
     env$num = num
-    makeS3Obj("naSumObj", nas = na.summary, env = env)
+    makeS3Obj("naSumObj", nas = na.summary, data = data, dataset.name = deparse(substitute(data)), env = env)
 
   }
   else{
     cat("There are no missing values in the dataset: ", deparse(substitute(data)), "\n")
     makeS3Obj("naSumObj", nas = NULL)
+  }
+}
+
+#' @export
+# Print function for naSumObj
+print.naSumObj = function(x, ...) {
+  if (is.null(x$nas)) {
+    catf("There are no missing values in the dataset: %s", x$dataset.name)
+  } else {
+    cat("In total there are", sum(x$nas), "NAs in the dataset:", x$dataset.name, "\n")
+    print(x$nas)
+    image(x$env$color, col = c("white", "black"), yaxt = "n")
+    par(mar = c(5, x$env$margin.left, 4, 2) + 0.1)
+    abline(v = -0.001)
+    abline(h = 1.015)
+    if (length(x$env$num) == 1) {
+      #insert y.type into environment
+      x$env$y.type = 0
+    } else {
+      x$env$y.type = 0:(ncol(x$env$data.new) - 1) / (length(x$env$data.new) - 1)
+    }
+    axis(2, labels = colnames(x$env$data.new), at = x$env$y.type, las = 2)
+    #remove y.type from the environment
+    rm(y.type, envir = x$env)
   }
 }
