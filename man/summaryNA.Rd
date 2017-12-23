@@ -4,21 +4,24 @@
 \alias{summaryNA}
 \title{Giving an image of a data with missing values}
 \usage{
-summaryNA(data, show.plot = FALSE, margin.left = 4, report.task = NULL)
+summaryNA(data, show.plot = FALSE, show.result = FALSE, margin.left = 4,
+  report.task = NULL)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
 Data to summarize. Columns can be of type numeric, integer, logical, factor or character.
 Characters and logicals will be treated as factors.}
 
-\item{show.plot}{[\code{logic(1)}]\cr
-A logic value set to \code{FALSE} as default.}
+\item{show.plot}{[\code{logical(1)}]\cr
+ A logic value set to \code{FALSE} as default.
+@param show.result [\code{logical(1)}]\cr
+ A logic value set to \code{FALSE} as default.}
 
 \item{margin.left}{[\code{numeric(1)}]\cr
-A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}}
+A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.}
 
 \item{report.task}{[\code{ReportTaskObj}]\cr
-A Report Task Object}
+A Report Task Object.}
 }
 \value{
 A \code{naSumObj} with Names of the variables with their frequency of missing values and an additional plot

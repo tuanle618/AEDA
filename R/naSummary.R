@@ -4,12 +4,14 @@
 #' @param data [\code{data.frame}]\cr
 #'   Data to summarize. Columns can be of type numeric, integer, logical, factor or character.
 #'   Characters and logicals will be treated as factors.
-#' @param show.plot [\code{logic(1)}]\cr
+#' @param show.plot [\code{logical(1)}]\cr
+#'   A logic value set to \code{FALSE} as default.
+#'  @param show.result [\code{logical(1)}]\cr
 #'   A logic value set to \code{FALSE} as default.
 #' @param margin.left [\code{numeric(1)}]\cr
-#'   A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}
+#'   A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.
 #' @param report.task [\code{ReportTaskObj}]\cr
-#'   A Report Task Object
+#'   A Report Task Object.
 #' @return A \code{naSumObj} with Names of the variables with their frequency of missing values and an additional plot
 #'   which shows the position of the missing values (color = black) for each variable with NAs.
 #'
@@ -18,9 +20,10 @@
 #' @import BBmisc
 #' @title Giving an image of a data with missing values
 
-summaryNA  = function(data, show.plot = FALSE, margin.left = 4, report.task = NULL){
+summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL){
   assertDataFrame(data)
   assertLogical(show.plot)
+  assertLogical(show.result)
   assertNumeric(margin.left, lower = 2.5, upper = 5.5, len = 1L)
 
   num = as.numeric(which(apply(is.na(data), 2, any)))
@@ -30,9 +33,10 @@ summaryNA  = function(data, show.plot = FALSE, margin.left = 4, report.task = NU
     na.summary = numeric(length(num))
     names(na.summary) = colnames(data)[num]
     na.summary = colSums(is.na(data[, num, drop = FALSE]))
-    cat("In total there are:", sum(na.summary), "NAs in the dataset:", deparse(substitute(data)), "\n")
-    print(na.summary)
-
+    if (show.result){
+      cat("In total there are:", sum(na.summary), "NAs in the dataset:", deparse(substitute(data)), "\n")
+      print(na.summary)
+    }
     #get the data containing the columns with NAs
     data.new = data[, num, drop = FALSE]
     #flag the NAs as 1
