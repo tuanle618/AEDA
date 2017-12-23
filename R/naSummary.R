@@ -28,10 +28,10 @@ summaryNA  = function(data, show.plot = FALSE, margin.left = 4, report.task = NU
   if (length(num) > 0){
 
     na.summary = numeric(length(num))
-    names(naSummary) = colnames(data)[num]
+    names(na.summary) = colnames(data)[num]
     na.summary = colSums(is.na(data[, num, drop = FALSE]))
-    cat("In total there are:", sum(naSummary), "NAs in the dataset:", deparse(substitute(data)), "\n")
-    print(naSummary)
+    cat("In total there are:", sum(na.summary), "NAs in the dataset:", deparse(substitute(data)), "\n")
+    print(na.summary)
 
     #get the data containing the columns with NAs
     data.new = data[, num, drop = FALSE]
@@ -58,7 +58,7 @@ summaryNA  = function(data, show.plot = FALSE, margin.left = 4, report.task = NU
       img()
     }
 
-    makeS3Obj("naSumObj", nas = naSummary, image = list(image.components = list(color = color, data.new = data.new,
+    makeS3Obj("naSumObj", nas = na.summary, image = list(image.components = list(color = color, data.new = data.new,
       margin.left = margin.left, num = num), image.code = image.code))
 
   }
