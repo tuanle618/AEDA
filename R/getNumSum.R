@@ -40,7 +40,7 @@ getNumSum = function(data, features, target) {
     l.bound, u.bound, no.outliers, no.zero, no.unique))), digits = 3)
 
   tt = target
-  plot.list = lapply(features, function(x) plotFeatDistr(data = num.data, target = tt, col = x))
+  plot.list = lapply(features, function(x) plotFeatDistr(data = data, target = tt, col = x))
   names(plot.list) = row.names(num.sum.df)
 
   #merge num.sum.df with plotlist
