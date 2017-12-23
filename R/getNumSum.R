@@ -15,8 +15,14 @@
 #'   A list containing the numeric summary and ggplot for each numeric column
 #' @import moments
 #' @import stats
+#' @import checkmate
+#'
 
 getNumSum = function(data, features, target) {
+  assertDataFrame(data)
+  if (!is.null(target)) assertCharacter(target, len = 1L)
+  assertCharacter(features, min.len = 1L, min.chars = 1L)
+
   num.data = subset(data, select = features)
   if (any(is.na(num.data))) warning("The data set contains NAs. These values will be removed in the further calculations")
   no.obs = apply(num.data, 2, function(x) sum(!is.na(x)))
