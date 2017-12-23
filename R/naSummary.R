@@ -55,7 +55,7 @@ summaryNA  = function(data, show.plot = FALSE, margin.left = 4, report.task = NU
     }
 
     if (show.plot){
-      img()
+      image.code()
     }
 
     makeS3Obj("naSumObj", nas = na.summary, image = list(image.components = list(color = color, data.new = data.new,
