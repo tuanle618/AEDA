@@ -70,7 +70,7 @@ summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
 
   }
   else{
-    cat("There are no missing values in the dataset: ", deparse(substitute(data)), "\n")
+    if (show.result) cat("There are no missing values in the dataset: ", deparse(substitute(data)), "\n")
     makeS3Obj("naSumObj", nas = NULL, data = data, dataset.name = deparse(substitute(data)), env = NULL)
   }
 }
