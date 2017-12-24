@@ -27,4 +27,6 @@ makeCorr = function(corr.task){
   makeS3Obj("CorrObj",
     corr.matrix = corr.matrix,
     task = corr.task)
+
+
 }
