@@ -2,7 +2,7 @@
 % Please edit documentation in R/naSummary.R
 \name{summaryNA}
 \alias{summaryNA}
-\title{Giving an image of a data with missing values}
+\title{Giving a NA summary and an image of a data with missing values}
 \usage{
 summaryNA(data, show.plot = FALSE, show.result = FALSE, margin.left = 4,
   report.task = NULL)
@@ -13,9 +13,10 @@ Data to summarize. Columns can be of type numeric, integer, logical, factor or c
 Characters and logicals will be treated as factors.}
 
 \item{show.plot}{[\code{logical(1)}]\cr
- A logic value set to \code{FALSE} as default.
-@param show.result [\code{logical(1)}]\cr
- A logic value set to \code{FALSE} as default.}
+A logic value set to \code{FALSE} as default.}
+
+\item{show.result}{[\code{logical(1)}]\cr
+A logic value set to \code{FALSE} as default.}
 
 \item{margin.left}{[\code{numeric(1)}]\cr
 A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.}
@@ -24,10 +25,30 @@ A numeric value which defines the margin size of the left. For more information 
 A Report Task Object.}
 }
 \value{
-A \code{naSumObj} with Names of the variables with their frequency of missing values and an additional plot
+A [\code{naSumObj}] with Names of the variables with their frequency of missing values and an additional plot
   which shows the position of the missing values (color = black) for each variable with NAs.
 }
 \description{
 Characterizes only variables of a data set with missing values. So, missing values are painted
 black, while other observations keep white.
+}
+\examples{
+ data("airquality")
+ #create new columns
+ set.seed(1217)
+ airquality$new1 = sample(1:nrow(airquality))
+ airquality$new2 = rnorm(nrow(airquality))
+ #add more NAs
+ idx = sample(1:nrow(airquality), size = 15)
+ airquality[idx, c("new1", "new2")] = NA
+ idx2 = sample(1:nrow(airquality), size = 7)
+ airquality[idx2, "Temp"] = NA
+ #create the NA summary
+ na.summary = summaryNA(data = airquality, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL)
+ #plot the object through print
+ na.summary
+ #retrieve the elements through the components
+ na.summary$nsum
+ na.summary$image()
+
 }

@@ -6,19 +6,37 @@
 #'   Characters and logicals will be treated as factors.
 #' @param show.plot [\code{logical(1)}]\cr
 #'   A logic value set to \code{FALSE} as default.
-#'  @param show.result [\code{logical(1)}]\cr
+#' @param show.result [\code{logical(1)}]\cr
 #'   A logic value set to \code{FALSE} as default.
 #' @param margin.left [\code{numeric(1)}]\cr
 #'   A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.
 #' @param report.task [\code{ReportTaskObj}]\cr
 #'   A Report Task Object.
-#' @return A \code{naSumObj} with Names of the variables with their frequency of missing values and an additional plot
+#' @return A [\code{naSumObj}] with Names of the variables with their frequency of missing values and an additional plot
 #'   which shows the position of the missing values (color = black) for each variable with NAs.
+#' @examples
+#'  data("airquality")
+#'  #create new columns
+#'  set.seed(1217)
+#'  airquality$new1 = sample(1:nrow(airquality))
+#'  airquality$new2 = rnorm(nrow(airquality))
+#'  #add more NAs
+#'  idx = sample(1:nrow(airquality), size = 15)
+#'  airquality[idx, c("new1", "new2")] = NA
+#'  idx2 = sample(1:nrow(airquality), size = 7)
+#'  airquality[idx2, "Temp"] = NA
+#'  #create the NA summary
+#'  na.summary = summaryNA(data = airquality, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL)
+#'  #plot the object through print
+#'  na.summary
+#'  #retrieve the elements through the components
+#'  na.summary$nsum
+#'  na.summary$image()
 #'
 #' @export
 #' @import checkmate
 #' @import BBmisc
-#' @title Giving an image of a data with missing values
+#' @title Giving a NA summary and an image of a data with missing values
 
 summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL){
   assertDataFrame(data)
