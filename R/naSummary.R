@@ -66,12 +66,27 @@ summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     env$data.new = data.new
     env$margin.left = margin.left
     env$num = num
-    makeS3Obj("naSumObj", nas = na.summary, data = data, dataset.name = deparse(substitute(data)), env = env)
+    makeS3Obj("naSumObj", nas = na.summary, data = data, dataset.name = deparse(substitute(data)), env = env,
+      image = function() {
+        image(env$color, col = c("white", "black"), yaxt = "n")
+        par(mar = c(5, env$margin.left, 4, 2) + 0.1)
+        abline(v = -0.001)
+        abline(h = 1.015)
+        if (length(env$num) == 1) {
+          #insert y.type into environment
+          env$y.type = 0
+        } else {
+          env$y.type = 0:(ncol(env$data.new) - 1) / (length(env$data.new) - 1)
+        }
+        axis(2, labels = colnames(env$data.new), at = env$y.type, las = 2)
+        #remove y.type from the environment
+        rm(y.type, envir = env)
+      })
 
   }
   else{
     if (show.result) cat("There are no missing values in the dataset: ", deparse(substitute(data)), "\n")
-    makeS3Obj("naSumObj", nas = NULL, data = data, dataset.name = deparse(substitute(data)), env = NULL)
+    makeS3Obj("naSumObj", nas = NULL, data = data, dataset.name = deparse(substitute(data)), env = NULL, image = NULL)
   }
 }
 
