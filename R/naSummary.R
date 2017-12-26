@@ -133,7 +133,7 @@ summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
   }
   else{
     if (show.result) cat("There are no missing values in the dataset: ", deparse(substitute(data)), "\n")
-    makeS3Obj("naSumObj", nas = NULL, data = data, dataset.name = deparse(substitute(data)), env = NULL, image = NULL,
+    makeS3Obj("naSumObj", na.df = NULL, data = data, dataset.name = deparse(substitute(data)), env = NULL, image = NULL,
       ggplot = NULL)
   }
 }
@@ -141,13 +141,13 @@ summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
 #' @export
 # Print function for naSumObj
 print.naSumObj = function(x, ...) {
-  if (is.null(x$nas)) {
+  if (is.null(x$na.df)) {
     catf("There are no missing values in the dataset: %s", x$dataset.name)
   } else {
-    cat("In total there are", sum(x$nas), "NAs in the dataset:", x$dataset.name, "\n")
-    print(x$nas)
+    cat("In total there are", sum(x$na.df$num_missing), "NAs in the dataset:", x$dataset.name, "\n")
+    print(x$na.df)
     cat("Printing image object with NAs according to observation index: \n")
-    image(x$env$color, col = c("white", "black"), yaxt = "n")
+    image(x$env$color, col = c("white", "black"), yaxt = "n", xaxt = "n")
     par(mar = c(5, x$env$margin.left, 4, 2) + 0.1)
     abline(v = -0.001)
     abline(h = 1.015)
@@ -160,7 +160,7 @@ print.naSumObj = function(x, ...) {
     axis(2, labels = colnames(x$env$data.new), at = x$env$y.type, las = 2)
     #remove y.type from the environment
     rm(y.type, envir = x$env)
-    cat("Printing ggplot object according to number of missing values")
+    cat("Printing ggplot object according to number of missing values: \n")
     print(x$ggplot)
   }
 }
