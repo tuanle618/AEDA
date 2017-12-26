@@ -26,7 +26,7 @@
 #'  idx2 = sample(1:nrow(airquality), size = 7)
 #'  airquality[idx2, "Temp"] = NA
 #'  #create the NA summary
-#'  na.summary = summaryNA(data = airquality, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL)
+#'  na.summary = naSummary(data = airquality, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL)
 #'  #plot the object through print
 #'  na.summary
 #'  #retrieve the elements through the components
@@ -41,7 +41,7 @@
 #' @import gridBase
 #' @title Giving a NA summary and an image of a data with missing values
 
-summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL){
+naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL){
   assertDataFrame(data)
   assertLogical(show.plot)
   assertLogical(show.result)
