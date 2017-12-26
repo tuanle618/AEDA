@@ -25,8 +25,8 @@ A numeric value which defines the margin size of the left. For more information 
 A Report Task Object.}
 }
 \value{
-A [\code{naSumObj}] with Names of the variables with their frequency of missing values and an additional plot
-  which shows the position of the missing values (color = black) for each variable with NAs.
+A [\code{naSumObj}] with Names of the variables with their frequency of missing values and two additional plots
+  which shows the position of the missing values (color = black) for each variable with NAs and the number of missing values as a bar plot
 }
 \description{
 Characterizes only variables of a data set with missing values. So, missing values are painted
