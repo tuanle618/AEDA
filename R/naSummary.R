@@ -113,7 +113,7 @@ summaryNA  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     env$data.new = data.new
     env$margin.left = margin.left
     env$num = num
-    makeS3Obj("naSumObj", na.df = na.summary, data = data, dataset.name = deparse(substitute(data)), env = env,
+    makeS3Obj("naSumObj", na.df = na.df, data = data, dataset.name = deparse(substitute(data)), env = env,
       image = function() {
         image(env$color, col = c("white", "black"), yaxt = "n")
         par(mar = c(5, env$margin.left, 4, 2) + 0.1)
