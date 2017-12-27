@@ -10,6 +10,8 @@ LazyData: true
 RoxygenNote: 6.0.1.9000
 Imports: checkmate,
   BBmisc,
-    moments
+    moments,
+    ggplot2,
+    gridBase
 Suggests: testthat,
   lintr (>= 1.0.0.9001)
