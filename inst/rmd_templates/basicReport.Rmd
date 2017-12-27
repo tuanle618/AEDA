@@ -1,0 +1,21 @@
+---
+title: "Basic Report from AEDA"
+params:
+  data: data
+  target: target
+---
+## This is a first version of a basic report:
+
+```{r, echo = FALSE}
+library(rmarkdown, quietly = TRUE)
+data = params$data
+target = params$target
+```
+
+
+## Running Basic Data Summary 
+```{r basicDataSummary, echo = FALSE}
+basic.data.sum = basicDataSummary(data = data, target = target)
+basic.data.sum
+```
+The dataset `r deparse(substitute(data))` contains of `r basic.data.sum$obs` and `r basic.data.sum$NAs` missing values.
