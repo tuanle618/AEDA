@@ -28,7 +28,6 @@ writeReport = function(x, sub.dir = "Data_Report"){
       obj.name = deparse(substitute(x))
       obj.file.name = paste0(obj.name, ".rds")
       saveRDS(x, file = obj.file.name)
-      c = a+b
       #load object; x$var.id is needed so the plotting code refernce the right objects
       obj.path = obj.file.name
       catf("%s = readRDS(\"%s\")", x$report.id , obj.path, file = report)
