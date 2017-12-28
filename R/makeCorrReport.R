@@ -2,14 +2,13 @@
 #'
 #'
 makeCorrReport = function(corr.obj, type){
-  var.id = collapse(sample(c(letters, LETTERS), size = 16, replace = TRUE), sep = "")
+  report.id = reportId()
   if(type == "CorrPlot"){
-    plot.code = generateCorrPlot(corr.obj, var.id)
+    plot.code = generateCorrPlot(corr.obj, report.id)
   }
-  makeS3Obj("CorrReport",
+  makeS3Obj2("CorrReport", corr.obj,
     plot.code = plot.code,
-    var.id = var.id,
-    corr.obj = corr.obj)
+    report.id = report.id)
 }
 
 # my.task = makeCorrTask(id = "test", data = cars)

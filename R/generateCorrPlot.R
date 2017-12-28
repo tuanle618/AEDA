@@ -13,7 +13,7 @@
 generateCorrPlot = function(corr.object, obj.name) {
   assertClass(corr.object, "CorrObj")
 
-  plot.code = paste0("corrplot(", obj.name, "$corr.obj$corr.matrix)")
+  plot.code = paste0("corrplot(", obj.name, "$corr.matrix)")
   makeS3Obj("PlotCode",
     needed.pkg = "corrplot",
     code = plot.code)

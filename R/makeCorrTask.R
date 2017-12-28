@@ -25,7 +25,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeCorrTask = function(id, data, method = "pearson", vars = NULL, data.path = getwd()){
+makeCorrTask = function(id, data, method = "pearson", vars = NULL, data.path = "."){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -63,5 +63,8 @@ print.CorrTask = function(x, ...) {
   catf("Observations: %i", x$size)
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
+  catf("Name of the Data: %s", x$data.name)
+  catf("Path of the data: %s", x$data.path)
+  catf("Needed packages: %s", if(is.null(x$needed.pkgs)){"None"}else{x$needed.pkgs})
 }
 
