@@ -20,7 +20,7 @@ reportId = function(length = 16) {
 # Takes an object and adds more attributes
 addAttToObj = function(object, ...){
   att = list(...)
-  for(i in names(object)){
+  for (i in names(object)){
     att[[i]] = object[[i]]
   }
   setClasses(att, class(object))
@@ -35,7 +35,7 @@ makeS3Obj2 = function(classes, object, ...){
 
 # Wrapper for loading not already loaded librarys
 rmdLibrary = function(needed.pkgs, file, force = FALSE){
-  catf("library(%s)\n",needed.pkgs, file = file)
+  catf("library(%s)\n", needed.pkgs, file = file)
 }
 
 # Wrapper for loading data
@@ -45,7 +45,7 @@ rmdloadData = function(name, path, file){
 
 # Wrapper for writing lines
 rmdWriteLines = function(vec, con){
-  for(i in seq_along(vec)){
+  for (i in seq_along(vec)){
     writeLines(vec[i], con = con)
   }
 }

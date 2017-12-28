@@ -14,7 +14,7 @@ writeReport = function(x, sub.dir = "Data_Report"){
       needed.pkgs = getPkgs(x)
 
       #start the report file
-      report <- file("report.rmd", "w")
+      report = file("report.rmd", "w")
       writeLines("```{r}", con = report)
 
       # load pkgs

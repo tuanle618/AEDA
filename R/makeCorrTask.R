@@ -65,6 +65,6 @@ print.CorrTask = function(x, ...) {
   catf("Missing Values: %s", x$missing.values)
   catf("Name of the Data: %s", x$data.name)
   catf("Path of the data: %s", x$data.path)
-  catf("Needed packages: %s", if(is.null(x$needed.pkgs)){"None"}else{x$needed.pkgs})
+  catf("Needed packages: %s", if (is.null(x$needed.pkgs)){"None"}else{x$needed.pkgs})
 }
 

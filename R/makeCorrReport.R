@@ -3,7 +3,7 @@
 #'
 makeCorrReport = function(corr.obj, type){
   report.id = reportId()
-  if(type == "CorrPlot"){
+  if (type == "CorrPlot"){
     plot.code = generateCorrPlot(corr.obj, report.id)
   }
   makeS3Obj2("CorrReport", corr.obj,
