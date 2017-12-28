@@ -15,6 +15,7 @@
 #'   A list containing the categorical summary and ggplot for each categorical column
 #' @import checkmate
 #' @import utils
+#' @import stats
 #' @export
 
 getCatSum = function(data, features, target) {
@@ -33,6 +34,8 @@ getCatSum = function(data, features, target) {
     contg.list[[col]] = table(cat.data[, comb[, col]])
   }
   rel.contg.list = lapply(contg.list, prop.table)
+  rel.contg.list = lapply(rel.contg.list, addmargins)
+  contg.list = lapply(contg.list, addmargins)
 
 
   return(NULL)
