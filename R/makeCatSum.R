@@ -26,7 +26,7 @@ makeCatSum = function(cat.sum.task){
   cat.sum = getCatSum(data, features, target)
 
   makeS3Obj("CatSumObj",
-    cat.sum = NULL,
+    cat.sum = cat.sum,
     task = cat.sum.task)
 }
 
