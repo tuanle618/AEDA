@@ -11,33 +11,33 @@ writeReport = function(x, sub.dir = "Data_Report"){
   tryCatch(
       {
       # Collect all needed packages
-      needed.pkgs = unique(c(x$needed.pkgs, x$plot.code$needed.pkg))
+      needed.pkgs = getPkgs(x)
 
       #start the report file
       report <- file("report.rmd", "w")
       writeLines("```{r}", con = report)
 
       # load pkgs
-      catf("library(%s)\n",needed.pkgs, file = report)
+      rmdLibrary(needed.pkgs, report)
 
       # load data
       data.path = file.path(x$data.path, x$data.name)
-      catf("%s = readRDS(\"%s.rds\")", x$data.name, data.path, file = report)
+      rmdloadData(x$data.name, data.path, report)
 
       #save object
       obj.name = deparse(substitute(x))
       obj.file.name = paste0(obj.name, ".rds")
       saveRDS(x, file = obj.file.name)
       #load object; x$var.id is needed so the plotting code refernce the right objects
-      obj.path = obj.file.name
-      catf("%s = readRDS(\"%s\")", x$report.id , obj.path, file = report)
+      rmdloadData(x$report.id, obj.name, report)
 
       writeLines("```", con = report)
-      writeLines("SOme text; CorrPlot ....", con = report)
+      writeLines("Some text; CorrPlot ....", con = report)
       writeLines("```{r}", con = report)
-      writeLines(x$plot.code$code, con = report)
+      rmdWriteLines(x$plot.code$code, con = report)
       writeLines("```", con = report)
       close(report)
+      setwd(origin.wd)
       },
     finally = function(){
       setwd(origin.wd)
@@ -47,11 +47,11 @@ writeReport = function(x, sub.dir = "Data_Report"){
 }
 
 ### Example
-# saveRDS(cars, file="Data_Report/cars.rds")
-# my.task = makeCorrTask(id = "test", data = cars)
-# my.corr = makeCorr(my.task)
-# report1 = makeCorrReport(my.corr, type = "CorrPlot")
-# writeReport(report1)
+saveRDS(cars, file="Data_Report/cars.rds")
+my.task = makeCorrTask(id = "test", data = cars)
+my.corr = makeCorr(my.task)
+report1 = makeCorrReport(my.corr, type = "CorrPlot")
+writeReport(report1)
 #
 # data(diamonds, package = "ggplot2")
 # saveRDS(diamonds, file="diamonds.rds")

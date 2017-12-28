@@ -32,3 +32,25 @@ makeS3Obj2 = function(classes, object, ...){
   class(result) = classes
   return(result)
 }
+
+# Wrapper for loading not already loaded librarys
+rmdLibrary = function(needed.pkgs, file, force = FALSE){
+  catf("library(%s)\n",needed.pkgs, file = file)
+}
+# Wrapper for loading data
+rmdloadData = function(name, path, file){
+  catf("%s = readRDS(\"%s.rds\")", name, path, file = file)
+}
+
+# Wrapper for writing lines
+rmdWriteLines = function(vec, con){
+  for(i in seq_along(vec)){
+    writeLines(vec[i], con = con)
+  }
+}
+# Example: rmdWriteLines(letters, stdout())
+
+# Collects needed packages
+getPkgs = function(obj){
+  unique(c(obj$needed.pkgs, obj$plot.code$needed.pkg))
+}
