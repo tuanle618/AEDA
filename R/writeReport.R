@@ -24,12 +24,8 @@ writeReport = function(x, sub.dir = "Data_Report"){
       data.path = file.path(x$data.path, x$data.name)
       rmdloadData(x$data.name, data.path, report)
 
-      #save object
-      obj.name = deparse(substitute(x))
-      obj.file.name = paste0(obj.name, ".rds")
-      saveRDS(x, file = obj.file.name)
-      #load object; x$var.id is needed so the plotting code refernce the right objects
-      rmdloadData(x$report.id, obj.name, report)
+      # save object and write code to load it in the rmd-file
+      saveLoadObj(x, deparse(substitute(x)), report)
 
       writeLines("```", con = report)
       writeLines("Some text; CorrPlot ....", con = report)
@@ -47,14 +43,14 @@ writeReport = function(x, sub.dir = "Data_Report"){
 }
 
 ### Example
-saveRDS(cars, file="Data_Report/cars.rds")
-my.task = makeCorrTask(id = "test", data = cars)
-my.corr = makeCorr(my.task)
-report1 = makeCorrReport(my.corr, type = "CorrPlot")
-writeReport(report1)
+# saveRDS(cars, file="Data_Report/cars.rds")
+# my.task = makeCorrTask(id = "test", data = cars)
+# my.corr = makeCorr(my.task)
+# report1 = makeCorrReport(my.corr, type = "CorrPlot")
+# writeReport(report1)
 #
 # data(diamonds, package = "ggplot2")
-# saveRDS(diamonds, file="diamonds.rds")
+# saveRDS(diamonds, file="Data_Report/diamonds.rds")
 # my.task = makeCorrTask(id = "test", data = diamonds)
 # my.corr = makeCorr(my.task)
 # report1 = makeCorrReport(my.corr, type = "CorrPlot")

@@ -37,6 +37,7 @@ makeS3Obj2 = function(classes, object, ...){
 rmdLibrary = function(needed.pkgs, file, force = FALSE){
   catf("library(%s)\n",needed.pkgs, file = file)
 }
+
 # Wrapper for loading data
 rmdloadData = function(name, path, file){
   catf("%s = readRDS(\"%s.rds\")", name, path, file = file)
@@ -53,4 +54,13 @@ rmdWriteLines = function(vec, con){
 # Collects needed packages
 getPkgs = function(obj){
   unique(c(obj$needed.pkgs, obj$plot.code$needed.pkg))
+}
+
+# Saves an object and writes code to load it into the rmd file
+saveLoadObj = function(obj, name, file){
+  #save object
+  obj.file.name = paste0(name, ".rds")
+  saveRDS(obj, file = obj.file.name)
+  #load object; x$var.id is needed so the plo
+  rmdloadData(obj$report.id, name, file)
 }
