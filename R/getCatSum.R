@@ -36,7 +36,9 @@ getCatSum = function(data, features, target) {
   rel.contg.list = lapply(contg.list, prop.table)
   rel.contg.list = lapply(rel.contg.list, addmargins)
   contg.list = lapply(contg.list, addmargins)
-
-
-  return(NULL)
+  names(features) = features
+  plot.list = lapply(features, function(x) plotFeatDistr(data = data, target = target, col = x))
+  out.list = list(freq = freq, rel.freq = rel.freq, nas = nas, contg.list = contg.list,
+    rel.contg.list = rel.contg.list, plot.list = plot.list)
+  return(out.list)
 }

@@ -23,7 +23,7 @@ makeCatSum = function(cat.sum.task){
   data = cat.sum.task$env$data
   features = unlist(cat.sum.task$catdatatypes)
   target = cat.sum.task$env$datatypes$target
-  #cat.sum = getCatSum(data, features, target) #function to be done
+  cat.sum = getCatSum(data, features, target)
 
   makeS3Obj("CatSumObj",
     cat.sum = NULL,
