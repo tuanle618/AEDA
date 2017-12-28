@@ -35,5 +35,17 @@ makeCatSum = function(cat.sum.task){
 print.CatSumObj = function(x, ...) {
   catf("Result of categorical summary for: %s", x$task$id)
   cat("\n")
-  print(x$cat.sum)
+  cat("Printing absolute frequency table for each categorical variable: \n")
+  print(x$cat.sum$freq)
+  cat("Printing relative frequency table for each categorical variable: \n")
+  print(x$cat.sum$rel.freq)
+  cat("Printing missing values for categorical variables: \n")
+  print(x$cat.sum$nas)
+  cat("Printing 2-D absolute contingency tables of categorical variables: \n")
+  print(x$cat.sum$contg.list)
+  cat("Printing 2-D relative contingency tables of categorical variables: \n")
+  print(x$cat.sum$rel.contg.list)
+  cat("Plotting ggplots for categorical variables: \n")
+  warning("These are single plots")
+  print(x$cat.sum$plot.list)
 }
