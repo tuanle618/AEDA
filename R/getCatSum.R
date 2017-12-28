@@ -28,14 +28,19 @@ getCatSum = function(data, features, target) {
   freq = apply(cat.data, 2, table)
   rel.freq = lapply(freq, prop.table)
   nas = as.list(apply(cat.data, 2, function(x) sum(is.na(x))))
-  comb = combn(features, m = 2)
-  contg.list = vector("list", length = ncol(comb))
-  for (col in seq_len(ncol(comb))) {
-    contg.list[[col]] = table(cat.data[, comb[, col]])
+  if (length(features) >= 2) {
+    comb = combn(features, m = 2)
+    contg.list = vector("list", length = ncol(comb))
+    for (col in seq_len(ncol(comb))) {
+      contg.list[[col]] = table(cat.data[, comb[, col]])
+    }
+    rel.contg.list = lapply(contg.list, prop.table)
+    rel.contg.list = lapply(rel.contg.list, addmargins)
+    contg.list = lapply(contg.list, addmargins)
+  } else {
+    contg.list = NULL
+    rel.contg.list = NULL
   }
-  rel.contg.list = lapply(contg.list, prop.table)
-  rel.contg.list = lapply(rel.contg.list, addmargins)
-  contg.list = lapply(contg.list, addmargins)
   names(features) = features
   plot.list = lapply(features, function(x) plotFeatDistr(data = data, target = target, col = x))
   out.list = list(freq = freq, rel.freq = rel.freq, nas = nas, contg.list = contg.list,
