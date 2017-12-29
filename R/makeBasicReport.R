@@ -23,6 +23,8 @@
 #'
 #' @export
 makeBasicReport = function(report.task, data){
+  assertClass(report.task, "ReportTask")
+  assertDataFrame(data)
   report.id = reportId()
   basic.data.summary = basicDataSummary(data = report.task$env$data, target = report.task$env$target)
   na.summary = naSummary(data = data, report.task = my.report.task)
