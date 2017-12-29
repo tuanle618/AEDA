@@ -1,0 +1,36 @@
+---
+title: "Basic Report from AEDA"
+params:
+  data: data
+  target: target
+---
+## This is a first version of a basic report:
+
+```{r, echo = TRUE}
+library(rmarkdown, quietly = TRUE)
+data = params$data
+target = params$target
+```
+
+
+## Running Basic Data Summary 
+```{r basicDataSummary, echo = FALSE}
+basic.data.sum = basicDataSummary(data = data, target = target)
+```
+The dataset `r deparse(substitute(data))` contains of `r basic.data.sum$obs` observations and `r basic.data.sum$NAs` missing values. There are `r `
+There target column is `r basic.data.sum$data.type.list$target ` and of type `r basic.data.sum$target `
+The predictor variables are `r basic.data.sum$data.type.list$X `.  
+
+## Running Missing Value Summary
+
+```{r naSummary, echo = FALSE}
+na.summary  = naSummary(data = data)
+print(na.summary)
+```
+
+```{r NumSum, echo = FALSE}
+num.sum.task = makeNumSumTask(id = "basicReportTask", data = data, target = target)
+num.sum = makeNumSum(num.sum.task)
+#retrieve all columns with summary and the ggplot
+num.sum$num.sum
+```
