@@ -41,7 +41,7 @@ makeReportTask = function(id, data, target){
 
 #' @export
 # Print fuction for ReportTask Object
-print.MakeReportTask = function(x, ...) {
+print.ReportTask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Target: %s", x$target)
   catf("Features: %s", collapse(colnames(x$env$data), sep = ", "))
