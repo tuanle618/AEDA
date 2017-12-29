@@ -34,6 +34,7 @@ makeReportTask = function(id, data, target){
   makeS3Obj("ReportTask",
     id = id,
     target = target,
+    dataset.name = deparse(substitute(data)),
     env = env,
     size = nrow(data),
     missing.values = sum(is.na(data)))
@@ -43,6 +44,7 @@ makeReportTask = function(id, data, target){
 # Print fuction for ReportTask Object
 print.ReportTask = function(x, ...) {
   catf("Task: %s", x$id)
+  catf("Dataset: %s", x$dataset.name)
   catf("Target: %s", x$target)
   catf("Features: %s", collapse(colnames(x$env$data), sep = ", "))
   catf("Observations: %i", x$size)
