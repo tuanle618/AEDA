@@ -93,8 +93,8 @@ basicDataSummary = function(data, target, large = 1e10,
     x["class.quot"] = x["class.max"] / x["class.min"]
   }
   basicSummaryList = as.list(x)
+
   makeS3Obj("BasicSummaryObj",
     basicSummaryList = basicSummaryList, targetclass = ifelse(!is.null(target), class(data[, target]), NULL),
     dataTypeList = data.type.list)
-  return(basicsummarylist)
 }
