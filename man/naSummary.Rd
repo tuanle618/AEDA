@@ -44,7 +44,8 @@ black, while other observations keep white.
  idx2 = sample(1:nrow(airquality), size = 7)
  airquality[idx2, "Temp"] = NA
  #create the NA summary
- na.summary = naSummary(data = airquality, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL)
+ na.summary = naSummary(data = airquality, show.plot = FALSE,
+  show.result = FALSE, margin.left = 4, report.task = NULL)
  #plot the object through print
  na.summary
  #retrieve the elements through the components
