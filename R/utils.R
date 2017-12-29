@@ -2,9 +2,9 @@
 # the wd to the sub directory. It returns the original wd
 createDir = function(sub.dir, save.mode = TRUE, report) {
   temp.wd = getwd()
-  reportRDSf = paste0(sub.dir, "/", deparse(substitute(basic.report)), ".rds")
-  if (file.exists(sub.dir) & save.mode & file.exists(reportRDSf)) { ##check if the .rds file (from EDA analysis) to extract the information from is already existent
-    stop(paste0("Directory: /", reportRDSf, "/ already exists. Stopping to ensure no Data is lost. Please rename the object: ", deparse(substitute(report))))
+  report.rdsf = paste0(sub.dir, "/", deparse(substitute(report)), ".rds")
+  if (file.exists(sub.dir) & save.mode & file.exists(report.rdsf)) { ##check if the .rds file (from EDA analysis) to extract the information from is already existent
+    stop(paste0("Directory: /", report.rdsf, "/ already exists. Stopping to ensure no Data is lost. Please rename the object: ", deparse(substitute(report))))
   } else if (file.exists(sub.dir)) {
     setwd(file.path(temp.wd, sub.dir))
   } else {
