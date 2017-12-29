@@ -3,7 +3,7 @@
 #' @param dir
 #'   directory where the sub directory is created
 #'
-writeReport = function(x, sub.dir = "Data_Report"){
+writeCorrReport = function(x, sub.dir = "Data_Report"){
   # Create sub directory, save current wd and set new wd to the new directory
   origin.wd = createDir(sub.dir)
 
