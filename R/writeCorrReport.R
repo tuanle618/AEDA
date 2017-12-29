@@ -1,52 +1,68 @@
-#' Writes and rmd file for the report WIP
-#' @param x
-#' @param dir
-#'   directory where the sub directory is created
+#' Writes a rmd file for the report [WIP]
 #'
-writeCorrReport = function(x, sub.dir = "Data_Report"){
+#' @param report [\code{*Report} Object]\cr
+#'   The report Object which should be converted to an rmd file
+#' @param sub.dir [\code{character(1)}]\cr
+#'   the name of the directory where the data report will be saved
+#' @param save.mode [\code{logical(1)}]\cr
+#'   In Save mode its not possible to use an existing folder.
+#'   To ensure no data is lost, a new folder will be created (if possible).
+#' @examples
+#'   my.task = makeCorrTask(id = "test", data = cars)
+#'   my.corr = makeCorr(my.task)
+#'   report1 = makeCorrReport(my.corr, type = "CorrPlot")
+#'   writeCorrReport(report1)
+#' @return Invisible NULL
+#' @import checkmate
+#' @export
+writeCorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
   # Create sub directory, save current wd and set new wd to the new directory
-  origin.wd = createDir(sub.dir)
+  origin.wd = createDir(sub.dir, save.mode)
 
   # TryCatch sets wd back and closes all open connections if an error occurs
   tryCatch({
       # Collect all needed packages
-      needed.pkgs = getPkgs(x)
+      needed.pkgs = getPkgs(report)
 
       #start the report file
-      report = file("report.rmd", "w")
-      writeLines("```{r}", con = report)
+      report.con = file("report.rmd", "w")
+      writeLines("```{r}", con = report.con)
 
       # load pkgs
-      rmdLibrary(needed.pkgs, report)
+      rmdLibrary(needed.pkgs, report.con)
 
+      #save data
+      if (save.mode){
+        file.name = paste0(report$data.name, ".rds")
+        saveRDS(report$env$data, file = file.name)
+      }
       # load data
-      data.path = file.path(x$data.path, x$data.name)
-      rmdloadData(x$data.name, data.path, report)
+      data.path = file.path(report$data.path, report$data.name)
+      rmdloadData(report$data.name, data.path, report.con)
 
       # save object and write code to load it in the rmd-file
-      saveLoadObj(x, deparse(substitute(x)), report)
+      saveLoadObj(report, deparse(substitute(report)), report.con)
 
-      writeLines("```", con = report)
-      writeLines("Some text; CorrPlot ....", con = report)
-      writeLines("```{r}", con = report)
-      rmdWriteLines(x$plot.code$code, con = report)
-      writeLines("```", con = report)
+      writeLines("```", con = report.con)
+      writeLines("Some text; CorrPlot ....", con = report.con)
+      writeLines("```{r}", con = report.con)
+      rmdWriteLines(report$plot.code$code, con = report.con)
+      writeLines("```", con = report.con)
 
     }, finally = {
       setwd(origin.wd)
-      close(report)
+      close(report.con)
     })
+  return(invisible(NULL))
 }
 
 ### Example
-# saveRDS(cars, file="Data_Report/cars.rds")
 # my.task = makeCorrTask(id = "test", data = cars)
 # my.corr = makeCorr(my.task)
 # report1 = makeCorrReport(my.corr, type = "CorrPlot")
-# writeReport(report1)
+# writeCorrReport(report1)
 #
 # data(diamonds, package = "ggplot2")
-# saveRDS(diamonds, file="Data_Report/diamonds.rds")
 # my.task = makeCorrTask(id = "test", data = diamonds)
 # my.corr = makeCorr(my.task)
 # report1 = makeCorrReport(my.corr, type = "CorrPlot")
