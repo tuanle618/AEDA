@@ -14,15 +14,12 @@ A Report Task object containing general information of the data analysis problem
 A Dataframe with different variables}
 }
 \value{
-CorrTask
+[\code{BasicReport}]\cr
 }
 \description{
-A Basic Report object containing the report task, a basic data summary and missing value summary
+A Basic Report Object will be calculated containing the report task, a basic data summary and missing value summary
 }
 \examples{
-my.task = makeCorrTask(id = "test", data = cars)
-# Extract Data
-my.task$env$data
  data("airquality")
  my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
  basic.report = makeBasicReport(my.report.task, data = airquality)

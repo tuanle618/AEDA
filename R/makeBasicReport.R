@@ -1,19 +1,14 @@
 #' @title Creates a BasicReport Object [WIP]
 #'
 #' @description
-#' A Basic Report object containing the report task, a basic data summary and missing value summary
+#' A Basic Report Object will be calculated containing the report task, a basic data summary and missing value summary
 #'
 #' @param report.task [\code{ReportTask}]\cr
 #'   A Report Task object containing general information of the data analysis problem
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables
 #'
-#' @return CorrTask
-#'
-#' @examples
-#' my.task = makeCorrTask(id = "test", data = cars)
-#' # Extract Data
-#' my.task$env$data
+#' @return [\code{BasicReport}]\cr
 #' @import checkmate
 #' @import BBmisc
 #' @examples
