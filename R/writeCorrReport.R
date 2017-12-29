@@ -8,8 +8,7 @@ writeReport = function(x, sub.dir = "Data_Report"){
   origin.wd = createDir(sub.dir)
 
   # TryCatch sets wd back and closes all open connections if an error occurs
-  tryCatch(
-      {
+  tryCatch({
       # Collect all needed packages
       needed.pkgs = getPkgs(x)
 
@@ -32,14 +31,11 @@ writeReport = function(x, sub.dir = "Data_Report"){
       writeLines("```{r}", con = report)
       rmdWriteLines(x$plot.code$code, con = report)
       writeLines("```", con = report)
+
+    }, finally = {
+      setwd(origin.wd)
       close(report)
-      setwd(origin.wd)
-      },
-    finally = function(){
-      setwd(origin.wd)
-      closeAllConnections()
-    }
-  )
+    })
 }
 
 ### Example
