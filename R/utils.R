@@ -21,7 +21,7 @@ reportId = function(length = 16) {
 # Takes an object and adds more attributes
 addAttToObj = function(object, ...){
   att = list(...)
-  for (i in names(object)){
+  for (i in names(object)) {
     att[[i]] = object[[i]]
   }
   setClasses(att, class(object))
@@ -46,7 +46,7 @@ rmdloadData = function(name, path, file){
 
 # Wrapper for writing lines
 rmdWriteLines = function(vec, con){
-  for (i in seq_along(vec)){
+  for (i in seq_along(vec)) {
     writeLines(vec[i], con = con)
   }
 }
