@@ -3,7 +3,7 @@
 createDir = function(sub.dir, save.mode = TRUE) {
   temp.wd = getwd()
   # In Save mode folder must not exist and has to be writable
-  assertPathForOutput(sub.dir, overwrite = !save.mode)
+  assertPathForOutput(sub.dir, overwrite = save.mode)
   if (file.exists(sub.dir)) {
     setwd(file.path(temp.wd, sub.dir))
   } else {
@@ -61,6 +61,8 @@ getPkgs = function(obj){
 saveLoadObj = function(obj, name, file){
   #save object
   obj.file.name = paste0(name, ".rds")
+  if (file.exists(obj.file.name))
+    stop(paste0(obj.file.name, "already exists! Please rename the corr.report object"))
   saveRDS(obj, file = obj.file.name)
   #load object; x$var.id is needed so the plo
   rmdloadData(obj$report.id, name, file)
