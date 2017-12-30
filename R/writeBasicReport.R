@@ -26,7 +26,7 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
   # Create sub directory, save current wd and set new wd to the new directory
-  origin.wd = createDir(sub.dir, save.mode, basic.report)
+  origin.wd = createDir(sub.dir, save.mode)
 
   # TryCatch sets wd back and closes all open connections if an error occurs
   tryCatch({
