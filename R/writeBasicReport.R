@@ -60,7 +60,12 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
 
     writeLines("Some text; Basic Summary ....", con = report.con)
     writeLines("```{r}", con = report.con)
-
+    writeLines(paste0(basic.report$report.id, "$report.task"), con = report.con)
+    writeLines(paste0(basic.report$report.id, "$na.summary$na.df"), con = report.con)
+    writeLines("#Plotting missing values according to their frequency", con = report.con)
+    writeLines(paste0(basic.report$report.id, "$na.summary$ggplot"), con = report.con)
+    writeLines("#Plotting missing values according to their index", con = report.con)
+    writeLines(paste0(basic.report$report.id, "$na.summary$image()"), con = report.con)
     writeLines("```", con = report.con)
 
   }, finally = {
