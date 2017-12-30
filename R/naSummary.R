@@ -117,7 +117,7 @@ naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     env$num = num
     makeS3Obj("naSumObj", na.df = na.df, data = data, dataset.name = deparse(substitute(data)), env = env,
       image = function() {
-        image(env$color, col = c("white", "black"), yaxt = "n")
+        image(env$color, col = c("white", "black"), yaxt = "n", xaxt = "n")
         par(mar = c(5, env$margin.left, 4, 2) + 0.1)
         abline(v = -0.001)
         abline(h = 1.015)
