@@ -33,6 +33,7 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
     ##try part:
     #start the report file
     report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
+    writeLines("## Basic Report from AEDA containing a basic and missing values summary", con  = report.con)
     writeLines("```{r}", con = report.con)
 
     #save data
@@ -48,8 +49,18 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
     saveLoadObj(basic.report, deparse(substitute(basic.report)), report.con)
 
     writeLines("```", con = report.con)
+
+    writeLines("```{r}", con = report.con)
+    #testing:
+    #vec = c("5+5", "a = TRUE", "print('Hallo')")
+    #rmdWriteLines(vec = vec,  con = report.con)
+    writeLines("# Declaring object for more convenience and clarity:", con = report.con)
+    writeLines(paste0("basic.report.obj = ", basic.report$report.id), con = report.con)
+    writeLines("```", con = report.con)
+
     writeLines("Some text; Basic Summary ....", con = report.con)
     writeLines("```{r}", con = report.con)
+
     writeLines("```", con = report.con)
 
   }, finally = {
