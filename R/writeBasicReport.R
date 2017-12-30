@@ -35,7 +35,8 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
     report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
     writeLines("## Basic Report from AEDA containing a basic and missing values summary", con  = report.con)
     writeLines("```{r}", con = report.con)
-
+    writeLines("devtools::load_all()", con = report.con)
+    writeLines("#library(AEDA)", con = report.con)
     #save data
     if (save.mode) {
       file.name = paste0(basic.report$report.task$dataset.name, ".rds")
