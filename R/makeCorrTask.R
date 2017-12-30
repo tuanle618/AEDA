@@ -13,8 +13,6 @@
 #'   \dQuote{pearson}
 #' @param vars [\code{character(1)}]\cr
 #'   Column names to use for correlation
-#' @param data.path [\code{character(1)}]\cr
-#'   The path from where the data should be loaded. Default is the working directory
 #'
 #' @return CorrTask
 #'
@@ -25,7 +23,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeCorrTask = function(id, data, method = "pearson", vars = NULL, data.path = "."){
+makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -49,7 +47,6 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL, data.path = "
     size = nrow(data),
     method = method,
     data.name = deparse(substitute(data)),
-    data.path = data.path,
     needed.pkgs = NULL,
     missing.values = sum(is.na(data)))
 }
@@ -64,7 +61,6 @@ print.CorrTask = function(x, ...) {
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
   catf("Name of the Data: %s", x$data.name)
-  catf("Path of the data: %s", x$data.path)
   catf("Needed packages: %s", if (is.null(x$needed.pkgs)){"None"}else{x$needed.pkgs})
 }
 

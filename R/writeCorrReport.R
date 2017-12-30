@@ -12,33 +12,24 @@
 #'   my.corr = makeCorr(my.task)
 #'   report1 = makeCorrReport(my.corr, type = "CorrPlot")
 #'   writeCorrReport(report1)
-#' @return Invisible NULL
+#' @return rmd-file location
 #' @import checkmate
 #' @export
 writeCorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
   # Create sub directory, save current wd and set new wd to the new directory
   origin.wd = createDir(sub.dir, save.mode)
-
+  rmd.name = rmdName("CorrReport")
   # TryCatch sets wd back and closes all open connections if an error occurs
   tryCatch({
       # Collect all needed packages
       needed.pkgs = getPkgs(report)
 
       #start the report file
-      report.con = file("report.rmd", "w")
+      report.con = file(rmd.name, "w")
       writeLines("```{r}", con = report.con)
 
       # load pkgs
       rmdLibrary(needed.pkgs, report.con)
-
-      #save data
-      if (save.mode){
-        file.name = paste0(report$data.name, ".rds")
-        saveRDS(report$env$data, file = file.name)
-      }
-      # load data
-      data.path = file.path(report$data.path, report$data.name)
-      rmdloadData(report$data.name, data.path, report.con)
 
       # save object and write code to load it in the rmd-file
       saveLoadObj(report, deparse(substitute(report)), report.con)
@@ -53,7 +44,7 @@ writeCorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
       setwd(origin.wd)
       close(report.con)
     })
-  return(invisible(NULL))
+  return(file.path(sub.dir, rmd.name))
 }
 
 ### Example
