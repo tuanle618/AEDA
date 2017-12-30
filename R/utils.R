@@ -1,11 +1,10 @@
-# if a Sb Directory doesn't exist it Creates one (in the working directory) and moves
+# if a Sub Directory doesn't exist it Creates one (in the working directory) and moves
 # the wd to the sub directory. It returns the original wd
-createDir = function(sub.dir, save.mode = TRUE, report) {
+createDir = function(sub.dir, save.mode = TRUE) {
   temp.wd = getwd()
-  report.rdsf = paste0(sub.dir, "/", deparse(substitute(report)), ".rds")
-  if (file.exists(sub.dir) & save.mode & file.exists(report.rdsf)) { ##check if the .rds file (from EDA analysis) to extract the information from is already existent
-    stop(paste0("Directory: /", report.rdsf, "/ already exists. Stopping to ensure no Data is lost. Please rename the object: ", deparse(substitute(report))))
-  } else if (file.exists(sub.dir)) {
+  # In Save mode folder must not exist and has to be writable
+  assertPathForOutput(sub.dir, overwrite = !save.mode)
+  if (file.exists(sub.dir)) {
     setwd(file.path(temp.wd, sub.dir))
   } else {
     dir.create(file.path(temp.wd, sub.dir))
@@ -22,7 +21,7 @@ reportId = function(length = 16) {
 # Takes an object and adds more attributes
 addAttToObj = function(object, ...){
   att = list(...)
-  for (i in names(object)) {
+  for (i in names(object)){
     att[[i]] = object[[i]]
   }
   setClasses(att, class(object))
@@ -47,7 +46,7 @@ rmdloadData = function(name, path, file){
 
 # Wrapper for writing lines
 rmdWriteLines = function(vec, con){
-  for (i in seq_along(vec)) {
+  for (i in seq_along(vec)){
     writeLines(vec[i], con = con)
   }
 }
