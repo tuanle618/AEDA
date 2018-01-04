@@ -55,6 +55,8 @@ writeNumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode 
 
     writeLines("Some text; Numeric Summary ....", con = report.con)
     writeLines("```{r}", con = report.con)
+    writeLines(paste0(num.sum.report$report.id, "$num.sum.df"), con = report.con)
+    writeLines(paste0(num.sum.report$report.id, "$num.sum.var"), con = report.con)
     writeLines("```", con = report.con)
 
   }, finally = {
