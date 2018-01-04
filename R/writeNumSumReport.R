@@ -41,7 +41,7 @@ writeNumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode 
     writeLines("#library(AEDA)", con = report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(basic.report, deparse(substitute(basic.report)), report.con)
+    saveLoadObj(num.sum.report, deparse(substitute(num.sum.report)), report.con)
 
     writeLines("```", con = report.con)
 
@@ -50,7 +50,7 @@ writeNumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode 
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
     #rmdWriteLines(vec = vec,  con = report.con)
     writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("num.sum.report.obj = ", basic.report$report.id), con = report.con)
+    writeLines(paste0("num.sum.report.obj = ", num.sum.report$report.id), con = report.con)
     writeLines("```", con = report.con)
 
     writeLines("Some text; Numeric Summary ....", con = report.con)
