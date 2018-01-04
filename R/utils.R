@@ -67,3 +67,16 @@ saveLoadObj = function(obj, name, file){
   #load object; x$var.id is needed so the plo
   rmdloadData(obj$report.id, name, file)
 }
+
+# Checks if a rmd file exists and if it exists then increase the index. It returns
+# the first file that doesnt exist.
+rmdName = function(name, index = 1L, max.depth = 100L) {
+  rmd.file = paste0(name, index, ".rmd")
+  if (file.exists(rmd.file) & index <= max.depth){
+    index = index + 1L
+    rmdName(name, index, max.depth)
+  } else {
+    if (index > max.depth) warning(paste0("Too many rmd-Files: \"", rmd.file, "\"", " will be overwritten"))
+    return(rmd.file)
+  }
+}
