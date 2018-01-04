@@ -27,24 +27,27 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
   assertLogical(save.mode, len = 1L)
   # Create sub directory, save current wd and set new wd to the new directory
   origin.wd = createDir(sub.dir, save.mode)
+  rmd.name = rmdName("BasicReport")
 
   # TryCatch sets wd back and closes all open connections if an error occurs
   tryCatch({
     ##try part:
     #start the report file
-    report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
+  #  report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
+    report.con = file(rmd.name, "w")
+
     writeLines("## Basic Report from AEDA containing a basic and missing values summary", con  = report.con)
     writeLines("```{r}", con = report.con)
     writeLines("devtools::load_all()", con = report.con)
     writeLines("#library(AEDA)", con = report.con)
-    #save data
-    if (save.mode) {
-      file.name = paste0(basic.report$report.task$dataset.name, ".rds")
-      saveRDS(basic.report$report.task$env$data, file = file.name)
-    }
-    # load data
-    data.path = file.path(".", basic.report$report.task$dataset.name)
-    rmdloadData(basic.report$report.task$dataset.name, data.path, report.con)
+  #  #save data
+  #  if (save.mode) {
+  #    #file.name = paste0(basic.report$report.task$dataset.name, ".rds")
+  #    #saveRDS(basic.report$report.task$env$data, file = file.name)
+  #  }
+  #  # load data
+  #  data.path = file.path(".", basic.report$report.task$dataset.name)
+  #  rmdloadData(basic.report$report.task$dataset.name, data.path, report.con)
 
     # save object and write code to load it in the rmd-file
     saveLoadObj(basic.report, deparse(substitute(basic.report)), report.con)
