@@ -21,7 +21,7 @@
 #' @import checkmate
 #' @export
 writeNumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode = TRUE){
-  assertClass(basic.report, "NumSumReport")
+  assertClass(num.sum.report, "NumSumReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
   # Create sub directory, save current wd and set new wd to the new directory
