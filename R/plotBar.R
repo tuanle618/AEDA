@@ -42,8 +42,8 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
       geom_bar(stat = "count", position = "dodge") + coord_flip()
     plot = list(plot = plot)
     names(plot) = col
-    return(plot)
-  } else {#plot all categorical variables into one ggplot
+  } else {
+    #plot all categorical variables into one ggplot
     types = getDataType(data = data, target = target)
     categ = unique(c(types$ord, types$fact, types$logic))
     no.categ = length(categ)
@@ -57,7 +57,13 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
       return(subplot)
     })
     names(plot) = categ
-    return(plot)
   }
-
+  if (show.plot) {
+    p = length(plot)
+    if (p == 1) multiplot(plotlist = plot)
+    #max 9 plots in one plot
+    pages = ceiling(p / 9)
+    ##do for more plots:....
+  }
+  return(plot)
 }
