@@ -2,7 +2,7 @@
 # the wd to the sub directory. It returns the original wd
 createDir = function(sub.dir, save.mode = TRUE) {
   temp.wd = getwd()
-  if (file.exists(sub.dir) & save.mode){
+  if (file.exists(sub.dir) & save.mode) {
     stop(paste0("Directory: \"", sub.dir, "\" already exists. Stopping to ensure no Data is lost."))
   } else if (file.exists(sub.dir)) {
     setwd(file.path(temp.wd, sub.dir))
@@ -21,7 +21,7 @@ reportId = function(length = 16) {
 # Takes an object and adds more attributes
 addAttToObj = function(object, ...){
   att = list(...)
-  for (i in names(object)){
+  for (i in names(object)) {
     att[[i]] = object[[i]]
   }
   setClasses(att, class(object))
@@ -46,7 +46,7 @@ rmdloadData = function(name, path, file){
 
 # Wrapper for writing lines
 rmdWriteLines = function(vec, con){
-  for (i in seq_along(vec)){
+  for (i in seq_along(vec)) {
     writeLines(vec[i], con = con)
   }
 }
@@ -64,4 +64,22 @@ saveLoadObj = function(obj, name, file){
   saveRDS(obj, file = obj.file.name)
   #load object; x$var.id is needed so the plo
   rmdloadData(obj$report.id, name, file)
+}
+
+#splits a list with j sublists into ceiling(j / k) list with each maximal k list
+#done for mulitplot. e.g plotlist consists of 11 sublists, then we plot maximal 9 plots
+#into one page, hence: here j = 11 and k = 9 results into 2 pages where on
+#the first page 9 plots and on the second the rest 2
+
+splitList = function(mylist, k) {
+  j = length(mylist)
+  no.new.lists = ceiling(j / k)
+  out.list = vector("list", length = no.new.lists)
+  for (i in 0:(no.new.lists - 1)) {
+    for (j in 1:k) {
+      name = paste0("sublist ", i + 1)
+      out.list[[i + 1]][j] = list(name = mylist[[j]])
+    }
+  }
+  return(out.list)
 }
