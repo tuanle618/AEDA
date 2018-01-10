@@ -60,10 +60,12 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
   }
   if (show.plot) {
     p = length(plot)
-    if (p == 1) multiplot(plotlist = plot)
-    #max 9 plots in one plot
-    pages = ceiling(p / 9)
-    ##do for more plots:....
+    #if max 3 plots, use ncol = 1, nrow = 3
+    if (p < 4) {
+      multiplot(plotlist = plot)
+    } else {
+      #do ..
+    }
   }
   return(plot)
 }
