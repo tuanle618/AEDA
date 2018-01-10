@@ -78,7 +78,14 @@ splitList = function(mylist, k) {
   for (i in 0:(no.new.lists - 1)) {
     for (j in 1:k) {
       name = paste0("sublist ", i + 1)
-      out.list[[i + 1]][j] = list(name = mylist[[j]])
+      #how to handle subscript out of bounds
+      a = tryCatch({
+        mylist[[i*j + j]]
+      }, error = function(e){
+        NULL
+      }
+        )
+      out.list[[i + 1]][j] = list(name = a)
     }
   }
   return(out.list)
