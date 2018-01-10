@@ -40,6 +40,8 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
     a = aes_string(x = col, fill = target)
     plot = ggplot(data, a) +
       geom_bar(stat = "count", position = "dodge") + coord_flip()
+    plot = list(plot = plot)
+    names(plot) = col
     return(plot)
   } else {#plot all categorical variables into one ggplot
     types = getDataType(data = data, target = target)
@@ -50,9 +52,12 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
     plot = lapply(1:no.categ, FUN = function(y) {
       col = categ[y]
       a = aes_string(x = col, fill = target)
-      plot = ggplot(data, a) +
+      subplot = ggplot(data, a) +
         geom_bar(stat = "count", position = "dodge") + coord_flip()
+      return(subplot)
     })
+    names(plot) = categ
     return(plot)
   }
+
 }
