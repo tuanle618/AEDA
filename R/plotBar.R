@@ -48,7 +48,7 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
     if (no.categ == 0) stop("No Discrete Features")
     #create plots:
     plot = lapply(1:no.categ, FUN = function(y) {
-      col = categ[j]
+      col = categ[y]
       a = aes_string(x = col, fill = target)
       plot = ggplot(data, a) +
         geom_bar(stat = "count", position = "dodge") + coord_flip()
