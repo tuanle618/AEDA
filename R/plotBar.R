@@ -14,6 +14,7 @@
 #' @import checkmate
 #' @import ggplot2
 #' @import BBmisc
+#' @import gridExtra
 #' @examples
 #'  data("diamonds", package = "ggplot2")
 #'  ggplot = plotBar(diamonds, target = "cut", col = "carat")
@@ -66,6 +67,7 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
     if (p < 4) {
       multiplot(plotlist = plot)
     } else {
+      suppressWarnings(do.call(grid.arrange, plot))
     }
   }
   return(plot)
