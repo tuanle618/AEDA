@@ -1,0 +1,15 @@
+## Numeric Summary Report from AEDA containing numeric summary as well as plots
+```{r}
+devtools::load_all()
+#library(AEDA)
+rAUMZTPbINiOELsx = readRDS("num.sum.report.rds")
+```
+```{r}
+# Declaring object for more convenience and clarity:
+num.sum.report.obj = rAUMZTPbINiOELsx
+```
+Some text; Numeric Summary ....
+```{r}
+rAUMZTPbINiOELsx$num.sum.df
+rAUMZTPbINiOELsx$num.sum.var
+```

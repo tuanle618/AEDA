@@ -1,0 +1,19 @@
+## Basic Report from AEDA containing a basic and missing values summary
+```{r}
+devtools::load_all()
+#library(AEDA)
+BSrBCntWtvsyPlOK = readRDS("basic.report.rds")
+```
+```{r}
+# Declaring object for more convenience and clarity:
+basic.report.obj = BSrBCntWtvsyPlOK
+```
+Some text; Basic Summary ....
+```{r}
+BSrBCntWtvsyPlOK$report.task
+BSrBCntWtvsyPlOK$na.summary$na.df
+#Plotting missing values according to their frequency
+BSrBCntWtvsyPlOK$na.summary$ggplot
+#Plotting missing values according to their index
+BSrBCntWtvsyPlOK$na.summary$image()
+```

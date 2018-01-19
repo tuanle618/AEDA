@@ -80,7 +80,7 @@ splitList = function(mylist, k) {
       name = paste0("sublist ", i + 1)
       #how to handle subscript out of bounds
       a = tryCatch({
-        mylist[[i*j + j]]
+        mylist[[i * j + j]]
       }, error = function(e){
         NULL
       }
