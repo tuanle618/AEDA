@@ -46,14 +46,15 @@ getNumSum = function(data, features, target) {
     l.bound, u.bound, no.outliers, no.zero, no.unique))), digits = 3)
 
   tt = target
-  plot.list = lapply(features, function(x) plotFeatDistr(data = data, target = tt, col = x))
-  names(plot.list) = row.names(num.sum.df)
+  plot.distr.list = lapply(features, function(x) plotFeatDistr(data = data, target = tt, col = x))
+  plot.box.list = lapply(features, function(x) plotBox(data = data, target = tt, col = x))
+  names(plot.distr.list) = names(plot.box.list) = row.names(num.sum.df)
 
   #merge num.sum.df with plotlist
   merged.list = vector(mode = "list", length = nrow(num.sum.df))
   names(merged.list) = row.names(num.sum.df)
   for (col in names(merged.list)) {
-    merged.list[[col]] = list(summary = num.sum.df[col, ], plot = plot.list[[col]])
+    merged.list[[col]] = list(summary = num.sum.df[col, ], plot.distr = plot.distr.list[[col]], plot.box = plot.box.list[[col]])
   }
   out.list = list(num.sum.df = num.sum.df, merged.list = merged.list)
   return(out.list)
