@@ -37,4 +37,7 @@ Creates a box plot of all numerical features of a dataset
 \examples{
  data("diamonds", package = "ggplot2")
  ggplot = plotBox(diamonds, target = "cut", col = "carat")
+ data("iris")
+ boxplotiris1 = plotBox(iris, target = "Species", show.plot = TRUE)
+ boxplotiris2 = plotBox(iris, target = "Species",  show.plot = TRUE, plot.x.only = TRUE)
 }

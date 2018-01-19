@@ -23,6 +23,9 @@
 #' @examples
 #'  data("diamonds", package = "ggplot2")
 #'  ggplot = plotBox(diamonds, target = "cut", col = "carat")
+#'  data("iris")
+#'  boxplotiris1 = plotBox(iris, target = "Species", show.plot = TRUE)
+#'  boxplotiris2 = plotBox(iris, target = "Species",  show.plot = TRUE, plot.x.only = TRUE)
 #' @export
 #' @title Creates a box plot of a numerical feature with respect to a target.
 
