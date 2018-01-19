@@ -3,7 +3,7 @@
 #' @description
 #' makeNumSum calculates a numeric summary and wrapes an object around it
 #'
-#' @param num.sum.task [\code{NumTask}]\cr
+#' @param num.sum.task [\code{NumSumTask}]\cr
 #'   A NumSumTask Object
 #' @return NumSumObj
 #' @examples

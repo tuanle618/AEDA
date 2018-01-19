@@ -2,9 +2,13 @@
 # the wd to the sub directory. It returns the original wd
 createDir = function(sub.dir, save.mode = TRUE) {
   temp.wd = getwd()
+
   # In Save mode folder must not exist and has to be writable
   assertPathForOutput(sub.dir, overwrite = save.mode)
-  if (file.exists(sub.dir)) {
+
+  if (file.exists(sub.dir) & save.mode) {
+    stop(paste0("Directory: \"", sub.dir, "\" already exists. Stopping to ensure no Data is lost."))
+  } else if (file.exists(sub.dir)) {
     setwd(file.path(temp.wd, sub.dir))
   } else {
     dir.create(file.path(temp.wd, sub.dir))
@@ -68,15 +72,40 @@ saveLoadObj = function(obj, name, file){
   rmdloadData(obj$report.id, name, file)
 }
 
+
 # Checks if a rmd file exists and if it exists then increase the index. It returns
 # the first file that doesnt exist.
 rmdName = function(name, index = 1L, max.depth = 100L) {
   rmd.file = paste0(name, index, ".rmd")
-  if (file.exists(rmd.file) & index <= max.depth){
+  if (file.exists(rmd.file) & index <= max.depth) {
     index = index + 1L
     rmdName(name, index, max.depth)
   } else {
     if (index > max.depth) warning(paste0("Too many rmd-Files: \"", rmd.file, "\"", " will be overwritten"))
     return(rmd.file)
   }
+}
+#splits a list with j sublists into ceiling(j / k) list with each maximal k list
+#done for mulitplot. e.g plotlist consists of 11 sublists, then we plot maximal 9 plots
+#into one page, hence: here j = 11 and k = 9 results into 2 pages where on
+#the first page 9 plots and on the second the rest 2
+
+splitList = function(mylist, k) {
+  j = length(mylist)
+  no.new.lists = ceiling(j / k)
+  out.list = vector("list", length = no.new.lists)
+  for (i in 0:(no.new.lists - 1)) {
+    for (j in 1:k) {
+      name = paste0("sublist ", i + 1)
+      #how to handle subscript out of bounds
+      a = tryCatch({
+        mylist[[i * j + j]]
+      }, error = function(e){
+        NULL
+      }
+        )
+      out.list[[i + 1]][j] = list(name = a)
+    }
+  }
+  return(out.list)
 }
