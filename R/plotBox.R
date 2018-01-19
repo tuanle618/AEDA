@@ -41,9 +41,8 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE) {
     if (!(is.numeric(x))) stop("No Numeric Feature")
     #create the plot
     if (is.factor(data[[target]])) a = aes_string(x = "''", y = x, fill = target)
-    else a = aes_string(x = "", y = x)
-    plot = ggplot(data, a) +
-      geom_boxplot() #+ coord_flip()
+    else a = aes_string(x = "''", y = x)
+    plot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
     plot = list(plot = plot)
     names(plot) = col
   } else {
@@ -56,9 +55,8 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE) {
     plot = lapply(1:no.num, FUN = function(y) {
       col = numeric[y]
       if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
-      else a = aes_string(y = col)
-      subplot = ggplot(data, a) +
-        geom_boxplot()
+      else a = aes_string(x = "''", y = col)
+      subplot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
       return(subplot)
     })
     names(plot) = numeric
