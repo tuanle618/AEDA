@@ -4,8 +4,11 @@
 #'   Data.
 #' @param target [\code{character(1)}]\cr
 #'   Target column. If no target is available in the dataset please insert \code{NULL}
-#'   If the target is numericorical, the target will be mapped onto the x axis and the other numerical
+#'   If the target is numerical, the target will be mapped onto the x axis and the other numerical
 #'   types will be mapped as boxplot onto the y axis
+#' @param plot.x.only [\code{logical(1)}]
+#'   Logical whether only the numeric values should be ploted onto the x-axis. This option enables
+#'   to turn on/turn off the "fill" argument in ggplot \code{aes(..., fill = target)}. Default is \code{FALSE}
 #' @param col [\code{character(1)} | \code{integer(1)}]\cr
 #'   Selected feature from \code{data}. If all features should be printed insert \code{NULL}.
 #'   Default value is \code{NULL}
@@ -24,43 +27,80 @@
 #' @title Creates a box plot of a numerical feature with respect to a target.
 
 
-plotBox = function(data, target, col = NULL, show.plot = FALSE) {
+plotBox = function(data, target, col = NULL, show.plot = FALSE, plot.x.only = FALSE) {
 
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
   }
+  if (is.null(target)) target = ""
 
-  #plot for a specific column:
-  if (!is.null(col)) {
-    if (is.numeric(col))  {
-      col = colnames(data)[col]
-    }
-    x = data[[col]]
-    #check if column is numeric:
-    if (!(is.numeric(x))) stop("No Numeric Feature")
-    #create the plot
-    if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
-    else a = aes_string(x = "''", y = col)
-    plot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
-    plot = list(plot = plot)
-    names(plot) = col
-  } else {
-    #plot all numerical variables into one ggplot
-    types = getDataType(data = data, target = target)
-    numeric = unique(c(types$num, types$int))
-    no.num = length(numeric)
-    if (no.num == 0) stop("No Numeric Features")
-    #create plots:
-    plot = lapply(1:no.num, FUN = function(y) {
-      col = numeric[y]
-      if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
+  types = getDataType(data = data, target = target)
+  numeric = unique(c(types$num, types$int))
+  no.num = length(numeric)
+  flag.target.factor = is.element(types$target, c(types$ord, types$fact, types$logic))
+
+  ##plot.x.only : no filling with target
+  if (plot.x.only) {
+    #plot for a specific column:
+    if (!is.null(col)) {
+      if (is.numeric(col))  {
+        col = colnames(data)[col]
+      }
+      x = data[[col]]
+      #check if column is numeric:
+      if (!(is.numeric(x))) stop("No Numeric Feature")
+      #create the plot
+      if (flag.target.factor) a = aes_string(x = "''", y = col)
       else a = aes_string(x = "''", y = col)
-      subplot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
-      return(subplot)
-    })
-    names(plot) = numeric
+      plot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+      plot = list(plot = plot)
+      names(plot) = col
+    } else {
+      #plot all numerical variables into one ggplot
+      if (no.num == 0) stop("No Numeric Features")
+      #create plots:
+      plot = lapply(1:no.num, FUN = function(y) {
+        col = numeric[y]
+        if (is.factor(data[[target]])) a = aes_string(x = "''", y = col)
+        else a = aes_string(x = "''", y = col)
+        subplot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+        return(subplot)
+      })
+      names(plot) = numeric
+    }
+  } else {
+  ##plot.x.only : filling with target
+    #plot for a specific column:
+    if (!is.null(col)) {
+      if (is.numeric(col))  {
+        col = colnames(data)[col]
+      }
+      x = data[[col]]
+      #check if column is numeric:
+      if (!(is.numeric(x))) stop("No Numeric Feature")
+      #create the plot
+      if (flag.target.factor) a = aes_string(x = "''", y = col, fill = target)
+      else a = aes_string(x = "''", y = col)
+      plot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+      plot = list(plot = plot)
+      names(plot) = col
+    } else {
+      #plot all numerical variables into one ggplot
+      if (no.num == 0) stop("No Numeric Features")
+      #create plots:
+      plot = lapply(1:no.num, FUN = function(y) {
+        col = numeric[y]
+        if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
+        else a = aes_string(x = "''", y = col)
+        subplot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+        return(subplot)
+      })
+      names(plot) = numeric
+    }
   }
+  ##
+
   if (show.plot) {
     p = length(plot)
     pages = ceiling(p / 9)

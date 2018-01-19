@@ -4,7 +4,7 @@
 \alias{plotBox}
 \title{Creates a box plot of a numerical feature with respect to a target.}
 \usage{
-plotBox(data, target, col = NULL, show.plot = FALSE)
+plotBox(data, target, col = NULL, show.plot = FALSE, plot.x.only = FALSE)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -12,7 +12,7 @@ Data.}
 
 \item{target}{[\code{character(1)}]\cr
 Target column. If no target is available in the dataset please insert \code{NULL}
-If the target is numericorical, the target will be mapped onto the x axis and the other numerical
+If the target is numerical, the target will be mapped onto the x axis and the other numerical
 types will be mapped as boxplot onto the y axis}
 
 \item{col}{[\code{character(1)} | \code{integer(1)}]\cr
@@ -22,6 +22,10 @@ Default value is \code{NULL}}
 \item{show.plot}{[\code{logical(1)}]
 Logical whether the ggplot(s) should be displayed or not when executing this function.
 Default is \code{FALSE}}
+
+\item{plot.x.only}{[\code{logical(1)}]
+Logical whether only the numeric values should be ploted onto the x-axis. This option enables
+to turn on/turn off the "fill" argument in ggplot \code{aes(..., fill = target)}. Default is \code{FALSE}}
 }
 \value{
 A ggplot2 object. Print it to plot it. [WIP if col is null]
