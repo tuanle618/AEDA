@@ -40,8 +40,8 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE) {
     #check if column is numeric:
     if (!(is.numeric(x))) stop("No Numeric Feature")
     #create the plot
-    if (is.factor(data[[target]])) a = aes_string(x = "''", y = x, fill = target)
-    else a = aes_string(x = "''", y = x)
+    if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
+    else a = aes_string(x = "''", y = col)
     plot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
     plot = list(plot = plot)
     names(plot) = col
