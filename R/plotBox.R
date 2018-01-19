@@ -40,7 +40,7 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE) {
     #check if column is numeric:
     if (!(is.numeric(x))) stop("No Numeric Feature")
     #create the plot
-    if (is.factor(data[[target]])) a = aes_string(x = "", y = x, fill = target)
+    if (is.factor(data[[target]])) a = aes_string(x = "''", y = x, fill = target)
     else a = aes_string(x = "", y = x)
     plot = ggplot(data, a) +
       geom_boxplot() #+ coord_flip()
@@ -55,7 +55,7 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE) {
     #create plots:
     plot = lapply(1:no.num, FUN = function(y) {
       col = numeric[y]
-      if (is.factor(data[[target]])) a = aes_string(y = col, fill = target)
+      if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
       else a = aes_string(y = col)
       subplot = ggplot(data, a) +
         geom_boxplot()
