@@ -4,7 +4,8 @@
 \alias{plotBox}
 \title{Creates a box plot of a numerical feature with respect to a target.}
 \usage{
-plotBox(data, target, col = NULL, show.plot = FALSE, plot.x.only = FALSE)
+plotBox(data, target, plot.x.only = FALSE, col = NULL, show.plot = FALSE,
+  ...)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -15,6 +16,10 @@ Target column. If no target is available in the dataset please insert \code{NULL
 If the target is numerical, the target will be mapped onto the x axis and the other numerical
 types will be mapped as boxplot onto the y axis}
 
+\item{plot.x.only}{[\code{logical(1)}]
+Logical whether only the numeric values should be ploted onto the x-axis. This option enables
+to turn on/turn off the "fill" argument in ggplot \code{aes(..., fill = target)}. Default is \code{FALSE}}
+
 \item{col}{[\code{character(1)} | \code{integer(1)}]\cr
 Selected feature from \code{data}. If all features should be printed insert \code{NULL}.
 Default value is \code{NULL}}
@@ -23,9 +28,7 @@ Default value is \code{NULL}}
 Logical whether the ggplot(s) should be displayed or not when executing this function.
 Default is \code{FALSE}}
 
-\item{plot.x.only}{[\code{logical(1)}]
-Logical whether only the numeric values should be ploted onto the x-axis. This option enables
-to turn on/turn off the "fill" argument in ggplot \code{aes(..., fill = target)}. Default is \code{FALSE}}
+\item{\dots}{other arguments to be passed to \link[ggplot2]{geom_boxplot}.}
 }
 \value{
 A ggplot2 object. Print it to plot it. [WIP if col is null]
@@ -36,8 +39,8 @@ Creates a box plot of all numerical features of a dataset
 }
 \examples{
  data("diamonds", package = "ggplot2")
- ggplot = plotBox(diamonds, target = "cut", col = "carat")
+ boxplotdiamonds = plotBox(diamonds, target = "cut", col = "carat")
  data("iris")
  boxplotiris1 = plotBox(iris, target = "Species", show.plot = TRUE)
- boxplotiris2 = plotBox(iris, target = "Species",  show.plot = TRUE, plot.x.only = TRUE)
+ boxplotiris2 = plotBox(iris, target = "Species", plot.x.only = TRUE, show.plot = TRUE)
 }

@@ -15,6 +15,7 @@
 #' @param show.plot [\code{logical(1)}]
 #'   Logical whether the ggplot(s) should be displayed or not when executing this function.
 #'   Default is \code{FALSE}
+#' @param \dots other arguments to be passed to \link[ggplot2]{geom_boxplot}.
 #' @return A ggplot2 object. Print it to plot it. [WIP if col is null]
 #' @import checkmate
 #' @import ggplot2
@@ -22,15 +23,16 @@
 #' @import gridExtra
 #' @examples
 #'  data("diamonds", package = "ggplot2")
-#'  ggplot = plotBox(diamonds, target = "cut", col = "carat")
+#'  boxplotdiamonds = plotBox(diamonds, target = "cut", col = "carat")
 #'  data("iris")
 #'  boxplotiris1 = plotBox(iris, target = "Species", show.plot = TRUE)
-#'  boxplotiris2 = plotBox(iris, target = "Species",  show.plot = TRUE, plot.x.only = TRUE)
+#'  boxplotiris2 = plotBox(iris, target = "Species", plot.x.only = TRUE, show.plot = TRUE)
 #' @export
 #' @title Creates a box plot of a numerical feature with respect to a target.
 
 
-plotBox = function(data, target, col = NULL, show.plot = FALSE, plot.x.only = FALSE) {
+plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
+  show.plot = FALSE, ...) {
 
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
@@ -56,7 +58,7 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE, plot.x.only = FA
       #create the plot
       if (flag.target.factor) a = aes_string(x = "''", y = col)
       else a = aes_string(x = "''", y = col)
-      plot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+      plot = ggplot(data, a) + geom_boxplot(...) #+ coord_flip()
       plot = list(plot = plot)
       names(plot) = col
     } else {
@@ -67,7 +69,7 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE, plot.x.only = FA
         col = numeric[y]
         if (is.factor(data[[target]])) a = aes_string(x = "''", y = col)
         else a = aes_string(x = "''", y = col)
-        subplot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+        subplot = ggplot(data, a) + geom_boxplot(...) #+ coord_flip()
         return(subplot)
       })
       names(plot) = numeric
@@ -85,7 +87,7 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE, plot.x.only = FA
       #create the plot
       if (flag.target.factor) a = aes_string(x = "''", y = col, fill = target)
       else a = aes_string(x = "''", y = col)
-      plot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+      plot = ggplot(data, a) + geom_boxplot(...) #+ coord_flip()
       plot = list(plot = plot)
       names(plot) = col
     } else {
@@ -96,7 +98,7 @@ plotBox = function(data, target, col = NULL, show.plot = FALSE, plot.x.only = FA
         col = numeric[y]
         if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
         else a = aes_string(x = "''", y = col)
-        subplot = ggplot(data, a) + geom_boxplot() #+ coord_flip()
+        subplot = ggplot(data, a) + geom_boxplot(...) #+ coord_flip()
         return(subplot)
       })
       names(plot) = numeric
