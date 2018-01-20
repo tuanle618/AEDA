@@ -110,3 +110,12 @@ mulitplotPages = function(list, k, no.cols, ...) {
       cols = ifelse(length(splitted.list[[page]]) < no.cols, length(splitted.list[[page]]), no.cols))
   }
 }
+
+#helper to open a r-code chunk block with options. Make sure to close the r-chunk with ''' at the end
+#options is a list with chunk options: handles all kind of data types as it will be converted into character
+#example: options = list(echo = FALSE, message = TRUE, ...)
+writeRblock = function(options) {
+  a = "```{r "
+  b = paste(sprintf("%s = %s", names(x), x), collapse = ", ")
+  c = paste(a,b)
+}
