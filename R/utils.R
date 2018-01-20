@@ -106,7 +106,6 @@ mulitplotPages = function(list, k, ...) {
   splitted.list = splitGGplotList(list, k)
   for (page in seq_len(length(splitted.list))) {
     #call multiplot with further arguments
-    multiplot(plotlist = splitted, ...)
+    multiplot(plotlist = splitted.list[[page]], ...)
   }
-
 }
