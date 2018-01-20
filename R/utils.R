@@ -87,22 +87,14 @@ rmdName = function(name, index = 1L, max.depth = 100L) {
 #into one page, hence: here j = 11 and k = 9 results into 2 pages where on
 #the first page 9 plots and on the second the rest 2
 
-splitList = function(mylist, k) {
-  j = length(mylist)
+splitGGplotList = function(mylist, k) {
+  j = length(mylist[[1]])
   no.new.lists = ceiling(j / k)
-  out.list = vector("list", length = no.new.lists)
-  for (i in 0:(no.new.lists - 1)) {
-    for (j in 1:k) {
-      name = paste0("sublist ", i + 1)
-      #how to handle subscript out of bounds
-      a = tryCatch({
-        mylist[[i * j + j]]
-      }, error = function(e){
-        NULL
-      }
-        )
-      out.list[[i + 1]][j] = list(name = a)
-    }
+  fact.vec = integer()
+  for (v in seq_len(no.new.lists)) {
+    tmp.vec = rep(v, times = k)
+    fact.vec = c(fact.vec, tmp.vec)
   }
-  return(out.list)
+  fact.vec = fact.vec[1:j]
+  out.list = split(mylist[[1]], fact.vec, use.names)
 }
