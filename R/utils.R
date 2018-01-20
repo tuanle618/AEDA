@@ -117,5 +117,5 @@ mulitplotPages = function(list, k, no.cols, ...) {
 writeRblock = function(options) {
   a = "```{r "
   b = paste(sprintf("%s = %s", names(x), x), collapse = ", ")
-  c = paste(a, b, "}")
+  c = paste0(a, b, "}")
 }
