@@ -41,7 +41,7 @@ makeNumSumTask = function(id, data, target){
 
 #' @export
 # Print fuction for NumTask Object
-print.NumTask = function(x, ...) {
+print.NumSumTask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Observations: %i", x$size)
   catf("Amount Numeric Columns: %i", length(x$numdatatypes$numeric))

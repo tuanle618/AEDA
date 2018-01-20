@@ -7,7 +7,7 @@
 makeNumSum(num.sum.task)
 }
 \arguments{
-\item{num.sum.task}{[\code{NumTask}]\cr
+\item{num.sum.task}{[\code{NumSumTask}]\cr
 A NumSumTask Object}
 }
 \value{
