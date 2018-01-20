@@ -88,7 +88,7 @@ rmdName = function(name, index = 1L, max.depth = 100L) {
 #the first page 9 plots and on the second the rest 2
 
 splitGGplotList = function(mylist, k) {
-  j = length(mylist[[1]])
+  j = length(mylist)
   no.new.lists = ceiling(j / k)
   fact.vec = integer()
   for (v in seq_len(no.new.lists)) {
@@ -96,5 +96,5 @@ splitGGplotList = function(mylist, k) {
     fact.vec = c(fact.vec, tmp.vec)
   }
   fact.vec = fact.vec[1:j]
-  out.list = split(mylist[[1]], fact.vec, use.names)
+  out.list = split(mylist, fact.vec, use.names)
 }
