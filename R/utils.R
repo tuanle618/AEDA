@@ -119,3 +119,9 @@ writeRblock = function(options = list(echo = FALSE, message = FALSE)) {
   b = paste(sprintf("%s = %s", names(x), x), collapse = ", ")
   c = paste0(a, b, "}")
 }
+
+#ex: > writeRinline(id.obj, "report.task")
+# [1] "`r JUIXsoxEwKbaTCqZ$report.task `"
+writeRinline = function(id.object, sub.element) {
+  paste0("`r ", id.obj, "$", sub.element, " `")
+}
