@@ -57,21 +57,22 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
     writeLines("```", con = report.con)
 
 
-    writeLines("```{r}", con = report.con)
+    #writeLines("```{r}", con = report.con)
     #testing:
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
     #rmdWriteLines(vec = vec,  con = report.con)
-    writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("basic.report.obj = ", basic.report$report.id), con = report.con)
-    writeLines("```", con = report.con)
+
+    #writeLines("# Declaring object for more convenience and clarity:", con = report.con)
+    #writeLines(paste0("basic.report.obj = ", basic.report$report.id), con = report.con)
+    #writeLines("```", con = report.con)
 
     intro.vec = c(paste("The dataset", writeRinline(paste0(id, "$report.task$dataset.name")), "is",
-      writeRinline(paste0("object.size(", id, "$report.task$dataset.name)")), "in size."), paste0("In total there are ",
-        writeRinline(paste0(id, "$report.task$size")), "observations, ", writeRinline(paste0(id, "$$basic.data.summary$basic.summary.list$NAs")), " missing values and ",
+      writeRinline(paste0("object.size(", id, "$report.task$env$data)")), " megabytes in size."), paste0("In total there are ",
+        writeRinline(paste0(id, "$report.task$size")), " observations, ", writeRinline(paste0(id, "$basic.data.summary$basic.summary.list$NAs")), " missing values and ",
         writeRinline(paste0(id, "$basic.data.summary$basic.summary.list$dim")), " columns.")
       )
 
-    writeLines("Some text; Basic Summary ....", con = report.con)
+    writeLines("### Overview", con = report.con)
     rmdWriteLines(intro.vec, con = report.con)
 
     writeLines("```{r}", con = report.con)

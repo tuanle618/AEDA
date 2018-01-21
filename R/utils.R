@@ -120,8 +120,7 @@ writeRblock = function(options = list(echo = FALSE, message = FALSE)) {
   c = paste0(a, b, "}")
 }
 
-#ex: > writeRinline(id.obj, "report.task")
-# [1] "`r JUIXsoxEwKbaTCqZ$report.task `"
+
 writeRinline = function(r.code) {
   paste0("`r ", r.code, " `")
 }
