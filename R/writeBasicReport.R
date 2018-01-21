@@ -29,6 +29,8 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
   origin.wd = createDir(sub.dir, save.mode)
   rmd.name = rmdName("BasicReport")
 
+  #define report.id for later accessing in rmd-file writing:
+  id = basic.report$report.id
   # TryCatch sets wd back and closes all open connections if an error occurs
   tryCatch({
     ##try part:
@@ -54,6 +56,7 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
 
     writeLines("```", con = report.con)
 
+
     writeLines("```{r}", con = report.con)
     #testing:
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
@@ -62,7 +65,15 @@ writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = T
     writeLines(paste0("basic.report.obj = ", basic.report$report.id), con = report.con)
     writeLines("```", con = report.con)
 
+    intro.vec = c(paste("The dataset", writeRinline(paste0(id, "$report.task$dataset.name")), "is",
+      writeRinline(paste0("object.size(", id, "$report.task$dataset.name)")), "in size."), paste0("In total there are ",
+        writeRinline(paste0(id, "$report.task$size")), "observations, ", writeRinline(paste0(id, "$$basic.data.summary$basic.summary.list$NAs")), " missing values and ",
+        writeRinline(paste0(id, "$basic.data.summary$basic.summary.list$dim")), " columns.")
+      )
+
     writeLines("Some text; Basic Summary ....", con = report.con)
+    rmdWriteLines(intro.vec, con = report.con)
+
     writeLines("```{r}", con = report.con)
     writeLines(paste0(basic.report$report.id, "$report.task"), con = report.con)
     writeLines(paste0(basic.report$report.id, "$na.summary$na.df"), con = report.con)
