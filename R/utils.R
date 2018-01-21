@@ -114,7 +114,7 @@ mulitplotPages = function(list, k, no.cols, ...) {
 #helper to open a r-code chunk block with options. Make sure to close the r-chunk with ''' at the end
 #options is a list with chunk options: handles all kind of data types as it will be converted into character
 #example: options = list(echo = FALSE, message = TRUE, ...)
-writeRblock = function(options) {
+writeRblock = function(options = list(echo = FALSE, message = FALSE)) {
   a = "```{r "
   b = paste(sprintf("%s = %s", names(x), x), collapse = ", ")
   c = paste0(a, b, "}")
