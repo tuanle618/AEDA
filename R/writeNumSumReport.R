@@ -20,7 +20,7 @@
 #' @return Invisible NULL
 #' @import checkmate
 #' @export
-writeNumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode = TRUE){
   assertClass(num.sum.report, "NumSumReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)

@@ -21,7 +21,7 @@
 #' @return Invisible NULL
 #' @import checkmate
 #' @export
-writeBasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = TRUE){
   assertClass(basic.report, "BasicReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
