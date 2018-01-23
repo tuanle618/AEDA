@@ -9,14 +9,14 @@
 #'   To ensure no data is lost, a new folder will be created (if possible).
 #'   Default is \code{TRUE}
 #' @examples
-#' #'  data("Boston", package = "MASS")
+#'  data("Boston", package = "MASS")
 #'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
 #'  #get the numeric summary task object
 #'  num.sum = makeNumSum(num.sum.task)
 #'  #create the numeric summary report
 #'  num.sum.report = makeNumSumReport(num.sum)
 #'  #write the report
-#'  writeNumSumReport(num.sum.report)
+#'  writeReport(num.sum.report)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export

@@ -29,10 +29,10 @@ Writes a rmd file for the Basic Report [WIP]
   data("airquality")
   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
   basic.report = makeBasicReport(my.report.task, data = airquality)
-  writeBasicReport(basic.report)
+  writeReport(basic.report)
 
   data("iris")
   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
   basic.report2 = makeBasicReport(my.report.task2, data = iris)
-  writeBasicReport(basic.report2)
+  writeReport(basic.report2)
 }

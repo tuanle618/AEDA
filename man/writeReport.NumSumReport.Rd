@@ -26,12 +26,12 @@ Invisible NULL
 Writes a rmd file for the Numeric Summary Report [WIP]
 }
 \examples{
-#'  data("Boston", package = "MASS")
+ data("Boston", package = "MASS")
  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
  #get the numeric summary task object
  num.sum = makeNumSum(num.sum.task)
  #create the numeric summary report
  num.sum.report = makeNumSumReport(num.sum)
  #write the report
- writeNumSumReport(num.sum.report)
+ writeReport(num.sum.report)
 }
