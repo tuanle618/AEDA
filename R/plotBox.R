@@ -109,13 +109,13 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
   if (show.plot) {
     p = length(plot)
     pages = ceiling(p / 9)
-    #split the plots by 9 such that on each page maximal 9 plots are displayed
+    #split the plots by 6 such that on each page maximal 6 plots are displayed
     #use default
     if (p <= 6) {
       multiplot(plotlist = plot)
     } else {
       #suppressWarnings(do.call(grid.arrange, plot))
-      AEDA::mulitplotPages(list = plot, k = 6, no.cols = 3)
+      AEDA::multiplotPages(list = plot, k = 6, no.cols = 3)
     }
   }
   return(plot)

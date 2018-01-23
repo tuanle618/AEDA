@@ -62,12 +62,13 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
   if (show.plot) {
     p = length(plot)
     pages = ceiling(p / 9)
-    #split the plots by 9 such that on each page maximal 9 plots are displayed
+    #split the plots by 6 such that on each page maximal 6 plots are displayed
     #if max 3 plots, use ncol = 1, nrow = 3
-    if (p < 4) {
+    if (p <= 6) {
       multiplot(plotlist = plot)
     } else {
-      suppressWarnings(do.call(grid.arrange, plot))
+      #suppressWarnings(do.call(grid.arrange, plot))
+      AEDA::multiplotPages(list = plot, k = 6, no.cols = 3)
     }
   }
   return(plot)

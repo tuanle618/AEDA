@@ -101,7 +101,7 @@ splitGGplotList = function(mylist, k) {
 
 
 ##wrapper for multiplot with further plotlist splitting
-mulitplotPages = function(list, k, no.cols, ...) {
+multiplotPages = function(list, k, no.cols, ...) {
   #create sublists which act as page
   splitted.list = splitGGplotList(list, k)
   for (page in seq_len(length(splitted.list))) {
