@@ -15,7 +15,8 @@
 #' @return rmd-file location
 #' @import checkmate
 #' @export
-writeCorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
+  report.env = new.env(parent = .GlobalEnv)
   # Create sub directory, save current wd and set new wd to the new directory
   origin.wd = createDir(sub.dir, save.mode)
   rmd.name = rmdName("CorrReport")
@@ -32,7 +33,7 @@ writeCorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
       rmdLibrary(needed.pkgs, report.con)
 
       # save object and write code to load it in the rmd-file
-      saveLoadObj(report, deparse(substitute(report)), report.con)
+      saveLoadObj(report, paste0(getId(report), report$report.id), report.con)
 
       writeLines("```", con = report.con)
       writeLines("Some text; CorrPlot ....", con = report.con)
@@ -51,7 +52,7 @@ writeCorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
 # my.task = makeCorrTask(id = "test", data = cars)
 # my.corr = makeCorr(my.task)
 # report1 = makeCorrReport(my.corr, type = "CorrPlot")
-# writeCorrReport(report1)
+# writeReport(report1)
 #
 # data(diamonds, package = "ggplot2")
 # my.task = makeCorrTask(id = "test", data = diamonds)

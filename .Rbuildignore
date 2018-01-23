@@ -3,4 +3,5 @@
 ^.editorconfig$
 ^Data_Report/*$
 ^Data_Report/$
+^MainReport.*$
 ^LICENSE$

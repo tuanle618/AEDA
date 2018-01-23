@@ -4,7 +4,7 @@
 \alias{makeCorrTask}
 \title{Creates a CorrTask Objects}
 \usage{
-makeCorrTask(id, data, method = "pearson", vars = NULL, data.path = ".")
+makeCorrTask(id, data, method = "pearson", vars = NULL)
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -20,9 +20,6 @@ Possible choices are:
 
 \item{vars}{[\code{character(1)}]\cr
 Column names to use for correlation}
-
-\item{data.path}{[\code{character(1)}]\cr
-The path from where the data should be loaded. Default is the working directory}
 }
 \value{
 CorrTask

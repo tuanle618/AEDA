@@ -15,7 +15,8 @@ createDir = function(sub.dir, save.mode = TRUE) {
 
 # creates a random generated Variable name.
 reportId = function(length = 16) {
-  collapse(sample(c(letters, LETTERS), size = length, replace = TRUE), sep = "")
+  collapse(sample(c(letters, LETTERS, 0:9), size = length, replace = TRUE), sep = "")
+  # chance for some id: 62^length to 1; ~ 10^28 to 1
 }
 
 # Takes an object and adds more attributes
@@ -77,4 +78,23 @@ rmdName = function(name, index = 1L, max.depth = 100L) {
     if (index > max.depth) warning(paste0("Too many rmd-Files: \"", rmd.file, "\"", " will be overwritten"))
     return(rmd.file)
   }
+}
+
+# S3 method to get id of an AEDA object
+getId = function(x) UseMethod("getId")
+getId.default = function(x){
+  warning(paste0("getId does not know how to handle object of class \"",
+    class(x), "\""))
+}
+getId.CorrReport = function(x){
+  x$id
+}
+
+getType = function(x) UseMethod("getType")
+getId.default = function(x){
+  warning(paste0("getType does not know how to handle object of class \"",
+    class(x), "\""))
+}
+getType.CorrReport = function(x){
+  x$type
 }
