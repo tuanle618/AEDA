@@ -124,3 +124,33 @@ writeRblock = function(options = list(echo = FALSE, message = FALSE)) {
 writeRinline = function(r.code) {
   paste0("`r ", r.code, " `")
 }
+
+
+# S3 method to get id of an AEDA object
+getId = function(x) UseMethod("getId")
+getId.default = function(x){
+  warning(paste0("getId does not know how to handle object of class \"",
+    class(x), "\""))
+}
+getId.CorrReport = function(x){
+  x$id
+}
+
+##new
+getId.BasicReport = function(x) {
+  x$report.id
+}
+
+getId.NumSumReport = function(x) {
+  x$report.id
+}
+
+##
+getType = function(x) UseMethod("getType")
+getId.default = function(x){
+  warning(paste0("getType does not know how to handle object of class \"",
+    class(x), "\""))
+}
+getType.CorrReport = function(x){
+  x$type
+}
