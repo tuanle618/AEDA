@@ -23,8 +23,8 @@ makeCorr = function(corr.task){
   data = corr.task$env$data
   features = unlist(corr.task$features)
   corr.matrix = cor(x = data[, features], method = corr.task$method)
+  corr.task$needed.pkgs = c(corr.task$needed.pkgs, "stats")
 
-  makeS3Obj("CorrObj",
-    corr.matrix = corr.matrix,
-    task = corr.task)
+  makeS3Obj2("CorrObj", corr.task,
+    corr.matrix = corr.matrix)
 }

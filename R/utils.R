@@ -1,10 +1,10 @@
-# if a Sb Directory doesn't exist it Creates one (in the working directory) and moves
+# if a Sub Directory doesn't exist it Creates one (in the working directory) and moves
 # the wd to the sub directory. It returns the original wd
 createDir = function(sub.dir, save.mode = TRUE) {
   temp.wd = getwd()
-  if (file.exists(sub.dir) & save.mode){
-    stop(paste0("Directory: \"", sub.dir, "\" already exists. Stopping to ensure no Data is lost."))
-  } else if (file.exists(sub.dir)) {
+  # In Save mode folder must not exist and has to be writable
+  assertPathForOutput(sub.dir, overwrite = !save.mode)
+  if (file.exists(sub.dir)) {
     setwd(file.path(temp.wd, sub.dir))
   } else {
     dir.create(file.path(temp.wd, sub.dir))
@@ -15,7 +15,10 @@ createDir = function(sub.dir, save.mode = TRUE) {
 
 # creates a random generated Variable name.
 reportId = function(length = 16) {
-  collapse(sample(c(letters, LETTERS), size = length, replace = TRUE), sep = "")
+  collapse(c(sample(c(letters, LETTERS),1),
+    sample(c(letters, LETTERS, 0:9), size = length - 1, replace = TRUE)),
+    sep = "")
+  # chance for some id: 62^length to 1; ~ 10^28 to 1
 }
 
 # Takes an object and adds more attributes
@@ -64,4 +67,43 @@ saveLoadObj = function(obj, name, file){
   saveRDS(obj, file = obj.file.name)
   #load object; x$var.id is needed so the plo
   rmdloadData(obj$report.id, name, file)
+}
+
+# Checks if a rmd file exists and if it exists then increase the index. It returns
+# the first file that doesnt exist.
+rmdName = function(name, index = 1L, max.depth = 100L) {
+  rmd.file = paste0(name, index, ".rmd")
+  if (file.exists(rmd.file) & index <= max.depth){
+    index = index + 1L
+    rmdName(name, index, max.depth)
+  } else {
+    if (index > max.depth) warning(paste0("Too many rmd-Files: \"", rmd.file, "\"", " will be overwritten"))
+    return(rmd.file)
+  }
+}
+
+# S3 method to get id of an AEDA object
+getId = function(x) UseMethod("getId")
+getId.default = function(x){
+  warning(paste0("getId does not know how to handle object of class \"",
+    class(x), "\""))
+}
+getId.CorrReport = function(x){
+  x$id
+}
+
+getType = function(x) UseMethod("getType")
+getId.default = function(x){
+  warning(paste0("getType does not know how to handle object of class \"",
+    class(x), "\""))
+}
+getType.CorrReport = function(x){
+  x$type
+}
+
+# Wrapper for concatenate report id with a string
+# idWrapper(report, "method")
+# Jbssgsrsi342j$method
+idWrapper = function(report, string){
+  paste0(report$report.id, "$", string)
 }
