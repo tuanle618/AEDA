@@ -10,6 +10,7 @@
 #' @param show.plot [\code{logical(1)}]
 #'   Logical whether the ggplot(s) should be displayed or not when executing this function.
 #'   Default is \code{FALSE}
+#' @param \dots other arguments to be passed to \link[ggplot2]{geom_bar}.
 #' @return A ggplot2 object. Print it to plot it. [WIP if col is null]
 #' @import checkmate
 #' @import ggplot2
@@ -40,7 +41,7 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
     #create the plot
     a = aes_string(x = col, fill = target)
     plot = ggplot(data, a) +
-      geom_bar(stat = "count", position = "dodge") + coord_flip()
+      geom_bar(stat = "count", position = "dodge", ...) + coord_flip()
     plot = list(plot = plot)
     names(plot) = col
   } else {
@@ -54,7 +55,7 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE) {
       col = categ[y]
       a = aes_string(x = col, fill = target)
       subplot = ggplot(data, a) +
-        geom_bar(stat = "count", position = "dodge") + coord_flip()
+        geom_bar(stat = "count", position = "dodge", ...) + coord_flip()
       return(subplot)
     })
     names(plot) = categ

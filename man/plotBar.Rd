@@ -20,6 +20,8 @@ Default value is \code{NULL}}
 \item{show.plot}{[\code{logical(1)}]
 Logical whether the ggplot(s) should be displayed or not when executing this function.
 Default is \code{FALSE}}
+
+\item{\dots}{other arguments to be passed to \link[ggplot2]{geom_bar}.}
 }
 \value{
 A ggplot2 object. Print it to plot it. [WIP if col is null]
