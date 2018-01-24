@@ -23,7 +23,7 @@
 #'
 #' @examples
 #' data("iris")
-#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght", scale = TRUE)
+#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght", scale = TRUE, tol = 1e-1)
 #' # get Data
 #' test.task$env$data
 #' @import checkmate
@@ -56,12 +56,13 @@ makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = 
     features = data.type[c("num", "int")],
     size = nrow(data),
     method = method,
-    missing.values = sum(is.na(data))
+    missing.values = sum(is.na(data)),
+    pca.args = list(...)
   )
 }
 
 #' @export
-# Print fuction for CorrTask Object
+# Print fuction for PCATask Object
 print.PCATask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Type: %2s", x$type)
@@ -69,5 +70,6 @@ print.PCATask = function(x, ...) {
   catf("Observations: %i", x$size)
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
+  catf("pca.args: %s", x$pca.args)
 }
 
