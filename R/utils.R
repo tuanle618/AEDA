@@ -15,7 +15,7 @@ createDir = function(sub.dir, save.mode = TRUE) {
 
 # creates a random generated Variable name.
 reportId = function(length = 16) {
-  collapse(c(sample(c(letters, LETTERS),1),
+  collapse(c(sample(c(letters, LETTERS), 1),
     sample(c(letters, LETTERS, 0:9), size = length - 1, replace = TRUE)),
     sep = "")
   # chance for some id: 62^length to 1; ~ 10^28 to 1

@@ -13,7 +13,7 @@
 generateCorrPlot = function(corr.object, obj.name) {
   assertClass(corr.object, "CorrObj")
 
-  plot.code = paste0("ggcorr(data = NULL, cor_matrix = ", obj.name, "$corr.matrix",", geom = \"circle\", nbreaks = 10)" )
+  plot.code = paste0("ggcorr(data = NULL, cor_matrix = ", obj.name, "$corr.matrix", ", geom = \"circle\", nbreaks = 10)")
   makeS3Obj("PlotCode",
     needed.pkg = "GGally",
     code = plot.code)
