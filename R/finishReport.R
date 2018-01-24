@@ -33,7 +33,7 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
   x = list(...)
   assertList(x, types = c("CorrReport", "PcaReport"))
   assertLogical(save.mode)
-  if (save.mode){assert_path_for_output(sub.dir)}
+  assert_path_for_output(sub.dir, overwrite = !save.mode)
 
   n = length(x)
   child.names = vector(mode = "character", length = n)
