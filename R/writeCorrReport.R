@@ -11,7 +11,7 @@
 #'   my.task = makeCorrTask(id = "test", data = cars)
 #'   my.corr = makeCorr(my.task)
 #'   report1 = makeCorrReport(my.corr, type = "CorrPlot")
-#'   writeCorrReport(report1)
+#'   writeReport(report1)
 #' @return rmd-file location
 #' @import checkmate
 #' @export
@@ -27,7 +27,7 @@ writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = T
 
       #start the report file
       report.con = file(rmd.name, "w")
-      writeLines("```{r}", con = report.con)
+      writeLines("```{r, echo=FALSE, warning=FALSE}", con = report.con)
 
       # load pkgs
       rmdLibrary(needed.pkgs, report.con)
@@ -36,8 +36,10 @@ writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = T
       saveLoadObj(report, paste0(getId(report), report$report.id), report.con)
 
       writeLines("```", con = report.con)
-      writeLines("Some text; CorrPlot ....", con = report.con)
-      writeLines("```{r}", con = report.con)
+
+      writeLines("## Correlation Plot", con = report.con)
+      writeLines(paste0("This Plot shows the `r ", idWrapper(report, "method"), "` correlation for interval scaled variables. The size and color of the circles indicate the strength of the correlation."), con = report.con)
+      writeLines("```{r, echo=FALSE}", con = report.con)
       rmdWriteLines(report$plot.code$code, con = report.con)
       writeLines("```", con = report.con)
 
@@ -48,14 +50,3 @@ writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = T
   return(file.path(sub.dir, rmd.name))
 }
 
-### Example
-# my.task = makeCorrTask(id = "test", data = cars)
-# my.corr = makeCorr(my.task)
-# report1 = makeCorrReport(my.corr, type = "CorrPlot")
-# writeReport(report1)
-#
-# data(diamonds, package = "ggplot2")
-# my.task = makeCorrTask(id = "test", data = diamonds)
-# my.corr = makeCorr(my.task)
-# report1 = makeCorrReport(my.corr, type = "CorrPlot")
-# writeReport(report1)

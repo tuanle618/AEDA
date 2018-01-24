@@ -15,7 +15,9 @@ createDir = function(sub.dir, save.mode = TRUE) {
 
 # creates a random generated Variable name.
 reportId = function(length = 16) {
-  collapse(sample(c(letters, LETTERS, 0:9), size = length, replace = TRUE), sep = "")
+  collapse(c(sample(c(letters, LETTERS),1),
+    sample(c(letters, LETTERS, 0:9), size = length - 1, replace = TRUE)),
+    sep = "")
   # chance for some id: 62^length to 1; ~ 10^28 to 1
 }
 
@@ -97,4 +99,11 @@ getId.default = function(x){
 }
 getType.CorrReport = function(x){
   x$type
+}
+
+# Wrapper for concatenate report id with a string
+# idWrapper(report, "method")
+# Jbssgsrsi342j$method
+idWrapper = function(report, string){
+  paste0(report$report.id, "$", string)
 }
