@@ -12,18 +12,22 @@
 #' @param method [\code{character(1)}]\cr
 #'   Defines the PCA method
 #'   \dQuote{all}
-#' @param exclude [\code{character}]
+#' @param exclude [\code{character}]\cr
 #'   Names of inputs, which should be excluded. Default is none.
-#' @param scale [\code{logical(1)}]
+#' @param scale [\code{logical(1)}]\cr
 #'  Whether the variables should be scaled to have unit variance before the analysis takes place.
 #'  The default is \code{TRUE}
 #' @param vars [\code{character(1)}]\cr
 #'  Column names
+#' @param ...
+#' Further arguments passed to \code{\link[stats]{prcomp}}
+#'
 #' @return PCATask
 #'
 #' @examples
 #' data("iris")
-#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght", scale = TRUE, tol = 1e-1)
+#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght",
+#'             scale = TRUE, tol = 1e-1)
 #' # get Data
 #' test.task$env$data
 #' @import checkmate

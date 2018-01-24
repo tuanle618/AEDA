@@ -14,7 +14,8 @@
 #' my.pca1 = makePCA(my.task)
 #'
 #' iris<-iris[,-5] # 'x' must be numeric
-#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght", scale = TRUE, tol = 1e-1)
+#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght",
+#'             scale = TRUE, tol = 1e-1)
 #' my.pca2 = makePCA(test.task)
 #' @import checkmate
 #' @import BBmisc
