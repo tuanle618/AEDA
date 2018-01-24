@@ -44,6 +44,7 @@
 #' @title Giving a NA summary and an image of a data with missing values
 
 naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL){
+  assertClass(report.task, "ReportTask")
   assertDataFrame(data)
   assertLogical(show.plot)
   assertLogical(show.result)
@@ -59,7 +60,7 @@ naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     na.df = na.df[with(na.df, order(-num_missing)), ]
 
     if (show.result) {
-      cat("In total there are:", sum((na.df$num_missing)), "NAs in the dataset:", deparse(substitute(data)), "\n")
+      cat("In total there are:", sum((na.df$num_missing)), "NAs in the dataset:", report.task$dataset.name, "\n")
       print(na.df)
     }
     #get the data containing the columns with NAs
@@ -115,7 +116,7 @@ naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     env$data.new = data.new
     env$margin.left = margin.left
     env$num = num
-    makeS3Obj("naSumObj", na.df = na.df, data = data, dataset.name = deparse(substitute(data)), env = env,
+    makeS3Obj("naSumObj", na.df = na.df, data = data, dataset.name = report.task$dataset.name, env = env,
       image = function() {
         image(env$color, col = c("white", "black"), yaxt = "n", xaxt = "n")
         par(mar = c(5, env$margin.left, 4, 2) + 0.1)
@@ -134,8 +135,8 @@ naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
 
   }
   else{
-    if (show.result) cat("There are no missing values in the dataset: ", deparse(substitute(data)), "\n")
-    makeS3Obj("naSumObj", na.df = NULL, data = data, dataset.name = deparse(substitute(data)), env = NULL, image = NULL,
+    if (show.result) cat("There are no missing values in the dataset: ", report.task$dataset.name, "\n")
+    makeS3Obj("naSumObj", na.df = NULL, data = data, dataset.name = report.task$dataset.name, env = NULL, image = NULL,
       ggplot = NULL)
   }
 }
