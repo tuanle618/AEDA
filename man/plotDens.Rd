@@ -21,7 +21,7 @@ Default value is \code{NULL}}
 Logical whether the ggplot(s) should be displayed or not when executing this function.
 Default is \code{FALSE}}
 
-\item{\dots}{other arguments to be passed to \link[ggplot2]{geom_histogram}.}
+\item{\dots}{other arguments to be passed to \link[ggplot2]{geom_density}.}
 }
 \value{
 A ggplot2 object. Print it to plot it. [WIP if col is null]

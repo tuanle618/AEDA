@@ -10,7 +10,7 @@
 #' @param show.plot [\code{logical(1)}]
 #'   Logical whether the ggplot(s) should be displayed or not when executing this function.
 #'   Default is \code{FALSE}
-#' @param \dots other arguments to be passed to \link[ggplot2]{geom_histogram}.
+#' @param \dots other arguments to be passed to \link[ggplot2]{geom_density}.
 #' @return A ggplot2 object. Print it to plot it. [WIP if col is null]
 #' @import checkmate
 #' @import ggplot2
