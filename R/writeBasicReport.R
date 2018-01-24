@@ -22,6 +22,7 @@
 #' @import checkmate
 #' @export
 writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = TRUE){
+  report.env = new.env(parent = .GlobalEnv)
   assertClass(basic.report, "BasicReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
@@ -52,7 +53,7 @@ writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.m
   #  rmdloadData(basic.report$report.task$dataset.name, data.path, report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(basic.report, deparse(substitute(basic.report)), report.con)
+    saveLoadObj(basic.report, getId(basic.report), report.con)
 
     writeLines("```", con = report.con)
 

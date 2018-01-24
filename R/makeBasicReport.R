@@ -28,7 +28,8 @@ makeBasicReport = function(report.task, data){
     report.task = report.task,
     basic.data.summary = basic.data.summary,
     na.summary = na.summary,
-    report.id = report.id)
+    report.id = report.id,
+    type = "BasicReport")
 }
 
 print.BasicReport = function(x, ...) {

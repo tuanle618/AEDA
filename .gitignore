@@ -35,3 +35,4 @@ vignettes/*.pdf
 
 # Data_Report folder for testing
 Data_Report/
+MainReport.rmd

@@ -21,6 +21,7 @@
 #' @import checkmate
 #' @export
 writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode = TRUE){
+  report.env = new.env(parent = .GlobalEnv)
   assertClass(num.sum.report, "NumSumReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
@@ -41,8 +42,7 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     writeLines("#library(AEDA)", con = report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(num.sum.report, deparse(substitute(num.sum.report)), report.con)
-
+    saveLoadObj(num.sum.report, getId(num.sum.report), report.con)
     writeLines("```", con = report.con)
 
     writeLines("```{r}", con = report.con)

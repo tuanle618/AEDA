@@ -4,7 +4,7 @@ createDir = function(sub.dir, save.mode = TRUE) {
   temp.wd = getwd()
 
   # In Save mode folder must not exist and has to be writable
-  assertPathForOutput(sub.dir, overwrite = save.mode)
+  assertPathForOutput(sub.dir, overwrite = !save.mode)
   if (file.exists(sub.dir)) {
     setwd(file.path(temp.wd, sub.dir))
   } else {
@@ -147,10 +147,16 @@ getId.NumSumReport = function(x) {
 
 ##
 getType = function(x) UseMethod("getType")
-getId.default = function(x){
+getType.default = function(x){
   warning(paste0("getType does not know how to handle object of class \"",
     class(x), "\""))
 }
 getType.CorrReport = function(x){
+  x$type
+}
+getType.NumSumReport = function(x){
+  x$type
+}
+getType.BasicReport = function(x){
   x$type
 }

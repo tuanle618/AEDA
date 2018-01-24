@@ -25,7 +25,8 @@ makeNumSumReport = function(num.sum.obj, type = NULL){
     num.sum.task = num.sum.obj$task,
     num.sum.df = num.sum.obj$num.sum.df,
     num.sum.var = num.sum.obj$num.sum,
-    report.id = report.id)
+    report.id = report.id,
+    type = "NumericReport")
 }
 
 print.NumSumReport = function(x, ...) {
