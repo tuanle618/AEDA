@@ -25,7 +25,7 @@ The function writes the MainReport rmd file and write the child rmd files and
 organize them together in one report
 }
 \examples{
-\dontrun{
+
 #' data("airquality")
 basic.report.task = makeReportTask(id = "AirqualityTask", data = airquality, target = "Wind")
 basic.report = makeBasicReport(basic.report.task, data = airquality)
@@ -48,5 +48,5 @@ my.corr = makeCorr(my.task)
 report2 = makeCorrReport(my.corr, type = "CorrPlot")
 
 finishReport(report1, report2)
-}
+
 }

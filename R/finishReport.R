@@ -15,7 +15,7 @@
 #' @return creates rmd Files, returns NULL
 #'
 #' @examples
-#' \dontrun{
+#'
 #' #' data("airquality")
 #' basic.report.task = makeReportTask(id = "AirqualityTask", data = airquality, target = "Wind")
 #' basic.report = makeBasicReport(basic.report.task, data = airquality)
@@ -38,7 +38,7 @@
 #' report2 = makeCorrReport(my.corr, type = "CorrPlot")
 #'
 #' finishReport(report1, report2)
-#' }
+#'
 #' @import checkmate
 #' @import BBmisc
 #' @export
