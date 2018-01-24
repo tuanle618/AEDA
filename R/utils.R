@@ -2,7 +2,6 @@
 # the wd to the sub directory. It returns the original wd
 createDir = function(sub.dir, save.mode = TRUE) {
   temp.wd = getwd()
-
   # In Save mode folder must not exist and has to be writable
   assertPathForOutput(sub.dir, overwrite = !save.mode)
   if (file.exists(sub.dir)) {
@@ -16,7 +15,10 @@ createDir = function(sub.dir, save.mode = TRUE) {
 
 # creates a random generated Variable name.
 reportId = function(length = 16) {
-  collapse(sample(c(letters, LETTERS), size = length, replace = TRUE), sep = "")
+  collapse(c(sample(c(letters, LETTERS),1),
+    sample(c(letters, LETTERS, 0:9), size = length - 1, replace = TRUE)),
+    sep = "")
+  # chance for some id: 62^length to 1; ~ 10^28 to 1
 }
 
 # Takes an object and adds more attributes
@@ -68,7 +70,6 @@ saveLoadObj = function(obj, name, file){
   #load object; x$var.id is needed so the plo
   rmdloadData(obj$report.id, name, file)
 }
-
 
 # Checks if a rmd file exists and if it exists then increase the index. It returns
 # the first file that doesnt exist.
@@ -125,18 +126,18 @@ writeRinline = function(r.code) {
   paste0("`r ", r.code, " `")
 }
 
-
 # S3 method to get id of an AEDA object
 getId = function(x) UseMethod("getId")
+
 getId.default = function(x){
   warning(paste0("getId does not know how to handle object of class \"",
     class(x), "\""))
 }
+
 getId.CorrReport = function(x){
   x$id
 }
 
-##new
 getId.BasicReport = function(x) {
   x$report.id
 }
@@ -147,16 +148,25 @@ getId.NumSumReport = function(x) {
 
 ##
 getType = function(x) UseMethod("getType")
-getType.default = function(x){
+
+getId.default = function(x){
   warning(paste0("getType does not know how to handle object of class \"",
     class(x), "\""))
 }
 getType.CorrReport = function(x){
   x$type
 }
+
 getType.NumSumReport = function(x){
   x$type
 }
 getType.BasicReport = function(x){
   x$type
+}
+
+# Wrapper for concatenate report id with a string
+# idWrapper(report, "method")
+# Jbssgsrsi342j$method
+idWrapper = function(report, string){
+  paste0(report$report.id, "$", string)
 }

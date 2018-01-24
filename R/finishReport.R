@@ -15,7 +15,8 @@
 #' @return creates rmd Files, returns NULL
 #'
 #' @examples
-#' data("airquality")
+#' \dontrun{
+#' #' data("airquality")
 #' basic.report.task = makeReportTask(id = "AirqualityTask", data = airquality, target = "Wind")
 #' basic.report = makeBasicReport(basic.report.task, data = airquality)
 #'
@@ -25,6 +26,19 @@
 #' num.sum.report = makeNumSumReport(num.sum)
 #'
 #' finishReport(basic.report, num.sum.report)
+#'
+#' my.task = makeCorrTask(id = "test", data = cars)
+#' my.corr = makeCorr(my.task)
+#' report1 = makeCorrReport(my.corr, type = "CorrPlot")
+#'
+#' library(ggplot2)
+#' data(diamonds, package = "ggplot2")
+#' my.task = makeCorrTask(id = "test2", data = diamonds)
+#' my.corr = makeCorr(my.task)
+#' report2 = makeCorrReport(my.corr, type = "CorrPlot")
+#'
+#' finishReport(report1, report2)
+#' }
 #' @import checkmate
 #' @import BBmisc
 #' @export
@@ -51,5 +65,3 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
   }
   close(report.con)
 }
-
-

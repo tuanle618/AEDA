@@ -12,8 +12,7 @@
 #'   Possible choices are:
 #'   \dQuote{pearson}
 #' @param vars [\code{character(1)}]\cr
-#'    Column names to use for correlation
-#'
+#'   Column names to use for correlation
 #'
 #' @return CorrTask
 #'
@@ -28,7 +27,6 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
-
   assertSubset(method, c("pearson", "spearman"), empty.ok = FALSE)
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
@@ -48,6 +46,8 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
     features = data.type[c("num", "int")],
     size = nrow(data),
     method = method,
+    data.name = deparse(substitute(data)),
+    needed.pkgs = NULL,
     missing.values = sum(is.na(data)))
 }
 
@@ -60,4 +60,7 @@ print.CorrTask = function(x, ...) {
   catf("Observations: %i", x$size)
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
+  catf("Name of the Data: %s", x$data.name)
+  catf("Needed packages: %s", if (is.null(x$needed.pkgs)){"None"}else{x$needed.pkgs})
 }
+
