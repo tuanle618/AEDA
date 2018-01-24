@@ -88,5 +88,5 @@ writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.m
     setwd(origin.wd)
     close(report.con)
   })
-  return(invisible(NULL))
+  return(file.path(sub.dir, rmd.name))
 }

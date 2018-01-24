@@ -63,5 +63,5 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     setwd(origin.wd)
     close(report.con)
   })
-  return(invisible(NULL))
+  return(file.path(sub.dir, rmd.name))
 }
