@@ -1,7 +1,7 @@
 #' @title Creates the main Report with childs
 #'
 #' @description
-#' The funkction writes the MainReport rmd file and write the child rmd files and
+#' The function writes the MainReport rmd file and write the child rmd files and
 #' organize them together in one report
 #'
 #' @param ... \cr
@@ -15,6 +15,18 @@
 #' @return creates rmd Files, returns NULL
 #'
 #' @examples
+#'
+#' #' data("airquality")
+#' basic.report.task = makeReportTask(id = "AirqualityTask", data = airquality, target = "Wind")
+#' basic.report = makeBasicReport(basic.report.task, data = airquality)
+#'
+#' data("Boston", package = "MASS")
+#' num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#' num.sum = makeNumSum(num.sum.task)
+#' num.sum.report = makeNumSumReport(num.sum)
+#'
+#' finishReport(basic.report, num.sum.report)
+#'
 #' my.task = makeCorrTask(id = "test", data = cars)
 #' my.corr = makeCorr(my.task)
 #' report1 = makeCorrReport(my.corr, type = "CorrPlot")
@@ -26,12 +38,13 @@
 #' report2 = makeCorrReport(my.corr, type = "CorrPlot")
 #'
 #' finishReport(report1, report2)
+#'
 #' @import checkmate
 #' @import BBmisc
 #' @export
 finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
   x = list(...)
-  assertList(x, types = c("CorrReport", "PcaReport"))
+  assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport"))
   assertLogical(save.mode)
   assert_path_for_output(sub.dir, overwrite = !save.mode)
 
@@ -52,6 +65,3 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
   }
   close(report.con)
 }
-
-
-

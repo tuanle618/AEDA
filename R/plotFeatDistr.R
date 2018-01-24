@@ -30,7 +30,7 @@ plotFeatDistr = function(data, target, col) {
     a = aes_string(x = col, colour = target)
     plot = ggplot(data, a) +
            geom_density(size = 2) +
-           geom_histogram(aes(y = ..density..), alpha = 0.4)
+           geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.4)
   } else if (is.factor(x) | is.logical(x) | is.character(x)) {
       a = aes_string(x = col, fill = target)
       plot = ggplot(data, a) +
