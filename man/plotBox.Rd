@@ -12,11 +12,11 @@ plotBox(data, target, plot.x.only = FALSE, col = NULL, show.plot = FALSE,
 Data.}
 
 \item{target}{[\code{character(1)}]\cr
-Target column. If no target is available in the dataset please insert \code{NULL}
+Target column. If no target is available in the dataset please insert \code{NULL}.
 If the target is numerical, the target will be mapped onto the x axis and the other numerical
 types will be mapped as boxplot onto the y axis}
 
-\item{plot.x.only}{[\code{logical(1)}]
+\item{plot.x.only}{[\code{logical(1)}]\cr
 Logical whether only the numeric values should be ploted onto the x-axis. This option enables
 to turn on/turn off the "fill" argument in ggplot \code{aes(..., fill = target)}. Default is \code{FALSE}}
 
@@ -24,7 +24,7 @@ to turn on/turn off the "fill" argument in ggplot \code{aes(..., fill = target)}
 Selected feature from \code{data}. If all features should be printed insert \code{NULL}.
 Default value is \code{NULL}}
 
-\item{show.plot}{[\code{logical(1)}]
+\item{show.plot}{[\code{logical(1)}]\cr
 Logical whether the ggplot(s) should be displayed or not when executing this function.
 Default is \code{FALSE}}
 

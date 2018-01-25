@@ -7,11 +7,17 @@
 #' @param col [\code{character(1)} | \code{integer(1)}]\cr
 #'   Selected feature from \code{data}. If all numerical features should be printed insert \code{NULL}.
 #'   Default value is \code{NULL}
-#' @param show.plot [\code{logical(1)}]
+#' @param show.plot [\code{logical(1)}]\cr
 #'   Logical whether the ggplot(s) should be displayed or not when executing this function.
 #'   Default is \code{FALSE}
-#'  @param absolute [\code{logical(1)}]
-#'  Whether the histogramm should plot absolute or relative frequencies. Default is \code{TRUE}
+#' @param absolute [\code{logical(1)}]\cr
+#'   Whether the histogramm should plot absolute or relative frequencies. Default is \code{TRUE}
+#' @param alpha [\code{numeric(1)}]\cr
+#'   Default is \code{alpha = 0.4}
+#' @param colour [\code{character(1)}]\cr
+#'   Default is  \code{colour = "black"}
+#' @param bins [\code{integer(1)}]\cr
+#'   Default is  \code{bins = 30L}
 #' @param \dots other arguments to be passed to \link[ggplot2]{geom_histogram}.
 #' @return A ggplot2 object. Print it to plot it. [WIP if col is null]
 #' @import checkmate
@@ -26,8 +32,11 @@
 #' @title Creates a histogram plot for one/ all numerical features(s) of a dataset.
 
 
-plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE, ...) {
+plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE, alpha = 0.4, colour = "black", bins = 30L, ...) {
   #add.args = list(...)
+  assertNumber(alpha)
+  assertCharacter(colour)
+  assertInt(bins)
   assertLogical(absolute)
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
@@ -44,7 +53,7 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
     if (!(is.numeric(x) | is.integer(x))) stop("No Numeric Feature")
     #create the plot
     a = aes_string(x = col, colour = target)
-    plot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = 30L, alpha = 0.4, colour = "black", ...)
+    plot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...)
     plot = list(plot = plot)
     names(plot) = col
   } else {
@@ -57,7 +66,7 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
     plot = lapply(1:no.num, FUN = function(y) {
       col = num[y]
       a = aes_string(x = col, colour = target)
-      subplot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = 30L, alpha = 0.4, colour = "black", ...)
+      subplot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...)
       return(subplot)
     })
     names(plot) = num
