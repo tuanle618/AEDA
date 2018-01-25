@@ -3,16 +3,16 @@
 #' @param data [\code{data.frame}]\cr
 #'   Data.
 #' @param target [\code{character(1)}]\cr
-#'   Target column. If no target is available in the dataset please insert \code{NULL}
+#'   Target column. If no target is available in the dataset please insert \code{NULL}.
 #'   If the target is numerical, the target will be mapped onto the x axis and the other numerical
 #'   types will be mapped as boxplot onto the y axis
-#' @param plot.x.only [\code{logical(1)}]
+#' @param plot.x.only [\code{logical(1)}]\cr
 #'   Logical whether only the numeric values should be ploted onto the x-axis. This option enables
 #'   to turn on/turn off the "fill" argument in ggplot \code{aes(..., fill = target)}. Default is \code{FALSE}
 #' @param col [\code{character(1)} | \code{integer(1)}]\cr
 #'   Selected feature from \code{data}. If all features should be printed insert \code{NULL}.
 #'   Default value is \code{NULL}
-#' @param show.plot [\code{logical(1)}]
+#' @param show.plot [\code{logical(1)}]\cr
 #'   Logical whether the ggplot(s) should be displayed or not when executing this function.
 #'   Default is \code{FALSE}
 #' @param \dots other arguments to be passed to \link[ggplot2]{geom_boxplot}.

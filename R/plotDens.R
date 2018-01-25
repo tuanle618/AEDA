@@ -7,13 +7,13 @@
 #' @param col [\code{character(1)} | \code{integer(1)}]\cr
 #'   Selected feature from \code{data}. If all numerical features should be printed insert \code{NULL}.
 #'   Default value is \code{NULL}
-#' @param show.plot [\code{logical(1)}]
+#' @param show.plot [\code{logical(1)}]\cr
 #'   Logical whether the ggplot(s) should be displayed or not when executing this function.
 #'   Default is \code{FALSE}
-#' @param alpha [code{numeric(1)}]
-#' Default is \code{alpha = 0.4}
-#' @param colour [code{character(1)}]
-#' Default is  \code{colour = "black"}
+#' @param alpha [\code{numeric(1)}]\cr
+#'   Default is \code{alpha = 0.4}
+#' @param colour [\code{character(1)}]\cr
+#'   Default is  \code{colour = "black"}
 #' @param \dots other arguments to be passed to \link[ggplot2]{geom_density}.
 #' @return A ggplot2 object. Print it to plot it. [WIP if col is null]
 #' @import checkmate
