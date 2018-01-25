@@ -5,7 +5,7 @@
 \title{Creates a histogram plot for one/ all numerical features(s) of a dataset.}
 \usage{
 plotHist(data, target, col = NULL, show.plot = FALSE, absolute = TRUE,
-  ...)
+  alpha = 0.4, colour = "black", bins = 30L, ...)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -19,10 +19,20 @@ Selected feature from \code{data}. If all numerical features should be printed i
 Default value is \code{NULL}}
 
 \item{show.plot}{[\code{logical(1)}]
- Logical whether the ggplot(s) should be displayed or not when executing this function.
- Default is \code{FALSE}
-@param absolute [\code{logical(1)}]
+Logical whether the ggplot(s) should be displayed or not when executing this function.
+Default is \code{FALSE}}
+
+\item{absolute}{[\code{logical(1)}]
 Whether the histogramm should plot absolute or relative frequencies. Default is \code{TRUE}}
+
+\item{alpha}{[code{numeric(1)}]
+Default is \code{alpha = 0.4}}
+
+\item{colour}{[code{character(1)}]
+Default is  \code{colour = "black"}}
+
+\item{bins}{[code{integer(1)}]
+Default is  \code{bins = 30L}}
 
 \item{\dots}{other arguments to be passed to \link[ggplot2]{geom_histogram}.}
 }

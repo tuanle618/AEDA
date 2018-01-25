@@ -4,7 +4,8 @@
 \alias{plotBar}
 \title{Creates a bar plot of a categorical (discrete) feature.}
 \usage{
-plotBar(data, target, col = NULL, show.plot = FALSE, ...)
+plotBar(data, target, col = NULL, show.plot = FALSE, position = "dodge",
+  ...)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -18,8 +19,10 @@ Selected feature from \code{data}. If all categorical features should be printed
 Default value is \code{NULL}}
 
 \item{show.plot}{[\code{logical(1)}]
-Logical whether the ggplot(s) should be displayed or not when executing this function.
-Default is \code{FALSE}}
+ Logical whether the ggplot(s) should be displayed or not when executing this function.
+ Default is \code{FALSE}
+@param position [\code{character(1)}]
+ Position how to display the bar plot. Default is \code{position = "dodge"}}
 
 \item{\dots}{other arguments to be passed to \link[ggplot2]{geom_bar}.}
 }

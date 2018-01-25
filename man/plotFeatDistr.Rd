@@ -4,7 +4,7 @@
 \alias{plotFeatDistr}
 \title{Plots univariate distribution of a feature.}
 \usage{
-plotFeatDistr(data, target, col)
+plotFeatDistr(data, target, col, geom.hist.args, geom.dens.args)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -15,6 +15,12 @@ Target column. If no target is available in the dataset please insert \code{NULL
 
 \item{col}{[\code{character(1)} | \code{integer(1)}]\cr
 Selected feature from \code{data}.}
+
+\item{geom.hist.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_histrogram}.}
+
+\item{geom.dens.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_density}.}
 }
 \value{
 A ggplot2 object. Print it to plot it.
