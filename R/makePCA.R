@@ -25,11 +25,16 @@ makePCA = function(pca.task){
   assertClass(pca.task, "PCATask")
 
   data = pca.task$env$data
+  num.cols = unique(c(pca.task$features$num, pca.task$features$int))
+  selected.data = subset(data, select = num.cols)
   features = unlist(pca.task$features)
-  pcaResult = prcomp(data, scale = TRUE)
+  all.args = append(list(x = selected.data, scale = pca.task$scale), pca.task$pca.args)
+  pcaResult = do.call(prcomp, all.args)
 
   makeS3Obj("PCAObj",
     pcaResult = pcaResult,
     task = pca.task)
 }
+
+
 

@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' data("iris")
-#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght",
+#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
 #'             scale = TRUE, tol = 1e-1)
 #' # get Data
 #' test.task$env$data
@@ -61,6 +61,9 @@ makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = 
     size = nrow(data),
     method = method,
     missing.values = sum(is.na(data)),
+    scale = scale,
+    exclude = exclude,
+    vars = vars,
     pca.args = list(...)
   )
 }
@@ -71,9 +74,12 @@ print.PCATask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Type: %2s", x$type)
   catf("Selected Features: %s", collapse(unlist(x$features), sep = ", "))
+  catf("Method: %s", x$method)
+  catf("Scale: %s", as.character(x$scale))
+  catf("Exclude: %s", as.character(x$exclude))
   catf("Observations: %i", x$size)
+  catf("Vars: %s", as.character(x$vars))
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
-  catf("pca.args: %s", x$pca.args)
+  catf("%s = %s",names(x$pca.args), x$pca.args)
 }
-

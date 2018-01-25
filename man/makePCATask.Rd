@@ -41,7 +41,7 @@ Principal Components Analysis (PCA). A Task encapsulates the Data with some addi
 }
 \examples{
 data("iris")
-test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght",
+test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
             scale = TRUE, tol = 1e-1)
 # get Data
 test.task$env$data
