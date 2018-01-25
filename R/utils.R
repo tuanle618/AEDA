@@ -112,6 +112,17 @@ multiplotPages = function(list, k, no.cols, ...) {
   }
 }
 
+#helper to split a plot.list which is divided into
+#plot.list_col1_col_1_ggplot into plot.list_col1_ggplot
+split.list.gg.helper = function(nested.gg.list) {
+  out.list = vector("list", length(nested.gg.list))
+  for (idx in seq.int(length(nested.gg.list))) {
+    out.list[[idx]] = nested.gg.list[[idx]][[1]]
+  }
+  names(out.list) = names(nested.gg.list)
+  return(out.list)
+}
+
 #helper to open a r-code chunk block with options. Make sure to close the r-chunk with ''' at the end
 #options is a list with chunk options: handles all kind of data types as it will be converted into character
 #example: options = list(echo = FALSE, message = TRUE, ...)
@@ -146,6 +157,10 @@ getId.NumSumReport = function(x) {
   x$report.id
 }
 
+getId.CatSumReport = function(x) {
+  x$report.id
+}
+
 ##
 getType = function(x) UseMethod("getType")
 
@@ -164,6 +179,9 @@ getType.BasicReport = function(x){
   x$type
 }
 
+getType.CatSumReport = function(x){
+  x$type
+}
 # Wrapper for concatenate report id with a string
 # idWrapper(report, "method")
 # Jbssgsrsi342j$method

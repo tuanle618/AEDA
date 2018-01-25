@@ -4,7 +4,7 @@
 \alias{getCatSum}
 \title{Computes the components and plots for the Categorial Summary}
 \usage{
-getCatSum(data, features, target)
+getCatSum(data, features, target, geombar.args)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
