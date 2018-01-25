@@ -44,6 +44,7 @@ getCatSum = function(data, features, target, geombar.args) {
   names(features) = features
 
   plot.list = lapply(features, function(x) do.call(plotBar, append(list(data = data, target = target, col = x), geombar.args)))
+  plot.list = split.list.gg.helper(plot.list)
   out.list = list(freq = freq, rel.freq = rel.freq, nas = nas, contg.list = contg.list,
     rel.contg.list = rel.contg.list, plot.list = plot.list)
   return(out.list)
