@@ -34,14 +34,21 @@
 #' my.corr = makeCorr(my.task)
 #' report2 = makeCorrReport(my.corr, type = "CorrPlot")
 #'
-#' finishReport(basic.report, num.sum.report, report1, report2)
+#' data("Arthritis", package = "vcd")
+#' cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved", na.rm = TRUE)
+#' cat.sum = makeCatSum(cat.sum.task)
+#' cat.sum.report = makeCatSumReport(cat.sum)
+#' cat.sum.rep = writeReport(cat.sum.report)
+#'
+#' #combine all reports
+#' finishReport(basic.report, num.sum.report, report1, report2, cat.sum.report)
 #'
 #' @import checkmate
 #' @import BBmisc
 #' @export
 finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
   x = list(...)
-  assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport"))
+  assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport", "CatSumReport"))
   assertLogical(save.mode)
   assert_path_for_output(sub.dir, overwrite = !save.mode)
 
