@@ -4,7 +4,7 @@
 \alias{plotBar}
 \title{Creates a bar plot of a categorical (discrete) feature.}
 \usage{
-plotBar(data, target, col = NULL, show.plot = FALSE)
+plotBar(data, target, col = NULL, show.plot = FALSE, ...)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr

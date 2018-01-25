@@ -23,7 +23,7 @@
 #' @title Creates a bar plot of a categorical (discrete) feature.
 
 
-plotBar = function(data, target, col = NULL, show.plot = FALSE) {
+plotBar = function(data, target, col = NULL, show.plot = FALSE, ...) {
 
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {

@@ -18,7 +18,7 @@
 #' @import stats
 #' @export
 
-getCatSum = function(data, features, target) {
+getCatSum = function(data, features, target, geombar.args) {
   assertDataFrame(data)
   if (!is.null(target)) assertCharacter(target, len = 1L)
   assertCharacter(features, min.len = 1L, min.chars = 1L)
@@ -42,7 +42,8 @@ getCatSum = function(data, features, target) {
     rel.contg.list = NULL
   }
   names(features) = features
-  plot.list = lapply(features, function(x) plotBar(data = data, target = target, col = x))
+
+  plot.list = lapply(features, function(x) do.call(plotBar, append(list(data = data, target = target, col = x), geombar.args)))
   out.list = list(freq = freq, rel.freq = rel.freq, nas = nas, contg.list = contg.list,
     rel.contg.list = rel.contg.list, plot.list = plot.list)
   return(out.list)
