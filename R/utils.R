@@ -39,7 +39,7 @@ makeS3Obj2 = function(classes, object, ...){
 
 # Wrapper for loading not already loaded librarys
 rmdLibrary = function(needed.pkgs, file, force = FALSE){
-  catf("library(%s)\n", needed.pkgs, file = file)
+  catf("require(%s)\n", needed.pkgs, file = file)
 }
 
 # Wrapper for loading data
@@ -187,4 +187,24 @@ getType.CatSumReport = function(x){
 # Jbssgsrsi342j$method
 idWrapper = function(report, string){
   paste0(report$report.id, "$", string)
+}
+
+
+#write header for rmd files
+# doc: https://rmarkdown.rstudio.com/html_document_format.html
+writeHeader = function(title, con, subtitle = NULL, author = NULL,
+  date = format(Sys.time(), '%d %B %Y'), toc =TRUE, df.print = "paged",
+  theme = "cosmo", toc.depth = 2){
+  writeLines("---", con = con)
+  catf("title: \"%s\"", title, file = con)
+  if(!is.null(subtitle)) catf("subtitle: \"%s\"", subtitle, file = con)
+  if(!is.null(author)) catf("author: \"%s\"", author, file = con)
+  if(!is.null(date)) catf("date: \"%s\"", date, file = con)
+  catf("output:", file = con)
+  catf("  html_document:", file = con)
+  if(!is.null(theme)) catf("    theme: %s", theme, file = con)
+  if(!is.null(toc)) catf("    toc: %s", toc, file = con)
+  if(!is.null(toc.depth)) catf("    toc_depth: %s", toc.depth, file = con)
+  if(!is.null(df.print)) catf("    df_print: %s", df.print, file = con)
+  writeLines("---", con = con)
 }

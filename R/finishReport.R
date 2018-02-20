@@ -60,6 +60,7 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
   }
   # Organize Childs
   report.con = file("MainReport.rmd", "w")
+  writeHeader("AEDA Report", report.con)
   for (i in seq.int(n)) {
     section.name = paste0(getType(x[[i]]), "_", getId(x[[i]]))
     catf("```{r %s, child = \"%s\"}", section.name, child.names[i], file = report.con)

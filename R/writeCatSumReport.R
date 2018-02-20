@@ -35,7 +35,7 @@ writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", sav
     report.con = file(rmd.name, "w")
 
     writeLines("## Categorical Summary Report from AEDA containing contingency summary as well as plots", con  = report.con)
-    writeLines("```{r}", con = report.con)
+    writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
     writeLines("devtools::load_all()", con = report.con)
     writeLines("#library(AEDA)", con = report.con)
 
@@ -52,7 +52,7 @@ writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", sav
     writeLines("```", con = report.con)
 
     writeLines("Some text; Categorical Summary ....", con = report.con)
-    writeLines("```{r}", con = report.con)
+    writeLines("```{r, echo=FALSE}", con = report.con)
     writeLines(paste0(cat.sum.report$report.id, "$cat.sum$freq"), con = report.con)
     writeLines(paste0(cat.sum.report$report.id, "$cat.sum$contg.list"), con = report.con)
     writeLines(paste0("multiplot(",cat.sum.report$report.id, "$cat.sum$plot.list", ", cols = 2)"),

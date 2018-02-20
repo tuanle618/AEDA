@@ -39,8 +39,8 @@ writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.m
   #  report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
     report.con = file(rmd.name, "w")
 
-    writeLines("## Basic Report from AEDA containing a basic and missing values summary", con  = report.con)
-    writeLines("```{r}", con = report.con)
+    writeLines("## Basic data and missing values summary", con  = report.con)
+    writeLines("```{r, echo=FALSE, warning=FALSE}", con = report.con)
     writeLines("devtools::load_all()", con = report.con)
     writeLines("#library(AEDA)", con = report.con)
   #  #save data
@@ -76,7 +76,7 @@ writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.m
     writeLines("### Overview", con = report.con)
     rmdWriteLines(intro.vec, con = report.con)
 
-    writeLines("```{r}", con = report.con)
+    writeLines("```{r, echo=FALSE}", con = report.con)
     writeLines(paste0(basic.report$report.id, "$report.task"), con = report.con)
     writeLines(paste0(basic.report$report.id, "$na.summary$na.df"), con = report.con)
     writeLines("#Plotting missing values according to their frequency", con = report.con)
