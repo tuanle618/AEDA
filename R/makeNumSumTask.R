@@ -28,7 +28,7 @@
 #'  #get Data
 #'  num.sum.task$env$data
 #' @export
-makeNumSumTask = function(id, data, target, geom.hist.args = list(), geom.dens.args = list(), geom.box.args = list()){
+makeNumSumTask = function(id, data, target, geom.hist.args = list(bins = 30, alpha = 0.4), geom.dens.args = list(size = 2, alpha = 0.4), geom.box.args = list()){
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")

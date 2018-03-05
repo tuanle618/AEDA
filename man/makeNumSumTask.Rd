@@ -4,8 +4,9 @@
 \alias{makeNumSumTask}
 \title{Creates a NumericSummaryTask Object (for numeric and integer columns)}
 \usage{
-makeNumSumTask(id, data, target, geom.hist.args = list(),
-  geom.dens.args = list(), geom.box.args = list())
+makeNumSumTask(id, data, target, geom.hist.args = list(bins = 30, alpha =
+  0.4), geom.dens.args = list(size = 2, alpha = 0.4),
+  geom.box.args = list())
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
