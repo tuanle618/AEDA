@@ -26,7 +26,7 @@ writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = T
       needed.pkgs = getPkgs(report)
 
       #start the report file
-      report.con = file(rmd.name, "w")
+      report.con = file(rmd.name, "w", encoding = rmdEncoding())
       writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
 
       # load pkgs

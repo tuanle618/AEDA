@@ -208,3 +208,6 @@ writeHeader = function(title, con, subtitle = NULL, author = NULL,
   if(!is.null(df.print)) catf("    df_print: %s", df.print, file = con)
   writeLines("---", con = con)
 }
+
+# simple wrapper for quickly changing encoding
+rmdEncoding = function() "UTF-8"

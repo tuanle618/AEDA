@@ -37,13 +37,11 @@ writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.m
     ##try part:
     #start the report file
   #  report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
-    report.con = file(rmd.name, "w")
-
+    report.con = file(rmd.name, "w", encoding = rmdEncoding())
     writeLines("## Basic data and missing values summary", con  = report.con)
-    writeLines("```{r, echo=FALSE, warning=FALSE}", con = report.con)
-    writeLines("devtools::load_all()", con = report.con)
-    writeLines("#library(AEDA)", con = report.con)
-  #  #save data
+    writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+
+    #  #save data
   #  if (save.mode) {
   #    #file.name = paste0(basic.report$report.task$dataset.name, ".rds")
   #    #saveRDS(basic.report$report.task$env$data, file = file.name)

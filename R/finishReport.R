@@ -11,6 +11,12 @@
 #' @param save.mode [\code{logical(1)}]\cr
 #'   In Save mode its not possible to use an existing folder.
 #'   To ensure no data is lost, a new folder will be created (if possible).
+#' @param theme [\code{character()}]\cr
+#'   This param is the theme of the YAML-header. If set to NULL no theme will
+#'   be used
+#' @param df.print [\code{character()}]\cr
+#'   This param sets the YAML header for how Dataframed should be printed.
+#'   If set to NULL df.print param will not be used.
 #'
 #' @return creates rmd Files, returns NULL
 #'
@@ -45,7 +51,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
+finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE, theme = "cosmo", df.print = "paged"){
   x = list(...)
   assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport", "CatSumReport"))
   assertLogical(save.mode)
@@ -59,8 +65,15 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE){
     child.names[i] = writeReport(x[[i]], sub.dir, save.mode = FALSE)
   }
   # Organize Childs
-  report.con = file("MainReport.rmd", "w")
-  writeHeader("AEDA Report", report.con)
+  report.con = file("MainReport.rmd", "w", encoding = rmdEncoding())
+  writeHeader("AEDA Report", report.con, theme = theme, df.print = df.print)
+
+  # for now load AEDA in mainReport
+  writeLines("```{r, echo=FALSE, warning=FALSE}", con = report.con)
+  writeLines("devtools::load_all()", con = report.con)
+  writeLines("#library(AEDA)", con = report.con)
+  writeLines("```", con = report.con)
+
   for (i in seq.int(n)) {
     section.name = paste0(getType(x[[i]]), "_", getId(x[[i]]))
     catf("```{r %s, child = \"%s\"}", section.name, child.names[i], file = report.con)
