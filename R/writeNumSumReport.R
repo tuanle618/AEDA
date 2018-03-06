@@ -34,18 +34,16 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     ##try part:
     #start the report file
     #  report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
-    report.con = file(rmd.name, "w")
+    report.con = file(rmd.name, "w", encoding = rmdEncoding())
 
     writeLines("## Numeric Summary Report from AEDA containing numeric summary as well as plots", con  = report.con)
-    writeLines("```{r}", con = report.con)
-    writeLines("devtools::load_all()", con = report.con)
-    writeLines("#library(AEDA)", con = report.con)
+    writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
 
     # save object and write code to load it in the rmd-file
     saveLoadObj(num.sum.report, getId(num.sum.report), report.con)
     writeLines("```", con = report.con)
 
-    writeLines("```{r}", con = report.con)
+    writeLines("```{r, echo=FALSE}", con = report.con)
     #testing:
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
     #rmdWriteLines(vec = vec,  con = report.con)
@@ -54,7 +52,7 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     writeLines("```", con = report.con)
 
     writeLines("Some text; Numeric Summary ....", con = report.con)
-    writeLines("```{r}", con = report.con)
+    writeLines("```{r, echo=FALSE}", con = report.con)
     writeLines(paste0(num.sum.report$report.id, "$num.sum.df"), con = report.con)
     writeLines(paste0(num.sum.report$report.id, "$num.sum.var"), con = report.con)
     writeLines("```", con = report.con)
