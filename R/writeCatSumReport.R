@@ -53,7 +53,7 @@ writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", sav
     writeLines("```{r, echo=FALSE}", con = report.con)
     writeLines(paste0(cat.sum.report$report.id, "$cat.sum$freq"), con = report.con)
     writeLines(paste0(cat.sum.report$report.id, "$cat.sum$contg.list"), con = report.con)
-    writeLines(paste0("multiplot(",cat.sum.report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
+    writeLines(paste0("multiplot(plotlist = ",cat.sum.report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
       con = report.con)
     writeLines("```", con = report.con)
 
