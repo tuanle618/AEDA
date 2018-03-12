@@ -54,10 +54,10 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     writeLines("Some text; Numeric Summary ....", con = report.con)
     writeLines("```{r, echo=FALSE}", con = report.con)
     writeLines(paste0("kable(",num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])"), con = report.con)
-    writeLines(paste0(num.sum.report$report.id, "$num.sum.var"), con = report.con)
-    writeLines(paste0("lapply(", num.sum.report$report.id, "$num.sum.var,", " FUN = function(x) {
+    writeLines(paste0("#", num.sum.report$report.id, "$num.sum.var"), con = report.con)
+    writeLines(paste0("invisible(lapply(", num.sum.report$report.id, "$num.sum.var,", " FUN = function(x) {
     multiplot(plotlist = list(plot.hist = x[[3]], plot.box = x[[4]]), cols = 2)
-    })"), con = report.con)
+    }))"), con = report.con)
     writeLines("```", con = report.con)
 
   }, finally = {
