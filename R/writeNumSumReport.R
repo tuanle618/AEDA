@@ -39,6 +39,7 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     writeLines("## Numeric Summary Report from AEDA containing numeric summary as well as plots", con  = report.con)
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
     rmdLibrary("knitr", file = report.con)
+    rmdLibrary("kableExtra", file = report.con)
     # save object and write code to load it in the rmd-file
     saveLoadObj(num.sum.report, getId(num.sum.report), report.con)
     writeLines("```", con = report.con)
@@ -48,12 +49,19 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
     #rmdWriteLines(vec = vec,  con = report.con)
     writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("#num.sum.report.obj = ", num.sum.report$report.id), con = report.con)
+    writeLines(paste0("num.sum.report.obj = ", num.sum.report$report.id), con = report.con)
     writeLines("```", con = report.con)
 
     writeLines("Some text; Numeric Summary ....", con = report.con)
     writeLines("```{r, echo=FALSE}", con = report.con)
-    writeLines(paste0("kable(",num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])"), con = report.con)
+    #writeLines(paste0("kable(",num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])"), con = report.con)
+    writeLines(paste0("kable(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)], caption = 'Numeric Summary', format = 'html') %>%
+      kable_styling(full_width = F) %>%
+      footnote(general = 'Here is a general comments of the table.',
+      number = c('Footnote 1; ', 'Footnote 2; '),
+      footnote_as_chunk = T
+      )"),
+      con = report.con)
     writeLines(paste0("#", num.sum.report$report.id, "$num.sum.var"), con = report.con)
     writeLines(paste0("invisible(lapply(", num.sum.report$report.id, "$num.sum.var,", " FUN = function(x) {
     multiplot(plotlist = list(plot.hist = x[[3]], plot.box = x[[4]]), cols = 2)
