@@ -57,10 +57,13 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     #writeLines(paste0("kable(",num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])"), con = report.con)
     writeLines(paste0("kable(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)], caption = 'Numeric Summary', format = 'html') %>%
       kable_styling(full_width = F) %>%
-      footnote(general = 'Here is a general comments of the table.',
-      number = c('Footnote 1; ', 'Footnote 2; '),
-      footnote_as_chunk = T
-      )"),
+      footnote(general = 'Following footnotes explain some measure from the table above ',
+              alphabet = c('Kurtosis will be calculated via: ; ', 'Skewness will be calculated via: ; ',
+                          'l.bound is defined as: ; ', 'u.bound is defined as: ;'),
+              general_title = 'General: ',
+              alphabet_title = 'Explanation: ',
+              footnote_as_chunk = T
+              )"),
       con = report.con)
     writeLines(paste0("#", num.sum.report$report.id, "$num.sum.var"), con = report.con)
     writeLines(paste0("invisible(lapply(", num.sum.report$report.id, "$num.sum.var,", " FUN = function(x) {
