@@ -40,6 +40,7 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
     rmdLibrary("knitr", file = report.con)
     rmdLibrary("kableExtra", file = report.con)
+    rmdLibrary("DT", file = report.con)
     # save object and write code to load it in the rmd-file
     saveLoadObj(num.sum.report, getId(num.sum.report), report.con)
     writeLines("```", con = report.con)
@@ -65,6 +66,12 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
       footnote_as_chunk = T
     )"),
       con = report.con)
+    writeLines(paste0("dt = DT::datatable(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)], class = 'compact', filter = 'bottom', options = list(pageLength = 10),
+      caption = htmltools::tags$caption(
+        style = 'caption-side: bottom; text-align: center;',
+        'Table : ', 'Numeric Summary'
+      ))"), con = report.con)
+    writeLines("dt", con = report.con)
     writeLines(paste0("#", num.sum.report$report.id, "$num.sum.var"), con = report.con)
     writeLines(paste0("invisible(lapply(", num.sum.report$report.id, "$num.sum.var,", " FUN = function(x) {
     multiplot(plotlist = list(plot.hist = x[[3]], plot.box = x[[4]]), cols = 2)
