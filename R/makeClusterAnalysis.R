@@ -30,12 +30,15 @@ makeClusterAnalysis = function(cluster.task){
   scale.num.data = cluster.task$scale.num.data
   cluster.analysis = getClusterAnalysis(data, num.features, method, par.vals, random.seed, scale.num.data)
 
-  makeS3Obj("ClusterAnalysisObj"
+  makeS3Obj("ClusterAnalysisObj",
+    cluster.task = cluster.task,
+    cluster.analysis = cluster.analysis
   )
 }
 
 #' @export
 # Print function for ClusterAnalysis Object
-ClusterAnalysisObj = function(x, ...) {
-
+print.ClusterAnalysisObj = function(x, ...) {
+  print(x$cluster.task)
+  #add more...:
 }

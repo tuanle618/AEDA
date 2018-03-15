@@ -34,10 +34,12 @@
 #' @param scale.num.data [\code{logical(1L)}]\cr
 #'   Logical whether to scale numeric data or not. Default is \code{scale= TRUE}
 #' @param par.vals [\code{list}]\cr
-#'   Additional arguments handled over to cluster algorithm \code{method}
+#'   Additional arguments handled over to cluster algorithm \code{method}. \cr
+#'   Default is empty list \code{par.vals = list()}
 #' @return ClusterTask Object
 #' @examples
-#' my.cluster.task = makeClusterTask(id = "iris", data = iris, target = "Species", method = "cluster.kmeans", random.seed = 89L, par.vals)
+#' my.cluster.task = makeClusterTask(id = "iris", data = iris, target = "Species",
+#'   method = "cluster.kmeans", random.seed = 89L, par.vals = list(iter.max = 15L))
 #' @import checkmate
 #' @import BBmisc
 #' @import cluster
