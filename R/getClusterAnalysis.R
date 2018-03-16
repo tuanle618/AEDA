@@ -25,6 +25,8 @@
 #' @import mclust
 #' @import NbClust
 #' @import factoextra
+#' @import fpc
+#' @import dbscan
 #'
 getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data) {
   ##### http://www.sthda.com/english/wiki/print.php?id=239 #####
@@ -105,11 +107,63 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         optim.cluster = optim.cluster, cluster.plot = cluster.plot)
     })
 
-    ##Hierarchical clustering:
-  } else if (method == "cluster.h") {
-
-
-
+    ##Hierarchical clustering: ##work on all numeric data:
+  } else if (is.element(method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
+    res.dist = get_dist(num.data, stand = TRUE, method = "euclidean")
+    plot.dist = fviz_dist(res.dist,
+      gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
+    #http://www.r-tutor.com/gpu-computing/clustering/hierarchical-cluster-analysis
+    #check for performance
+    if (method == "cluster.h") {
+      cluster.method = "hclust"
+    } else if (method == "cluster.agnes") {
+      cluster.method = "agnes"
+    } else if (method == "cluster.diana") {
+      cluster.method = "diana"
+    }
+    out.clust = eclust(x = num.data, FUNcluster = cluster.method, verbose = FALSE, k = 4)
+    # Visualize using factoextra
+    # Cut in 4 groups and color by groups
+    dend.plot = fviz_dend(out.clust, k = out.clust$nbclust, # Cut in 4 groups
+      cex = 0.5, # label size
+      k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+      color_labels_by_k = TRUE, # color labels by groups
+      rect = TRUE, # Add rectangle around groups,
+      show_labels = TRUE
+    )
+    #silhouette plot:
+    silh.plot = fviz_silhouette(out.clust, print.summary = FALSE)
+    #Which samples have negative silhouette? To what cluster are they closer?
+    # Silhouette width of observations
+    sil = out.clust$silinfo$widths[, 1:3]
+    # Objects with negative silhouette
+    neg.sil.index = which(sil[, "sil_width"] < 0)
+    neg.sil.out = sil[neg.sil.index, , drop = FALSE]
+    cluster.all = list(out.clust = out.clust, dist.mat = res.dist, dist.plot = plot.dist,
+      dend.plot = dend.plot, silh.plot = silh.plot, neg.sil.out = neg.sil.out)
+    comb.cluster.list = list()
+  } else if (method == "cluster.dbscan") {
+    ###### all numeric colums together: ######
+    #apply db scan algorithm
+    db.cluster = dbscan(num.data, eps = 0.15, MinPts = 5)
+    #plot results
+    db.plot = fviz_cluster(db.cluster, data = num.data, stand = FALSE,
+      ellipse = FALSE, show.clust.cent = FALSE,
+      geom = "point", palette = "jco", ggtheme = theme_classic())
+    #mostly no db-cluster because if dim(X) > 2, apply PCA.. No Structure
+    cluster.all = list(db.cluster = db.cluster, db.plot = db.plot)
+    ###### apply on combinations ######
+    comb.cluster.list = apply(combinations, 2, function(x) {
+      #print(x)
+      cols = colnames(num.data)[x]
+      #apply db scan algorithm
+      db.cluster = dbscan(num.data[, x], eps = 0.15, MinPts = 5)
+      #plot results
+      db.plot = fviz_cluster(db.cluster, data = num.data[, x], stand = FALSE,
+        ellipse = FALSE, show.clust.cent = FALSE,
+        geom = "point", palette = "jco", ggtheme = theme_classic())
+      list(cols = cols, db.cluster = db.cluster, db.plot = db.plot)
+    })
   }
 out.list = list(cluster.all = cluster.all, comb.cluster.list = comb.cluster.list)
 return(out.list)

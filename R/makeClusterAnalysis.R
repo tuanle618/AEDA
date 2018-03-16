@@ -17,6 +17,8 @@
 #' @import mclust
 #' @import NbClust
 #' @import factoextra
+#' @import fpc
+#' @import dbscan
 #' @export
 makeClusterAnalysis = function(cluster.task){
   assertClass(cluster.task, "ClusterTask")

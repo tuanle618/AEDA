@@ -48,6 +48,8 @@
 #' @import mclust
 #' @import NbClust
 #' @import factoextra
+#' @import fpc
+#' @import dbscan
 #' @export
 #'
 makeClusterTask = function(id, data, target, method = "cluster.kmeans", random.seed = 89L,
