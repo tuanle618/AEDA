@@ -164,7 +164,44 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         geom = "point", palette = "jco", ggtheme = theme_classic())
       list(cols = cols, db.cluster = db.cluster, db.plot = db.plot)
     })
-  }
+  } else if (method == "cluster.kkmeans") {
+      ###### all numeric colums together: ######
+      #apply kernel k-means algorithm ###DEFAULT centers?? ###ADD additionals params ?
+      ###include PCA on num.data::
+      pca.data = prcomp(x = num.data, rank. = 2L)
+      kernel.cluster = invisible(kkmeans(x = pca.data$x, centers = 2L))
+      var.pca1 = pca.data$sdev[1]/sum(pca.data$sdev)
+      var.pca2 = pca.data$sdev[2]/sum(pca.data$sdev)
+      #plot results ##DO ggplot manually
+      proc.data = as.data.frame(cbind(pca.data$x, cluster = kernel.cluster@.Data))
+      proc.data$cluster = as.factor(proc.data$cluster)
+      tmp.foo = as.data.frame(kernel.cluster@centers)
+      colnames(tmp.foo) = c("PC1", "PC2")
+      tmp.foo$cluster = c(1,2); tmp.foo$cluster = as.factor(tmp.foo$cluster)
+      kernel.plot = ggplot(proc.data, aes(x = PC1, y = PC2, color = cluster)) + geom_point(shape = 1)
+      ##add cluster means
+      kernel.plot = kernel.plot + geom_point(data = tmp.foo, aes(x = PC1, y = PC2), size = 3)
+      ##add title, change axis with variance info:
+      kernel.plot = kernel.plot + ggtitle("Kernel K-Means Result") + labs(x = paste("PC1 explaining", round(var.pca1*100, 2), "% of Variance"),
+        y = paste("PC2 explaining", round(var.pca2*100, 2), "% of Variance"))
+      cluster.all = list(kernel.cluster = kernel.cluster, kernel.plot = kernel.plot)
+      ###### apply on combinations ######
+      comb.cluster.list = apply(combinations, 2, function(x) {
+        #print(x)
+        cols = colnames(num.data)[x]
+        #apply kernel k-means algorithm
+        kernel.cluster = invisible(kkmeans(x = num.data[, x], centers = 2L))
+        proc.data = as.data.frame(cbind(num.data[, x], cluster = kernel.cluster@.Data))
+        proc.data$cluster = as.factor(proc.data$cluster)
+        tmp.foo = as.data.frame(kernel.cluster@centers)
+        colnames(tmp.foo) = c(colnames(proc.data)[1], colnames(proc.data)[2])
+        tmp.foo$cluster = c(1,2); tmp.foo$cluster = as.factor(tmp.foo$cluster)
+        #plot results
+        kernel.plot = ggplot(proc.data, aes_string(x = colnames(proc.data)[1], y = colnames(proc.data)[2], color = "cluster")) + geom_point(shape = 1) + ggtitle("Kernel K-Means Result")
+        kernel.plot = kernel.plot + geom_point(data = tmp.foo, aes_string(x = colnames(proc.data)[1], y = colnames(proc.data)[2]), size = 3)
+        list(cols = cols, kernel.cluster = kernel.cluster, kernel.plot = kernel.plot)
+      })
+    }
 out.list = list(cluster.all = cluster.all, comb.cluster.list = comb.cluster.list)
 return(out.list)
 }
