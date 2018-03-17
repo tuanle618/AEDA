@@ -1,12 +1,13 @@
 language: r
 sudo: false
+dist: trusty
 cache: packages
+
+r_packages:
+  - devtools
 
 r_github_packages:
   - berndbischl/BBmisc
   - jimhester/lintr
 
 warnings_are_errors: false
-
-install:
-  - Rscript -e 'if (length(find.package("devtools", quiet = TRUE)) == 0) install.packages("devtools")'
