@@ -22,7 +22,6 @@
 #' @import cluster
 #' @import kernlab
 #' @import mclust
-#' @import mclust
 #' @import NbClust
 #' @import factoextra
 #' @import fpc
@@ -68,11 +67,11 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     } else optim.cluster = pam(x = num.data, k = optim.silh)
     ##plot cluster: NOTE: PCA with 2principal components applied:
     pca.cluster.plot = fviz_cluster(optim.cluster, data = num.data, geom = "point",
-      stand = FALSE, ellipse.type = "norm")
+      stand = FALSE, ellipse.type = "norm", ggtheme = theme_classic())
     ##save results for all numeric data:
-    cluster.all = list(nb.silh = nb.silh, nb.gap = nb.gap, nb.wss = nb.wss,
-      optim.amount = optim.silh, optim.cluster = optim.cluster, pca.cluster.plot = pca.cluster.plot)
-
+    cluster.all = list(cluster.diag = list(nb.silh = nb.silh, nb.gap = nb.gap, nb.wss = nb.wss),
+      cluster.res = optim.cluster,
+      cluster.plot = pca.cluster.plot)
     ###### clusters for combinations: ######
     comb.cluster.list = apply(combinations, 2, function(x) {
       #print(x)
@@ -101,10 +100,12 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       } else optim.cluster = pam(x = num.data[, x], k = optim.silh)
       ##ggplot clusterw
       cluster.plot = fviz_cluster(optim.cluster, data = num.data[, x], geom = "point",
-        stand = FALSE, ellipse.type = "norm")
+        stand = FALSE, ellipse.type = "norm", show.clust.cent = TRUE, ggtheme = theme_classic())
       ##store results:
-      list(names = cols, nb.gap = nb.gap, nb.wss = nb.wss, nb.silh = nb.silh, optim.amount = optim.silh,
-        optim.cluster = optim.cluster, cluster.plot = cluster.plot)
+      list(cluster.cols = cols,
+        cluster.diag = list(nb.gap = nb.gap, nb.wss = nb.wss, nb.silh = nb.silh),
+        cluster.res = optim.cluster,
+        cluster.plot = cluster.plot)
     })
 
     ##Hierarchical clustering: ##work on all numeric data:
@@ -139,30 +140,40 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     # Objects with negative silhouette
     neg.sil.index = which(sil[, "sil_width"] < 0)
     neg.sil.out = sil[neg.sil.index, , drop = FALSE]
-    cluster.all = list(out.clust = out.clust, dist.mat = res.dist, dist.plot = plot.dist,
-      dend.plot = dend.plot, silh.plot = silh.plot, neg.sil.out = neg.sil.out)
+    #save results, dont save dist.matrix and neg.sil.out
+    cluster.all = list(clust.diag = list(dist.plot = plot.dist, silh.plot = silh.plot),
+      cluster.res = out.clust,
+      cluster.plot = dend.plot)
+    #initialize empty list for combinations
     comb.cluster.list = list()
   } else if (method == "cluster.dbscan") {
     ###### all numeric colums together: ######
-    #apply db scan algorithm
-    db.cluster = dbscan(num.data, eps = 0.15, MinPts = 5)
+    #apply db scan algorithm, from dbscan pkg since faster implementation
+    db.cluster = dbscan::dbscan(num.data, eps = 0.15, minPts = 5)
     #plot results
     db.plot = fviz_cluster(db.cluster, data = num.data, stand = FALSE,
-      ellipse = FALSE, show.clust.cent = FALSE,
+      ellipse = FALSE, show.clust.cent = TRUE,
       geom = "point", palette = "jco", ggtheme = theme_classic())
     #mostly no db-cluster because if dim(X) > 2, apply PCA.. No Structure
-    cluster.all = list(db.cluster = db.cluster, db.plot = db.plot)
+    #save results
+    cluster.all = list(cluster.diag = list(),
+      cluster.res = db.cluster,
+      cluster.plot = db.plot)
     ###### apply on combinations ######
     comb.cluster.list = apply(combinations, 2, function(x) {
       #print(x)
       cols = colnames(num.data)[x]
       #apply db scan algorithm
-      db.cluster = dbscan(num.data[, x], eps = 0.15, MinPts = 5)
+      db.cluster = dbscan::dbscan(num.data[, x], eps = 0.15, minPts = 5)
       #plot results
       db.plot = fviz_cluster(db.cluster, data = num.data[, x], stand = FALSE,
-        ellipse = FALSE, show.clust.cent = FALSE,
+        ellipse = FALSE, show.clust.cent = TRUE,
         geom = "point", palette = "jco", ggtheme = theme_classic())
-      list(cols = cols, db.cluster = db.cluster, db.plot = db.plot)
+      #save results
+      list(cluster.cols = cols,
+        cluster.diag = list(),
+        cluster.res = db.cluster,
+        cluster.plot = db.plot)
     })
   } else if (method == "cluster.kkmeans") {
       ###### all numeric colums together: ######
@@ -183,8 +194,11 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       kernel.plot = kernel.plot + geom_point(data = tmp.foo, aes(x = PC1, y = PC2), size = 3)
       ##add title, change axis with variance info:
       kernel.plot = kernel.plot + ggtitle("Kernel K-Means Result") + labs(x = paste("PC1 explaining", round(var.pca1*100, 2), "% of Variance"),
-        y = paste("PC2 explaining", round(var.pca2*100, 2), "% of Variance"))
-      cluster.all = list(kernel.cluster = kernel.cluster, kernel.plot = kernel.plot)
+        y = paste("PC2 explaining", round(var.pca2*100, 2), "% of Variance")) + theme_classic()
+      #save results
+      cluster.all = list(cluster.diag = list(),
+        cluster.res  = kernel.cluster,
+        cluster.plot = kernel.plot)
       ###### apply on combinations ######
       comb.cluster.list = apply(combinations, 2, function(x) {
         #print(x)
@@ -198,9 +212,45 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         tmp.foo$cluster = c(1,2); tmp.foo$cluster = as.factor(tmp.foo$cluster)
         #plot results
         kernel.plot = ggplot(proc.data, aes_string(x = colnames(proc.data)[1], y = colnames(proc.data)[2], color = "cluster")) + geom_point(shape = 1) + ggtitle("Kernel K-Means Result")
-        kernel.plot = kernel.plot + geom_point(data = tmp.foo, aes_string(x = colnames(proc.data)[1], y = colnames(proc.data)[2]), size = 3)
-        list(cols = cols, kernel.cluster = kernel.cluster, kernel.plot = kernel.plot)
+        kernel.plot = kernel.plot + geom_point(data = tmp.foo, aes_string(x = colnames(proc.data)[1], y = colnames(proc.data)[2]), size = 3) + theme_classic()
+        #save results
+        list(cluster.cols = cols,
+          cluster.diag = list(),
+          cluster.res = kernel.cluster,
+          cluster.plot =  kernel.plot)
       })
+  } else if (method == "cluster.mod") {
+    ###### all numeric colums together: ######
+      # Apply Model-Based-Clustering
+      mod.cluster = Mclust(num.data, verbose = FALSE)
+      # BIC values used for choosing the number of clusters
+      plot.mod.bic = fviz_mclust(mod.cluster, "BIC", palette = "jco", ggtheme = theme_classic())
+      # Classification: plot showing the clustering
+      plot.mod.cluster = fviz_mclust(mod.cluster, "classification", geom = "point",
+        pointsize = 1.5, palette = "jco", ggtheme = theme_classic())
+      # Classification uncertainty
+     plot.mod.uncert =  fviz_mclust(mod.cluster, "uncertainty", palette = "jco", ggtheme = theme_classic())
+      #Save results into list
+     cluster.all = list(cluster.diag = list(plot.mod.bic = plot.mod.bic, plot.mod.uncert = plot.mod.uncert),
+       cluster.res = mod.cluster,
+       cluster.plot = plot.mod.cluster)
+     ###### apply on combinations ######
+     comb.cluster.list = apply(combinations, 2, function(x) {
+       cols = colnames(num.data)[x]
+       # Apply Model-Based-Clustering
+       mod.cluster = Mclust(num.data[, x], verbose = FALSE)
+       # BIC values used for choosing the number of clusters
+       plot.mod.bic = fviz_mclust(mod.cluster, "BIC", palette = "jco", ggtheme = theme_classic())
+       # Classification: plot showing the clustering
+       plot.mod.cluster = fviz_mclust(mod.cluster, "classification", geom = "point",
+         pointsize = 1.5, palette = "jco", ggtheme = theme_classic())
+       # Classification uncertainty
+       plot.mod.uncert =  fviz_mclust(mod.cluster, "uncertainty", palette = "jco", ggtheme = theme_classic())
+       list(cluster.cols = cols,
+         cluster.diag = list(plot.mod.bic = plot.mod.bic, plot.mod.uncert = plot.mod.uncert),
+         cluster.res = mod.cluster,
+         cluster.plot = plot.mod.cluster)
+     })
     }
 out.list = list(cluster.all = cluster.all, comb.cluster.list = comb.cluster.list)
 return(out.list)
