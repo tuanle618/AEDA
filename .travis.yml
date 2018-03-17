@@ -12,9 +12,11 @@ warnings_are_errors: false
 jobs:
   fast_finish: true
   include:
-    - stage: warmup-1
+    - stage: warmup
       install:
         - Rscript -e 'if (length(find.package("devtools", quiet = TRUE)) == 0) install.packages("devtools")'
         - Rscript -e 'devtools::install_deps()'
-        - Rscript -e 'pkgs = trimws(strsplit(Sys.getenv("WARMUPPKGS"), " ")[[1]]); pkgs = pkgs[!pkgs %in% installed.packages()]; if (length(pkgs) > 0) install.packages(pkgs)'
-script: true
+      script: true
+    - stage: check
+      before_script:
+        - R --no-save <<< 'library("devtools"); document()'
