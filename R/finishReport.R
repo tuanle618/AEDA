@@ -41,12 +41,14 @@
 #' report2 = makeCorrReport(my.corr, type = "CorrPlot")
 #'
 #' data("Arthritis", package = "vcd")
-#' cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved", na.rm = TRUE)
+#' cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis,
+#'   target = "Improved", na.rm = TRUE)
 #' cat.sum = makeCatSum(cat.sum.task)
 #' cat.sum.report = makeCatSumReport(cat.sum)
 #'
 #' #combine all reports
-#' finishReport(basic.report, num.sum.report, report1, report2, cat.sum.report)
+#' finishReport(basic.report, num.sum.report, report1, report2,
+#'   cat.sum.report)
 #'
 #' @import checkmate
 #' @import BBmisc
