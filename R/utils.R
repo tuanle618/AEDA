@@ -39,11 +39,7 @@ makeS3Obj2 = function(classes, object, ...){
 
 # Wrapper for loading not already loaded librarys
 rmdLibrary = function(needed.pkgs, file, force = FALSE){
-  catf('if (!require("%s",character.only = TRUE))
-    {
-    install.packages("%s",dep=TRUE)
-    if(!require("%s",character.only = TRUE)) stop("Package not found")\n
-    }', needed.pkgs, needed.pkgs, needed.pkgs, file = file)
+  catf("require(%s)\n", needed.pkgs, file = file)
 }
 
 # Wrapper for loading data

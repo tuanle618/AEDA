@@ -20,6 +20,7 @@
 #'   writeReport(basic.report2)
 #' @return Invisible NULL
 #' @import checkmate
+#' @importFrom BBmisc catf
 #' @export
 writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.mode = TRUE){
   report.env = new.env(parent = .GlobalEnv)
@@ -80,7 +81,9 @@ writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.m
     writeLines("#Plotting missing values according to their frequency", con = report.con)
     writeLines(paste0(basic.report$report.id, "$na.summary$ggplot"), con = report.con)
     writeLines("#Plotting missing values according to their index", con = report.con)
-    writeLines(paste0(basic.report$report.id, "$na.summary$image()"), con = report.con)
+    catf("if (!is.null(%s$na.summary$image)) {", basic.report$report.id, file = report.con)
+    writeLines(paste0("  ", basic.report$report.id, "$na.summary$image()"), con = report.con)
+    writeLines("}", con = report.con)
     writeLines("```", con = report.con)
 
   }, finally = {
