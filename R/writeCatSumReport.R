@@ -1,6 +1,6 @@
 #' Writes a rmd file for the Categorical Summary Report [WIP]
 #'
-#' @param cat.sum.report [\code{CatSumReport} Object]\cr
+#' @param report [\code{CatSumReport} Object]\cr
 #'   The report Object which should be converted to an rmd file
 #' @param sub.dir [\code{character(1)}]\cr
 #'   the name of the (relative) sub-directory where the data report will be saved. Default is \code{Data_Report}
@@ -13,14 +13,14 @@
 #'  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
 #'  cat.sum = makeCatSum(cat.sum.task)
 #'  #create the numeric summary report
-#'  cat.sum.report = makeCatSumReport(cat.sum)
-#'  writeReport(cat.sum.report)
+#'  report = makeCatSumReport(cat.sum)
+#'  writeReport(report)
 #' @return rmd-file location
 #' @import checkmate
 #' @export
-writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
   report.env = new.env(parent = .GlobalEnv)
-  assertClass(cat.sum.report, "CatSumReport")
+  assertClass(report, "CatSumReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
   # Create sub directory, save current wd and set new wd to the new directory
@@ -38,7 +38,7 @@ writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", sav
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(cat.sum.report, getId(cat.sum.report), report.con)
+    saveLoadObj(report, getId(report), report.con)
     writeLines("```", con = report.con)
 
     writeLines("```{r}", con = report.con)
@@ -46,14 +46,14 @@ writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", sav
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
     #rmdWriteLines(vec = vec,  con = report.con)
     writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("cat.sum.report.obj = ", cat.sum.report$report.id), con = report.con)
+    writeLines(paste0("report.obj = ", report$report.id), con = report.con)
     writeLines("```", con = report.con)
 
     writeLines("Some text; Categorical Summary ....", con = report.con)
     writeLines("```{r, echo=FALSE}", con = report.con)
-    writeLines(paste0(cat.sum.report$report.id, "$cat.sum$freq"), con = report.con)
-    writeLines(paste0(cat.sum.report$report.id, "$cat.sum$contg.list"), con = report.con)
-    writeLines(paste0("multiplot(",cat.sum.report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
+    writeLines(paste0(report$report.id, "$cat.sum$freq"), con = report.con)
+    writeLines(paste0(report$report.id, "$cat.sum$contg.list"), con = report.con)
+    writeLines(paste0("multiplot(",report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
       con = report.con)
     writeLines("```", con = report.con)
 
