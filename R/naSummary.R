@@ -27,7 +27,7 @@
 #'  idx2 = sample(1:nrow(airquality), size = 7)
 #'  airquality[idx2, "Temp"] = NA
 #'  #create the NA summary
-#'  na.summary = naSummary(data = airquality, show.plot = FALSE,
+#'  na.summary = naSummary(data = airquality, show.plot = TRUE,
 #'   show.result = FALSE, margin.left = 4, dataset.name = "Airquality")
 #'  #plot the object through print
 #'  na.summary
@@ -39,9 +39,11 @@
 #' @import checkmate
 #' @import BBmisc
 #' @import ggplot2
-#' @import grid
-#' @import gridBase
-#' @import graphics
+#' @importFrom grid grid.newpage
+#' @importFrom grid pushViewport
+#' @importFrom grid viewport
+#' @importFrom grid grid.layout
+#' @importFrom gridBase gridFIG
 #' @title Giving a NA summary and an image of a data with missing values
 naSummary  = function(data, dataset.name, show.plot = FALSE, show.result = FALSE, margin.left = 4){
   assertCharacter(dataset.name, min.chars = 1L, len = 1L)
