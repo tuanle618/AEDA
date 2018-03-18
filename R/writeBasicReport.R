@@ -74,9 +74,13 @@ writeReport.BasicReport = function(basic.report, sub.dir = "Data_Report", save.m
     writeLines("### Overview", con = report.con)
     rmdWriteLines(intro.vec, con = report.con)
 
-    writeLines("```{r, echo=FALSE}", con = report.con)
-    writeLines(paste0(basic.report$report.id, "$report.task"), con = report.con)
-    writeLines(paste0(basic.report$report.id, "$na.summary$na.df"), con = report.con)
+    writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
+    rmdLibrary("knitr", file = report.con)
+    rmdLibrary("kableExtra", file = report.con)
+    writeLines(paste0("#",basic.report$report.id, "$report.task"), con = report.con)
+    #writeLines(paste0(basic.report$report.id, "$na.summary$na.df"), con = report.con)
+    writeLines(paste0("kable(", basic.report$report.id, "$na.summary$na.df, caption = 'Missing Value Summary', format = 'html') %>%
+  kable_styling(full_width = TRUE)"), con = report.con)
     writeLines("#Plotting missing values according to their frequency", con = report.con)
     writeLines(paste0(basic.report$report.id, "$na.summary$ggplot"), con = report.con)
     writeLines("#Plotting missing values according to their index", con = report.con)

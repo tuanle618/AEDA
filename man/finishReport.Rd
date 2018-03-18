@@ -4,7 +4,8 @@
 \alias{finishReport}
 \title{Creates the main Report with childs}
 \usage{
-finishReport(..., sub.dir = "Data_Report", save.mode = TRUE)
+finishReport(..., sub.dir = "Data_Report", save.mode = TRUE,
+  theme = "cosmo", df.print = "paged")
 }
 \arguments{
 \item{...}{\cr
@@ -16,6 +17,14 @@ The path where the child rmd files will be created}
 \item{save.mode}{[\code{logical(1)}]\cr
 In Save mode its not possible to use an existing folder.
 To ensure no data is lost, a new folder will be created (if possible).}
+
+\item{theme}{[\code{character()}]\cr
+This param is the theme of the YAML-header. If set to NULL no theme will
+be used}
+
+\item{df.print}{[\code{character()}]\cr
+This param sets the YAML header for how Dataframed should be printed.
+If set to NULL df.print param will not be used.}
 }
 \value{
 creates rmd Files, returns NULL
