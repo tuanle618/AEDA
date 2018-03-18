@@ -17,15 +17,15 @@
 #'   data("airquality")
 #'   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
 #'   basic.report = makeBasicReport(my.report.task, data = airquality)
-#'   writeReport(basic.report)
+#'   writeReport(basic.report, save.mode = FALSE, override = TRUE)
 #'
 #'   my.creport.task = makeCorrTask(id = "corr.report", data = airquality)
 #'   my.creport = makeCorr(my.creport.task)
 #'   corr.report = makeCorrReport(my.creport, type = "CorrPlot")
-#'   writeReport(corr.report)
+#'   writeReport(corr.report, save.mode = FALSE, override = TRUE)
 #'
 #'   # Or put the reports together
-#'   finishReport(basic.report, corr.report)
+#'   finishReport(basic.report, corr.report, save.mode = FALSE, override = TRUE)
 #'
 #'
 #' @return Invisible NULL; creates a rmd report file

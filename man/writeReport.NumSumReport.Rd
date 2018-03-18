@@ -5,7 +5,7 @@
 \title{Writes a rmd file for the Numeric Summary Report [WIP]}
 \usage{
 \method{writeReport}{NumSumReport}(report, sub.dir = "Data_Report",
-  save.mode = TRUE)
+  save.mode = TRUE, override = FALSE)
 }
 \arguments{
 \item{report}{[\code{NumSumReport} Object]\cr
@@ -16,7 +16,11 @@ the name of the (relative) sub-directory where the data report will be saved. De
 
 \item{save.mode}{[\code{logical(1)}]\cr
 In Save mode its not possible to use an existing folder.
-To ensure no data is lost, a new folder will be created (if possible).
+To ensure no data is lost, a new folder will be created (if possible).}
+
+\item{override}{[\code{logical(1)}]\cr
+override controls if the function is allowed to override
+an existing rmd-file
 Default is \code{TRUE}}
 }
 \value{
@@ -33,5 +37,5 @@ Writes a rmd file for the Numeric Summary Report [WIP]
  #create the numeric summary report
  report = makeNumSumReport(num.sum)
  #write the report
- writeReport(report)
+ writeReport(report, save.mode = FALSE, override = TRUE)
 }

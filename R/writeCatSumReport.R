@@ -17,7 +17,7 @@
 #'  cat.sum = makeCatSum(cat.sum.task)
 #'  #create the numeric summary report
 #'  report = makeCatSumReport(cat.sum)
-#'  writeReport(report)
+#'  writeReport(report, save.mode = FALSE, override = TRUE)
 #' @return rmd-file location
 #' @import checkmate
 #' @export

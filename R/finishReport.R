@@ -17,7 +17,9 @@
 #' @param df.print [\code{character()}]\cr
 #'   This param sets the YAML header for how Dataframed should be printed.
 #'   If set to NULL df.print param will not be used.
-#'
+#' @param override [\code{logical(1)}]\cr
+#'   override controls if the function is allowed to override
+#'   an existing rmd-file
 #' @return creates rmd Files, returns NULL
 #'
 #' @examples
@@ -48,12 +50,13 @@
 #'
 #' #combine all reports
 #' finishReport(basic.report, num.sum.report, report1, report2,
-#'   cat.sum.report)
+#'   cat.sum.report, save.mode = FALSE, override = TRUE)
 #'
 #' @import checkmate
 #' @import BBmisc
 #' @export
-finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE, theme = "cosmo", df.print = "paged"){
+finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
+  theme = "cosmo", df.print = "paged", override = FALSE){
   x = list(...)
   assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport", "CatSumReport"))
   assertLogical(save.mode)
@@ -64,7 +67,7 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE, theme = 
   # Genrate Reports
   for (i in seq.int(n)) {
     ### writeReport is the S3 Method which should pick the correct write function for each object
-    child.names[i] = writeReport(x[[i]], sub.dir, save.mode = FALSE)
+    child.names[i] = writeReport(x[[i]], sub.dir, save.mode = FALSE, override = override)
   }
   # Organize Childs
   report.con = file("MainReport.rmd", "w", encoding = rmdEncoding())

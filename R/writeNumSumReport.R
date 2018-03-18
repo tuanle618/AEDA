@@ -19,7 +19,7 @@
 #'  #create the numeric summary report
 #'  report = makeNumSumReport(num.sum)
 #'  #write the report
-#'  writeReport(report)
+#'  writeReport(report, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export
