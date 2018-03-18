@@ -4,8 +4,8 @@
 \alias{naSummary}
 \title{Giving a NA summary and an image of a data with missing values}
 \usage{
-naSummary(data, show.plot = FALSE, show.result = FALSE, margin.left = 4,
-  report.task = NULL)
+naSummary(data, dataset.name, show.plot = FALSE, show.result = FALSE,
+  margin.left = 4)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -29,8 +29,9 @@ A [\code{naSumObj}] with Names of the variables with their frequency of missing 
   which shows the position of the missing values (color = black) for each variable with NAs and the number of missing values as a bar plot
 }
 \description{
-Characterizes only variables of a data set with missing values. So, missing values are painted
-black, while other observations keep white.
+Characterizes only variables of a data set with missing values.
+So, missing values are painted black, while other observations
+keep white.
 }
 \examples{
  data("airquality")
@@ -45,7 +46,7 @@ black, while other observations keep white.
  airquality[idx2, "Temp"] = NA
  #create the NA summary
  na.summary = naSummary(data = airquality, show.plot = FALSE,
-  show.result = FALSE, margin.left = 4, report.task = NULL)
+  show.result = FALSE, margin.left = 4, dataset.name = "Airquality")
  #plot the object through print
  na.summary
  #retrieve the elements through the components
