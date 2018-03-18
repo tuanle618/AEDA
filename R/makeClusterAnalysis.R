@@ -33,7 +33,7 @@ makeClusterAnalysis = function(cluster.task){
   cluster.analysis = getClusterAnalysis(data, num.features, method, par.vals, random.seed, scale.num.data)
 
   makeS3Obj("ClusterAnalysisObj",
-    cluster.task = cluster.task,
+    task = cluster.task,
     cluster.analysis = cluster.analysis
   )
 }
@@ -41,6 +41,6 @@ makeClusterAnalysis = function(cluster.task){
 #' @export
 # Print function for ClusterAnalysis Object
 print.ClusterAnalysisObj = function(x, ...) {
-  print(x$cluster.task)
+  print(x$task)
   print(x$cluster.analysis$cluster.all$cluster.plot)
 }
