@@ -19,8 +19,8 @@
 #' @import BBmisc
 #' @import gridExtra
 #' @examples
-#'  data("diamonds", package = "ggplot2")
-#'  ggplot = plotBar(diamonds, target = "cut", col = "carat")
+#'  data("Arthritis", package = "vcd")
+#'  ggplot = plotBar(Arthritis, target = "Improved")
 #' @export
 #' @title Creates a bar plot of a categorical (discrete) feature.
 
