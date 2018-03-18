@@ -25,7 +25,7 @@
 
 writeReport = function(report, sub.dir, save.mode) UseMethod("writeReport")
 
-writeReport.default = function(report, ...){
+writeReport.default = function(report, sub.dir = NULL, save.mode = NULL){
   warning(paste0("writeReport does not know how to handle object of class \"",
-    class(x), "\""))
+    class(report), "\""))
 }

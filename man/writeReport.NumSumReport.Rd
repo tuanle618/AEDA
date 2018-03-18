@@ -4,11 +4,11 @@
 \alias{writeReport.NumSumReport}
 \title{Writes a rmd file for the Numeric Summary Report [WIP]}
 \usage{
-\method{writeReport}{NumSumReport}(num.sum.report, sub.dir = "Data_Report",
+\method{writeReport}{NumSumReport}(report, sub.dir = "Data_Report",
   save.mode = TRUE)
 }
 \arguments{
-\item{num.sum.report}{[\code{NumSumReport} Object]\cr
+\item{report}{[\code{NumSumReport} Object]\cr
 The report Object which should be converted to an rmd file}
 
 \item{sub.dir}{[\code{character(1)}]\cr
@@ -31,7 +31,7 @@ Writes a rmd file for the Numeric Summary Report [WIP]
  #get the numeric summary task object
  num.sum = makeNumSum(num.sum.task)
  #create the numeric summary report
- num.sum.report = makeNumSumReport(num.sum)
+ report = makeNumSumReport(num.sum)
  #write the report
- writeReport(num.sum.report)
+ writeReport(report)
 }

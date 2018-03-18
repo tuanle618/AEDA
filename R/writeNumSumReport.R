@@ -1,6 +1,6 @@
 #' Writes a rmd file for the Numeric Summary Report [WIP]
 #'
-#' @param num.sum.report [\code{NumSumReport} Object]\cr
+#' @param report [\code{NumSumReport} Object]\cr
 #'   The report Object which should be converted to an rmd file
 #' @param sub.dir [\code{character(1)}]\cr
 #'   the name of the (relative) sub-directory where the data report will be saved. Default is \code{Data_Report}
@@ -14,15 +14,15 @@
 #'  #get the numeric summary task object
 #'  num.sum = makeNumSum(num.sum.task)
 #'  #create the numeric summary report
-#'  num.sum.report = makeNumSumReport(num.sum)
+#'  report = makeNumSumReport(num.sum)
 #'  #write the report
-#'  writeReport(num.sum.report)
+#'  writeReport(report)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export
-writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.NumSumReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
   report.env = new.env(parent = .GlobalEnv)
-  assertClass(num.sum.report, "NumSumReport")
+  assertClass(report, "NumSumReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
   # Create sub directory, save current wd and set new wd to the new directory
@@ -40,7 +40,7 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(num.sum.report, getId(num.sum.report), report.con)
+    saveLoadObj(report, getId(report), report.con)
     writeLines("```", con = report.con)
 
     writeLines("```{r, echo=FALSE}", con = report.con)
@@ -48,13 +48,13 @@ writeReport.NumSumReport = function(num.sum.report, sub.dir = "Data_Report", sav
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
     #rmdWriteLines(vec = vec,  con = report.con)
     writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("num.sum.report.obj = ", num.sum.report$report.id), con = report.con)
+    writeLines(paste0("report.obj = ", report$report.id), con = report.con)
     writeLines("```", con = report.con)
 
     writeLines("Some text; Numeric Summary ....", con = report.con)
     writeLines("```{r, echo=FALSE}", con = report.con)
-    writeLines(paste0(num.sum.report$report.id, "$num.sum.df"), con = report.con)
-    writeLines(paste0(num.sum.report$report.id, "$num.sum.var"), con = report.con)
+    writeLines(paste0(report$report.id, "$num.sum.df"), con = report.con)
+    writeLines(paste0(report$report.id, "$num.sum.var"), con = report.con)
     writeLines("```", con = report.con)
 
   }, finally = {
