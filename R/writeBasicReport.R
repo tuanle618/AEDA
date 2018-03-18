@@ -10,14 +10,14 @@
 #'   Default is \code{TRUE}
 #' @examples
 #'   data("airquality")
-#'   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
-#'   basic.report = makeBasicReport(my.report.task, data = airquality)
-#'   writeReport(basic.report)
+#'   my.basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'   basic.report = makeBasicReport(my.basic.report.task)
+#'   writeBasicReport(basic.report)
 #'
 #'   data("iris")
-#'   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
-#'   basic.report2 = makeBasicReport(my.report.task2, data = iris)
-#'   writeReport(basic.report2)
+#'   my.basic.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
+#'   basic.report2 = makeBasicReport(my.basic.report.task2)
+#'   writeBasicReport(basic.report2)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export

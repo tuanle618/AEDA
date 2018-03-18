@@ -23,7 +23,7 @@
 #' @export
 
 
-writeReport = function(report) UseMethod("writeReport")
+writeReport = function(report, ...) UseMethod("writeReport")
 
 writeReport.default = function(report, ...){
   warning(paste0("writeReport does not know how to handle object of class \"",

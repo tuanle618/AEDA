@@ -21,7 +21,7 @@ makeReport.BasicReportTask = function(basic.report.task){
   na.summary = naSummary(data = basic.report.task$env$data, report.task = basic.report.task)
 
   makeS3Obj("BasicReport",
-    report.task = basic.report.task,
+    task = basic.report.task,
     basic.data.summary = basic.data.summary,
     na.summary = na.summary,
     report.id = report.id,
