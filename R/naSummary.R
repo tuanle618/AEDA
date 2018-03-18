@@ -34,7 +34,6 @@
 #'  #retrieve the elements through the components
 #'  na.summary$nsum
 #'  na.summary$image()
-#'
 #' @export
 #' @import checkmate
 #' @import BBmisc
