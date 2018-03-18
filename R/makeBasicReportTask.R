@@ -10,16 +10,16 @@
 #' @param target [\code{character(1)}]\cr
 #'   Defines the target column. f the dataset does not contain a target column please insert \code{NULL}
 #'
-#' @return [\code{ReportTask}]
+#' @return [\code{BasicReportTask}]
 #'
 #' @examples
-#' my.report.task = makeReportTask(id = "report.test", data = iris, target = "Species")
+#' my.basic.report.task = makeBasicReportTask(id = "report.test", data = iris, target = "Species")
 #' # Extract Data
-#' my.report.task$env$data
+#' my.basic.report.task$env$data
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeReportTask = function(id, data, target){
+makeBasicReportTask = function(id, data, target){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -31,7 +31,7 @@ makeReportTask = function(id, data, target){
   env$data = data
   env$target = target
 
-  makeS3Obj("ReportTask",
+  makeS3Obj("BasicReportTask",
     id = id,
     target = target,
     dataset.name = deparse(substitute(data)),
@@ -42,7 +42,7 @@ makeReportTask = function(id, data, target){
 
 #' @export
 # Print fuction for ReportTask Object
-print.ReportTask = function(x, ...) {
+print.BasicReportTask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Dataset: %s", x$dataset.name)
   catf("Target: %s", x$target)

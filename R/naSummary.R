@@ -44,7 +44,7 @@
 #' @title Giving a NA summary and an image of a data with missing values
 
 naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL){
-  assertClass(report.task, "ReportTask")
+  assertClass(report.task, "BasicReportTask")
   assertDataFrame(data)
   assertLogical(show.plot)
   assertLogical(show.result)
