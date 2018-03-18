@@ -12,6 +12,15 @@ Imports: checkmate,
   BBmisc,
     moments,
     ggplot2,
-    gridBase
+    gridBase,
+    NbClust,
+    cluster,
+    dbscan,
+    factoextra,
+    fpc,
+    gridExtra,
+    kernlab,
+    mclust,
+    vcd
 Suggests: testthat,
   lintr (>= 1.0.0.9001)
