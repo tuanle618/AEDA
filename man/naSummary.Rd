@@ -45,7 +45,7 @@ keep white.
  idx2 = sample(1:nrow(airquality), size = 7)
  airquality[idx2, "Temp"] = NA
  #create the NA summary
- na.summary = naSummary(data = airquality, show.plot = FALSE,
+ na.summary = naSummary(data = airquality, show.plot = TRUE,
   show.result = FALSE, margin.left = 4, dataset.name = "Airquality")
  #plot the object through print
  na.summary

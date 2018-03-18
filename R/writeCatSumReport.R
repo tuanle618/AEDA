@@ -8,6 +8,9 @@
 #'   In Save mode its not possible to use an existing folder.
 #'   To ensure no data is lost, a new folder will be created (if possible).
 #'   Default is \code{TRUE}
+#' @param override [\code{logical(1)}]\cr
+#'   override controls if the function is allowed to override
+#'   an existing rmd-file
 #' @examples
 #'  data("Arthritis", package = "vcd")
 #'  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
@@ -18,7 +21,7 @@
 #' @return rmd-file location
 #' @import checkmate
 #' @export
-writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode = TRUE, override = FALSE){
   report.env = new.env(parent = .GlobalEnv)
   assertClass(report, "CatSumReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
@@ -38,7 +41,7 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(report, getId(report), report.con)
+    saveLoadObj(report, getId(report), report.con, override = override)
     writeLines("```", con = report.con)
 
     writeLines("```{r}", con = report.con)

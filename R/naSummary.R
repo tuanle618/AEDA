@@ -43,6 +43,7 @@
 #' @importFrom grid pushViewport
 #' @importFrom grid viewport
 #' @importFrom grid grid.layout
+#' @importFrom grid popViewport
 #' @importFrom gridBase gridFIG
 #' @title Giving a NA summary and an image of a data with missing values
 naSummary  = function(data, dataset.name, show.plot = FALSE, show.result = FALSE, margin.left = 4){

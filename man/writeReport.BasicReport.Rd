@@ -5,7 +5,7 @@
 \title{Writes a rmd file for the Basic Report [WIP]}
 \usage{
 \method{writeReport}{BasicReport}(report, sub.dir = "Data_Report",
-  save.mode = TRUE)
+  save.mode = TRUE, override = FALSE)
 }
 \arguments{
 \item{report}{[\code{BasicReport} Object]\cr
@@ -18,6 +18,10 @@ the name of the (relative) sub-directory where the data report will be saved. De
 In Save mode its not possible to use an existing folder.
 To ensure no data is lost, a new folder will be created (if possible).
 Default is \code{TRUE}}
+
+\item{override}{[\code{logical(1)}]\cr
+override controls if the function is allowed to override
+an existing rmd-file}
 }
 \value{
 Invisible NULL
@@ -26,13 +30,15 @@ Invisible NULL
 Writes a rmd file for the Basic Report [WIP]
 }
 \examples{
+  set.seed(1)
   data("airquality")
   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
   report = makeBasicReport(my.report.task, data = airquality)
-  writeReport(report)
+  writeReport(report, save.mode = FALSE, override = TRUE)
 
+  set.seed(2)
   data("iris")
   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
   report2 = makeBasicReport(my.report.task2, data = iris)
-  writeReport(report2)
+  writeReport(report2, save.mode = FALSE, override = TRUE)
 }

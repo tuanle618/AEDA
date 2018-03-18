@@ -16,8 +16,8 @@ This will be computed automatically when calling this function.}
 
 \item{target}{[\code{character(1)}]\cr}
 
-\item{geom.hist.args}{[\code{list()}] \cr
-Other arguments to be passed to \link[ggplot2]{geom_histogram}.
+\item{geombar.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_bar}.
  The target column}
 }
 \value{

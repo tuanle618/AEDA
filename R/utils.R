@@ -61,10 +61,10 @@ getPkgs = function(obj){
 }
 
 # Saves an object and writes code to load it into the rmd file
-saveLoadObj = function(obj, name, file){
+saveLoadObj = function(obj, name, file, override = FALSE){
   #save object
   obj.file.name = paste0(name, ".rds")
-  if (file.exists(obj.file.name))
+  if (file.exists(obj.file.name) & !override)
     stop(paste0(obj.file.name, " already exists! Please rename the *.report object in function call write*Report() "))
   saveRDS(obj, file = obj.file.name)
   #load object; x$var.id is needed so the plo

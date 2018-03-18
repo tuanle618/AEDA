@@ -4,7 +4,8 @@
 \alias{plotFeatDistr}
 \title{Plots univariate distribution of a feature.}
 \usage{
-plotFeatDistr(data, target, col, geom.hist.args, geom.dens.args)
+plotFeatDistr(data, target, col, geom.hist.args = list(bins = 30, alpha =
+  0.4), geom.dens.args = list(size = 2, alpha = 0.4))
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -30,5 +31,5 @@ Plots univariate distribution of a feature.
 }
 \examples{
  data("diamonds", package = "ggplot2")
- ggplot = plotFeatDistr(diamonds, target = "cut", col = "carat")
+ plotFeatDistr(diamonds, target = "cut", col = "carat")
 }

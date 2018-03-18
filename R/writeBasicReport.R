@@ -8,21 +8,26 @@
 #'   In Save mode its not possible to use an existing folder.
 #'   To ensure no data is lost, a new folder will be created (if possible).
 #'   Default is \code{TRUE}
+#' @param override [\code{logical(1)}]\cr
+#'   override controls if the function is allowed to override
+#'   an existing rmd-file
 #' @examples
+#'   set.seed(1)
 #'   data("airquality")
 #'   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
 #'   report = makeBasicReport(my.report.task, data = airquality)
-#'   writeReport(report)
+#'   writeReport(report, save.mode = FALSE, override = TRUE)
 #'
+#'   set.seed(2)
 #'   data("iris")
 #'   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
 #'   report2 = makeBasicReport(my.report.task2, data = iris)
-#'   writeReport(report2)
+#'   writeReport(report2, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate
 #' @importFrom BBmisc catf
 #' @export
-writeReport.BasicReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.BasicReport = function(report, sub.dir = "Data_Report", save.mode = TRUE, override = FALSE){
   report.env = new.env(parent = .GlobalEnv)
   assertClass(report, "BasicReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
@@ -52,7 +57,7 @@ writeReport.BasicReport = function(report, sub.dir = "Data_Report", save.mode = 
   #  rmdloadData(report$report.task$dataset.name, data.path, report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(report, getId(report), report.con)
+    saveLoadObj(report, getId(report), report.con, override = override)
 
     writeLines("```", con = report.con)
 

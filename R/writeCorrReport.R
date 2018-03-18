@@ -7,6 +7,9 @@
 #' @param save.mode [\code{logical(1)}]\cr
 #'   In Save mode its not possible to use an existing folder.
 #'   To ensure no data is lost, a new folder will be created (if possible).
+#' @param override [\code{logical(1)}]\cr
+#'   override controls if the function is allowed to override
+#'   an existing rmd-file
 #' @examples
 #'   my.task = makeCorrTask(id = "test", data = cars)
 #'   my.corr = makeCorr(my.task)
@@ -15,7 +18,7 @@
 #' @return rmd-file location
 #' @import checkmate
 #' @export
-writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = TRUE, override = FALSE){
   report.env = new.env(parent = .GlobalEnv)
   # Create sub directory, save current wd and set new wd to the new directory
   origin.wd = createDir(sub.dir, save.mode)
@@ -33,7 +36,7 @@ writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = T
       rmdLibrary(needed.pkgs, report.con)
 
       # save object and write code to load it in the rmd-file
-      saveLoadObj(report, paste0(getId(report), report$report.id), report.con)
+      saveLoadObj(report, paste0(getId(report), report$report.id), report.con, override = override)
 
       writeLines("```", con = report.con)
 
