@@ -52,5 +52,4 @@ keep white.
  #retrieve the elements through the components
  na.summary$nsum
  na.summary$image()
-
 }
