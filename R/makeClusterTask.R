@@ -54,12 +54,40 @@
 #'
 makeClusterTask = function(id, data, target, method = "cluster.kmeans", random.seed = 89L,
   scale.num.data = TRUE, par.vals = list()){
+  #check if numeric cols >= 2
+  data.types = getDataType(data, target)
+  if (length(c(data.types$num, data.types$int)) < 2) {
+    stop(paste("Your dataset only contains of",
+    length(c(data.types$num, data.types$int))), " numeric columns. Cluster Analysis does not make sense")
+  }
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
   #target will be checked within GetDataType
   assertChoice(method, choices = paste0("cluster.",
     c("h", "agnes", "diana", "kkmeans", "kmeans", "pam", "dbscan", "mod")))
+  ##par.vals check::##
+  ##check if names are in formals::     ###extra ... args for kkmeans, dbscan::dbscan and Mclust. --- let just function call and then error if false
+  if (method == "cluster.h" | method == "cluster.agnes" | method == "cluster.kmeans" | method == "cluster.pam") {
+    if (method == "cluster.h") {
+      formals = formals(hclust)
+    } else if (method == "cluster.agnes") {
+      formals = formals(agnes)
+    } else if (method == "cluster.diana") {
+      formals = formals(diana)
+    } else if (method == "cluster.kmeans") {
+      formals = formals(kmeans)
+    } else if (method == "cluster.pam") {
+      formals = formals(pam)
+    }
+    for (arg in names(par.vals)) {
+      if (!is.element(el = arg, set = names(formals))) {
+        stop(paste(arg, "is not a parameter argument for clustering method:", method))
+      }
+    }
+  }
+
+  ####################
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
   env$data = data

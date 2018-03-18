@@ -42,5 +42,5 @@ makeClusterAnalysis = function(cluster.task){
 # Print function for ClusterAnalysis Object
 print.ClusterAnalysisObj = function(x, ...) {
   print(x$cluster.task)
-  #add more...:
+  print(x$cluster.analysis$cluster.all$cluster.plot)
 }
