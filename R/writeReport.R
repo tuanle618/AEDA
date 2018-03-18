@@ -4,6 +4,12 @@
 #'   A report Object
 #' @param ... [\code{character(1)}]\cr
 #'   for now its not used
+#' @param sub.dir [\code{character(1)}]\cr
+#'   the name of the (relative) sub-directory where the data report will be saved. Default is \code{Data_Report}
+#' @param save.mode [\code{logical(1)}]\cr
+#'   In Save mode its not possible to use an existing folder.
+#'   To ensure no data is lost, a new folder will be created (if possible).
+#'   Default is \code{TRUE}
 #' @examples
 #'   data("airquality")
 #'   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")

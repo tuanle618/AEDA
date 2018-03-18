@@ -11,8 +11,8 @@
 #'   A logic value set to \code{FALSE} as default.
 #' @param margin.left [\code{numeric(1)}]\cr
 #'   A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.
-#' @param report.task [\code{ReportTaskObj}]\cr
-#'   A Report Task Object.
+#' @param dataset.name [\code{ReportTaskObj}]\cr
+#'   The name of the data set
 #' @return A [\code{naSumObj}] with Names of the variables with their frequency of missing values and two additional plots
 #'   which shows the position of the missing values (color = black) for each variable with NAs and the number of missing values as a bar plot
 #' @examples
