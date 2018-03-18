@@ -12,6 +12,9 @@ naSummary(data, dataset.name, show.plot = FALSE, show.result = FALSE,
 Data to summarize. Columns can be of type numeric, integer, logical, factor or character.
 Characters and logicals will be treated as factors.}
 
+\item{dataset.name}{[\code{ReportTaskObj}]\cr
+The name of the data set}
+
 \item{show.plot}{[\code{logical(1)}]\cr
 A logic value set to \code{FALSE} as default.}
 
@@ -20,9 +23,6 @@ A logic value set to \code{FALSE} as default.}
 
 \item{margin.left}{[\code{numeric(1)}]\cr
 A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.}
-
-\item{report.task}{[\code{ReportTaskObj}]\cr
-A Report Task Object.}
 }
 \value{
 A [\code{naSumObj}] with Names of the variables with their frequency of missing values and two additional plots

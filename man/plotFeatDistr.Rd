@@ -17,7 +17,7 @@ Target column. If no target is available in the dataset please insert \code{NULL
 Selected feature from \code{data}.}
 
 \item{geom.hist.args}{[\code{list()}] \cr
-Other arguments to be passed to \link[ggplot2]{geom_histrogram}.}
+Other arguments to be passed to \link[ggplot2]{geom_histogram}.}
 
 \item{geom.dens.args}{[\code{list()}] \cr
 Other arguments to be passed to \link[ggplot2]{geom_density}.}
