@@ -7,7 +7,7 @@
 #' @param col [\code{character(1)} | \code{integer(1)}]\cr
 #'   Selected feature from \code{data}.
 #' @param geom.hist.args [\code{list()}] \cr
-#'  Other arguments to be passed to \link[ggplot2]{geom_histrogram}.
+#'  Other arguments to be passed to \link[ggplot2]{geom_histogram}.
 #' @param geom.dens.args [\code{list()}] \cr
 #'  Other arguments to be passed to \link[ggplot2]{geom_density}.
 #' @return A ggplot2 object. Print it to plot it.
