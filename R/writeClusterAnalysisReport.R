@@ -1,6 +1,6 @@
 #' Writes a rmd file for the ClusterAnalysis Report [WIP]
 #'
-#' @param cluster.report [\code{BasicReport} Object]\cr
+#' @param report [\code{BasicReport} Object]\cr
 #'   The report Object which should be converted to an rmd file
 #' @param sub.dir [\code{character(1)}]\cr
 #'   the name of the (relative) sub-directory where the data report will be saved. Default is \code{Data_Report}
@@ -8,18 +8,21 @@
 #'   In Save mode its not possible to use an existing folder.
 #'   To ensure no data is lost, a new folder will be created (if possible).
 #'   Default is \code{TRUE}
+#' @param override [\code{logical(1)}]\cr
+#'   override controls if the function is allowed to override
+#'   an existing rmd-file
 #' @examples
 #'   my.cluster.task = makeClusterTask(id = "iris", data = iris,
 #'    target = "Species", method = "cluster.kmeans")
 #'   cluster.analysis = makeClusterAnalysis(my.cluster.task)
-#'   cluster.report = makeClusterAnalysisReport(cluster.analysis)
-#'   writeReport(cluster.report)
+#'   report = makeClusterAnalysisReport(cluster.analysis)
+#'   writeReport(report)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export
-writeReport.ClusterAnalysisReport = function(cluster.report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", save.mode = TRUE, override = FALSE){
   report.env = new.env(parent = .GlobalEnv)
-  assertClass(cluster.report, "ClusterAnalysisReport")
+  assertClass(report, "ClusterAnalysisReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
   # Create sub directory, save current wd and set new wd to the new directory
@@ -27,7 +30,7 @@ writeReport.ClusterAnalysisReport = function(cluster.report, sub.dir = "Data_Rep
   rmd.name = rmdName("ClusterAnalysisReport")
 
   #define report.id for later accessing in rmd-file writing:
-  id = cluster.report$report.id
+  id = report$report.id
   # TryCatch sets wd back and closes all open connections if an error occurs
   tryCatch({
     ##try part
@@ -36,7 +39,7 @@ writeReport.ClusterAnalysisReport = function(cluster.report, sub.dir = "Data_Rep
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
 
     # save object and write code to load it in the rmd-file
-    saveLoadObj(cluster.report, getId(cluster.report), report.con)
+    saveLoadObj(report, getId(report), report.con)
 
     writeLines("```", con = report.con)
 
