@@ -7,7 +7,7 @@ r_github_packages:
   - berndbischl/BBmisc
   - jimhester/lintr
 
-warnings_are_errors: false
+warnings_are_errors: true
 
 jobs:
   fast_finish: true
