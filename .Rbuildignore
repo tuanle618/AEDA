@@ -5,3 +5,4 @@
 ^Data_Report/$
 ^MainReport.*$
 ^LICENSE$
+.travis.yml

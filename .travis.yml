@@ -1,0 +1,25 @@
+language: r
+sudo: false
+dist: trusty
+cache: packages
+
+r_github_packages:
+  - berndbischl/BBmisc
+  - jimhester/lintr
+
+warnings_are_errors: true
+
+
+jobs:
+  fast_finish: true
+  include:
+    - stage: warmup
+      install:
+        - Rscript -e 'if (length(find.package("devtools", quiet = TRUE)) == 0) install.packages("devtools")'
+        - Rscript -e 'devtools::install_deps()'
+        - Rscript -e 'install.packages("roxygen2")'
+      script: true
+    - stage: check
+      before_script:
+      - Rscript -e 'devtools::document()'
+

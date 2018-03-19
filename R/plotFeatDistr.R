@@ -7,7 +7,7 @@
 #' @param col [\code{character(1)} | \code{integer(1)}]\cr
 #'   Selected feature from \code{data}.
 #' @param geom.hist.args [\code{list()}] \cr
-#'  Other arguments to be passed to \link[ggplot2]{geom_histrogram}.
+#'  Other arguments to be passed to \link[ggplot2]{geom_histogram}.
 #' @param geom.dens.args [\code{list()}] \cr
 #'  Other arguments to be passed to \link[ggplot2]{geom_density}.
 #' @return A ggplot2 object. Print it to plot it.
@@ -16,12 +16,12 @@
 #' @import BBmisc
 #' @examples
 #'  data("diamonds", package = "ggplot2")
-#'  ggplot = plotFeatDistr(diamonds, target = "cut", col = "carat")
+#'  plotFeatDistr(diamonds, target = "cut", col = "carat")
 #' @export
 #' @title Plots univariate distribution of a feature.
 
 
-plotFeatDistr = function(data, target, col, geom.hist.args, geom.dens.args) {
+plotFeatDistr = function(data, target, col, geom.hist.args = list(bins = 30, alpha = 0.4), geom.dens.args = list(size = 2, alpha = 0.4)) {
   if (is.numeric(col))  {
     col = colnames(data)[col]
   }

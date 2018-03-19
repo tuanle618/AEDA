@@ -34,6 +34,6 @@ A ggplot2 object. Print it to plot it. [WIP if col is null]
 Creates a bar plot of a categorical feature or all categorical features of a dataset .
 }
 \examples{
- data("diamonds", package = "ggplot2")
- ggplot = plotBar(diamonds, target = "cut", col = "carat")
+ data("Arthritis", package = "vcd")
+ ggplot = plotBar(Arthritis, target = "Improved")
 }

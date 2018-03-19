@@ -10,6 +10,8 @@
 #'   A character vector with length of the number of numeric features in the dataset.
 #'   This will be computed automatically when calling this function.
 #' @param target [\code{character(1)}]\cr
+#' @param geombar.args [\code{list()}] \cr
+#'  Other arguments to be passed to \link[ggplot2]{geom_bar}.
 #'   The target column
 #' @return [\code{list()}]
 #'   A list containing the categorical summary and ggplot for each categorical column

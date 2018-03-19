@@ -22,7 +22,7 @@ makeBasicReport = function(report.task, data){
   assertDataFrame(data)
   report.id = reportId()
   basic.data.summary = basicDataSummary(data = report.task$env$data, target = report.task$env$target)
-  na.summary = naSummary(data = data, report.task = report.task)
+  na.summary = naSummary(data = data, dataset.name = report.task$dataset.name)
 
   makeS3Obj("BasicReport",
     report.task = report.task,
