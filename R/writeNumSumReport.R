@@ -59,31 +59,31 @@ writeReport.NumSumReport = function(report, sub.dir = "Data_Report", save.mode =
     writeLines("Some text; Numeric Summary ....", con = report.con)
 
     writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
-    #writeLines(paste0("kable(",num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])"), con = report.con)
+    #writeLines(paste0("kable(",report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])"), con = report.con)
 
     #Add colnames footer for kurtosis, skewness, l.bound and u.bound
-    string1 = paste0("colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[1]")
-    string1 = paste0(string1, " = paste0(colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[1], footnote_marker_alphabet(1))")
+    string1 = paste0("colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[1]")
+    string1 = paste0(string1, " = paste0(colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[1], footnote_marker_alphabet(1))")
     writeLines(string1, con = report.con)
     writeLines("\n", con = report.con)
 
-    string2 = paste0("colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[2]")
-    string2 = paste0(string2, " = paste0(colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[2], footnote_marker_alphabet(2))")
+    string2 = paste0("colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[2]")
+    string2 = paste0(string2, " = paste0(colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[2], footnote_marker_alphabet(2))")
     writeLines(string2, con = report.con)
     writeLines("\n", con = report.con)
 
-    string3 = paste0("colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[11]")
-    string3 = paste0(string3, " = paste0(colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[11], footnote_marker_alphabet(3))")
+    string3 = paste0("colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[11]")
+    string3 = paste0(string3, " = paste0(colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[11], footnote_marker_alphabet(3))")
     writeLines(string3, con = report.con)
     writeLines("\n", con = report.con)
 
-    string4 = paste0("colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[12]")
-    string4 = paste0(string4, " = paste0(colnames(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[12], footnote_marker_alphabet(4))")
+    string4 = paste0("colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[12]")
+    string4 = paste0(string4, " = paste0(colnames(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])[12], footnote_marker_alphabet(4))")
     writeLines(string4, con = report.con)
     writeLines("\n", con = report.con)
 
     #plot kable table with styling
-    writeLines(paste0("kable(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)], caption = 'Numeric Summary', format = 'html', escape = FALSE) %>%
+    writeLines(paste0("kable(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)], caption = 'Numeric Summary', format = 'html', escape = FALSE) %>%
       kable_styling(full_width = F) %>%
       footnote(general = 'Following footnotes explain some measure from the table above ',
       alphabet = c('Kurtosis will be calculated via: $\\\\frac{\\\\sum_{i = 1}^{n}(x_i - \\\\bar{x})^4 / n}{s^4}$;', 'Skewness will be calculated via: $\\\\frac{\\\\sum_{i = 1}^{n}(x_i - \\\\bar{x})^3 / n}{s^3}$; ',
@@ -96,14 +96,14 @@ writeReport.NumSumReport = function(report, sub.dir = "Data_Report", save.mode =
       con = report.con)
 
     #plot filterable datatable as option:
-    writeLines(paste0("dt = DT::datatable(", num.sum.report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)], class = 'compact', filter = 'bottom', options = list(pageLength = 10),
+    writeLines(paste0("dt = DT::datatable(", report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)], class = 'compact', filter = 'bottom', options = list(pageLength = 10),
       caption = htmltools::tags$caption(
       style = 'caption-side: bottom; text-align: center;',
       'Table : ', 'Numeric Summary'
       ))"), con = report.con)
     writeLines("dt", con = report.con)
-    writeLines(paste0("#", num.sum.report$report.id, "$num.sum.var"), con = report.con)
-    writeLines(paste0("invisible(lapply(", num.sum.report$report.id, "$num.sum.var,", " FUN = function(x) {
+    writeLines(paste0("#", report$report.id, "$num.sum.var"), con = report.con)
+    writeLines(paste0("invisible(lapply(", report$report.id, "$num.sum.var,", " FUN = function(x) {
     multiplot(plotlist = list(plot.hist = x[[3]], plot.box = x[[4]]), cols = 2)
     }))"), con = report.con)
     writeLines("```", con = report.con)

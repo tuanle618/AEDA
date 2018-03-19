@@ -12,13 +12,11 @@
 #'   override controls if the function is allowed to override
 #'   an existing rmd-file
 #' @examples
-#'   set.seed(1)
 #'   data("airquality")
 #'   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
 #'   report = makeBasicReport(my.report.task, data = airquality)
 #'   writeReport(report, save.mode = FALSE, override = TRUE)
 #'
-#'   set.seed(2)
 #'   data("iris")
 #'   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
 #'   report2 = makeBasicReport(my.report.task2, data = iris)
@@ -83,9 +81,9 @@ writeReport.BasicReport = function(report, sub.dir = "Data_Report", save.mode = 
     writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
     rmdLibrary("knitr", file = report.con)
     rmdLibrary("kableExtra", file = report.con)
-    writeLines(paste0("#",basic.report$report.id, "$report.task"), con = report.con)
-    #writeLines(paste0(basic.report$report.id, "$na.summary$na.df"), con = report.con)
-    writeLines(paste0("kable(", basic.report$report.id, "$na.summary$na.df, caption = 'Missing Value Summary', format = 'html') %>%
+    writeLines(paste0("#", report$report.id, "$report.task"), con = report.con)
+    #writeLines(paste0(report$report.id, "$na.summary$na.df"), con = report.con)
+    writeLines(paste0("kable(", report$report.id, "$na.summary$na.df, caption = 'Missing Value Summary', format = 'html') %>%
   kable_styling(full_width = TRUE)"), con = report.con)
 
     writeLines("#Plotting missing values according to their frequency", con = report.con)
