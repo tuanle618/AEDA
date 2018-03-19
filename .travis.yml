@@ -17,6 +17,8 @@ jobs:
         - Rscript -e 'if (length(find.package("devtools", quiet = TRUE)) == 0) install.packages("devtools")'
         - Rscript -e 'devtools::install_deps()'
         - Rscript -e 'install.packages("roxygen2")'
-        - Rscript -e 'devtools::document()'
       script: true
     - stage: check
+      before_script:
+      - Rscript -e 'devtools::document()'
+
