@@ -16,7 +16,7 @@
 #'    target = "Species", method = "cluster.kmeans")
 #'   cluster.analysis = makeClusterAnalysis(my.cluster.task)
 #'   report = makeClusterAnalysisReport(cluster.analysis)
-#'   writeReport(report)
+#'   writeReport(report, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export
