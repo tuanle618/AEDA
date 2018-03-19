@@ -2,6 +2,7 @@
 
 S3method(makeReport,BasicReportTask)
 S3method(makeReport,CatSumObj)
+S3method(makeReport,CorrObj)
 S3method(makeReport,NumSumObj)
 S3method(print,BasicReportTask)
 S3method(print,CatSumObj)

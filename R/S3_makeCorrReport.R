@@ -1,4 +1,4 @@
-#' Creates an Report object
+#' Creates an Correlation Report object
 #'
 #' @param corr.obj [\code{CorrObj} Object]\cr
 #'   A object of the "CorrObj" class
@@ -6,10 +6,10 @@
 #' @examples
 #' my.task = makeCorrTask(id = "test", data = cars)
 #' my.corr = makeCorr(my.task)
-#' report = makeCorrReport(my.corr)
+#' report = makeReport(my.corr)
 #' @import checkmate
 #' @export
-makeCorrReport = function(corr.obj){
+makeReport.CorrObj = function(corr.obj){
   assertClass(corr.obj, "CorrObj")
   report.id = reportId()
   if (corr.obj$type == "CorrPlot") {
@@ -20,6 +20,10 @@ makeCorrReport = function(corr.obj){
     report.id = report.id)
 }
 
-# my.task = makeCorrTask(id = "test", data = cars)
-# my.corr = makeCorr(my.task)
-# report1 = makeCorrReport(my.corr, type = "CorrPlot")
+print.CorrReport = function(x, ...) {
+  catf("Task: %s", x$id)
+  catf("Type: %2s", x$type)
+  catf("Name of the Data: %s", x$data.name)
+  cat("Correlationmatrix: \n")
+  print(x$corr.matrix)
+}
