@@ -45,7 +45,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   num.data = data[, num.features]
   if (scale.num.data) num.data = scale(num.data)
   #tupel combinations
-  combinations = combn(x = seq_len(num.data), m = 2)
+  combinations = combn(x = seq_len(colnames(num.data)), m = 2)
 
   ##K-Means or PAM:
   if (is.element(method, c("cluster.kmeans", "cluster.pam"))) {
