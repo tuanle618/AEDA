@@ -18,7 +18,7 @@
 #'   writeReport(report, save.mode = FALSE, override = TRUE)
 #'
 #'   data("iris")
-#'   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
+#'   my.report.task2 = makeBasicReportTask(id = "test.report2", data = iris, target = "Species")
 #'   report2 = makeReport(my.report.task2)
 #'   writeReport(report2, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
