@@ -80,7 +80,7 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
       multiplot(plotlist = plot)
     } else {
       #suppressWarnings(do.call(grid.arrange, plot))
-      AEDA::multiplotPages(list = plot, k = 6, no.cols = 3)
+      multiplotPages(list = plot, k = 6, no.cols = 3)
     }
   }
   return(plot)

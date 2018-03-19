@@ -37,9 +37,18 @@ makeS3Obj2 = function(classes, object, ...){
   return(result)
 }
 
-# Wrapper for loading not already loaded librarys
-rmdLibrary = function(needed.pkgs, file, force = FALSE){
-  catf("require(%s)\n", needed.pkgs, file = file)
+# Wrapper for loading not already loaded librarys, input is a character vector
+rmdLibrary = function(needed.pkgs, file){
+  for (i in seq.int(length(needed.pkgs))){
+    rmdLibrarySingle(needed.pkgs[i], file)
+  }
+}
+# like rmdLibrary but input is a single character string
+rmdLibrarySingle = function(needed.pkg, file){
+  catf('if (!require("%s",character.only = TRUE)) {
+    install.packages("%s",dep=TRUE)
+    if(!require("%s",character.only = TRUE)) stop("Package not found")
+    }', needed.pkg, needed.pkg, needed.pkg, file = file)
 }
 
 # Wrapper for loading data
@@ -61,10 +70,10 @@ getPkgs = function(obj){
 }
 
 # Saves an object and writes code to load it into the rmd file
-saveLoadObj = function(obj, name, file){
+saveLoadObj = function(obj, name, file, override = FALSE){
   #save object
   obj.file.name = paste0(name, ".rds")
-  if (file.exists(obj.file.name))
+  if (file.exists(obj.file.name) & !override)
     stop(paste0(obj.file.name, " already exists! Please rename the *.report object in function call write*Report() "))
   saveRDS(obj, file = obj.file.name)
   #load object; x$var.id is needed so the plo
@@ -201,19 +210,19 @@ idWrapper = function(report, string){
 #write header for rmd files
 # doc: https://rmarkdown.rstudio.com/html_document_format.html
 writeHeader = function(title, con, subtitle = NULL, author = NULL,
-  date = format(Sys.time(), '%d %B %Y'), toc =TRUE, df.print = "paged",
+  date = format(Sys.time(), "%d %B %Y"), toc =TRUE, df.print = "paged",
   theme = "cosmo", toc.depth = 2){
   writeLines("---", con = con)
   catf("title: \"%s\"", title, file = con)
-  if(!is.null(subtitle)) catf("subtitle: \"%s\"", subtitle, file = con)
-  if(!is.null(author)) catf("author: \"%s\"", author, file = con)
-  if(!is.null(date)) catf("date: \"%s\"", date, file = con)
+  if (!is.null(subtitle)) catf("subtitle: \"%s\"", subtitle, file = con)
+  if (!is.null(author)) catf("author: \"%s\"", author, file = con)
+  if (!is.null(date)) catf("date: \"%s\"", date, file = con)
   catf("output:", file = con)
   catf("  html_document:", file = con)
-  if(!is.null(theme)) catf("    theme: %s", theme, file = con)
-  if(!is.null(toc)) catf("    toc: %s", toc, file = con)
-  if(!is.null(toc.depth)) catf("    toc_depth: %s", toc.depth, file = con)
-  if(!is.null(df.print)) catf("    df_print: %s", df.print, file = con)
+  if (!is.null(theme)) catf("    theme: %s", theme, file = con)
+  if (!is.null(toc)) catf("    toc: %s", toc, file = con)
+  if (!is.null(toc.depth)) catf("    toc_depth: %s", toc.depth, file = con)
+  if (!is.null(df.print)) catf("    df_print: %s", df.print, file = con)
   writeLines("---", con = con)
 }
 

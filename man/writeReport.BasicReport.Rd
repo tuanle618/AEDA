@@ -4,11 +4,11 @@
 \alias{writeReport.BasicReport}
 \title{Writes a rmd file for the Basic Report [WIP]}
 \usage{
-\method{writeReport}{BasicReport}(basic.report, sub.dir = "Data_Report",
-  save.mode = TRUE)
+\method{writeReport}{BasicReport}(report, sub.dir = "Data_Report",
+  save.mode = TRUE, override = FALSE)
 }
 \arguments{
-\item{basic.report}{[\code{BasicReport} Object]\cr
+\item{report}{[\code{BasicReport} Object]\cr
 The report Object which should be converted to an rmd file}
 
 \item{sub.dir}{[\code{character(1)}]\cr
@@ -18,6 +18,10 @@ the name of the (relative) sub-directory where the data report will be saved. De
 In Save mode its not possible to use an existing folder.
 To ensure no data is lost, a new folder will be created (if possible).
 Default is \code{TRUE}}
+
+\item{override}{[\code{logical(1)}]\cr
+override controls if the function is allowed to override
+an existing rmd-file}
 }
 \value{
 Invisible NULL
@@ -28,11 +32,11 @@ Writes a rmd file for the Basic Report [WIP]
 \examples{
   data("airquality")
   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
-  basic.report = makeBasicReport(my.report.task, data = airquality)
-  writeReport(basic.report)
+  report = makeBasicReport(my.report.task, data = airquality)
+  writeReport(report, save.mode = FALSE, override = TRUE)
 
   data("iris")
   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
-  basic.report2 = makeBasicReport(my.report.task2, data = iris)
-  writeReport(basic.report2)
+  report2 = makeBasicReport(my.report.task2, data = iris)
+  writeReport(report2, save.mode = FALSE, override = TRUE)
 }

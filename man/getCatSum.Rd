@@ -14,8 +14,11 @@ A Dataframe with different variables.}
 A character vector with length of the number of numeric features in the dataset.
 This will be computed automatically when calling this function.}
 
-\item{target}{[\code{character(1)}]\cr
-The target column}
+\item{target}{[\code{character(1)}]\cr}
+
+\item{geombar.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_bar}.
+ The target column}
 }
 \value{
 [\code{list()}]

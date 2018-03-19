@@ -73,7 +73,7 @@ plotDens = function(data, target, col = NULL, show.plot = FALSE, alpha = 0.4, co
       multiplot(plotlist = plot)
     } else {
       #suppressWarnings(do.call(grid.arrange, plot))
-      AEDA::multiplotPages(list = plot, k = 6, no.cols = 3)
+      multiplotPages(list = plot, k = 6, no.cols = 3)
     }
   }
   return(plot)

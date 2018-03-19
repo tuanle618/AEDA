@@ -1,5 +1,6 @@
-#' Characterizes only variables of a data set with missing values. So, missing values are painted
-#' black, while other observations keep white.
+#' Characterizes only variables of a data set with missing values.
+#' So, missing values are painted black, while other observations
+#' keep white.
 #'
 #' @param data [\code{data.frame}]\cr
 #'   Data to summarize. Columns can be of type numeric, integer, logical, factor or character.
@@ -10,8 +11,8 @@
 #'   A logic value set to \code{FALSE} as default.
 #' @param margin.left [\code{numeric(1)}]\cr
 #'   A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.
-#' @param report.task [\code{ReportTaskObj}]\cr
-#'   A Report Task Object.
+#' @param dataset.name [\code{ReportTaskObj}]\cr
+#'   The name of the data set
 #' @return A [\code{naSumObj}] with Names of the variables with their frequency of missing values and two additional plots
 #'   which shows the position of the missing values (color = black) for each variable with NAs and the number of missing values as a bar plot
 #' @examples
@@ -26,25 +27,26 @@
 #'  idx2 = sample(1:nrow(airquality), size = 7)
 #'  airquality[idx2, "Temp"] = NA
 #'  #create the NA summary
-#'  na.summary = naSummary(data = airquality, show.plot = FALSE,
-#'   show.result = FALSE, margin.left = 4, report.task = NULL)
+#'  na.summary = naSummary(data = airquality, show.plot = TRUE,
+#'   show.result = FALSE, margin.left = 4, dataset.name = "Airquality")
 #'  #plot the object through print
 #'  na.summary
 #'  #retrieve the elements through the components
 #'  na.summary$nsum
 #'  na.summary$image()
-#'
 #' @export
 #' @import checkmate
 #' @import BBmisc
 #' @import ggplot2
-#' @import grid
-#' @import gridBase
-#' @import graphics
+#' @importFrom grid grid.newpage
+#' @importFrom grid pushViewport
+#' @importFrom grid viewport
+#' @importFrom grid grid.layout
+#' @importFrom grid popViewport
+#' @importFrom gridBase gridFIG
 #' @title Giving a NA summary and an image of a data with missing values
-
-naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left = 4, report.task = NULL){
-  assertClass(report.task, "ReportTask")
+naSummary  = function(data, dataset.name, show.plot = FALSE, show.result = FALSE, margin.left = 4){
+  assertCharacter(dataset.name, min.chars = 1L, len = 1L)
   assertDataFrame(data)
   assertLogical(show.plot)
   assertLogical(show.result)
@@ -60,7 +62,7 @@ naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     na.df = na.df[with(na.df, order(-num_missing)), ]
 
     if (show.result) {
-      cat("In total there are:", sum((na.df$num_missing)), "NAs in the dataset:", report.task$dataset.name, "\n")
+      cat("In total there are:", sum((na.df$num_missing)), "NAs in the dataset:", dataset.name, "\n")
       print(na.df)
     }
     #get the data containing the columns with NAs
@@ -116,7 +118,7 @@ naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
     env$data.new = data.new
     env$margin.left = margin.left
     env$num = num
-    makeS3Obj("naSumObj", na.df = na.df, data = data, dataset.name = report.task$dataset.name, env = env,
+    makeS3Obj("naSumObj", na.df = na.df, data = data, dataset.name = dataset.name, env = env,
       image = function() {
         image(env$color, col = c("white", "black"), yaxt = "n", xaxt = "n")
         par(mar = c(5, env$margin.left, 4, 2) + 0.1)
@@ -135,8 +137,8 @@ naSummary  = function(data, show.plot = FALSE, show.result = FALSE, margin.left 
 
   }
   else{
-    if (show.result) cat("There are no missing values in the dataset: ", report.task$dataset.name, "\n")
-    makeS3Obj("naSumObj", na.df = NULL, data = data, dataset.name = report.task$dataset.name, env = NULL, image = NULL,
+    if (show.result) cat("There are no missing values in the dataset: ", dataset.name, "\n")
+    makeS3Obj("naSumObj", na.df = NULL, data = data, dataset.name = dataset.name, env = NULL, image = NULL,
       ggplot = NULL)
   }
 }

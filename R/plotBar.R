@@ -19,8 +19,8 @@
 #' @import BBmisc
 #' @import gridExtra
 #' @examples
-#'  data("diamonds", package = "ggplot2")
-#'  ggplot = plotBar(diamonds, target = "cut", col = "carat")
+#'  data("Arthritis", package = "vcd")
+#'  ggplot = plotBar(Arthritis, target = "Improved")
 #' @export
 #' @title Creates a bar plot of a categorical (discrete) feature.
 
@@ -71,7 +71,7 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE, position = "dodg
       multiplot(plotlist = plot)
     } else {
       #suppressWarnings(do.call(grid.arrange, plot))
-      AEDA::multiplotPages(list = plot, k = 6, no.cols = 3)
+      multiplotPages(list = plot, k = 6, no.cols = 3)
     }
   }
   return(plot)

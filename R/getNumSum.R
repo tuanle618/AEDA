@@ -12,7 +12,7 @@
 #' @param target [\code{character(1)}]\cr
 #'   The target column
 #' @param geom.hist.args [\code{list()}] \cr
-#'  Other arguments to be passed to \link[ggplot2]{geom_histrogram}.
+#'  Other arguments to be passed to \link[ggplot2]{geom_histogram}.
 #'  Inserted in \link[AEDA]{makeNumSumTask}
 #' @param geom.dens.args [\code{list()}] \cr
 #'  Other arguments to be passed to \link[ggplot2]{geom_density}.

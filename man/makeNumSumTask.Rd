@@ -19,7 +19,7 @@ A Dataframe with different variables}
 Target column. If not available please insert as \code{NULL}.}
 
 \item{geom.hist.args}{[\code{list()}] \cr
-Other arguments to be passed to \link[ggplot2]{geom_histrogram}.
+Other arguments to be passed to \link[ggplot2]{geom_histogram}.
 Default is \code{list(bins = 30, alpha = 0.4)}}
 
 \item{geom.dens.args}{[\code{list()}] \cr

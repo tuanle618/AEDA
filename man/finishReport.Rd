@@ -5,7 +5,11 @@
 \title{Creates the main Report with childs}
 \usage{
 finishReport(..., sub.dir = "Data_Report", save.mode = TRUE,
+<<<<<<< HEAD
   theme = "cosmo", df.print = "paged")
+=======
+  theme = "cosmo", df.print = "paged", override = FALSE)
+>>>>>>> 3e839ddb6ea527ab15844d81bcabfa7db9e52c44
 }
 \arguments{
 \item{...}{\cr
@@ -25,6 +29,13 @@ be used}
 \item{df.print}{[\code{character()}]\cr
 This param sets the YAML header for how Dataframed should be printed.
 If set to NULL df.print param will not be used.}
+<<<<<<< HEAD
+=======
+
+\item{override}{[\code{logical(1)}]\cr
+override controls if the function is allowed to override
+an existing rmd-file}
+>>>>>>> 3e839ddb6ea527ab15844d81bcabfa7db9e52c44
 }
 \value{
 creates rmd Files, returns NULL
@@ -53,11 +64,13 @@ my.corr = makeCorr(my.task)
 report2 = makeCorrReport(my.corr, type = "CorrPlot")
 
 data("Arthritis", package = "vcd")
-cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved", na.rm = TRUE)
+cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis,
+  target = "Improved", na.rm = TRUE)
 cat.sum = makeCatSum(cat.sum.task)
 cat.sum.report = makeCatSumReport(cat.sum)
 
 #combine all reports
-finishReport(basic.report, num.sum.report, report1, report2, cat.sum.report)
+finishReport(basic.report, num.sum.report, report1, report2,
+  cat.sum.report, save.mode = FALSE, override = TRUE)
 
 }

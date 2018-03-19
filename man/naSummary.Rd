@@ -4,13 +4,16 @@
 \alias{naSummary}
 \title{Giving a NA summary and an image of a data with missing values}
 \usage{
-naSummary(data, show.plot = FALSE, show.result = FALSE, margin.left = 4,
-  report.task = NULL)
+naSummary(data, dataset.name, show.plot = FALSE, show.result = FALSE,
+  margin.left = 4)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
 Data to summarize. Columns can be of type numeric, integer, logical, factor or character.
 Characters and logicals will be treated as factors.}
+
+\item{dataset.name}{[\code{ReportTaskObj}]\cr
+The name of the data set}
 
 \item{show.plot}{[\code{logical(1)}]\cr
 A logic value set to \code{FALSE} as default.}
@@ -20,17 +23,15 @@ A logic value set to \code{FALSE} as default.}
 
 \item{margin.left}{[\code{numeric(1)}]\cr
 A numeric value which defines the margin size of the left. For more information see \link[graphics]{par}.}
-
-\item{report.task}{[\code{ReportTaskObj}]\cr
-A Report Task Object.}
 }
 \value{
 A [\code{naSumObj}] with Names of the variables with their frequency of missing values and two additional plots
   which shows the position of the missing values (color = black) for each variable with NAs and the number of missing values as a bar plot
 }
 \description{
-Characterizes only variables of a data set with missing values. So, missing values are painted
-black, while other observations keep white.
+Characterizes only variables of a data set with missing values.
+So, missing values are painted black, while other observations
+keep white.
 }
 \examples{
  data("airquality")
@@ -44,12 +45,11 @@ black, while other observations keep white.
  idx2 = sample(1:nrow(airquality), size = 7)
  airquality[idx2, "Temp"] = NA
  #create the NA summary
- na.summary = naSummary(data = airquality, show.plot = FALSE,
-  show.result = FALSE, margin.left = 4, report.task = NULL)
+ na.summary = naSummary(data = airquality, show.plot = TRUE,
+  show.result = FALSE, margin.left = 4, dataset.name = "Airquality")
  #plot the object through print
  na.summary
  #retrieve the elements through the components
  na.summary$nsum
  na.summary$image()
-
 }
