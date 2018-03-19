@@ -57,7 +57,6 @@
 #' @importFrom factoextra fviz_dend
 #' @importFrom factoextra fviz_silhouette
 #' @importFrom stats prcomp
-#' @importFrom ggpubr ggscatter
 #' @importFrom factoextra fviz_mclust
 #' @importFrom dbscan dbscan
 #' @import factoextra
