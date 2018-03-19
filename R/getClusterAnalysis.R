@@ -18,15 +18,27 @@
 #'   Logical whether or not so scale numeric data for cluster analysis
 #' @return [\code{list()}]
 #'   A list containing the cluster analysis and plot-code
-#' @import stats
-#' @import cluster
-#' @import kernlab
-#' @import mclust
-#' @import NbClust
-#' @import factoextra
-#' @import fpc
-#' @import dbscan
+#' @import checkmate
 #' @import BBmisc
+#' @importFrom cluster pam
+#' @importFrom cluster diana
+#' @importFrom kernlab kkmeans
+#' @importFrom stats kmeans
+#' @importFrom stats hclust
+#' @importFrom mclust Mclust
+#' @importFrom NbClust NbClust
+#' @importFrom factoextra fviz_nbclust
+#' @importFrom factoextra fviz_cluster
+#' @importFrom factoextra get_dist
+#' @importFrom factoextra fviz_dist
+#' @importFrom factoextra eclust
+#' @importFrom factoextra fviz_dend
+#' @importFrom factoextra fviz_silhouette
+#' @importFrom stats prcomp
+#' @importFrom ggpubr ggscatter
+#' @importFrom factoextra fviz_mclust
+#' @importFrom dbscan dbscan
+#' @import factoextra
 getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data) {
   ##### http://www.sthda.com/english/wiki/print.php?id=239 #####
   #select numeric data

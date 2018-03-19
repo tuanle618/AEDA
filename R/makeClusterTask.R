@@ -42,14 +42,25 @@
 #'   method = "cluster.kmeans", random.seed = 89L, par.vals = list(iter.max = 15L))
 #' @import checkmate
 #' @import BBmisc
-#' @import cluster
-#' @import kernlab
-#' @import stats
-#' @import mclust
-#' @import NbClust
+#' @importFrom cluster pam
+#' @importFrom cluster diana
+#' @importFrom kernlab kkmeans
+#' @importFrom stats kmeans
+#' @importFrom stats hclust
+#' @importFrom mclust Mclust
+#' @importFrom NbClust NbClust
+#' @importFrom factoextra fviz_nbclust
+#' @importFrom factoextra fviz_cluster
+#' @importFrom factoextra get_dist
+#' @importFrom factoextra fviz_dist
+#' @importFrom factoextra eclust
+#' @importFrom factoextra fviz_dend
+#' @importFrom factoextra fviz_silhouette
+#' @importFrom stats prcomp
+#' @importFrom ggpubr ggscatter
+#' @importFrom factoextra fviz_mclust
+#' @importFrom dbscan dbscan
 #' @import factoextra
-#' @import fpc
-#' @import dbscan
 #' @export
 #'
 makeClusterTask = function(id, data, target, method = "cluster.kmeans", random.seed = 89L,

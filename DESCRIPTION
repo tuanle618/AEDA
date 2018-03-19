@@ -13,7 +13,6 @@ Imports: checkmate,
     moments,
     ggplot2,
     gridBase,
-<<<<<<< HEAD
     NbClust,
     cluster,
     dbscan,
@@ -22,9 +21,7 @@ Imports: checkmate,
     gridExtra,
     kernlab,
     mclust,
-=======
     gridExtra,
->>>>>>> 3e839ddb6ea527ab15844d81bcabfa7db9e52c44
     vcd
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
