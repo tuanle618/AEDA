@@ -13,6 +13,8 @@
 #'   \dQuote{pearson}
 #' @param vars [\code{character(1)}]\cr
 #'   Column names to use for correlation
+#' @param type [\code{character(1)}]\cr
+#'   The type of the Report to create. Example: "CorrPlot"
 #'
 #' @return CorrTask
 #'
@@ -23,7 +25,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeCorrTask = function(id, data, method = "pearson", vars = NULL){
+makeCorrTask = function(id, data, method = "pearson", vars = NULL, type = "CorrPlot"){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -41,14 +43,14 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL){
 
   makeS3Obj("CorrTask",
     id = id,
-    type = "Correlation",
     env = env,
     features = data.type[c("num", "int")],
     size = nrow(data),
     method = method,
     data.name = deparse(substitute(data)),
     needed.pkgs = NULL,
-    missing.values = sum(is.na(data)))
+    missing.values = sum(is.na(data)),
+    type = type)
 }
 
 #' @export
@@ -61,6 +63,7 @@ print.CorrTask = function(x, ...) {
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
   catf("Name of the Data: %s", x$data.name)
-  catf("Needed packages: %s", if (is.null(x$needed.pkgs)){"None"}else{x$needed.pkgs})
+  catf("Seleted type : %s", x$type)
+  catf("Needed packages: %s", if (is.null(x$needed.pkgs)) {"None"} else{x$needed.pkgs})
 }
 

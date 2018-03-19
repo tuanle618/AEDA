@@ -2,17 +2,13 @@
 #'
 #' @param corr.obj [\code{CorrObj} Object]\cr
 #'   A object of the "CorrObj" class
-#' @param type [\code{character(1)} Object]\cr
-#'   The type of the Report to create. Example: "CorrPlot"
 #' @return CorrReport
 #' @import checkmate
 #' @export
-makeCorrReport = function(corr.obj, type){
+makeCorrReport = function(corr.obj){
   assertClass(corr.obj, "CorrObj")
-  assertCharacter(type, min.chars = 1)
-
   report.id = reportId()
-  if (type == "CorrPlot"){
+  if (corr.obj$type == "CorrPlot") {
     plot.code = generateCorrPlot(corr.obj, report.id)
   }
   makeS3Obj2("CorrReport", corr.obj,
