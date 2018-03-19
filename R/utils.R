@@ -170,6 +170,9 @@ getId.CatSumReport = function(x) {
   x$report.id
 }
 
+getId.ClusterAnalysisReport = function(x) {
+  x$report.id
+}
 ##
 getType = function(x) UseMethod("getType")
 
@@ -191,6 +194,11 @@ getType.BasicReport = function(x){
 getType.CatSumReport = function(x){
   x$type
 }
+
+getType.ClusterAnalysisReport = function(x){
+  x$type
+}
+
 # Wrapper for concatenate report id with a string
 # idWrapper(report, "method")
 # Jbssgsrsi342j$method
