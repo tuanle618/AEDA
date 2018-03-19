@@ -9,7 +9,8 @@
 #'   To ensure no data is lost, a new folder will be created (if possible).
 #'   Default is \code{TRUE}
 #' @examples
-#'   my.cluster.task = makeClusterTask(id = "iris", data = iris, target = "Species", method = "cluster.kmeans")
+#'   my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#'    target = "Species", method = "cluster.kmeans")
 #'   cluster.analysis = makeClusterAnalysis(my.cluster.task)
 #'   cluster.report = makeClusterAnalysisReport(cluster.analysis)
 #'   writeReport(cluster.report)

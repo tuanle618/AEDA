@@ -7,7 +7,8 @@
 #'   A ClusterTask Object
 #' @return ClusterAnalysis Object
 #' @examples
-#'  my.cluster.task = makeClusterTask(id = "iris", data = iris, target = "Species", method = "cluster.kmeans")
+#'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#'   target = "Species", method = "cluster.kmeans")
 #'  cluster.summary = makeClusterAnalysis(my.cluster.task)
 #' @import checkmate
 #' @import BBmisc

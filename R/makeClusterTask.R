@@ -8,6 +8,8 @@
 #'   ID of the Task Object
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables
+#' @param target [\code{character(1)}]\cr
+#'   Target column of the dataset
 #' @param method [\code{character(1)}]\cr
 #'   Defines the clustering method
 #'   Possible choices are: \cr
@@ -38,8 +40,9 @@
 #'   Default is empty list \code{par.vals = list()}
 #' @return ClusterTask Object
 #' @examples
-#' my.cluster.task = makeClusterTask(id = "iris", data = iris, target = "Species",
-#'   method = "cluster.kmeans", random.seed = 89L, par.vals = list(iter.max = 15L))
+#' my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#'  target = "Species", method = "cluster.kmeans",
+#'  random.seed = 89L, par.vals = list(iter.max = 15L))
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam

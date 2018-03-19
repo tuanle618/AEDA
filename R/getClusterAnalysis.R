@@ -14,7 +14,7 @@
 #'   Other arguments to be passed to selected method
 #' @param random.seed [\code{integer(1L)}]\cr
 #'   Random seed for clustering method
-#' @param scale [\code{logical(1L)}]\cr
+#' @param scale.num.data [\code{logical(1L)}]\cr
 #'   Logical whether or not so scale numeric data for cluster analysis
 #' @return [\code{list()}]
 #'   A list containing the cluster analysis and plot-code
@@ -199,8 +199,8 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       ###include PCA on num.data::
       pca.data = prcomp(x = num.data, rank. = 2L)
       kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = pca.data$x, centers = 2L), par.vals)))
-      var.pca1 = pca.data$sdev[1]/sum(pca.data$sdev)
-      var.pca2 = pca.data$sdev[2]/sum(pca.data$sdev)
+      var.pca1 = pca.data$sdev[1] / sum(pca.data$sdev)
+      var.pca2 = pca.data$sdev[2] / sum(pca.data$sdev)
       #plot results ##DO ggplot manually
       proc.data = as.data.frame(cbind(pca.data$x, cluster = kernel.cluster@.Data))
       proc.data$cluster = as.factor(proc.data$cluster)
@@ -208,8 +208,8 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       kernel.plot = ggscatter(data = proc.data, x = "PC1", y = "PC2",
         color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
         ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
-        xlab = paste("PC1 explaining", round(var.pca1*100, 2), "% of Variance"),
-        ylab = paste("PC2 explaining", round(var.pca2*100, 2), "% of Variance"),
+        xlab = paste("PC1 explaining", round(var.pca1 * 100, 2), "% of Variance"),
+        ylab = paste("PC2 explaining", round(var.pca2 * 100, 2), "% of Variance"),
         shape = "cluster")
       #save results
       cluster.all = list(cluster.diag = list(),
