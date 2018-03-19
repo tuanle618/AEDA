@@ -31,16 +31,6 @@ Writes a rmd file for the Basic Report [WIP]
 }
 \examples{
   data("airquality")
-<<<<<<< HEAD
-  my.basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-  basic.report = makeBasicReport(my.basic.report.task)
-  writeBasicReport(basic.report)
-
-  data("iris")
-  my.basic.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
-  basic.report2 = makeBasicReport(my.basic.report.task2)
-  writeBasicReport(basic.report2)
-=======
   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
   report = makeBasicReport(my.report.task, data = airquality)
   writeReport(report, save.mode = FALSE, override = TRUE)
@@ -49,5 +39,4 @@ Writes a rmd file for the Basic Report [WIP]
   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
   report2 = makeBasicReport(my.report.task2, data = iris)
   writeReport(report2, save.mode = FALSE, override = TRUE)
->>>>>>> 62daa36792f2f4c093c4619e453050c26077b178
 }

@@ -19,7 +19,7 @@ makeBasicReport = function(basic.report.task){
   assertClass(basic.report.task, "BasicReportTask")
   report.id = reportId()
   basic.data.summary = basicDataSummary(data = basic.report.task$env$data, target = basic.report.task$env$target)
-  na.summary = naSummary(data = basic.report.task$env$data, report.task = basic.report.task)
+  na.summary = naSummary(data = basic.report.task$env$data, dataset.name = basic.report.task$dataset.name)
 
   makeS3Obj("BasicReport",
     task = basic.report.task,

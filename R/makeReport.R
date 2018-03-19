@@ -1,6 +1,6 @@
 #' Creates a report object
 #'
-#' @param analysis.object [\code{Report} Object]\cr
+#' @param analysis.obj [\code{Report} Object]\cr
 #'   An Analysis Object or in case of basic summary it is a basic.report.task
 #' @examples
 #'   data("airquality")
