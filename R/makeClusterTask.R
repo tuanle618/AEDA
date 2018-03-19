@@ -1,7 +1,7 @@
 #' @title Creates a ClusterTask Object
 #'
 #' @description
-#' A Task encapsulates the Data with some additional information.
+#' A Task encapsulates the Data with some additional information.\cr
 #' As of now clustering will be only made for numerical data. Categorical data is [WIP]
 #'
 #' @param id [\code{character(1)}]\cr
@@ -34,9 +34,10 @@
 #' @param random.seed [\code{integer(1)}]\cr
 #'   Default is \code{random.seed = 89L}
 #' @param scale.num.data [\code{logical(1L)}]\cr
-#'   Logical whether to scale numeric data or not. Default is \code{scale= TRUE}
+#'   Logical whether to scale numeric data or not.\cr
+#'   Default is \code{scale= TRUE}
 #' @param par.vals [\code{list}]\cr
-#'   Additional arguments handled over to cluster algorithm \code{method}. \cr
+#'   Additional arguments handled over to cluster algorithm \code{method}.\cr
 #'   Default is empty list \code{par.vals = list()}
 #' @return ClusterTask Object
 #' @examples

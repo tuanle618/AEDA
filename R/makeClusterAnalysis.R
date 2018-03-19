@@ -1,7 +1,8 @@
 #' @title Calculates a Cluster Analysis
 #'
 #' @description
-#' makeClusterAnalysis calculates a cluster analysis and wrapes an object around it
+#' makeClusterAnalysis calculates a cluster analysis and\cr
+#' wrapes an object around it
 #'
 #' @param cluster.task [\code{ClusterTask}]\cr
 #'   A ClusterTask Object

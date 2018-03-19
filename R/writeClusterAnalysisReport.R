@@ -3,13 +3,14 @@
 #' @param report [\code{BasicReport} Object]\cr
 #'   The report Object which should be converted to an rmd file
 #' @param sub.dir [\code{character(1)}]\cr
-#'   the name of the (relative) sub-directory where the data report will be saved. Default is \code{Data_Report}
+#'   the name of the (relative) sub-directory where the data report will be saved.\cr
+#'   Default is \code{Data_Report}
 #' @param save.mode [\code{logical(1)}]\cr
-#'   In Save mode its not possible to use an existing folder.
+#'   In Save mode its not possible to use an existing folder.\cr
 #'   To ensure no data is lost, a new folder will be created (if possible).
 #'   Default is \code{TRUE}
 #' @param override [\code{logical(1)}]\cr
-#'   override controls if the function is allowed to override
+#'   override controls if the function is allowed to override\cr
 #'   an existing rmd-file
 #' @examples
 #'   my.cluster.task = makeClusterTask(id = "iris", data = iris,

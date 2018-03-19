@@ -6,7 +6,8 @@
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables.
 #' @param num.features [\code{character(length(numeric.features))}]\cr
-#'   A character vector with length of the number of numeric features in the dataset.
+#'   A character vector with length of the number of\cr
+#'   numeric features in the dataset.\cr
 #'   This will be computed automatically when calling this function.
 #' @param method [\code{character(1L)}]\cr
 #'   Method used for clustering
@@ -15,7 +16,8 @@
 #' @param random.seed [\code{integer(1L)}]\cr
 #'   Random seed for clustering method
 #' @param scale.num.data [\code{logical(1L)}]\cr
-#'   Logical whether or not so scale numeric data for cluster analysis
+#'   Logical whether or not so scale numeric data\cr
+#'   for cluster analysis
 #' @return [\code{list()}]
 #'   A list containing the cluster analysis and plot-code
 #' @import checkmate

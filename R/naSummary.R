@@ -38,6 +38,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @import ggplot2
+#' @import graphics
 #' @importFrom grid grid.newpage
 #' @importFrom grid pushViewport
 #' @importFrom grid viewport
