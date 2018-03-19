@@ -13,6 +13,6 @@ Imports: checkmate,
     moments,
     ggplot2,
     gridBase,
-   vcd
+    vcd
 Suggests: testthat,
   lintr (>= 1.0.0.9001)

@@ -12,11 +12,8 @@
 #' @param method [\code{character(1)}]\cr
 #'   Defines the PCA method
 #'   \dQuote{all}
-#' @param exclude [\code{character}]\cr
+#' @param exclude [\code{character}]
 #'   Names of inputs, which should be excluded. Default is none.
-#' @param scale [\code{logical(1)}]\cr
-#'  Whether the variables should be scaled to have unit variance before the analysis takes place.
-#'  The default is \code{TRUE}
 #' @param vars [\code{character(1)}]\cr
 #'  Column names
 #' @param ...
@@ -27,7 +24,7 @@
 #' @examples
 #' data("iris")
 #' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
-#'             scale = TRUE, tol = 1e-1)
+#'                         tol = 1e-1, center = TRUE)
 #' # get Data
 #' test.task$env$data
 #' @import checkmate
@@ -35,7 +32,7 @@
 #' @import stats
 #' @export
 #'
-makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = character(0), scale = TRUE, ...){
+makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = character(0), ...){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -59,11 +56,9 @@ makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = 
     env = env,
     features = data.type[c("num", "int")],
     size = nrow(data),
+    exclude = exclude,
     method = method,
     missing.values = sum(is.na(data)),
-    scale = scale,
-    exclude = exclude,
-    vars = vars,
     pca.args = list(...)
   )
 }
@@ -75,11 +70,11 @@ print.PCATask = function(x, ...) {
   catf("Type: %2s", x$type)
   catf("Selected Features: %s", collapse(unlist(x$features), sep = ", "))
   catf("Method: %s", x$method)
-  catf("Scale: %s", as.character(x$scale))
   catf("Exclude: %s", as.character(x$exclude))
+
   catf("Observations: %i", x$size)
-  catf("Vars: %s", as.character(x$vars))
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
   catf("%s = %s",names(x$pca.args), x$pca.args)
 }
+

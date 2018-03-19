@@ -5,7 +5,7 @@
 \title{Creates a PCATask Objects}
 \usage{
 makePCATask(id, data, target, method = "all", vars = NULL,
-  exclude = character(0), scale = TRUE, ...)
+  exclude = character(0), ...)
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -24,12 +24,8 @@ Defines the PCA method
 \item{vars}{[\code{character(1)}]\cr
 Column names}
 
-\item{exclude}{[\code{character}]\cr
+\item{exclude}{[\code{character}]
 Names of inputs, which should be excluded. Default is none.}
-
-\item{scale}{[\code{logical(1)}]\cr
-Whether the variables should be scaled to have unit variance before the analysis takes place.
-The default is \code{TRUE}}
 
 \item{...}{Further arguments passed to \code{\link[stats]{prcomp}}}
 }
@@ -42,7 +38,7 @@ Principal Components Analysis (PCA). A Task encapsulates the Data with some addi
 \examples{
 data("iris")
 test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
-            scale = TRUE, tol = 1e-1)
+                        tol = 1e-1, center = TRUE)
 # get Data
 test.task$env$data
 }

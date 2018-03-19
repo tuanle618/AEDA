@@ -20,8 +20,7 @@ Principal components analysis on the given numeric data matrix and returns the r
 my.task = makePCATask(id = "test", data = cars)
 my.pca1 = makePCA(my.task)
 
-iris<-iris[,-5] # 'x' must be numeric
-test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Lenght",
-            scale = TRUE, tol = 1e-1)
+test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
+                        tol = 1e-1, center = TRUE)
 my.pca2 = makePCA(test.task)
 }
