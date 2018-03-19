@@ -74,7 +74,7 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
   writeHeader("AEDA Report", report.con, theme = theme, df.print = df.print)
 
   # for now load AEDA in mainReport
-  writeLines("```{r, echo=FALSE, warning=FALSE}", con = report.con)
+  writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
   writeLines("devtools::load_all()", con = report.con)
   writeLines("#library(AEDA)", con = report.con)
   writeLines("```", con = report.con)

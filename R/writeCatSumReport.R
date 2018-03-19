@@ -39,7 +39,8 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
 
     writeLines("## Categorical Summary Report from AEDA containing contingency summary as well as plots", con  = report.con)
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
-
+    rmdLibrary("knitr", file = report.con)
+    rmdLibrary("kableExtra", file = report.con)
     # save object and write code to load it in the rmd-file
     saveLoadObj(report, getId(report), report.con, override = override)
     writeLines("```", con = report.con)
@@ -53,10 +54,16 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
     writeLines("```", con = report.con)
 
     writeLines("Some text; Categorical Summary ....", con = report.con)
-    writeLines("```{r, echo=FALSE}", con = report.con)
-    writeLines(paste0(report$report.id, "$cat.sum$freq"), con = report.con)
-    writeLines(paste0(report$report.id, "$cat.sum$contg.list"), con = report.con)
-    writeLines(paste0("multiplot(", report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
+    writeLines("```{r, echo=FALSE, warning=FALSE, results='asis'}", con = report.con)
+    #writeLines(paste0(cat.sum.report$report.id, "$cat.sum$freq"), con = report.con)
+    #writeLines(paste0("kable(", cat.sum.report$report.id, "$cat.sum$contg.list)"), con = report.con)
+    writeLines("for (i in 1:length(cat.sum.report.obj$cat.sum$freq)) {
+      print(kable_styling(kable_input = kable(cat.sum.report.obj$cat.sum$freq[[i]], format = 'html', caption = paste('1-D Contingency table', i)), full_width = TRUE))
+    }
+    for (i in 1:length(cat.sum.report.obj$cat.sum$contg.list)) {
+      print(kable_styling(kable_input = kable(cat.sum.report.obj$cat.sum$contg.list[[i]], format = 'html', caption = paste('2-D Contingency table', i)), full_width = TRUE))
+    }", con = report.con)
+    writeLines(paste0("multiplot(plotlist = ", cat.sum.report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
       con = report.con)
     writeLines("```", con = report.con)
 

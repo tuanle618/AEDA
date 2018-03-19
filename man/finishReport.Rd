@@ -25,7 +25,6 @@ be used}
 \item{df.print}{[\code{character()}]\cr
 This param sets the YAML header for how Dataframed should be printed.
 If set to NULL df.print param will not be used.}
-
 \item{override}{[\code{logical(1)}]\cr
 override controls if the function is allowed to override
 an existing rmd-file}
