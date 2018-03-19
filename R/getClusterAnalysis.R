@@ -6,7 +6,8 @@
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables.
 #' @param num.features [\code{character(length(numeric.features))}]\cr
-#'   A character vector with length of the number of numeric features in the dataset.
+#'   A character vector with length of the number of\cr
+#'   numeric features in the dataset.\cr
 #'   This will be computed automatically when calling this function.
 #' @param method [\code{character(1L)}]\cr
 #'   Method used for clustering
@@ -14,19 +15,31 @@
 #'   Other arguments to be passed to selected method
 #' @param random.seed [\code{integer(1L)}]\cr
 #'   Random seed for clustering method
-#' @param scale [\code{logical(1L)}]\cr
-#'   Logical whether or not so scale numeric data for cluster analysis
+#' @param scale.num.data [\code{logical(1L)}]\cr
+#'   Logical whether or not so scale numeric data\cr
+#'   for cluster analysis
 #' @return [\code{list()}]
 #'   A list containing the cluster analysis and plot-code
-#' @import stats
-#' @import cluster
-#' @import kernlab
-#' @import mclust
-#' @import NbClust
-#' @import factoextra
-#' @import fpc
-#' @import dbscan
+#' @import checkmate
 #' @import BBmisc
+#' @importFrom cluster pam
+#' @importFrom cluster diana
+#' @importFrom kernlab kkmeans
+#' @importFrom stats kmeans
+#' @importFrom stats hclust
+#' @importFrom mclust Mclust
+#' @importFrom NbClust NbClust
+#' @importFrom factoextra fviz_nbclust
+#' @importFrom factoextra fviz_cluster
+#' @importFrom factoextra get_dist
+#' @importFrom factoextra fviz_dist
+#' @importFrom factoextra eclust
+#' @importFrom factoextra fviz_dend
+#' @importFrom factoextra fviz_silhouette
+#' @importFrom stats prcomp
+#' @importFrom factoextra fviz_mclust
+#' @importFrom dbscan dbscan
+#' @import factoextra
 getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data) {
   ##### http://www.sthda.com/english/wiki/print.php?id=239 #####
   #select numeric data
@@ -34,7 +47,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   num.data = data[, num.features]
   if (scale.num.data) num.data = scale(num.data)
   #tupel combinations
-  combinations = combn(x = 1:ncol(num.data), m = 2)
+  combinations = combn(x = seq_len(ncol(num.data)), m = 2)
 
   ##K-Means or PAM:
   if (is.element(method, c("cluster.kmeans", "cluster.pam"))) {
@@ -188,8 +201,8 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       ###include PCA on num.data::
       pca.data = prcomp(x = num.data, rank. = 2L)
       kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = pca.data$x, centers = 2L), par.vals)))
-      var.pca1 = pca.data$sdev[1]/sum(pca.data$sdev)
-      var.pca2 = pca.data$sdev[2]/sum(pca.data$sdev)
+      var.pca1 = pca.data$sdev[1] / sum(pca.data$sdev)
+      var.pca2 = pca.data$sdev[2] / sum(pca.data$sdev)
       #plot results ##DO ggplot manually
       proc.data = as.data.frame(cbind(pca.data$x, cluster = kernel.cluster@.Data))
       proc.data$cluster = as.factor(proc.data$cluster)
@@ -197,8 +210,8 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       kernel.plot = ggscatter(data = proc.data, x = "PC1", y = "PC2",
         color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
         ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
-        xlab = paste("PC1 explaining", round(var.pca1*100, 2), "% of Variance"),
-        ylab = paste("PC2 explaining", round(var.pca2*100, 2), "% of Variance"),
+        xlab = paste("PC1 explaining", round(var.pca1 * 100, 2), "% of Variance"),
+        ylab = paste("PC2 explaining", round(var.pca2 * 100, 2), "% of Variance"),
         shape = "cluster")
       #save results
       cluster.all = list(cluster.diag = list(),

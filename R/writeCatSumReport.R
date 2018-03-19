@@ -1,6 +1,6 @@
 #' Writes a rmd file for the Categorical Summary Report [WIP]
 #'
-#' @param cat.sum.report [\code{CatSumReport} Object]\cr
+#' @param report [\code{CatSumReport} Object]\cr
 #'   The report Object which should be converted to an rmd file
 #' @param sub.dir [\code{character(1)}]\cr
 #'   the name of the (relative) sub-directory where the data report will be saved. Default is \code{Data_Report}
@@ -8,19 +8,22 @@
 #'   In Save mode its not possible to use an existing folder.
 #'   To ensure no data is lost, a new folder will be created (if possible).
 #'   Default is \code{TRUE}
+#' @param override [\code{logical(1)}]\cr
+#'   override controls if the function is allowed to override
+#'   an existing rmd-file
 #' @examples
 #'  data("Arthritis", package = "vcd")
 #'  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
 #'  cat.sum = makeCatSum(cat.sum.task)
 #'  #create the numeric summary report
-#'  cat.sum.report = makeCatSumReport(cat.sum)
-#'  writeReport(cat.sum.report)
+#'  report = makeCatSumReport(cat.sum)
+#'  writeReport(report, save.mode = FALSE, override = TRUE)
 #' @return rmd-file location
 #' @import checkmate
 #' @export
-writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", save.mode = TRUE){
+writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode = TRUE, override = FALSE){
   report.env = new.env(parent = .GlobalEnv)
-  assertClass(cat.sum.report, "CatSumReport")
+  assertClass(report, "CatSumReport")
   assertCharacter(sub.dir, len = 1L, min.chars = 1L)
   assertLogical(save.mode, len = 1L)
   # Create sub directory, save current wd and set new wd to the new directory
@@ -36,9 +39,10 @@ writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", sav
 
     writeLines("## Categorical Summary Report from AEDA containing contingency summary as well as plots", con  = report.con)
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
-
+    rmdLibrary("knitr", file = report.con)
+    rmdLibrary("kableExtra", file = report.con)
     # save object and write code to load it in the rmd-file
-    saveLoadObj(cat.sum.report, getId(cat.sum.report), report.con)
+    saveLoadObj(report, getId(report), report.con, override = override)
     writeLines("```", con = report.con)
 
     writeLines("```{r}", con = report.con)
@@ -46,14 +50,20 @@ writeReport.CatSumReport = function(cat.sum.report, sub.dir = "Data_Report", sav
     #vec = c("5+5", "a = TRUE", "print('Hallo')")
     #rmdWriteLines(vec = vec,  con = report.con)
     writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("cat.sum.report.obj = ", cat.sum.report$report.id), con = report.con)
+    writeLines(paste0("report.obj = ", report$report.id), con = report.con)
     writeLines("```", con = report.con)
 
     writeLines("Some text; Categorical Summary ....", con = report.con)
-    writeLines("```{r, echo=FALSE}", con = report.con)
-    writeLines(paste0(cat.sum.report$report.id, "$cat.sum$freq"), con = report.con)
-    writeLines(paste0(cat.sum.report$report.id, "$cat.sum$contg.list"), con = report.con)
-    writeLines(paste0("multiplot(",cat.sum.report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
+    writeLines("```{r, echo=FALSE, warning=FALSE, results='asis'}", con = report.con)
+    #writeLines(paste0(report$report.id, "$cat.sum$freq"), con = report.con)
+    #writeLines(paste0("kable(", report$report.id, "$cat.sum$contg.list)"), con = report.con)
+    writeLines("for (i in 1:length(report.obj$cat.sum$freq)) {
+      print(kable_styling(kable_input = kable(report.obj$cat.sum$freq[[i]], format = 'html', caption = paste('1-D Contingency table', i)), full_width = TRUE))
+    }
+    for (i in 1:length(report.obj$cat.sum$contg.list)) {
+      print(kable_styling(kable_input = kable(report.obj$cat.sum$contg.list[[i]], format = 'html', caption = paste('2-D Contingency table', i)), full_width = TRUE))
+    }", con = report.con)
+    writeLines(paste0("multiplot(plotlist = ", report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
       con = report.con)
     writeLines("```", con = report.con)
 

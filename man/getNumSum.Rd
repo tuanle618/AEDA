@@ -18,7 +18,7 @@ This will be computed automatically when calling this function.}
 The target column}
 
 \item{geom.hist.args}{[\code{list()}] \cr
-Other arguments to be passed to \link[ggplot2]{geom_histrogram}.
+Other arguments to be passed to \link[ggplot2]{geom_histogram}.
 Inserted in \link[AEDA]{makeNumSumTask}}
 
 \item{geom.dens.args}{[\code{list()}] \cr

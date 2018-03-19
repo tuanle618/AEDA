@@ -1,13 +1,15 @@
 #' @title Creates a ClusterTask Object
 #'
 #' @description
-#' A Task encapsulates the Data with some additional information.
+#' A Task encapsulates the Data with some additional information.\cr
 #' As of now clustering will be only made for numerical data. Categorical data is [WIP]
 #'
 #' @param id [\code{character(1)}]\cr
 #'   ID of the Task Object
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables
+#' @param target [\code{character(1)}]\cr
+#'   Target column of the dataset
 #' @param method [\code{character(1)}]\cr
 #'   Defines the clustering method
 #'   Possible choices are: \cr
@@ -32,24 +34,36 @@
 #' @param random.seed [\code{integer(1)}]\cr
 #'   Default is \code{random.seed = 89L}
 #' @param scale.num.data [\code{logical(1L)}]\cr
-#'   Logical whether to scale numeric data or not. Default is \code{scale= TRUE}
+#'   Logical whether to scale numeric data or not.\cr
+#'   Default is \code{scale= TRUE}
 #' @param par.vals [\code{list}]\cr
-#'   Additional arguments handled over to cluster algorithm \code{method}. \cr
+#'   Additional arguments handled over to cluster algorithm \code{method}.\cr
 #'   Default is empty list \code{par.vals = list()}
 #' @return ClusterTask Object
 #' @examples
-#' my.cluster.task = makeClusterTask(id = "iris", data = iris, target = "Species",
-#'   method = "cluster.kmeans", random.seed = 89L, par.vals = list(iter.max = 15L))
+#' my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#'  target = "Species", method = "cluster.kmeans",
+#'  random.seed = 89L, par.vals = list(iter.max = 15L))
 #' @import checkmate
 #' @import BBmisc
-#' @import cluster
-#' @import kernlab
-#' @import stats
-#' @import mclust
-#' @import NbClust
+#' @importFrom cluster pam
+#' @importFrom cluster diana
+#' @importFrom kernlab kkmeans
+#' @importFrom stats kmeans
+#' @importFrom stats hclust
+#' @importFrom mclust Mclust
+#' @importFrom NbClust NbClust
+#' @importFrom factoextra fviz_nbclust
+#' @importFrom factoextra fviz_cluster
+#' @importFrom factoextra get_dist
+#' @importFrom factoextra fviz_dist
+#' @importFrom factoextra eclust
+#' @importFrom factoextra fviz_dend
+#' @importFrom factoextra fviz_silhouette
+#' @importFrom stats prcomp
+#' @importFrom factoextra fviz_mclust
+#' @importFrom dbscan dbscan
 #' @import factoextra
-#' @import fpc
-#' @import dbscan
 #' @export
 #'
 makeClusterTask = function(id, data, target, method = "cluster.kmeans", random.seed = 89L,

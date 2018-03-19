@@ -115,7 +115,7 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
       multiplot(plotlist = plot)
     } else {
       #suppressWarnings(do.call(grid.arrange, plot))
-      AEDA::multiplotPages(list = plot, k = 6, no.cols = 3)
+      multiplotPages(list = plot, k = 6, no.cols = 3)
     }
   }
   return(plot)

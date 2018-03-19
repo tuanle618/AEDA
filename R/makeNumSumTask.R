@@ -10,7 +10,7 @@
 #' @param target [\code{character(1)}]\cr
 #'  Target column. If not available please insert as \code{NULL}.
 #' @param geom.hist.args [\code{list()}] \cr
-#'  Other arguments to be passed to \link[ggplot2]{geom_histrogram}.
+#'  Other arguments to be passed to \link[ggplot2]{geom_histogram}.
 #'  Default is \code{list(bins = 30, alpha = 0.4)}
 #' @param geom.dens.args [\code{list()}] \cr
 #'  Other arguments to be passed to \link[ggplot2]{geom_density}.
