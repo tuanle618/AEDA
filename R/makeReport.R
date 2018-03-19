@@ -5,11 +5,11 @@
 #' @examples
 #'   data("airquality")
 #'   my.basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-#'   basic.report = makeReport(my.report.task, data = airquality)
+#'   basic.report = makeReport(my.basic.report.task)
 #'
 #'   my.creport.task = makeCorrTask(id = "corr.report", data = airquality)
 #'   my.creport = makeCorr(my.creport.task)
-#'   corr.report = makeReport(my.creport, type = "CorrPlot")
+#'   corr.report = makeReport(my.creport)
 
 #' @return a report.analysis.obj
 #' @export
