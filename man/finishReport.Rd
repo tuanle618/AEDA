@@ -40,30 +40,30 @@ organize them together in one report
 \examples{
 
 data("airquality")
-basic.report.task = makeReportTask(id = "AirqualityTask", data = airquality, target = "Wind")
-basic.report = makeBasicReport(basic.report.task, data = airquality)
+basic.report.task = makeBasicReportTask(id = "AirqualityTask", data = airquality, target = "Wind")
+basic.report = makeReport(basic.report.task)
 
 data("Boston", package = "MASS")
 num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
 num.sum = makeNumSum(num.sum.task)
-num.sum.report = makeNumSumReport(num.sum)
+num.sum.report = makeReport(num.sum)
 
 my.task = makeCorrTask(id = "test", data = cars)
 my.corr = makeCorr(my.task)
-report1 = makeCorrReport(my.corr, type = "CorrPlot")
+corr.report = makeReport(my.corr)
 data(diamonds, package = "ggplot2")
 my.task = makeCorrTask(id = "test2", data = diamonds)
 my.corr = makeCorr(my.task)
-report2 = makeCorrReport(my.corr, type = "CorrPlot")
+report2 = makeReport(my.corr)
 
 data("Arthritis", package = "vcd")
 cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis,
   target = "Improved", na.rm = TRUE)
 cat.sum = makeCatSum(cat.sum.task)
-cat.sum.report = makeCatSumReport(cat.sum)
+cat.sum.report = makeReport(cat.sum)
 
 #combine all reports
-finishReport(basic.report, num.sum.report, report1, report2,
+finishReport(basic.report, num.sum.report, corr.report,
   cat.sum.report, save.mode = FALSE, override = TRUE)
 
 }

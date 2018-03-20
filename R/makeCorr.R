@@ -28,3 +28,13 @@ makeCorr = function(corr.task){
   makeS3Obj2("CorrObj", corr.task,
     corr.matrix = corr.matrix)
 }
+
+#' @export
+# Print fuction for CorrObj Object
+print.CorrObj = function(x, ...) {
+  catf("Task: %s", x$id)
+  catf("Type: %2s", x$type)
+  catf("Name of the Data: %s", x$data.name)
+  cat("Correlationmatrix: \n")
+  print(x$corr.matrix)
+}

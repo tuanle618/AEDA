@@ -4,7 +4,7 @@
 \alias{makeCorrTask}
 \title{Creates a CorrTask Objects}
 \usage{
-makeCorrTask(id, data, method = "pearson", vars = NULL)
+makeCorrTask(id, data, method = "pearson", vars = NULL, type = "CorrPlot")
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -20,6 +20,9 @@ Possible choices are:
 
 \item{vars}{[\code{character(1)}]\cr
 Column names to use for correlation}
+
+\item{type}{[\code{character(1)}]\cr
+The type of the Report to create. Example: "CorrPlot"}
 }
 \value{
 CorrTask

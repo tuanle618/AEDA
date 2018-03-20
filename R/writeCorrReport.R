@@ -13,7 +13,7 @@
 #' @examples
 #'   my.task = makeCorrTask(id = "test", data = cars)
 #'   my.corr = makeCorr(my.task)
-#'   report1 = makeCorrReport(my.corr, type = "CorrPlot")
+#'   report1 = makeCorrReport(my.corr)
 #'   writeReport(report1, save.mode = FALSE, override = TRUE)
 #' @return rmd-file location
 #' @import checkmate

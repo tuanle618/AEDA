@@ -4,14 +4,11 @@
 \alias{makeBasicReport}
 \title{Creates a BasicReport Object [WIP]}
 \usage{
-makeBasicReport(report.task, data)
+makeBasicReport(basic.report.task)
 }
 \arguments{
-\item{report.task}{[\code{ReportTask}]\cr
-A Report Task object containing general information of the data analysis problem}
-
-\item{data}{[\code{data.frame}]\cr
-A Dataframe with different variables}
+\item{basic.report.task}{[\code{BasicReportTask}]\cr
+A Basic Report Task object containing general information of the data analysis problem}
 }
 \value{
 [\code{BasicReport}]\cr
@@ -21,7 +18,7 @@ A Basic Report Object will be calculated containing the report task, a basic dat
 }
 \examples{
  data("airquality")
- my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
- basic.report = makeBasicReport(my.report.task, data = airquality)
+ my.basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+ basic.report = makeBasicReport(my.basic.report.task)
 
 }
