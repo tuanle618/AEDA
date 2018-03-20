@@ -1,6 +1,6 @@
 #' Creates an Categorical Summary Report object
 #'
-#' @param cat.sum.obj [\code{CatSumObj} Object]\cr
+#' @param analysis.obj [\code{CatSumObj} Object]\cr
 #'   A object of the "CatSumObj" class
 #' @return CatSumReport
 #' @import checkmate
@@ -12,14 +12,14 @@
 #'  #create the numeric summary report
 #'  cat.sum.report = makeReport(cat.sum)
 #' @export
-makeReport.CatSumObj = function(cat.sum.obj){
-  assertClass(cat.sum.obj, "CatSumObj")
+makeReport.CatSumObj = function(analysis.obj){
+  assertClass(analysis.obj, "CatSumObj")
   #assertCharacter(type, min.chars = 1)
 
   report.id = reportId()
 
   makeS3Obj("CatSumReport",
-    cat.sum.task = cat.sum.obj$task,
+    cat.sum.task = analysis.obj$task,
     cat.sum = cat.sum$cat.sum,
     report.id = report.id,
     type = "CategoricalReport")

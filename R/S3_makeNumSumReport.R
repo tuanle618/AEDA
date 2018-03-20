@@ -1,6 +1,6 @@
 #' Creates an Numeric Summary Report object
 #'
-#' @param num.sum.obj [\code{NumSumObj} Object]\cr
+#' @param analysis.obj [\code{NumSumObj} Object]\cr
 #'   A object of the "NumSumObj" class
 #' @return NumSumReport
 #' @import checkmate
@@ -13,16 +13,16 @@
 #'  #create the numeric summary report
 #'  num.sum.report = makeReport(num.sum)
 #' @export
-makeReport.NumSumObj = function(num.sum.obj){
-  assertClass(num.sum.obj, "NumSumObj")
+makeReport.NumSumObj = function(analysis.obj){
+  assertClass(analysis.obj, "NumSumObj")
   #assertCharacter(type, min.chars = 1)
 
   report.id = reportId()
 
   makeS3Obj("NumSumReport",
-    num.sum.task = num.sum.obj$task,
-    num.sum.df = num.sum.obj$num.sum.df,
-    num.sum.var = num.sum.obj$num.sum,
+    num.sum.task = analysis.obj$task,
+    num.sum.df = analysis.obj$num.sum.df,
+    num.sum.var = analysis.obj$num.sum,
     report.id = report.id,
     type = "NumericReport")
 }

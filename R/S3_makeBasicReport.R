@@ -3,25 +3,25 @@
 #' @description
 #' A Basic Report Object will be calculated containing the report task, a basic data summary and missing value summary
 #'
-#' @param basic.report.task [\code{ReportTask}]\cr
+#' @param analysis.obj [\code{ReportTask}]\cr
 #'   A Report Task object containing general information of the data analysis problem
 #' @return [\code{BasicReport}]\cr
 #' @import checkmate
 #' @import BBmisc
 #' @examples
 #'  data("airquality")
-#'  my.basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-#'  basic.report = makeReport(my.basic.report.task)
+#'  my.analysis.obj = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'  basic.report = makeReport(my.analysis.obj)
 #'
 #' @export
-makeReport.BasicReportTask = function(basic.report.task){
-  assertClass(basic.report.task, "BasicReportTask")
+makeReport.BasicReportTask = function(analysis.obj){
+  assertClass(analysis.obj, "BasicReportTask")
   report.id = reportId()
-  basic.data.summary = basicDataSummary(data = basic.report.task$env$data, target = basic.report.task$env$target)
-  na.summary = naSummary(data = basic.report.task$env$data, dataset.name = basic.report.task$dataset.name)
+  basic.data.summary = basicDataSummary(data = analysis.obj$env$data, target = analysis.obj$env$target)
+  na.summary = naSummary(data = analysis.obj$env$data, dataset.name = analysis.obj$dataset.name)
 
   makeS3Obj("BasicReport",
-    task = basic.report.task,
+    task = analysis.obj,
     basic.data.summary = basic.data.summary,
     na.summary = na.summary,
     report.id = report.id,

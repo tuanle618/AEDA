@@ -1,6 +1,6 @@
 #' Creates an Correlation Report object
 #'
-#' @param corr.obj [\code{CorrObj} Object]\cr
+#' @param analysis.obj [\code{CorrObj} Object]\cr
 #'   A object of the "CorrObj" class
 #' @return CorrReport
 #' @examples
@@ -9,13 +9,13 @@
 #' report = makeReport(my.corr)
 #' @import checkmate
 #' @export
-makeReport.CorrObj = function(corr.obj){
-  assertClass(corr.obj, "CorrObj")
+makeReport.CorrObj = function(analysis.obj){
+  assertClass(analysis.obj, "CorrObj")
   report.id = reportId()
-  if (corr.obj$type == "CorrPlot") {
-    plot.code = generateCorrPlot(corr.obj, report.id)
+  if (analysis.obj$type == "CorrPlot") {
+    plot.code = generateCorrPlot(analysis.obj, report.id)
   }
-  makeS3Obj2("CorrReport", corr.obj,
+  makeS3Obj2("CorrReport", analysis.obj,
     plot.code = plot.code,
     report.id = report.id)
 }

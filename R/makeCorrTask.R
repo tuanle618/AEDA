@@ -30,7 +30,7 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL, type = "CorrP
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
   assertSubset(method, c("pearson", "spearman"), empty.ok = FALSE)
-  assertSubset(type, choices = c("CorrPlot"))
+  assertSubset(type, choices = "CorrPlot")
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
     data.type = getDataType(data[, vars], target = NULL)
