@@ -22,7 +22,10 @@ makeNumSum = function(num.sum.task){
   data = num.sum.task$env$data
   features = unlist(num.sum.task$numdatatypes)
   target = num.sum.task$env$datatypes$target
-  num.sum = getNumSum(data, features, target)
+  geom.hist.args = num.sum.task$geom.hist.args
+  geom.dens.args = num.sum.task$geom.dens.args
+  geom.box.args = num.sum.task$geom.box.args
+  num.sum = getNumSum(data, features, target, geom.hist.args, geom.dens.args, geom.box.args)
 
   makeS3Obj("NumSumObj",
     num.sum = num.sum$merged.list,

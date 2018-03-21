@@ -11,6 +11,15 @@
 #'   This will be computed automatically when calling this function.
 #' @param target [\code{character(1)}]\cr
 #'   The target column
+#' @param geom.hist.args [\code{list()}] \cr
+#'  Other arguments to be passed to \link[ggplot2]{geom_histogram}.
+#'  Inserted in \link[AEDA]{makeNumSumTask}
+#' @param geom.dens.args [\code{list()}] \cr
+#'  Other arguments to be passed to \link[ggplot2]{geom_density}.
+#'  Inserted in \link[AEDA]{makeNumSumTask}
+#' @param geom.box.args [\code{list()}] \cr
+#'  Other arguments to be passed to \link[ggplot2]{geom_boxplot}.
+#'  Inserted in \link[AEDA]{makeNumSumTask}
 #' @return [\code{list()}]
 #'   A list containing the numeric summary and ggplot for each numeric column
 #' @import moments
@@ -18,7 +27,7 @@
 #' @import checkmate
 #'
 
-getNumSum = function(data, features, target) {
+getNumSum = function(data, features, target, geom.hist.args, geom.dens.args, geom.box.args) {
   assertDataFrame(data)
   if (!is.null(target)) assertCharacter(target, len = 1L)
   assertCharacter(features, min.len = 1L, min.chars = 1L)
@@ -44,16 +53,23 @@ getNumSum = function(data, features, target) {
   no.unique = apply(num.data, 2, function(x) length(unique(x)))
   num.sum.df = round(t(as.data.frame(rbind(no.obs, nas, nas.perc, mean, kurtosis, skewness, sd, min, quantiles, max, range, iqr,
     l.bound, u.bound, no.outliers, no.zero, no.unique))), digits = 3)
-
   tt = target
-  plot.list = lapply(features, function(x) plotFeatDistr(data = data, target = tt, col = x))
-  names(plot.list) = row.names(num.sum.df)
+  plot.distr.list = lapply(features, function(x) {
+    plotFeatDistr(data = data, target = tt, col = x, geom.hist.args = geom.hist.args, geom.dens.args = geom.dens.args)
+  })
+  plot.box.list = lapply(features, function(x) do.call(plotBox, append(list(data = data, target = target, col = x), geom.box.args)))
+  plot.box.list = split.list.gg.helper(plot.box.list)
+  plot.hist.list = lapply(features, function(x) do.call(plotHist, append(list(data = data, target = target, col = x), geom.hist.args)))
+  plot.hist.list = split.list.gg.helper(plot.hist.list)
+
+  names(plot.distr.list) = names(plot.box.list) = names(plot.hist.list) = row.names(num.sum.df)
 
   #merge num.sum.df with plotlist
   merged.list = vector(mode = "list", length = nrow(num.sum.df))
   names(merged.list) = row.names(num.sum.df)
   for (col in names(merged.list)) {
-    merged.list[[col]] = list(summary = num.sum.df[col, ], plot = plot.list[[col]])
+    merged.list[[col]] = list(summary = num.sum.df[col, ], plot.distr = plot.distr.list[[col]], plot.hist = plot.hist.list[[col]],
+      plot.box = plot.box.list[[col]])
   }
   out.list = list(num.sum.df = num.sum.df, merged.list = merged.list)
   return(out.list)

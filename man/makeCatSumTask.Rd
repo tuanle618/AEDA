@@ -4,7 +4,7 @@
 \alias{makeCatSumTask}
 \title{Creates a CategoricalSummaryTask Object (for factor, ordered and logical columns)}
 \usage{
-makeCatSumTask(id, data, target)
+makeCatSumTask(id, data, target, ...)
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -15,6 +15,8 @@ A Dataframe with different variables}
 
 \item{target}{[\code{character(1)}]\cr
 Target column. If not available please insert as \code{NULL}.}
+
+\item{\dots}{other arguments to be passed to \link[ggplot2]{geom_bar}.}
 }
 \value{
 CatSumTask object

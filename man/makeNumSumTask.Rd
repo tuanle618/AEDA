@@ -4,7 +4,9 @@
 \alias{makeNumSumTask}
 \title{Creates a NumericSummaryTask Object (for numeric and integer columns)}
 \usage{
-makeNumSumTask(id, data, target)
+makeNumSumTask(id, data, target, geom.hist.args = list(bins = 30, alpha =
+  0.4), geom.dens.args = list(size = 2, alpha = 0.4),
+  geom.box.args = list())
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -15,6 +17,18 @@ A Dataframe with different variables}
 
 \item{target}{[\code{character(1)}]\cr
 Target column. If not available please insert as \code{NULL}.}
+
+\item{geom.hist.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_histogram}.
+Default is \code{list(bins = 30, alpha = 0.4)}}
+
+\item{geom.dens.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_density}.
+Default is \code{list(size = 2, alpha = 0.4)}}
+
+\item{geom.box.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_boxplot}.
+Default is \code{NULL}. Default args from \link[ggplot2]{geom_boxplot} will be passed.}
 }
 \value{
 NumSumTask object

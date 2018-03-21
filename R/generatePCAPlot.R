@@ -14,13 +14,14 @@ generatePCAPlot = function(pca.obj, obj.name) {
   assertClass(pca.obj, "PCAObj")
 
   plot.PCAResult = function(x, ...) {
-    plot(x, type="l", ...)
-  }
-
+    autoplot(x, scale = TRUE, loadings = TRUE, loadings.colour = 'blue',
+      loadings.label = TRUE, ...)
+}
 
   makeS3Obj("PlotPCA",
     code = plot.PCAResult(pca.obj$pcaResult))
 }
+
 
 # Intern example
 

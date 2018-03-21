@@ -10,6 +10,8 @@
 #'   A character vector with length of the number of numeric features in the dataset.
 #'   This will be computed automatically when calling this function.
 #' @param target [\code{character(1)}]\cr
+#' @param geombar.args [\code{list()}] \cr
+#'  Other arguments to be passed to \link[ggplot2]{geom_bar}.
 #'   The target column
 #' @return [\code{list()}]
 #'   A list containing the categorical summary and ggplot for each categorical column
@@ -18,7 +20,7 @@
 #' @import stats
 #' @export
 
-getCatSum = function(data, features, target) {
+getCatSum = function(data, features, target, geombar.args) {
   assertDataFrame(data)
   if (!is.null(target)) assertCharacter(target, len = 1L)
   assertCharacter(features, min.len = 1L, min.chars = 1L)
@@ -42,7 +44,9 @@ getCatSum = function(data, features, target) {
     rel.contg.list = NULL
   }
   names(features) = features
-  plot.list = lapply(features, function(x) plotFeatDistr(data = data, target = target, col = x))
+
+  plot.list = lapply(features, function(x) do.call(plotBar, append(list(data = data, target = target, col = x), geombar.args)))
+  plot.list = split.list.gg.helper(plot.list)
   out.list = list(freq = freq, rel.freq = rel.freq, nas = nas, contg.list = contg.list,
     rel.contg.list = rel.contg.list, plot.list = plot.list)
   return(out.list)

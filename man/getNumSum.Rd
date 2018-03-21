@@ -4,7 +4,7 @@
 \alias{getNumSum}
 \title{Computes the components and plots for the Numeric Summary}
 \usage{
-getNumSum(data, features, target)
+getNumSum(data, features, target, geom.hist.args, geom.dens.args, geom.box.args)
 }
 \arguments{
 \item{data}{[\code{data.frame}]\cr
@@ -16,6 +16,18 @@ This will be computed automatically when calling this function.}
 
 \item{target}{[\code{character(1)}]\cr
 The target column}
+
+\item{geom.hist.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_histogram}.
+Inserted in \link[AEDA]{makeNumSumTask}}
+
+\item{geom.dens.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_density}.
+Inserted in \link[AEDA]{makeNumSumTask}}
+
+\item{geom.box.args}{[\code{list()}] \cr
+Other arguments to be passed to \link[ggplot2]{geom_boxplot}.
+Inserted in \link[AEDA]{makeNumSumTask}}
 }
 \value{
 [\code{list()}]

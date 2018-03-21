@@ -13,6 +13,15 @@ Imports: checkmate,
     moments,
     ggplot2,
     gridBase,
+    NbClust,
+    cluster,
+    dbscan,
+    factoextra,
+    fpc,
+    gridExtra,
+    kernlab,
+    mclust,
     vcd
 Suggests: testthat,
-  lintr (>= 1.0.0.9001)
+  lintr (>= 1.0.0.9001),
+  MASS
