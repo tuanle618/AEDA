@@ -1,6 +1,4 @@
 context("finishReport")
-library("MASS")
-library("rmarkdown")
 
 test_that("finishReport Works", {
 
@@ -28,7 +26,7 @@ test_that("finishReport Works", {
   #combine all reports
   finishReport(basic.report, num.sum.report, corr.report,
    cat.sum.report, save.mode = FALSE, override = TRUE)
-  render("MainReport.rmd", quiet = TRUE)
+  rmarkdown::render("MainReport.rmd", quiet = TRUE)
 
   expect_error(finishReport(basic.report, num.sum.report, corr.report,
     cat.sum.report))
