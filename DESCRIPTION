@@ -25,4 +25,9 @@ Imports: checkmate,
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   MASS,
-  rmarkdown
+  rmarkdown,
+  DT,
+  knitr,
+  kableExtra,
+  GGally,
+  stats
