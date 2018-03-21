@@ -2,7 +2,7 @@ context("finishReport")
 library("MASS")
 library("rmarkdown")
 
-test_that("finishReport Works",{
+test_that("finishReport Works", {
   temp.wd = getwd()
   dir.create("TestingDir")
   setwd("TestingDir")
