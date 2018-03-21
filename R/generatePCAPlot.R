@@ -14,7 +14,7 @@ generatePCAPlot = function(pca.obj, obj.name) {
   assertClass(pca.obj, "PCAObj")
 
   plot.PCAResult = function(x, ...) {
-    autoplot(x, scale = TRUE, loadings = TRUE, loadings.colour = 'blue',
+    autoplot(x, scale = TRUE, loadings = TRUE, loadings.colour = "blue",
       loadings.label = TRUE, ...)
 }
 

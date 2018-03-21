@@ -75,6 +75,6 @@ print.PCATask = function(x, ...) {
   catf("Observations: %i", x$size)
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
-  catf("%s = %s",names(x$pca.args), x$pca.args)
+  catf("%s = %s", names(x$pca.args), x$pca.args)
 }
 

@@ -27,10 +27,10 @@ makePCA = function(pca.task){
   selected.data = subset(data, select = num.cols)
   features = unlist(pca.task$features)
   all.args = append(list(x = selected.data), pca.task$pca.args)
-  pcaResult = do.call(prcomp, all.args)
+  pca.Result = do.call(prcomp, all.args)
 
   makeS3Obj("PCAObj",
-    pcaResult = pcaResult,
+    pcaResult = pca.Result,
     task = pca.task)
 }
 
