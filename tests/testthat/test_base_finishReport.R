@@ -33,6 +33,8 @@ test_that("finishReport Works",{
    cat.sum.report, save.mode = FALSE, override = TRUE)
   render("MainReport.rmd", quiet = TRUE)
 
+  expect_error(finishReport(basic.report, num.sum.report, corr.report,
+    cat.sum.report))
   # Clean up
   setwd(temp.wd)
   unlink("TestingDir", recursive = TRUE)
