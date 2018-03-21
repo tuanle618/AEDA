@@ -15,13 +15,13 @@
 #'   an existing rmd-file
 #' @examples
 #'   data("airquality")
-#'   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
-#'   basic.report = makeBasicReport(my.report.task, data = airquality)
+#'   my.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'   basic.report = makeBasicReport(my.report.task)
 #'   writeReport(basic.report, save.mode = FALSE, override = TRUE)
 #'
-#'   my.creport.task = makeCorrTask(id = "corr.report", data = airquality)
+#'   my.creport.task = makeCorrTask(id = "corr.report", data = airquality, type = "CorrPlot")
 #'   my.creport = makeCorr(my.creport.task)
-#'   corr.report = makeCorrReport(my.creport, type = "CorrPlot")
+#'   corr.report = makeCorrReport(my.creport)
 #'   writeReport(corr.report, save.mode = FALSE, override = TRUE)
 #'
 #'   # Or put the reports together

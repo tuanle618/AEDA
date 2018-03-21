@@ -13,13 +13,13 @@
 #'   an existing rmd-file
 #' @examples
 #'   data("airquality")
-#'   my.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
-#'   report = makeBasicReport(my.report.task, data = airquality)
+#'   my.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'   report = makeReport(my.report.task)
 #'   writeReport(report, save.mode = FALSE, override = TRUE)
 #'
 #'   data("iris")
-#'   my.report.task2 = makeReportTask(id = "test.report2", data = iris, target = "Species")
-#'   report2 = makeBasicReport(my.report.task2, data = iris)
+#'   my.report.task2 = makeBasicReportTask(id = "test.report2", data = iris, target = "Species")
+#'   report2 = makeReport(my.report.task2)
 #'   writeReport(report2, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate

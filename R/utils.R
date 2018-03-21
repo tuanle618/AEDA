@@ -37,9 +37,18 @@ makeS3Obj2 = function(classes, object, ...){
   return(result)
 }
 
-# Wrapper for loading not already loaded librarys
-rmdLibrary = function(needed.pkgs, file, force = FALSE){
-  catf("require(%s)\n", needed.pkgs, file = file)
+# Wrapper for loading not already loaded librarys, input is a character vector
+rmdLibrary = function(needed.pkgs, file){
+  for (i in seq.int(length(needed.pkgs))){
+    rmdLibrarySingle(needed.pkgs[i], file)
+  }
+}
+# like rmdLibrary but input is a single character string
+rmdLibrarySingle = function(needed.pkg, file){
+  catf('if (!require("%s",character.only = TRUE)) {
+    install.packages("%s",dep=TRUE)
+    if(!require("%s",character.only = TRUE)) stop("Package not found")
+    }', needed.pkg, needed.pkg, needed.pkg, file = file)
 }
 
 # Wrapper for loading data
@@ -161,6 +170,9 @@ getId.CatSumReport = function(x) {
   x$report.id
 }
 
+getId.ClusterAnalysisReport = function(x) {
+  x$report.id
+}
 ##
 getType = function(x) UseMethod("getType")
 
@@ -182,6 +194,11 @@ getType.BasicReport = function(x){
 getType.CatSumReport = function(x){
   x$type
 }
+
+getType.ClusterAnalysisReport = function(x){
+  x$type
+}
+
 # Wrapper for concatenate report id with a string
 # idWrapper(report, "method")
 # Jbssgsrsi342j$method

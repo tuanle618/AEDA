@@ -1,6 +1,6 @@
 context("Basic Data Summary")
 data("airquality")
-test_that("makeReportTask",{
+test_that("makeReportTask", {
   basic.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
   expect_identical(basic.report.task$missing.values, sum(is.na(airquality)))
   expect_identical(basic.report.task$size, nrow(airquality))
@@ -14,7 +14,7 @@ test_that("makeReportTask",{
   expect_error(makeReportTask(data = airquality, target = "Wind"))
 })
 
-test_that("makeBasicReport",{
+test_that("makeBasicReport", {
   basic.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
   basic.report = makeBasicReport(basic.report.task, data = airquality)
   expect_class(basic.report, "BasicReport")
@@ -30,7 +30,7 @@ test_that("makeBasicReport",{
   basic.report = makeBasicReport(basic.report.task, data = airquality)
 })
 
-test_that("writeBasicReport",{
+test_that("writeBasicReport", {
   basic.report.task = makeReportTask(id = "test.report", data = airquality, target = "Wind")
   basic.report = makeBasicReport(basic.report.task, data = airquality)
   temp.wd = getwd()
@@ -41,8 +41,8 @@ test_that("writeBasicReport",{
   expect_identical(rds.obj$report.task[!names(rds.obj$report.task) %in% "env"], basic.report$report.task[!names(basic.report$report.task) %in% "env"])
 
   expect_identical(rds.obj$basic.data.summary, basic.report$basic.data.summary)
-  expect_identical(rds.obj$na.summary[!names(rds.obj$na.summary) %in% c("env","image", "ggplot")],
-    basic.report$na.summary[!names(basic.report$na.summary) %in% c("env","image", "ggplot")])
+  expect_identical(rds.obj$na.summary[!names(rds.obj$na.summary) %in% c("env", "image", "ggplot")],
+    basic.report$na.summary[!names(basic.report$na.summary) %in% c("env", "image", "ggplot")])
 
   expect_error(writeReport(basic.report))
   expect_identical(getwd(), temp.wd)
@@ -50,7 +50,7 @@ test_that("writeBasicReport",{
   expect_identical(getwd(), temp.wd)
 
   setwd(paste0(temp.wd, "/Data_Report"))
-  knitr::knit2html(gsub("Data_Report/", "", rmd.file))
+  knitr::knit2html(gsub("Data_Report/", "", rmd.file), quiet = TRUE)
   setwd(temp.wd)
   unlink("Data_Report", recursive = TRUE)
 })

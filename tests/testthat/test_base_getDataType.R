@@ -1,7 +1,7 @@
 context("getDataType")
 library("MASS")
 
-test_that("getDataType with fake Data",{
+test_that("getDataType with fake Data", {
   # save test Data uniformily
   test.data = data.frame(int = 1L, num = 3.5, string = "Hello",
     fac = factor("A", levels = c("A", "B")), date = Sys.Date(),
@@ -31,7 +31,7 @@ test_that("getDataType with fake Data",{
 })
 
 
-test_that("getDataType with Aids2 Data",{
+test_that("getDataType with Aids2 Data", {
   # save test Data uniformily
   test.data = data("Aids2", package = "MASS")
   test.data = get(test.data)
@@ -57,7 +57,7 @@ test_that("getDataType with Aids2 Data",{
   for (i in data.types$date) expect_date(test.data[[i]])
 })
 
-test_that("getDataType with Boston Data",{
+test_that("getDataType with Boston Data", {
   # save test Data uniformily
   test.data = data("Boston", package = "MASS")
   test.data = get(test.data)
@@ -83,7 +83,7 @@ test_that("getDataType with Boston Data",{
   for (i in data.types$date) expect_date(test.data[[i]])
 })
 
-test_that("getDataType with Insurance Data",{
+test_that("getDataType with Insurance Data", {
   # save test Data uniformily
   test.data = data("Insurance", package = "MASS")
   test.data = get(test.data)
@@ -109,7 +109,7 @@ test_that("getDataType with Insurance Data",{
   for (i in data.types$date) expect_date(test.data[[i]])
 })
 
-test_that("getDataType with survey Data",{
+test_that("getDataType with survey Data", {
   # save test Data uniformily
   test.data = data("survey", package = "MASS")
   test.data = get(test.data)

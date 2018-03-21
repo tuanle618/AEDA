@@ -1,5 +1,5 @@
 # Automated exploratory data analysis (AEDA)
-
+[![Build Status](https://travis-ci.org/ptl93/AEDA.svg?branch=master)](https://travis-ci.org/ptl93/AEDA)
 ## Description
 [WIP]
 
