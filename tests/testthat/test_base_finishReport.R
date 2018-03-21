@@ -3,9 +3,6 @@ library("MASS")
 library("rmarkdown")
 
 test_that("finishReport Works", {
-  temp.wd = getwd()
-  dir.create("TestingDir")
-  setwd("TestingDir")
 
   data("Aids2", package = "MASS")
   set.seed(1)
@@ -35,7 +32,5 @@ test_that("finishReport Works", {
 
   expect_error(finishReport(basic.report, num.sum.report, corr.report,
     cat.sum.report))
-  # Clean up
-  setwd(temp.wd)
-  unlink("TestingDir", recursive = TRUE)
+
 })
