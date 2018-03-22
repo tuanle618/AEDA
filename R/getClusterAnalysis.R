@@ -52,8 +52,10 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   if (scale.num.data) num.data = scale(num.data)
   #tupel combinations
   if (!is.null(cluster.cols)) {
-    combinations = combn(x = seq_len(ncol(num.data)), m = 2)
-  } else {#randomly take 5 combinations of all combinations
+    combinations.1.row = which(names(cluster.cols) == colnames(num.data))
+    combinations.2.row = which(cluster.cols == colnames(num.data))
+    combinations = matrix(c(combinations.1.row, combinations.2.row), nrow = 2, byrow = TRUE)
+  } else {#randomly take 10 combinations of all combinations
     combinations = combn(x = seq_len(ncol(num.data)), m = 2)
     if (ncol(combinations) > 10) {
       random.idx = sample(seq.int(ncol(combinations)), replace = FALSE, size = 10)
