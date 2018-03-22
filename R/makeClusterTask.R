@@ -12,7 +12,7 @@
 #'   Target column of the dataset
 #' @param cluster.cols [\code{character()}]\cr
 #'   Named character vector to specify clusters. This only holds for\cr
-#'   not hierarchical cluster methods. Default \code{cluster.cols = c()}\cr .
+#'   not hierarchical cluster methods. Default \code{cluster.cols = NULL}\cr .
 #'   In default mode only datasets with maximal 10 numeric columns, a\cr
 #'   cluster analysis will be with the combinations: choose(5,2).\cr
 #'   If the amount of numeric columns is above 10, only the cluster for the PCA\cr
@@ -52,6 +52,10 @@
 #' my.cluster.task = makeClusterTask(id = "iris", data = iris,
 #'  target = "Species", method = "cluster.kmeans",
 #'  random.seed = 89L, par.vals = list(iter.max = 15L))
+#' my.cluster.task2 = makeClusterTask(id = "iris", data = iris,
+#'  target = "Species", method = "cluster.kmeans",
+#'  random.seed = 89L, cluster.cols = c("Sepal.Length" = "Petal.Length",
+#'  "Sepal.Width" = "Petal.Width"))
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam
@@ -75,7 +79,7 @@
 #' @import factoextra
 #' @export
 #'
-makeClusterTask = function(id, data, target, cluster.cols = vector(), method = "cluster.kmeans", random.seed = 89L,
+makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
   scale.num.data = TRUE, par.vals = list()){
   #check if numeric cols >= 2
   data.types = getDataType(data, target)
