@@ -14,6 +14,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam
+#' @importFrom cluster agnes
 #' @importFrom cluster diana
 #' @importFrom kernlab kkmeans
 #' @importFrom stats kmeans

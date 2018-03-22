@@ -48,6 +48,7 @@
 #' @import BBmisc
 #' @importFrom cluster pam
 #' @importFrom cluster diana
+#' @importFrom cluster agnes
 #' @importFrom kernlab kkmeans
 #' @importFrom stats kmeans
 #' @importFrom stats hclust
