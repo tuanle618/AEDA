@@ -94,7 +94,13 @@ basicDataSummary = function(data, target, large = 1e10,
   }
   basic.summary.list = as.list(x)
 
+  if (!is.null(target)) {
+    target.class = class(data[, target])
+  } else {
+    target.class = NULL
+  }
+
   makeS3Obj("BasicSummaryObj",
-    basic.summary.list = basic.summary.list, targetclass = ifelse(!is.null(target), class(data[, target]), NULL),
+    basic.summary.list = basic.summary.list, targetclass = target.class,
     data.type.list = data.type.list)
 }
