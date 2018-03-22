@@ -75,7 +75,7 @@
 #' @import factoextra
 #' @export
 #'
-makeClusterTask = function(id, data, target, cluster.cols = c(), method = "cluster.kmeans", random.seed = 89L,
+makeClusterTask = function(id, data, target, cluster.cols = vector(), method = "cluster.kmeans", random.seed = 89L,
   scale.num.data = TRUE, par.vals = list()){
   #check if numeric cols >= 2
   data.types = getDataType(data, target)
