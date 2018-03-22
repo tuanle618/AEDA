@@ -39,7 +39,8 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
 
     #Load object
     writeLines("## Cluster Analysis Report for numeric data \n", con  = report.con)
-    writeLines("```{r loadClusterObj, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+    #writeLines("```{r loadClusterObj_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+    writeLines(writeRChunkOptions(chunkname = "loadClusterObj", id = getId(report)), con = report.con)
     # save object and write code to load it in the rmd-file
     saveLoadObj(report, getId(report), report.con)
     # load/require libraries
@@ -57,7 +58,7 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
     #PCA text only for not hierarchical methods:
     if (!is.element(report$task$method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
       if (length(report$task$numdatatypes$numeric) + length(report$task$numdatatypes$integer) > 2) {
-        writeLines("Since the number of numeric columns is greater than 2, for **vizualizazion**
+        writeLines("Since the number of numeric columns is greater than 2, for **vizualization**
         we compute a principal component analysis  ", con = report.con)
         writeLines("and apply the cluster analysis to the respective two principal components:", con = report.con)
       }
@@ -67,7 +68,11 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
       writeLines("\n", con = report.con)
       writeLines("#### Diagnostics \n", con = report.con)
       writeLines("The following diagnostic plots show how the optimal number of cluster is selected:", con = report.con)
-      writeLines("```{r plotClusterDiag, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+      #writeLines("```{r plotClusterDiag_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+      #writeLines(writeRChunkOptions(chunkname = "plotClusterDiag", id = getId(report),
+      #  options = list(echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4)), #fig.dim = c(6,6)
+      #  con = report.con)
+      writeLines(writeRChunkOptions(chunkname = "plotClusterDiag", id = getId(report)), con = report.con)
       txt = paste0("multiplot(plotlist = ", getId(report), "$cluster.analysis$cluster.all$cluster.diag, cols = 2)")
       writeLines(txt, con = report.con)
       writeLines("```\n", con = report.con)
@@ -76,7 +81,11 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
     #Cluster Plot Result
     writeLines("#### Cluster Plot Result \n", con = report.con)
     writeLines("Applying cluster algorithmus we receive following cluster plot:", con = report.con)
-    writeLines("```{r plotCluster, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+    #writeLines("```{r plotCluster_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+    #writeLines(writeRChunkOptions(chunkname = "plotCluster", id = getId(report),
+    #  options = list(echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4)),
+    #  con = report.con)
+    writeLines(writeRChunkOptions(chunkname = "plotCluster", id = getId(report)), con = report.con)
     writeLines(paste0("print(", getId(report), "$cluster.analysis$cluster.all$cluster.plot)"), con = report.con)
     writeLines("```\n", con = report.con)
 
@@ -91,7 +100,8 @@ handle multidimensional data we receive after transforming the centers from the 
         writeLines("Applying cluster algorithmus we receive following cluster result:", con = report.con)
       }
       #write R-Chunk:
-      writeLines("```{r ClusterRes, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+      #writeLines("```{r ClusterRes_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+      writeLines(writeRChunkOptions(chunkname = "ClusterRes", id = getId(report)), con = report.con)
       if (report$task$method == "cluster.kmeans") {
         caption = "Clustering Centers"
         txt = paste0("kable(", getId(report), "$cluster.analysis$cluster.all$cluster.res$centers,
@@ -108,8 +118,13 @@ handle multidimensional data we receive after transforming the centers from the 
     if (!is.element(report$task$method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
       ### Overview: Combinations for numeric columns of dataset
       writeLines("### Overview: Combinations for numeric columns of dataset \n", con = report.con)
-      writeLines("```{r clusterCombPlots, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
-      txt = paste0("multiplot(plotlist = lapply(", getId(report) ,"$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), cols = 2)")
+      #writeLines("```{r clusterCombPlots_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+      #writeLines(writeRChunkOptions(chunkname = "clusterCombPlots", id = getId(report),
+      #  options = list(echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4)),
+      #  con = report.con)
+      writeLines(writeRChunkOptions(chunkname = "clusterCombPlots", id = getId(report)), con = report.con)
+      #txt = paste0("multiplot(plotlist = lapply(", getId(report) ,"$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), cols = 2)")
+      txt = paste0("multiplotPages(plotlist = lapply(", getId(report), "$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), k = 2, no.cols = 2)")
       writeLines(txt, con = report.con)
     }
   }, finally = {
