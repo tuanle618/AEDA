@@ -40,6 +40,7 @@
 #' @importFrom factoextra fviz_mclust
 #' @importFrom dbscan dbscan
 #' @import factoextra
+#' @import RColorBrewer
 getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data) {
   ##### http://www.sthda.com/english/wiki/print.php?id=239 #####
   #select numeric data
@@ -142,12 +143,12 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     } else if (method == "cluster.diana") {
       cluster.method = "diana"
     }
-    out.clust = do.call(eclust, args = append(list(x = num.data, FUNcluster = cluster.method, verbose = FALSE, k = 4), par.vals))
+    out.clust = do.call(eclust, args = append(list(x = num.data, FUNcluster = cluster.method, verbose = FALSE), par.vals))
     # Visualize using factoextra
     # Cut in 4 groups and color by groups
     dend.plot = fviz_dend(out.clust, k = out.clust$nbclust, # Cut in 4 groups
       cex = 0.5, # label size
-      k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+      k_colors = brewer.pal(out.clust$nbclust, "Set1"),
       color_labels_by_k = TRUE, # color labels by groups
       rect = TRUE, # Add rectangle around groups,
       show_labels = TRUE

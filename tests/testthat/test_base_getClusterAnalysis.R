@@ -46,3 +46,35 @@ test_that("getClusterAnalysis cluster.h", {
   # check if clusters are different -> is par.vals working correctly
   expect_false(clustered$cluster.all$cluster.res$dist.method == clustered.manhattan$cluster.all$cluster.res$dist.method)
 })
+
+test_that("getClusterAnalysis cluster.h", {
+  clustered = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.h")
+  expect_identical(class(clustered$cluster.all$cluster.res), c("hclust", "hcut", "eclust"))
+  expect_list(clustered$cluster.all$cluster.diag, len = 2L)
+  lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
+    expect_identical(class(x), c("gg", "ggplot"))
+  })
+  expect_list(clustered$comb.cluster.list, len = 0L)
+
+  clustered.manhattan = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(hc_metric = "manhattan"), scale.num.data = TRUE, method = "cluster.h")
+  # check if clusters metric is different -> is par.vals working correctly
+  expect_false(clustered$cluster.all$cluster.res$dist.method == clustered.manhattan$cluster.all$cluster.res$dist.method)
+})
+
+test_that("getClusterAnalysis cluster.agnes", {
+  clustered = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.agnes")
+  expect_identical(class(clustered$cluster.all$cluster.res), c("agnes", "twins", "hcut", "eclust"))
+  expect_list(clustered$cluster.all$cluster.diag, len = 2L)
+  lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
+    expect_identical(class(x), c("gg", "ggplot"))
+  })
+  expect_list(clustered$comb.cluster.list, len = 0L)
+
+  clustered.k6 = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(k = 6L), scale.num.data = TRUE, method = "cluster.agnes")
+  # check if clusters metric is different -> is par.vals working correctly
+  expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k6$cluster.all$cluster.res$nbclust)
+})

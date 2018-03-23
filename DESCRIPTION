@@ -22,7 +22,8 @@ Imports: checkmate,
     kernlab,
     mclust,
     vcd,
-    plyr
+    plyr,
+    RColorBrewer
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   MASS,
