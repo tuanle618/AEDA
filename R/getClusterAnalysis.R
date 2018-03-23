@@ -145,10 +145,17 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     }
     out.clust = do.call(eclust, args = append(list(x = num.data, FUNcluster = cluster.method, verbose = FALSE), par.vals))
     # Visualize using factoextra
-    # Cut in 4 groups and color by groups
+    # Cut in k groups and color by groups
+    if (out.clust$nbclust == 2L) {
+      # brewerpal need at least 3 colors
+      # so these are set manually (first two colors of Set1)
+      sil.color = c("#E41A1C", "#377EB8")
+    } else {
+      sil.color = brewer.pal(out.clust$nbclust, "Set1")
+    }
     dend.plot = fviz_dend(out.clust, k = out.clust$nbclust, # Cut in 4 groups
       cex = 0.5, # label size
-      k_colors = brewer.pal(out.clust$nbclust, "Set1"),
+      k_colors = sil.color,
       color_labels_by_k = TRUE, # color labels by groups
       rect = TRUE, # Add rectangle around groups,
       show_labels = TRUE

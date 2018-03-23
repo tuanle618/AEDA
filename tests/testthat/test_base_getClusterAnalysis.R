@@ -78,3 +78,19 @@ test_that("getClusterAnalysis cluster.agnes", {
   # check if clusters metric is different -> is par.vals working correctly
   expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k6$cluster.all$cluster.res$nbclust)
 })
+
+test_that("getClusterAnalysis cluster.diana", {
+  clustered = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.diana")
+  expect_identical(class(clustered$cluster.all$cluster.res), c("diana", "twins", "hcut", "eclust"))
+  expect_list(clustered$cluster.all$cluster.diag, len = 2L)
+  lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
+    expect_identical(class(x), c("gg", "ggplot"))
+  })
+  expect_list(clustered$comb.cluster.list, len = 0L)
+
+  clustered.k2 = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(k = 2L), scale.num.data = TRUE, method = "cluster.diana")
+  # check if clusters metric is different -> is par.vals working correctly
+  expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k6$cluster.all$cluster.res$nbclust)
+})
