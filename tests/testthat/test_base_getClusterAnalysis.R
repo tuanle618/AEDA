@@ -92,7 +92,7 @@ test_that("getClusterAnalysis cluster.diana", {
   clustered.k2 = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(k = 2L), scale.num.data = TRUE, method = "cluster.diana")
   # check if clusters are different -> is par.vals working correctly
-  expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k6$cluster.all$cluster.res$nbclust)
+  expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k2$cluster.all$cluster.res$nbclust)
 })
 
 test_that("getClusterAnalysis cluster.kkmeans", {
