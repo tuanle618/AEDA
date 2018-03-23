@@ -161,7 +161,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     neg.sil.index = which(sil[, "sil_width"] < 0)
     neg.sil.out = sil[neg.sil.index, , drop = FALSE]
     #save results, dont save dist.matrix and neg.sil.out
-    cluster.all = list(clust.diag = list(dist.plot = plot.dist, silh.plot = silh.plot),
+    cluster.all = list(cluster.diag = list(dist.plot = plot.dist, silh.plot = silh.plot),
       cluster.res = out.clust,
       cluster.plot = dend.plot)
     #initialize empty list for combinations
