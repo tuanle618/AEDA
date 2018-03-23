@@ -39,6 +39,7 @@
 #' @importFrom stats prcomp
 #' @importFrom factoextra fviz_mclust
 #' @importFrom dbscan dbscan
+#' @importFrom ggpubr ggscatter
 #' @import factoextra
 #' @import RColorBrewer
 getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data) {

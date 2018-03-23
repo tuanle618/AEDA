@@ -75,7 +75,7 @@ test_that("getClusterAnalysis cluster.agnes", {
 
   clustered.k6 = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(k = 6L), scale.num.data = TRUE, method = "cluster.agnes")
-  # check if clusters metric is different -> is par.vals working correctly
+  # check if clusters are different -> is par.vals working correctly
   expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k6$cluster.all$cluster.res$nbclust)
 })
 
@@ -91,6 +91,20 @@ test_that("getClusterAnalysis cluster.diana", {
 
   clustered.k2 = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(k = 2L), scale.num.data = TRUE, method = "cluster.diana")
-  # check if clusters metric is different -> is par.vals working correctly
+  # check if clusters are different -> is par.vals working correctly
   expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k6$cluster.all$cluster.res$nbclust)
+})
+
+test_that("getClusterAnalysis cluster.kkmeans", {
+  clustered = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.kkmeans")
+  expect_identical(class(clustered$cluster.all$cluster.res)[1], "specc")
+  expect_list(clustered$cluster.all$cluster.diag, len = 0L)
+  expect_list(clustered$comb.cluster.list, len = 6L)
+
+  clustered.kernel = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    random.seed = 1L, par.vals = list(kernel = "vanilladot"), scale.num.data = TRUE, method = "cluster.kkmeans")
+  # check if clusters are different -> is par.vals working correctly
+  expect_false(isTRUE(all.equal(clustered$cluster.all$cluster.res,
+    clustered.kernel$cluster.all$cluster.res)))
 })
