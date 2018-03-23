@@ -1,8 +1,8 @@
 context("getClusterAnalysis")
 data("iris")
 set.seed(1L)
-sub = sample.int(150,20)
-iris = iris[sub,]
+sub = sample.int(150, 20)
+iris = iris[sub, ]
 test_that("getClusterAnalysis kmeans", {
   clustered = getClusterAnalysis(data = iris, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(iter.max = 15L), scale.num.data = TRUE, method = "cluster.kmeans")

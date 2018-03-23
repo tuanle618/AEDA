@@ -178,7 +178,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   } else if (method == "cluster.dbscan") {
     ###### all numeric colums together: ######
     #apply db scan algorithm, from dbscan pkg since faster implementation
-    db.cluster = do.call(dbscan::dbscan, args = append(list(num.data, eps = 0.15), par.vals))
+    db.cluster = do.call(dbscan, args = append(list(num.data, eps = 0.15), par.vals))
     #plot results
     db.plot = fviz_cluster(db.cluster, data = num.data, stand = FALSE,
       ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
@@ -193,7 +193,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       #print(x)
       cols = colnames(num.data)[x]
       #apply db scan algorithm
-      db.cluster = do.call(dbscan::dbscan, args = append(list(num.data[, x], eps = 0.15), par.vals))
+      db.cluster = do.call(dbscan, args = append(list(num.data[, x], eps = 0.15), par.vals))
       #plot results
       db.plot = fviz_cluster(db.cluster, data = num.data[, x], stand = FALSE,
         ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
