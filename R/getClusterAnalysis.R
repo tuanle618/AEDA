@@ -243,7 +243,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
           color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
           ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
           xlab = colnames(proc.data)[1],
-          ylab = colnames(proc.data)[1],
+          ylab = colnames(proc.data)[2],
           shape = "cluster")
 
         #save results
