@@ -34,6 +34,7 @@ test_that("writeBasicReport", {
   basic.report = makeBasicReport(basic.report.task)
   temp.wd = getwd()
   expect_file((rmd.file = writeReport(basic.report)), extension = "rmd")
+  expect_file(x = paste0("Data_Report/", basic.report$report.id, ".rds"))
   expect_identical(getwd(), temp.wd)
   rds.obj = readRDS(paste0("Data_Report/", basic.report$report.id, ".rds"))
 
