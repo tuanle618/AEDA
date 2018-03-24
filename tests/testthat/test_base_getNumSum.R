@@ -5,7 +5,7 @@ test_that("getNumSum", {
   expect_warning({num.sum = getNumSum(data = airquality, target = "Wind",
     c("Temp", "Ozone", "Solar.R"),  geom.hist.args = list(bins = 30, alpha = 0.4), geom.dens.args = list(size = 2, alpha = 0.4), geom.box.args = list())})
     expect_list(num.sum, len = 2L)
-  expect_matrix(num.sum$num.sum.df, nrows = 3L , ncols = 25L)
+  expect_matrix(num.sum$num.sum.df, nrows = 3L, ncols = 25L)
   expect_list(num.sum$merged.list, len = 3L)
   lapply(num.sum$merged.list, FUN = function(x){
     expect_equal(length(x), 4L)
