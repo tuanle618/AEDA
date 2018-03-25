@@ -8,11 +8,6 @@
 #'   A Dataframe with different numeric variables.
 #' @return [\code{numeric(1)}]
 #'   An eps value for dbscan
-#'
-#' @examples
-#' \dontrun{
-#'   getEps(iris[,1:4])
-#' }
 #' @import checkmate
 #' @importFrom pracma gradient
 #' @importFrom dbscan kNNdist
