@@ -42,8 +42,10 @@
 #' @importFrom stats prcomp
 #' @importFrom factoextra fviz_mclust
 #' @importFrom dbscan dbscan
-#' @importFrom mclust mclustBIC
+#' @importFrom ggpubr ggscatter
 #' @import factoextra
+#' @import RColorBrewer
+#' @importFrom mclust mclustBIC
 getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data, cluster.cols) {
   ##### http://www.sthda.com/english/wiki/print.php?id=239 #####
   #select numeric data
@@ -155,12 +157,19 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     } else if (method == "cluster.diana") {
       cluster.method = "diana"
     }
-    out.clust = do.call(eclust, args = append(list(x = num.data, FUNcluster = cluster.method, verbose = FALSE, k = 4), par.vals))
+    out.clust = do.call(eclust, args = append(list(x = num.data, FUNcluster = cluster.method, verbose = FALSE), par.vals))
     # Visualize using factoextra
-    # Cut in 4 groups and color by groups
+    # Cut in k groups and color by groups
+    if (out.clust$nbclust == 2L) {
+      # brewerpal need at least 3 colors
+      # so these are set manually (first two colors of Set1)
+      sil.color = c("#E41A1C", "#377EB8")
+    } else {
+      sil.color = brewer.pal(out.clust$nbclust, "Set1")
+    }
     dend.plot = fviz_dend(out.clust, k = out.clust$nbclust, # Cut in 4 groups
       cex = 0.5, # label size
-      k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+      k_colors = sil.color,
       color_labels_by_k = TRUE, # color labels by groups
       rect = TRUE, # Add rectangle around groups,
       show_labels = TRUE
@@ -182,7 +191,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   } else if (method == "cluster.dbscan") {
     ###### all numeric colums together: ######
     #apply db scan algorithm, from dbscan pkg since faster implementation
-    db.cluster = do.call(dbscan::dbscan, args = append(list(num.data, eps = 0.15), par.vals))
+    db.cluster = do.call(dbscan, args = append(list(num.data, eps = 0.15), par.vals))
     #plot results
     db.plot = fviz_cluster(db.cluster, data = num.data, stand = FALSE,
       ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
@@ -197,7 +206,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       #print(x)
       cols = colnames(num.data)[x]
       #apply db scan algorithm
-      db.cluster = do.call(dbscan::dbscan, args = append(list(num.data[, x], eps = 0.15), par.vals))
+      db.cluster = do.call(dbscan, args = append(list(num.data[, x], eps = 0.15), par.vals))
       #plot results
       db.plot = fviz_cluster(db.cluster, data = num.data[, x], stand = FALSE,
         ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",

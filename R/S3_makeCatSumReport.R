@@ -20,7 +20,7 @@ makeReport.CatSumObj = function(analysis.obj){
 
   makeS3Obj("CatSumReport",
     cat.sum.task = analysis.obj$task,
-    cat.sum = cat.sum$cat.sum,
+    cat.sum = analysis.obj$cat.sum,
     report.id = report.id,
     type = "CategoricalReport")
 }
