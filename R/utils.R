@@ -111,13 +111,19 @@ splitGGplotList = function(mylist, k) {
 
 
 ##wrapper for multiplot with further plotlist splitting
-multiplotPages = function(list, k, no.cols, ...) {
+multiplotPages = function(plotlist, k, no.cols, ...) {
   #create sublists which act as page
-  splitted.list = splitGGplotList(list, k)
+  splitted.list = splitGGplotList(plotlist, k)
   for (page in seq_len(length(splitted.list))) {
-    #call multiplot with further arguments
+    ##call multiplot with further arguments
+    #calculate optimal no. of cols
+    if (length(splitted.list[[page]]) < no.cols) {
+      sel.cols = length(splitted.list[[page]])
+    } else {
+      sel.cols = no.cols
+    }
     multiplot(plotlist = splitted.list[[page]],
-      cols = ifelse(length(splitted.list[[page]]) < no.cols, length(splitted.list[[page]]), no.cols), ...)
+      cols = sel.cols, ...)
   }
 }
 
@@ -135,12 +141,13 @@ split.list.gg.helper = function(nested.gg.list) {
 #helper to open a r-code chunk block with options. Make sure to close the r-chunk with ''' at the end
 #options is a list with chunk options: handles all kind of data types as it will be converted into character
 #example: options = list(echo = FALSE, message = TRUE, ...)
-writeRblock = function(options = list(echo = FALSE, message = FALSE)) {
+writeRChunkOptions = function(chunkname, id, options = list(echo = FALSE, message = FALSE, warning = FALSE)) {
   a = "```{r "
-  b = paste(sprintf("%s = %s", names(x), x), collapse = ", ")
-  c = paste0(a, b, "}")
+  b = paste0(chunkname, "_",  id, ", ")
+  c = paste(sprintf("%s = %s", names(options), options), collapse = ", ")
+  d = paste0(a, b, c, "}")
+  return(d)
 }
-
 
 writeRinline = function(r.code) {
   paste0("`r ", r.code, " `")
