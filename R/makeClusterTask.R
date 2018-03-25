@@ -127,13 +127,13 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
     if (method == "cluster.dbscan") {
       par.vals = list(eps = 0.15)
     } else if (method == "cluster.kkmeans") {
-      par.vals = list(centers = 2)
+      par.vals = list(centers = 2L)
     }
   } else if (length(par.vals) >= 1) {
     if (method == "cluster.dbscan" & !is.element(names(par.vals), "eps")) {
       par.vals = append(par.vals, list(eps = 0.15))
     } else if (method == "cluster.kkmeans" & !is.element(names(par.vals), "centers")) {
-      par.vals = append(par.vals, list(centers = 2))
+      par.vals = append(par.vals, list(centers = 2L))
     }
   }
 
