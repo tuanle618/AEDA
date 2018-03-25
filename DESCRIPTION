@@ -25,7 +25,6 @@ Imports: checkmate,
     plyr,
     RColorBrewer,
     ggpubr
-
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   MASS,
