@@ -194,7 +194,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     db.cluster = do.call(dbscan, args = append(list(x = num.data), par.vals))
     #plot results
     db.plot = fviz_cluster(db.cluster, data = num.data, stand = FALSE,
-      ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
+      ellipse = FALSE, show.clust.cent = FALSE,
       geom = "point", ggtheme = theme_classic(), main = "DBScan Cluster Plot")
     #mostly no db-cluster because if dim(X) > 2, apply PCA.. No Structure
     #save results
@@ -205,11 +205,13 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     comb.cluster.list = apply(combinations, 2, function(x) {
       #print(x)
       cols = colnames(num.data)[x]
+      # set suitable eps value
+      par.vals$eps = getEps(num.data[, x])
       #apply db scan algorithm
       db.cluster = do.call(dbscan, args = append(list(x = num.data[, x]), par.vals))
       #plot results
       db.plot = fviz_cluster(db.cluster, data = num.data[, x], stand = FALSE,
-        ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
+        ellipse = FALSE, show.clust.cent = FALSE,
         geom = "point", ggtheme = theme_classic(), main = "DBScan Cluster Plot")
       #save results
       list(cluster.cols = cols,

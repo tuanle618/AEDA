@@ -122,31 +122,28 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
     }
   }
 
-  ##add option for Eps in dbscan and args in kkmeans
-  if (length(par.vals) == 0) {
-    if (method == "cluster.dbscan") {
-      par.vals = list(eps = 0.15)
-    } else if (method == "cluster.kkmeans") {
-      par.vals = list(centers = 2L)
-    }
-  } else if (length(par.vals) >= 1) {
-    if (method == "cluster.dbscan" & !is.element(names(par.vals), "eps")) {
-      par.vals = append(par.vals, list(eps = 0.15))
-    } else if (method == "cluster.kkmeans" & !is.element(names(par.vals), "centers")) {
-      par.vals = append(par.vals, list(centers = 2L))
-    }
-  }
-
 
   ####################
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
   env$data = data
   env$datatypes = getDataType(data, target)
-  # Set eps for dbscan to an suitable value (heuristic aproach)
-  if(is.null(par.vals$eps)){
-    num.features = c(env$datatypes$num, env$datatypes$int)
-    par.vals$eps[1] = getEps(data[, num.features])
+
+  ##add option for Eps in dbscan and args in kkmeans
+  if (length(par.vals) == 0) {
+    if (method == "cluster.dbscan") {
+      num.features = c(env$datatypes$num, env$datatypes$int)
+      par.vals = list(eps = getEps(data[, num.features]))
+    } else if (method == "cluster.kkmeans") {
+      par.vals = list(centers = 2L)
+    }
+  } else if (length(par.vals) >= 1) {
+    if (method == "cluster.dbscan" & !is.element(names(par.vals), "eps")) {
+      num.features = c(env$datatypes$num, env$datatypes$int)
+      par.vals = append(par.vals, list(eps = getEps(data[, num.features])))
+    } else if (method == "cluster.kkmeans" & !is.element(names(par.vals), "centers")) {
+      par.vals = append(par.vals, list(centers = 2L))
+    }
   }
 
   makeS3Obj("ClusterTask",

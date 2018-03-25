@@ -9,18 +9,21 @@
 #' @return [\code{numeric(1)}]
 #'   An eps value for dbscan
 #'
-#' @example
+#' @examples
+#' \dontrun{
 #'   getEps(iris[,1:4])
+#' }
 #' @import checkmate
 #' @importFrom pracma gradient
+#' @importFrom dbscan kNNdist
 getEps = function(data) {
   dists = kNNdist(data, k = 5)
-  y = sort(a)
+  y = sort(dists)
   x = seq(1, length(y))
   f = gradient(y, x)
   # make "later" values bigger by weighting with the decreasing knnDists
   # add mean againt dividing by 0
-  wf = f / (sort(a, decreasing = TRUE) + mean(a))
+  wf = f / (sort(dists, decreasing = TRUE) + mean(dists))
   # remove small values
   big.wf = wf[wf > mean(wf)]
   big.x3 = x[wf > mean(wf)]
