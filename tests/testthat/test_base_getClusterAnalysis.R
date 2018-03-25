@@ -111,7 +111,7 @@ test_that("getClusterAnalysis cluster.kkmeans", {
 
 test_that("getClusterAnalysis cluster.dbscan", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
-    random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.dbscan")
+    random.seed = 1L, par.vals = list(eps=0.6), scale.num.data = TRUE, method = "cluster.dbscan")
   expect_identical(class(clustered$cluster.all$cluster.res), c("dbscan_fast", "dbscan"))
   expect_list(clustered$cluster.all$cluster.diag, len = 0L)
   expect_list(clustered$comb.cluster.list, len = 6L)
