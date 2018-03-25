@@ -127,6 +127,11 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
   env = new.env(parent = emptyenv())
   env$data = data
   env$datatypes = getDataType(data, target)
+  # Set eps for dbscan to an suitable value (heuristic aproach)
+  if(is.null(par.vals$eps)){
+    num.features = c(env$datatypes$num, env$datatypes$int)
+    par.vals$eps[1] = getEps(data[, num.features])
+  }
 
   makeS3Obj("ClusterTask",
     id = id,
