@@ -22,7 +22,7 @@ makeNumSumReport = function(num.sum.obj, type = NULL){
   report.id = reportId()
 
   makeS3Obj("NumSumReport",
-    num.sum.task = num.sum.obj$task,
+    report.task = num.sum.obj$task,
     num.sum.df = num.sum.obj$num.sum.df,
     num.sum.var = num.sum.obj$num.sum,
     report.id = report.id,
