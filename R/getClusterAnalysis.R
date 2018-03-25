@@ -18,11 +18,14 @@
 #' @param scale.num.data [\code{logical(1L)}]\cr
 #'   Logical whether or not so scale numeric data\cr
 #'   for cluster analysis
+#' @param cluster.cols [\code{character()}]\cr
+#'  Selected columns in a named character vector to apply cluster analysis\cr
 #' @return [\code{list()}]
 #'   A list containing the cluster analysis and plot-code
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam
+#' @importFrom cluster agnes
 #' @importFrom cluster diana
 #' @importFrom kernlab kkmeans
 #' @importFrom stats kmeans
@@ -42,15 +45,25 @@
 #' @importFrom ggpubr ggscatter
 #' @import factoextra
 #' @import RColorBrewer
-getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data) {
+#' @importFrom mclust mclustBIC
+getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data, cluster.cols) {
   ##### http://www.sthda.com/english/wiki/print.php?id=239 #####
   #select numeric data
   set.seed(random.seed)
   num.data = data[, num.features]
   if (scale.num.data) num.data = scale(num.data)
   #tupel combinations
-  combinations = combn(x = seq_len(ncol(num.data)), m = 2)
-
+  if (!is.null(cluster.cols)) {
+    combinations.1.row = which(names(cluster.cols) == colnames(num.data))
+    combinations.2.row = which(cluster.cols == colnames(num.data))
+    combinations = matrix(c(combinations.1.row, combinations.2.row), nrow = 2, byrow = TRUE)
+  } else {#randomly take 10 combinations of all combinations
+    combinations = combn(x = seq_len(ncol(num.data)), m = 2)
+    if (ncol(combinations) > 10) {
+      random.idx = sample(seq.int(ncol(combinations)), replace = FALSE, size = 10)
+      combinations = combinations[, random.idx]
+    } #otherwise the number of combinations is below 10 anyways.
+  }
   ##K-Means or PAM:
   if (is.element(method, c("cluster.kmeans", "cluster.pam"))) {
     ###### all numeric colums together: ######
@@ -216,7 +229,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       proc.data = as.data.frame(cbind(pca.data$x, cluster = kernel.cluster@.Data))
       proc.data$cluster = as.factor(proc.data$cluster)
       ##ggscatter
-      kernel.plot = ggscatter(data = proc.data, x = "PC1", y = "PC2",
+      kernel.plot = ggpubr::ggscatter(data = proc.data, x = "PC1", y = "PC2",
         color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
         ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
         xlab = paste("PC1 explaining", round(var.pca1 * 100, 2), "% of Variance"),
@@ -235,11 +248,11 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         proc.data = as.data.frame(cbind(num.data[, x], cluster = kernel.cluster@.Data))
         proc.data$cluster = as.factor(proc.data$cluster)
         #plot results
-        kernel.plot = ggscatter(data = proc.data, x = colnames(proc.data)[1], y = colnames(proc.data)[2],
+        kernel.plot = ggpubr::ggscatter(data = proc.data, x = colnames(proc.data)[1], y = colnames(proc.data)[2],
           color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
           ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
           xlab = colnames(proc.data)[1],
-          ylab = colnames(proc.data)[1],
+          ylab = colnames(proc.data)[2],
           shape = "cluster")
 
         #save results
