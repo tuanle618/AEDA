@@ -36,11 +36,11 @@ writeReport.NumSumReport = function(report, sub.dir = "Data_Report", save.mode =
   tryCatch({
     ##try part:
     #start the report file
-    #  report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
     report.con = file(rmd.name, "w", encoding = rmdEncoding())
 
-    writeLines("## Numeric Summary Report from AEDA containing numeric summary as well as plots", con  = report.con)
-    writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+    writeLines("## Numeric Summary Report", con  = report.con)
+    #Load object and libraries:
+    writeLines(writeRChunkOptions(chunkname = "loadNumSumObj", id = getId(report)), con = report.con)
     rmdLibrary("knitr", file = report.con)
     rmdLibrary("kableExtra", file = report.con)
     rmdLibrary("DT", file = report.con)
@@ -48,17 +48,11 @@ writeReport.NumSumReport = function(report, sub.dir = "Data_Report", save.mode =
     saveLoadObj(report, getId(report), report.con, override = override)
     writeLines("```", con = report.con)
 
-    writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
-    #testing:
-    #vec = c("5+5", "a = TRUE", "print('Hallo')")
-    #rmdWriteLines(vec = vec,  con = report.con)
-    writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("report.obj = ", report$report.id), con = report.con)
-    writeLines("```", con = report.con)
-
-    writeLines("Some text; Numeric Summary ....", con = report.con)
-
-    writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
+    ##Add generic text:
+    writeLines("### Numeric Summary Results\n", con = report.con)
+    writeLines("The following data frame shows summary statistics for numeric colums from the dataset:", con = report.con)
+    #Show num.sum dataframe
+    writeLines(writeRChunkOptions(chunkname = "showNumSumDF", id = getId(report)), con = report.con)
     #writeLines(paste0("kable(",report$report.id, "$num.sum.df[,c(5,6,4,7,8,10,12,13,14,16,21,22)])"), con = report.con)
 
     #Add colnames footer for kurtosis, skewness, l.bound and u.bound
@@ -101,8 +95,15 @@ writeReport.NumSumReport = function(report, sub.dir = "Data_Report", save.mode =
       style = 'caption-side: bottom; text-align: center;',
       'Table : ', 'Numeric Summary'
       ))"), con = report.con)
-    writeLines("dt", con = report.con)
+    writeLines("#dt", con = report.con)
     writeLines(paste0("#", report$report.id, "$num.sum.var"), con = report.con)
+    writeLines("```\n", con = report.con)
+
+    ##Intro text:
+    writeLines("### Numeric Summary Plots\n", con = report.con)
+    writeLines("In the following for each numeric column a histogram and box plot will be shown:", con = report.con)
+    ##show histogram and quantile plot
+    writeLines(writeRChunkOptions(chunkname = "showPlots", id = getId(report)), con = report.con)
     writeLines(paste0("invisible(lapply(", report$report.id, "$num.sum.var,", " FUN = function(x) {
     multiplot(plotlist = list(plot.hist = x[[3]], plot.box = x[[4]]), cols = 2)
     }))"), con = report.con)

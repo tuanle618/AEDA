@@ -38,7 +38,7 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
     report.con = file(rmd.name, "w", encoding = rmdEncoding())
 
     #Load object
-    writeLines("## Cluster Analysis Report for numeric data \n", con  = report.con)
+    writeLines("## Cluster Summary Report \n", con  = report.con)
     #writeLines("```{r loadClusterObj_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
     writeLines(writeRChunkOptions(chunkname = "loadClusterObj", id = getId(report)), con = report.con)
     # save object and write code to load it in the rmd-file
