@@ -42,7 +42,7 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
     #writeLines("```{r loadClusterObj_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
     writeLines(writeRChunkOptions(chunkname = "loadClusterObj", id = getId(report)), con = report.con)
     # save object and write code to load it in the rmd-file
-    saveLoadObj(report, getId(report), report.con)
+    saveLoadObj(report, getId(report), report.con, override = override)
     # load/require libraries
     rmdLibrary("knitr", file = report.con)
     rmdLibrary("kableExtra", file = report.con)
