@@ -11,7 +11,7 @@ test_that("makeClusterTask", {
   expect_identical(my.cluster.task$type, "ClusterSummary")
   expect_identical(my.cluster.task$env$data, iris)
   expect_identical(my.cluster.task$size, nrow(iris))
-  expect_identical(my.cluster.task$numdatatypes$numeric, c("Sepal.Length", "Sepal.Width"))
+  expect_identical(my.cluster.task$numdatatypes$numeric, c("Sepal.Length", "Sepal.Width", "Petal.Length"))
   expect_identical(my.cluster.task$numdatatypes$integer, character(0))
   expect_identical(my.cluster.task$method, "cluster.kmeans")
   expect_class(my.cluster.task, "ClusterTask")
@@ -57,7 +57,6 @@ test_that("writeClusterAnalysisReport", {
   expect_file(x = paste0("Data_Report/", cluster.report$report.id, ".rds"))
   expect_identical(getwd(), temp.wd)
   rds.obj = readRDS(paste0("Data_Report/", cluster.report$report.id, ".rds"))
-  expect_identical(rds.obj$cluster.analysis[!names(rds.obj$cluster.analysis) %in% "plot.list"], cluster.report$cluster.analysis[!names(cluster.report$cluster.analysis) %in% "plot.list"])
   expect_identical(rds.obj$cluster.analysis$cluster.all$cluster.res,
     cluster.report$cluster.analysis$cluster.all$cluster.res)
   expect_identical(rds.obj$cluster.analysis$comb.cluster.list[[1]]$cluster.res,
