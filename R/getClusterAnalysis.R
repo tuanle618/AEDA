@@ -191,10 +191,10 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   } else if (method == "cluster.dbscan") {
     ###### all numeric colums together: ######
     #apply db scan algorithm, from dbscan pkg since faster implementation
-    db.cluster = do.call(dbscan, args = append(list(num.data, eps = 0.15), par.vals))
+    db.cluster = do.call(dbscan, args = append(list(x = num.data), par.vals))
     #plot results
     db.plot = fviz_cluster(db.cluster, data = num.data, stand = FALSE,
-      ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
+      ellipse = FALSE, show.clust.cent = FALSE,
       geom = "point", ggtheme = theme_classic(), main = "DBScan Cluster Plot")
     #mostly no db-cluster because if dim(X) > 2, apply PCA.. No Structure
     #save results
@@ -205,11 +205,13 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     comb.cluster.list = apply(combinations, 2, function(x) {
       #print(x)
       cols = colnames(num.data)[x]
+      # set suitable eps value
+      par.vals$eps = getEps(num.data[, x])
       #apply db scan algorithm
-      db.cluster = do.call(dbscan, args = append(list(num.data[, x], eps = 0.15), par.vals))
+      db.cluster = do.call(dbscan, args = append(list(x = num.data[, x]), par.vals))
       #plot results
       db.plot = fviz_cluster(db.cluster, data = num.data[, x], stand = FALSE,
-        ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
+        ellipse = FALSE, show.clust.cent = FALSE,
         geom = "point", ggtheme = theme_classic(), main = "DBScan Cluster Plot")
       #save results
       list(cluster.cols = cols,
@@ -222,7 +224,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       #apply kernel k-means algorithm ###DEFAULT centers?? ###ADD additionals params ?
       ###include PCA on num.data::
       pca.data = prcomp(x = num.data, rank. = 2L)
-      kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = pca.data$x, centers = 2L), par.vals)))
+      kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = pca.data$x), par.vals)))
       var.pca1 = pca.data$sdev[1] / sum(pca.data$sdev)
       var.pca2 = pca.data$sdev[2] / sum(pca.data$sdev)
       #plot results ##DO ggplot manually
@@ -244,7 +246,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         #print(x)
         cols = colnames(num.data)[x]
         #apply kernel k-means algorithm
-        kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = num.data[, x], centers = 2L), par.vals)))
+        kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = num.data[, x]), par.vals)))
         proc.data = as.data.frame(cbind(num.data[, x], cluster = kernel.cluster@.Data))
         proc.data$cluster = as.factor(proc.data$cluster)
         #plot results

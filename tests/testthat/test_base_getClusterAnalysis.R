@@ -97,13 +97,13 @@ test_that("getClusterAnalysis cluster.diana", {
 
 test_that("getClusterAnalysis cluster.kkmeans", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
-    random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.kkmeans")
+    random.seed = 1L, par.vals = list(centers = 2L), scale.num.data = TRUE, method = "cluster.kkmeans")
   expect_identical(class(clustered$cluster.all$cluster.res)[1], "specc")
   expect_list(clustered$cluster.all$cluster.diag, len = 0L)
   expect_list(clustered$comb.cluster.list, len = 6L)
 
   clustered.kernel = getClusterAnalysis(data = iris, cluster.cols = NULL, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
-    random.seed = 1L, par.vals = list(kernel = "vanilladot"), scale.num.data = TRUE, method = "cluster.kkmeans")
+    random.seed = 1L, par.vals = list(kernel = "vanilladot", centers = 2L), scale.num.data = TRUE, method = "cluster.kkmeans")
   # check if clusters are different -> is par.vals working correctly
   expect_false(isTRUE(all.equal(clustered$cluster.all$cluster.res,
     clustered.kernel$cluster.all$cluster.res)))
