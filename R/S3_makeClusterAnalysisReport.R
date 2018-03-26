@@ -17,7 +17,7 @@ makeReport.ClusterAnalysisObj = function(analysis.obj){
   report.id = reportId()
 
   makeS3Obj("ClusterAnalysisReport",
-    task = analysis.obj$task,
+    report.task = analysis.obj$task,
     cluster.analysis = analysis.obj$cluster.analysis,
     report.id = report.id,
     type = "ClusterAnalysisReport")
