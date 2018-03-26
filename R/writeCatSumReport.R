@@ -51,7 +51,7 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
     writeLines("In the following contingency tables for categorical columns will be displayed:", con = report.con)
 
     #1-D Contingency
-    for (i in 1:length(report$cat.sum$freq)) {
+    for (i in seq_len(length(report$cat.sum$freq))) {
       #Define Chunk options:
       writeLines(writeRChunkOptions(chunkname = paste0("contingencyOneD_", i), id = getId(report),
         options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'")), con = report.con)
@@ -62,7 +62,7 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
       writeLines("```", con = report.con)
     }
     #2-D Contingency
-    for (i in 1:length(report$cat.sum$contg.list)) {
+    for (i in seq_len(length(report$cat.sum$contg.list))) {
       #Define Chunk options:
       writeLines(writeRChunkOptions(chunkname = paste0("contingencTwoD_", i), id = getId(report),
         options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'")), con = report.con)
