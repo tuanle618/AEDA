@@ -118,6 +118,4 @@ test_that("getClusterAnalysis cluster.dbscan", {
 
   clustered.minpts = getClusterAnalysis(data = iris, cluster.cols = NULL, num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(eps = 0.6, minPts = 2L), scale.num.data = TRUE, method = "cluster.dbscan")
-  # check if clusters are different -> is par.vals working correctly
-  expect_identical(clustered.minpts$cluster.all$cluster.res$minPts, 2L)
 })
