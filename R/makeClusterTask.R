@@ -93,10 +93,9 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
   #target will be checked within GetDataType
   #check cluster.cols
   if (!is.null(cluster.cols)) {
-    assertCharacter(cluster.cols, min.len = 1, max.len = 10)
+    assertCharacter(cluster.cols, min.len = 2, max.len = 10)
     for (i in seq.int(length(cluster.cols))) {
       assertChoice(cluster.cols[i], choices = colnames(data))
-      assertChoice(names(cluster.cols)[i], choices = colnames(data))
     }
   }
   assertChoice(method, choices = paste0("cluster.",
