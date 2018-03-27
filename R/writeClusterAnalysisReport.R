@@ -52,7 +52,9 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
 
     ### Overview: All numeric columns
     writeLines("### Overview: All numeric columns \n", con  = report.con)
-    txt = paste0("The dataset contains of `r ", "length(", getId(report), "$report.task$numdatatypes$numeric) + length(", getId(report), "$report.task$numdatatypes$integer)`")
+    txt = paste0("The dataset contains of `r ", "length(", getId(report),
+      "$report.task$numdatatypes$numeric) + length(", getId(report),
+      "$report.task$numdatatypes$integer)`")
     txt = paste(txt, "numeric columns.")
     writeLines(txt, con = report.con)
     #PCA text only for not hierarchical methods:
@@ -124,7 +126,8 @@ handle multidimensional data we receive after transforming the centers from the 
       #  con = report.con)
       writeLines(writeRChunkOptions(chunkname = "clusterCombPlots", id = getId(report)), con = report.con)
       #txt = paste0("multiplot(plotlist = lapply(", getId(report) ,"$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), cols = 2)")
-      txt = paste0("multiplotPages(plotlist = lapply(", getId(report), "$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), k = 2, no.cols = 2)")
+      txt = paste0("multiplotPages(plotlist = lapply(", getId(report),
+        "$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), k = 2, no.cols = 2)")
       writeLines(txt, con = report.con)
       writeLines("```", con = report.con)
     }
