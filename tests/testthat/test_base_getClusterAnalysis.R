@@ -7,10 +7,10 @@ test_that("getClusterAnalysis kmeans", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(iter.max = 15L), scale.num.data = TRUE, method = "cluster.kmeans")
-  expect_identical(class(clustered$cluster.all$cluster.res), "kmeans")
+  expectIdentical(class(clustered$cluster.all$cluster.res), "kmeans")
   expect_list(clustered$cluster.all$cluster.diag, min.len = 1L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
-    expect_identical(class(x), c("gg", "ggplot"))
+    expectIdentical(class(x), c("gg", "ggplot"))
   })
   expect_length(clustered$comb.cluster.list, 6L)
 })
@@ -19,10 +19,10 @@ test_that("getClusterAnalysis pam", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.pam")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("pam", "partition"))
+  expectIdentical(class(clustered$cluster.all$cluster.res), c("pam", "partition"))
   expect_list(clustered$cluster.all$cluster.diag, min.len = 1L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
-    expect_identical(class(x), c("gg", "ggplot"))
+    expectIdentical(class(x), c("gg", "ggplot"))
   })
   expect_length(clustered$comb.cluster.list, 6L)
 
@@ -38,10 +38,10 @@ test_that("getClusterAnalysis cluster.h", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.h")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("hclust", "hcut", "eclust"))
+  expectIdentical(class(clustered$cluster.all$cluster.res), c("hclust", "hcut", "eclust"))
   expect_list(clustered$cluster.all$cluster.diag, min.len = 1L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
-    expect_identical(class(x), c("gg", "ggplot"))
+    expectIdentical(class(x), c("gg", "ggplot"))
   })
   expect_list(clustered$comb.cluster.list, len = 0L)
 
@@ -56,10 +56,10 @@ test_that("getClusterAnalysis cluster.h", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.h")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("hclust", "hcut", "eclust"))
+  expectIdentical(class(clustered$cluster.all$cluster.res), c("hclust", "hcut", "eclust"))
   expect_list(clustered$cluster.all$cluster.diag, len = 2L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
-    expect_identical(class(x), c("gg", "ggplot"))
+    expectIdentical(class(x), c("gg", "ggplot"))
   })
   expect_list(clustered$comb.cluster.list, len = 0L)
 
@@ -74,10 +74,10 @@ test_that("getClusterAnalysis cluster.agnes", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.agnes")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("agnes", "twins", "hcut", "eclust"))
+  expectIdentical(class(clustered$cluster.all$cluster.res), c("agnes", "twins", "hcut", "eclust"))
   expect_list(clustered$cluster.all$cluster.diag, len = 2L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
-    expect_identical(class(x), c("gg", "ggplot"))
+    expectIdentical(class(x), c("gg", "ggplot"))
   })
   expect_list(clustered$comb.cluster.list, len = 0L)
 
@@ -92,10 +92,10 @@ test_that("getClusterAnalysis cluster.diana", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.diana")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("diana", "twins", "hcut", "eclust"))
+  expectIdentical(class(clustered$cluster.all$cluster.res), c("diana", "twins", "hcut", "eclust"))
   expect_list(clustered$cluster.all$cluster.diag, len = 2L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
-    expect_identical(class(x), c("gg", "ggplot"))
+    expectIdentical(class(x), c("gg", "ggplot"))
   })
   expect_list(clustered$comb.cluster.list, len = 0L)
 
@@ -110,7 +110,7 @@ test_that("getClusterAnalysis cluster.kkmeans", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(centers = 2L), scale.num.data = TRUE, method = "cluster.kkmeans")
-  expect_identical(class(clustered$cluster.all$cluster.res)[1], "specc")
+  expectIdentical(class(clustered$cluster.all$cluster.res)[1], "specc")
   expect_list(clustered$cluster.all$cluster.diag, len = 0L)
   expect_list(clustered$comb.cluster.list, len = 6L)
 
@@ -127,7 +127,7 @@ test_that("getClusterAnalysis cluster.dbscan", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(eps = 0.6), scale.num.data = TRUE, method = "cluster.dbscan")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("dbscan_fast", "dbscan"))
+  expectIdentical(class(clustered$cluster.all$cluster.res), c("dbscan_fast", "dbscan"))
   expect_list(clustered$cluster.all$cluster.diag, len = 0L)
   expect_list(clustered$comb.cluster.list, len = 6L)
 
