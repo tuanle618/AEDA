@@ -236,7 +236,7 @@ writeHeader = function(title, con, subtitle = NULL, author = NULL,
 # simple wrapper for quickly changing encoding
 rmdEncoding = function() "UTF-8"
 
-expect_identical = function(object, expected, null.ok = FALSE, ...){
+expectIdentical = function(object, expected, null.ok = FALSE, ...){
   arg = list(...)
   if (is.null(object) & is.null(expected)){
     stop("Both args are NULL")
