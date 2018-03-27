@@ -23,8 +23,8 @@ test_that("makeClusterTask", {
   my.cluster.task.2 = makeClusterTask(id = "test.report", data = iris,
     target = "Species", method = "cluster.kmeans",
     random.seed = 1L, par.vals = list(iter.max = 15L),
-    cluster.cols = c("Sepal.Length", "Sepal.Width"))
-  expect_identical(my.cluster.task.2$cluster.cols, c("Sepal.Length", "Sepal.Width"))
+    cluster.cols = c("Sepal.Width" = "Sepal.Length"))
+  expect_identical(my.cluster.task.2$cluster.cols, c("Sepal.Width" = "Sepal.Length"))
 })
 
 cluster.summary = makeClusterAnalysis(my.cluster.task)
