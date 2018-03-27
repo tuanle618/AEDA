@@ -38,7 +38,7 @@ test_that("writeBasicReport", {
   expect_identical(getwd(), temp.wd)
   rds.obj = readRDS(paste0("Data_Report/", basic.report$report.id, ".rds"))
 
-  expect_identical(rds.obj$report.task[!names(rds.obj$report.task) %in% "env"], basic.report$report.task[!names(basic.report$report.task) %in% "env"])
+  expect_equal(rds.obj$task, basic.report$task)
 
   expect_identical(rds.obj$basic.data.summary, basic.report$basic.data.summary)
   expect_identical(rds.obj$na.summary[!names(rds.obj$na.summary) %in% c("env", "image", "ggplot")],

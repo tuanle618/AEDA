@@ -18,7 +18,7 @@ test_that("makeClusterTask", {
   expect_identical(my.cluster.task$par.vals, list(iter.max = 15L))
   expect_identical(my.cluster.task$random.seed, 1L)
   expect_identical(my.cluster.task$scale.num.data, TRUE)
-  expect_identical(my.cluster.task$cluster.cols, NULL)
+  expect_null(my.cluster.task$cluster.cols)
 
   my.cluster.task.2 = makeClusterTask(id = "test.report", data = iris,
     target = "Species", method = "cluster.kmeans",
