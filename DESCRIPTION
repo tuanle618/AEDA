@@ -25,7 +25,10 @@ Imports: checkmate,
     plyr,
     RColorBrewer,
     ggpubr,
-    pracma
+    pracma,
+	MASS,
+	vegan,
+	smacof
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   MASS,

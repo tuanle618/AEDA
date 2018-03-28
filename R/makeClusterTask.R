@@ -161,7 +161,7 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
 }
 
 #' @export
-# Print fuction for NumTask Object
+# Print fuction for ClusterTask Object
 print.ClusterTask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Observations: %i", x$size)
