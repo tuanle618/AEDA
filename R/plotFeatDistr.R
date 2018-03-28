@@ -34,7 +34,7 @@ plotFeatDistr = function(data, target, col, geom.hist.args = list(bins = 30, alp
     a = aes_string(x = col, colour = target)
     geom.hist.wrapper = do.call(geom_histogram, append(list(mapping = aes(y = ..density..)), geom.hist.args))
     geom.dens.wrapper = do.call(geom_density, geom.dens.args)
-    plot = ggplot(data, a) + geom.hist.wrapper + geom.dens.wrapper
+    plot = ggplot(data, a) + geom.hist.wrapper + geom.dens.wrapper + theme_classic()
     return(plot)
   } else {
         stop("Unsupported column class: ", class(x))

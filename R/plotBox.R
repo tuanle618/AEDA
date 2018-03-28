@@ -58,7 +58,7 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
       #create the plot
       if (flag.target.factor) a = aes_string(x = "''", y = col)
       else a = aes_string(x = "''", y = col)
-      plot = ggplot(data, a) + geom_boxplot(...) + coord_flip()
+      plot = ggplot(data, a) + geom_boxplot(...) + coord_flip() + theme_classic()
       plot = list(plot = plot)
       names(plot) = col
     } else {
@@ -69,7 +69,7 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
         col = numeric[y]
         if (is.factor(data[[target]])) a = aes_string(x = "''", y = col)
         else a = aes_string(x = "''", y = col)
-        subplot = ggplot(data, a) + geom_boxplot(...) + coord_flip()
+        subplot = ggplot(data, a) + geom_boxplot(...) + coord_flip() + theme_classic()
         return(subplot)
       })
       names(plot) = numeric
@@ -87,7 +87,7 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
       #create the plot
       if (flag.target.factor) a = aes_string(x = "''", y = col, fill = target)
       else a = aes_string(x = "''", y = col)
-      plot = ggplot(data, a) + geom_boxplot(...) + coord_flip()
+      plot = ggplot(data, a) + geom_boxplot(...) + coord_flip() + theme_classic()
       plot = list(plot = plot)
       names(plot) = col
     } else {
@@ -98,7 +98,7 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
         col = numeric[y]
         if (is.factor(data[[target]])) a = aes_string(x = "''", y = col, fill = target)
         else a = aes_string(x = "''", y = col)
-        subplot = ggplot(data, a) + geom_boxplot(...) + coord_flip()
+        subplot = ggplot(data, a) + geom_boxplot(...) + coord_flip() + theme_classic()
         return(subplot)
       })
       names(plot) = numeric

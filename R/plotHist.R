@@ -53,7 +53,8 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
     if (!(is.numeric(x) | is.integer(x))) stop("No Numeric Feature")
     #create the plot
     a = aes_string(x = col, colour = target)
-    plot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...)
+    plot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...) +
+      theme_classic()
     plot = list(plot = plot)
     names(plot) = col
   } else {
@@ -66,7 +67,8 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
     plot = lapply(1:no.num, FUN = function(y) {
       col = num[y]
       a = aes_string(x = col, colour = target)
-      subplot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...)
+      subplot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...) +
+        theme_classic()
       return(subplot)
     })
     names(plot) = num

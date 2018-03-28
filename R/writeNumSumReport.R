@@ -103,7 +103,8 @@ writeReport.NumSumReport = function(report, sub.dir = "Data_Report", save.mode =
     writeLines("### Numeric Summary Plots\n", con = report.con)
     writeLines("In the following for each numeric column a histogram and box plot will be shown:", con = report.con)
     ##show histogram and quantile plot
-    writeLines(writeRChunkOptions(chunkname = "showPlots", id = getId(report)), con = report.con)
+    writeLines(writeRChunkOptions(chunkname = "showPlots", id = getId(report),
+      options = list(echo = FALSE, message = FALSE, warning = FALSE, out.width = "'50%'")), con = report.con)
     writeLines(paste0("invisible(lapply(", report$report.id, "$num.sum.var,", " FUN = function(x) {
     multiplot(plotlist = list(plot.hist = x[[3]], plot.box = x[[4]]), cols = 2)
     }))"), con = report.con)

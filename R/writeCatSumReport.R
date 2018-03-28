@@ -67,7 +67,7 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
       writeLines(writeRChunkOptions(chunkname = paste0("contingencTwoD_", i), id = getId(report),
         options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'")), con = report.con)
       txt = paste0("kable_styling(kable_input = kable(", getId(report), "$cat.sum$contg.list[[", i, "]], format = 'html',
-        caption = '1-D Contingency Table ", i, "')", ", full_width = TRUE)")
+        caption = '2-D Contingency Table ", i, "')", ", full_width = TRUE)")
       writeLines(txt, con = report.con)
       #Close chunk
       writeLines("```", con = report.con)
@@ -77,7 +77,8 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
     writeLines("### Categorical Summary Results\n", con = report.con)
     writeLines("In the following bar plots for categorical columns will be displayed:", con = report.con)
     writeLines(writeRChunkOptions(chunkname = "showBarPlots", id = getId(report),
-      options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'")), con = report.con)
+      options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'", out.width = "'100%'")),
+      con = report.con)
     writeLines(paste0("multiplot(plotlist = ", report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
       con = report.con)
     writeLines("```", con = report.con)
