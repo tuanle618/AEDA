@@ -123,7 +123,7 @@ handle multidimensional data we receive after transforming the centers from the 
       #  options = list(echo = FALSE, warning = FALSE, message = FALSE, fig.height = 4)),
       #  con = report.con)
       writeLines(writeRChunkOptions(chunkname = "clusterCombPlots", id = getId(report),
-        options = list(echo = FALSE, message = FALSE, warning = FALSE,  fig.dim = c(9,5), out.width = "'50%'")),
+        options = list(echo = FALSE, message = FALSE, warning = FALSE,  fig.dim = c(9, 5), out.width = "'50%'")),
         con = report.con)
       #txt = paste0("multiplot(plotlist = lapply(", getId(report) ,"$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), cols = 2)")
       txt = paste0("multiplotPages(plotlist = lapply(", getId(report), "$cluster.analysis$comb.cluster.list, FUN = `[[`, 'cluster.plot'), k = 2, no.cols = 2)")
