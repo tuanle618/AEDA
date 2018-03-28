@@ -162,7 +162,7 @@ getId.default = function(x){
 }
 
 getId.CorrReport = function(x){
-  x$id
+  x$report.id
 }
 
 getId.BasicReport = function(x) {

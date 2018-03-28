@@ -42,7 +42,7 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE, position = "dodg
     if (!(is.factor(x) | is.logical(x) | is.character(x) | is.ordered(x))) stop("No Discrete Feature")
     #create the plot
     a = aes_string(x = col, fill = target)
-    plot = ggplot(data, a) +
+    plot = ggplot(data, a) + theme_classic() +
       geom_bar(stat = "count", position = position, ...) + coord_flip()
     plot = list(plot = plot)
     names(plot) = col
@@ -56,7 +56,7 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE, position = "dodg
     plot = lapply(1:no.categ, FUN = function(y) {
       col = categ[y]
       a = aes_string(x = col, fill = target)
-      subplot = ggplot(data, a) +
+      subplot = ggplot(data, a) + theme_classic() +
         geom_bar(stat = "count", position = position, ...) + coord_flip()
       return(subplot)
     })

@@ -46,6 +46,9 @@ MainReport.*
 # Directory where rmd files are created by test that
 /TestingDir/
 /TestFolder/
+/tests/testthat/Data_report/
+/tests/testthat/MainReport.rmd
+/tests/testthat/MainReport.html
 
 # Rstudio User Profile
 .Rprofile
