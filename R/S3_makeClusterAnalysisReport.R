@@ -2,7 +2,7 @@
 #'
 #' @param analysis.obj [\code{ClusterAnalysisObj} Object]\cr
 #'   A object of the "ClusterAnalysisObj" class
-#' @return ClusterAnalysisObj
+#' @return A ClusterAnalysisReport Object
 #' @import checkmate
 #' @import BBmisc
 #' @examples
