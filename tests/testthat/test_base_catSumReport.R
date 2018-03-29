@@ -12,7 +12,8 @@ test_that("makeCatSumTask", {
   expect_identical(cat.sum.task$geombar.args, list())
   expect_class(cat.sum.task, "CatSumTask")
 
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved", position = "dodge")
+  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis,
+    target = "Improved", position = "dodge")
   expect_identical(cat.sum.task$geombar.args, list(position = "dodge"))
   expect_error(makeCatSumTask(id = "test.report", data = Arthritis))
   expect_error(makeCatSumTask(data = Arthritis, target = "Wind"))
@@ -50,7 +51,8 @@ test_that("writeCatSumReport", {
   expect_file(x = paste0("Data_Report/", cat.sum.report$report.id, ".rds"))
   expect_identical(getwd(), temp.wd)
   rds.obj = readRDS(paste0("Data_Report/", cat.sum.report$report.id, ".rds"))
-  expect_identical(rds.obj$cat.sum[!names(rds.obj$cat.sum) %in% "plot.list"], cat.sum.report$cat.sum[!names(cat.sum.report$cat.sum) %in% "plot.list"])
+  expect_identical(rds.obj$cat.sum[!names(rds.obj$cat.sum) %in% "plot.list"],
+    cat.sum.report$cat.sum[!names(cat.sum.report$cat.sum) %in% "plot.list"])
 
   expect_error(writeReport(cat.sum.report))
   expect_identical(getwd(), temp.wd)
