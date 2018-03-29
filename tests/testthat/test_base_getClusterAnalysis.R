@@ -60,7 +60,8 @@ test_that("getClusterAnalysis cluster.h", {
   clustered = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(), scale.num.data = TRUE, method = "cluster.h")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("hclust", "hcut", "eclust"))
+  expect_identical(class(clustered$cluster.all$cluster.res),
+    c("hclust", "hcut", "eclust"))
   expect_list(clustered$cluster.all$cluster.diag, len = 2L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
     expect_identical(class(x), c("gg", "ggplot"))
@@ -80,7 +81,8 @@ test_that("getClusterAnalysis cluster.agnes", {
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(),
     scale.num.data = TRUE, method = "cluster.agnes")
-  expect_identical(class(clustered$cluster.all$cluster.res), c("agnes", "twins", "hcut", "eclust"))
+  expect_identical(class(clustered$cluster.all$cluster.res),
+    c("agnes", "twins", "hcut", "eclust"))
   expect_list(clustered$cluster.all$cluster.diag, len = 2L)
   lapply(clustered$cluster.all$cluster.diag, FUN = function(x) {
     expect_identical(class(x), c("gg", "ggplot"))
@@ -110,7 +112,8 @@ test_that("getClusterAnalysis cluster.diana", {
 
   clustered.k2 = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
-    random.seed = 1L, par.vals = list(k = 2L), scale.num.data = TRUE, method = "cluster.diana")
+    random.seed = 1L, par.vals = list(k = 2L), scale.num.data = TRUE,
+    method = "cluster.diana")
   # check if clusters are different -> is par.vals working correctly
   expect_false(clustered$cluster.all$cluster.res$nbclust == clustered.k2$cluster.all$cluster.res$nbclust)
 })

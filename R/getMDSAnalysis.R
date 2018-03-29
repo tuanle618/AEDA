@@ -61,6 +61,7 @@ getMDSAnalysis = function(dist, method, par.vals) {
   }
 
 
-  out.list = list(mds.result = mds.result, mds.plot = mds.plot, mds.result.data = mds.result.data)
+  out.list = list(mds.result = mds.result, mds.plot = mds.plot,
+    mds.result.data = mds.result.data)
   return(out.list)
 }

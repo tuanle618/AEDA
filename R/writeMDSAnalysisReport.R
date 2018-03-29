@@ -38,9 +38,11 @@ writeReport.MDSAnalysisReport = function(report, sub.dir = "Data_Report",
     #start the report file
     report.con = file(rmd.name, "w", encoding = rmdEncoding())
 
-    writeLines("## Multidimensional Scaling Summary Report", con  = report.con)
+    writeLines("## Multidimensional Scaling Summary Report",
+      con  = report.con)
     #Load object and libraries:
-    writeLines(writeRChunkOptions(chunkname = "loadMDSObj", id = getId(report)),
+    writeLines(writeRChunkOptions(chunkname = "loadMDSObj",
+      id = getId(report)),
       con = report.con)
     rmdLibrary("DT", file = report.con)
     writeLines("devtools::load_all() #temporary", con = report.con)

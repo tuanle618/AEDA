@@ -49,7 +49,8 @@ makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmds
   data.types = getDataType(data, target)
   if (length(c(data.types$num, data.types$int)) < 2) {
     stop(paste("Your dataset only contains of",
-      length(c(data.types$num, data.types$int))), " numeric columns. Multidimensional Scaling does not make sense")
+      length(c(data.types$num, data.types$int)),
+      " numeric columns. Multidimensional Scaling does not make sense"))
   }
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
@@ -57,12 +58,15 @@ makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmds
   #Check rownames
   check = any((rownames(data) == as.character(seq_len(nrow(data)))))
   if (check) {
-    warning(paste0("The dataset ", deparse(substitute(data)), " does not contain specific rownames."))
+    warning(paste0("The dataset ", deparse(substitute(data)),
+      " does not contain specific rownames."))
   }
 
   #target will be checked within GetDataType
-  assertChoice(dist.norm, choices = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"))
-  assertChoice(method, choices = c("cmdscale", "wcmdscale", "smacofSym", "isoMDS", "sammon"))
+  assertChoice(dist.norm, choices = c("euclidean", "maximum",
+    "manhattan", "canberra", "binary", "minkowski"))
+  assertChoice(method, choices = c("cmdscale",
+    "wcmdscale", "smacofSym", "isoMDS", "sammon"))
   ##par.vals check:
   formals = formals(method)
   for (arg in names(par.vals)) {
