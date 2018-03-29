@@ -28,7 +28,8 @@ Imports: checkmate,
     pracma,
 	MASS,
 	vegan,
-	smacof
+	smacof,
+	devtools
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   MASS,
