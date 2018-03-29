@@ -31,7 +31,7 @@ test_that("finishReport Works", {
    cat.sum.report, save.mode = FALSE, override = TRUE)
   rmarkdown::render("MainReport.rmd", quiet = TRUE)
 
-  expect_error(finishReport(basic.report, num.sum.report, corr.report,
-    cat.sum.report))
+  expect_error(finishReport(basic.report, num.sum.report,
+    corr.report, cat.sum.report))
 
 })
