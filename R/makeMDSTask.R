@@ -54,8 +54,14 @@ makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmds
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
+  #Check rownames
+  check = any((rownames(data) == as.character(seq_len(nrow(data)))))
+  if (check) {
+    warning(paste0("The dataset ", deparse(substitute(data)), " does not contain specific rownames."))
+  }
 
   #target will be checked within GetDataType
+  assertChoice(dist.norm, choices = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"))
   assertChoice(method, choices = c("cmdscale", "wcmdscale", "smacofSym", "isoMDS", "sammon"))
   ##par.vals check:
   formals = formals(method)

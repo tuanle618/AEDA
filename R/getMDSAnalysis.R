@@ -56,6 +56,6 @@ getMDSAnalysis = function(dist, method, par.vals) {
     size = 1,
     repel = TRUE) + theme_classic() + ggtitle(title)
 
-  out.list = list(mds.result = mds.result, mds.plot = mds.plot)
+  out.list = list(mds.result = mds.result, mds.plot = mds.plot, mds.result.data = mds.result.data)
   return(out.list)
 }
