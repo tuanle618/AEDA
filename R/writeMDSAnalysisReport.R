@@ -39,8 +39,6 @@ writeReport.MDSAnalysisReport = function(report, sub.dir = "Data_Report", save.m
     writeLines("## Multidimensional Scaling Summary Report", con  = report.con)
     #Load object and libraries:
     writeLines(writeRChunkOptions(chunkname = "loadMDSObj", id = getId(report)), con = report.con)
-    rmdLibrary("knitr", file = report.con)
-    rmdLibrary("kableExtra", file = report.con)
     rmdLibrary("DT", file = report.con)
     writeLines("devtools::load_all() #temporary", con = report.con)
     # save object and write code to load it in the rmd-file

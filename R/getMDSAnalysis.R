@@ -25,7 +25,7 @@ getMDSAnalysis = function(dist, method, par.vals) {
     title = "Weighted Classical Metric Multidimensional Scaling"
   } else if (method == "smacofSym") {
     mds.method = smacofSym
-    title = "Metric Multidimensional scaling on a symmetric dissimilarity matrix using SMACOF"
+    title = "Metric Multidimensional Scaling on a symmetric dissimilarity matrix using SMACOF"
   } else if (method == "isoMDS") {
     mds.method = isoMDS
     title = "Kruskal's Non-metric Multidimensional Scaling"
@@ -50,11 +50,16 @@ getMDSAnalysis = function(dist, method, par.vals) {
     mds.result.data = as.data.frame(mds.result$points, rownames = TRUE)
   }
   colnames(mds.result.data) = c("Dim1", "Dim2")
-  # Plot MDS
-  mds.plot = ggscatter(mds.result.data, x = "Dim1", y = "Dim2",
-    label = rownames(mds.result.data),
-    size = 1,
-    repel = TRUE) + theme_classic() + ggtitle(title)
+  # Plot MDS, only if dimension is 2
+  if (ncol(mds.result.data) == 2) {
+    mds.plot = ggscatter(mds.result.data, x = "Dim1", y = "Dim2",
+      label = rownames(mds.result.data),
+      size = 1,
+      repel = TRUE) + theme_classic(base_size = 10) + ggtitle(title)
+  } else {
+    mds.plot = NULL
+  }
+
 
   out.list = list(mds.result = mds.result, mds.plot = mds.plot, mds.result.data = mds.result.data)
   return(out.list)
