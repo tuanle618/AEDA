@@ -1,7 +1,8 @@
 context("Categorial Data Summary")
 data("Arthritis", package = "vcd")
 test_that("makeCatSumTask", {
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved")
+  cat.sum.task = makeCatSumTask(id = "test.report",
+    data = Arthritis, target = "Improved")
   expect_identical(cat.sum.task$id, "test.report")
   expect_identical(cat.sum.task$type, "CategoricalSummary")
   expect_identical(cat.sum.task$env$data, Arthritis)
@@ -20,7 +21,8 @@ test_that("makeCatSumTask", {
 })
 
 test_that("makeCatSum", {
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved")
+  cat.sum.task = makeCatSumTask(id = "test.report",
+    data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
 
   expect_class(cat.sum, "CatSumObj")
@@ -30,7 +32,8 @@ test_that("makeCatSum", {
 })
 
 test_that("makeCatSumReport", {
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved")
+  cat.sum.task = makeCatSumTask(id = "test.report",
+    data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
   cat.sum.report = makeCatSumReport(cat.sum)
 
@@ -42,12 +45,14 @@ test_that("makeCatSumReport", {
 })
 
 test_that("writeCatSumReport", {
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved")
+  cat.sum.task = makeCatSumTask(id = "test.report",
+    data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
   cat.sum.report = makeCatSumReport(cat.sum)
 
   temp.wd = getwd()
-  expect_file((rmd.file = writeReport(cat.sum.report, save.mode = FALSE, override = TRUE)), extension = "rmd")
+  expect_file((rmd.file = writeReport(cat.sum.report,
+    save.mode = FALSE, override = TRUE)), extension = "rmd")
   expect_file(x = paste0("Data_Report/", cat.sum.report$report.id, ".rds"))
   expect_identical(getwd(), temp.wd)
   rds.obj = readRDS(paste0("Data_Report/", cat.sum.report$report.id, ".rds"))

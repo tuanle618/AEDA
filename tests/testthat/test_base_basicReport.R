@@ -1,21 +1,26 @@
 context("Basic Data Summary")
 data("airquality")
 test_that("makeReportTask", {
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-  expect_identical(basic.report.task$missing.values, sum(is.na(airquality)))
-  expect_identical(basic.report.task$size, nrow(airquality))
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = "Wind")
+  expect_identical(basic.report.task$missing.values,
+    sum(is.na(airquality)))
+  expect_identical(basic.report.task$size,
+    nrow(airquality))
   expect_identical(basic.report.task$env$data, airquality)
   expect_class(basic.report.task, "BasicReportTask")
   expect_identical(basic.report.task$target, "Wind")
   expect_identical(basic.report.task$id, "test.report")
   expect_identical(basic.report.task$dataset.name, "airquality")
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = NULL)
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = NULL)
   expect_error(makeReportTask(id = "test.report", data = airquality))
   expect_error(makeReportTask(data = airquality, target = "Wind"))
 })
 
 test_that("makeBasicReport", {
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = "Wind")
   basic.report = makeBasicReport(basic.report.task)
   expect_class(basic.report, "BasicReport")
   expect_identical(basic.report$task, basic.report.task)
@@ -25,12 +30,14 @@ test_that("makeBasicReport", {
   expect_character(basic.report$report.id)
   expect_identical(basic.report$type, "BasicReport")
 
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = NULL)
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = NULL)
   basic.report = makeBasicReport(basic.report.task)
 })
 
 test_that("writeBasicReport", {
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = "Wind")
   basic.report = makeBasicReport(basic.report.task)
   temp.wd = getwd()
   expect_file((rmd.file = writeReport(basic.report)), extension = "rmd")
