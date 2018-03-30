@@ -47,9 +47,10 @@ makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmds
   par.vals = list()){
 
   data.types = getDataType(data, target)
-  if (length(c(data.types$num, data.types$int)) < 2) {
+  num.features = c(data.types$num, data.types$int)
+  if (length(num.features) < 2) {
     stop(paste("Your dataset only contains of",
-      length(c(data.types$num, data.types$int)),
+      length(num.features),
       " numeric columns. Multidimensional Scaling does not make sense"))
   }
   #Argument Checks
@@ -83,11 +84,13 @@ makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmds
   }
 
   #calculate distance:
-  dist = dist(data, method = dist.norm)
+  num.data = data[, num.features]
+  dist = dist(num.data, method = dist.norm)
   ####################
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
   env$data = data
+  env$num.data = num.data
   env$datatypes = getDataType(data, target)
   env$dist = dist
 
