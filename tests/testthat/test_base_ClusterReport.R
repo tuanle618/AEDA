@@ -4,7 +4,7 @@ set.seed(1L)
 sub = sample.int(150, 12)
 iris = iris[sub, 1:3]
 my.cluster.task = makeClusterTask(id = "test.report", data = iris,
-  target = "Species", method = "cluster.kmeans",
+  method = "cluster.kmeans",
   random.seed = 1L, par.vals = list(iter.max = 15L))
 test_that("makeClusterTask", {
   expectIdentical(my.cluster.task$id, "test.report")
@@ -21,7 +21,7 @@ test_that("makeClusterTask", {
   expect_null(my.cluster.task$cluster.cols)
 
   my.cluster.task.2 = makeClusterTask(id = "test.report", data = iris,
-    target = "Species", method = "cluster.kmeans",
+    method = "cluster.kmeans",
     random.seed = 1L, par.vals = list(iter.max = 15L),
     cluster.cols = c("Sepal.Width" = "Sepal.Length"))
   expectIdentical(my.cluster.task.2$cluster.cols, c("Sepal.Width" = "Sepal.Length"))

@@ -79,10 +79,10 @@
 #' @import factoextra
 #' @export
 #'
-makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
+makeClusterTask = function(id, data, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
   scale.num.data = TRUE, par.vals = list()){
   #check if numeric cols >= 2
-  data.types = getDataType(data, target)
+  data.types = getDataType(data, target = NULL)
   if (length(c(data.types$num, data.types$int)) < 2) {
     stop(paste("Your dataset only contains of",
     length(c(data.types$num, data.types$int))), " numeric columns. Cluster Analysis does not make sense")
@@ -133,7 +133,7 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
   env$data = data
-  env$datatypes = getDataType(data, target)
+  env$datatypes = getDataType(data, target = NULL)
 
   ##add option for Eps in dbscan and args in kkmeans
   if (length(par.vals) == 0) {

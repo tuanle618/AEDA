@@ -1,6 +1,6 @@
 context("Numeric Summar Report")
 boston = data("Boston", package = "MASS")
-boston = get(boston)[, 1:3]
+boston = get(boston)[, c("crim", "zn", "indus", "medv")]
 
 test_that("makeNumSumTask", {
   num.sum.task = makeNumSumTask(id = "test.report", data = boston, target = "medv")
@@ -24,8 +24,8 @@ test_that("makeNumSum", {
   expect_class(num.sum, "NumSumObj")
   expectIdentical(num.sum$task, num.sum.task)
   expectIdentical(length(num.sum), 3L)
-  expectIdentical(length(num.sum$num.sum), 3L)
-  expect_matrix(num.sum$num.sum.df, nrows = 3, ncols = 25L)
+  expectIdentical(length(num.sum$num.sum), 4L)
+  expect_matrix(num.sum$num.sum.df, nrows = 4, ncols = 25L)
 })
 
 test_that("makeNumSumReport", {
@@ -39,7 +39,7 @@ test_that("makeNumSumReport", {
   expectIdentical(num.sum.report$type, "NumericReport")
   expect_character(num.sum.report$report.id)
   expectIdentical(num.sum.report$num.sum.df, num.sum$num.sum.df)
-  expect_list(num.sum.report$num.sum.var, len = 3L)
+  expect_list(num.sum.report$num.sum.var, len = 4L)
 })
 
 test_that("writeNumSumReport", {

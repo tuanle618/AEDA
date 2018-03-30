@@ -22,10 +22,20 @@ test_that("multiplot", {
 
 test_that("multiplotPages", {
   suppressWarnings(multiplotPages(list(gg1, gg2, gg3, gg4), k = 2, 2))
+  expect_error(multiplotPages(list(gg1, gg2, gg3, "gg4"), k = 2, 2))
 })
 
 test_that("plotBar", {
   plotBar(airquality, target = "Nominal")
   expect_error(plotBar(airquality, target = "Temp"))
   expect_error(plotBar(airquality, target = "NoFeature"))
+})
+
+test_that("plotBox", {
+  plotBox(airquality, target = "Nominal")
+  plotBox(airquality, target = "Temp")
+  plotBox(airquality, target = "Nominal", plot.x.only = TRUE)
+  plotBox(airquality, target = NULL)
+  expect_error(plotBox(airquality, target = "NoFeature"))
+
 })

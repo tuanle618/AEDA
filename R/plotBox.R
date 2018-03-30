@@ -37,12 +37,13 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
+    assertChoice(target, colnames(data))
   }
-  if (is.null(target)) target = ""
 
   types = getDataType(data = data, target = target)
   numeric = unique(c(types$num, types$int))
   no.num = length(numeric)
+  if (is.null(target)) target = ""
   flag.target.factor = is.element(types$target, c(types$ord, types$fact, types$logic))
 
   ##plot.x.only : no filling with target
