@@ -12,8 +12,9 @@
 #'   an existing rmd-file
 #'   Default is \code{TRUE}
 #' @examples
-#'  data("Boston", package = "MASS")
-#'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#'  data("Aids2", package = "MASS")
+#'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
+#'    target = "sex")
 #'  #get the numeric summary task object
 #'  num.sum = makeNumSum(num.sum.task)
 #'  #create the numeric summary report

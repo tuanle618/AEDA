@@ -8,8 +8,6 @@
 #'   ID of the Task Object
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables
-#' @param target [\code{character(1)}]\cr
-#'   Target column of the dataset
 #' @param cluster.cols [\code{character()}]\cr
 #'   Named character vector to specify clusters. This only holds for\cr
 #'   not hierarchical cluster methods. Default \code{cluster.cols = NULL}\cr .
@@ -50,12 +48,12 @@
 #' @return ClusterTask Object
 #' @examples
 #' my.cluster.task = makeClusterTask(id = "iris", data = iris,
-#'  target = "Species", method = "cluster.kmeans",
-#'  random.seed = 89L, par.vals = list(iter.max = 15L))
+#'   method = "cluster.kmeans",
+#'   random.seed = 89L, par.vals = list(iter.max = 15L))
 #' my.cluster.task2 = makeClusterTask(id = "iris", data = iris,
-#'  target = "Species", method = "cluster.kmeans",
-#'  random.seed = 89L, cluster.cols = c("Sepal.Length" = "Petal.Length",
-#'  "Sepal.Width" = "Petal.Width"))
+#'   method = "cluster.kmeans", random.seed = 89L,
+#'   cluster.cols = c("Sepal.Length" = "Petal.Length",
+#'   "Sepal.Width" = "Petal.Width"))
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam

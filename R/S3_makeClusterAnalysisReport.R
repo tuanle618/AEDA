@@ -7,7 +7,7 @@
 #' @import BBmisc
 #' @examples
 #'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
-#'   target = "Species", method = "cluster.kmeans")
+#'   method = "cluster.kmeans")
 #'  cluster.analysis = makeClusterAnalysis(my.cluster.task)
 #'  cluster.report = makeReport(cluster.analysis)
 #' @export

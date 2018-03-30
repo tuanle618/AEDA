@@ -24,16 +24,20 @@
 plotFeatDistr = function(data, target, col, geom.hist.args = list(bins = 30, alpha = 0.4), geom.dens.args = list(size = 2, alpha = 0.4)) {
   if (is.numeric(col))  {
     col = colnames(data)[col]
+  } else {
+    assertChoice(col, choices = colnames(data))
   }
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
+    assertChoice(target, choices = colnames(data))
+    assertFactor(data[[target]])
   }
   x = data[[col]]
   if (is.numeric(x) | is.integer(x)) {
-    a = aes_string(x = col, colour = target)
+    a = aes_string(x = col, fill = target, colour = target)
     geom.hist.wrapper = do.call(geom_histogram, append(list(mapping = aes(y = ..density..)), geom.hist.args))
-    geom.dens.wrapper = do.call(geom_density, geom.dens.args)
+    geom.dens.wrapper = do.call(geom_density, append(list(mapping = aes()), geom.dens.args))
     plot = ggplot(data, a) + geom.hist.wrapper + geom.dens.wrapper
     return(plot)
   } else {

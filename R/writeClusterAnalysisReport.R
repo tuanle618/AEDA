@@ -14,7 +14,7 @@
 #'   an existing rmd-file
 #' @examples
 #'   my.cluster.task = makeClusterTask(id = "iris", data = iris,
-#'    target = "Species", method = "cluster.kmeans")
+#'    method = "cluster.kmeans")
 #'   cluster.analysis = makeClusterAnalysis(my.cluster.task)
 #'   report = makeClusterAnalysisReport(cluster.analysis)
 #'   writeReport(report, save.mode = FALSE, override = TRUE)

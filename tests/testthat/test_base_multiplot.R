@@ -1,4 +1,4 @@
-context("Plotting Funktions")
+context("Plotting Functions")
 library(ggplot2)
 data("airquality")
 set.seed(1L)
@@ -35,7 +35,22 @@ test_that("plotBox", {
   plotBox(airquality, target = "Nominal")
   plotBox(airquality, target = "Temp")
   plotBox(airquality, target = "Nominal", plot.x.only = TRUE)
-  plotBox(airquality, target = NULL)
+  plotBox(airquality, target = NULL, col = "Temp")
   expect_error(plotBox(airquality, target = "NoFeature"))
 
+})
+
+test_that("plotDens", {
+  plotDens(airquality, target = NULL)
+  plotDens(airquality, target = "Nominal")
+  plotDens(airquality, target = "Temp")
+  expect_error(plotDens(airquality, target = "NoFeature"))
+
+})
+
+test_that("plotFeatDistr", {
+  plotFeatDistr(airquality, target = NULL, col = "Temp")
+  plotFeatDistr(airquality, target = "Nominal", col = "Temp")
+  expect_error(plotFeatDistr(airquality, target = "Ozone", col = "Temp"))
+  expect_error(plotFeatDistr(airquality, target = "NoFeature", col = "Temp"))
 })

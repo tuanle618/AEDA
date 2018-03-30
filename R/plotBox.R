@@ -44,7 +44,7 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
   numeric = unique(c(types$num, types$int))
   no.num = length(numeric)
   if (is.null(target)) target = ""
-  flag.target.factor = is.element(types$target, c(types$ord, types$fact, types$logic))
+  flag.target.factor = is.element(target, c(types$ord, types$fact, types$logic))
 
   ##plot.x.only : no filling with target
   if (plot.x.only) {

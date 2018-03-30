@@ -29,7 +29,7 @@
 #' basic.report = makeReport(basic.report.task)
 #'
 #' data("Boston", package = "MASS")
-#' num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#' num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = NULL)
 #' num.sum = makeNumSum(num.sum.task)
 #' num.sum.report = makeReport(num.sum)
 #'
