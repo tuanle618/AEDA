@@ -9,7 +9,9 @@
 #'   A Dataframe with different variables
 #' @param target [\code{character(1)}]\cr
 #'   Defines the target column. f the dataset does not contain a target column please insert \code{NULL}
-#'
+#' @param show.NA.msg [\code{logical(1)}]\cr
+#'  Logical whether to show missing values message\cr
+#'  Default is \code{TRUE}.
 #' @return [\code{BasicReportTask}]
 #'
 #' @examples
@@ -19,12 +21,18 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeBasicReportTask = function(id, data, target){
+makeBasicReportTask = function(id, data, target, show.NA.msg = TRUE){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target))
     assertCharacter(target, min.chars = 1L, len = 1L)
+
+  #write warning message for NAs
+  if (any(is.na(data)) & show.NA.msg) {
+    message("The data set contains NAs.
+These will be displayed in the Basic Report Summary")
+  }
 
   # Encapsulate Data into new env
   env = new.env(parent = emptyenv())

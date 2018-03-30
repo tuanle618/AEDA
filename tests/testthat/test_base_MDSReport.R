@@ -1,9 +1,9 @@
 context("MultiDimensional Scaling Analysis")
 data("swiss")
 data("iris")
-library(MASS)
-library(smacof)
-library(vegan)
+suppressWarnings(library(MASS))
+suppressWarnings(library(smacof))
+suppressWarnings(library(vegan))
 
 mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality")
 mds.analysis = getMDSAnalysis(dist = mds.task$dist, method = mds.task$method,

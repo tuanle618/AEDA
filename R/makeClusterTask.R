@@ -47,6 +47,9 @@
 #' @param par.vals [\code{list}]\cr
 #'   Additional arguments handled over to cluster algorithm \code{method}.\cr
 #'   Default is empty list \code{par.vals = list()}
+#' @param show.NA.msg [\code{logical(1)}]\cr
+#'  Logical whether to show missing values message\cr
+#'  Default is \code{FALSE}.
 #' @return ClusterTask Object
 #' @examples
 #' my.cluster.task = makeClusterTask(id = "iris", data = iris,
@@ -80,7 +83,7 @@
 #' @export
 #'
 makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
-  scale.num.data = TRUE, par.vals = list()){
+  scale.num.data = TRUE, par.vals = list(), show.NA.msg = FALSE){
   #check if numeric cols >= 2
   data.types = getDataType(data, target)
   if (length(c(data.types$num, data.types$int)) < 2) {
@@ -91,6 +94,13 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
   #target will be checked within GetDataType
+
+  #add warning for NAs:
+  if (any(is.na(data)) & show.NA.msg) {
+    message("The data set contains NAs.
+These values might removed in the further calculations.
+If so, another warning will be displayed.")
+  }
   #check cluster.cols
   if (!is.null(cluster.cols)) {
     assertCharacter(cluster.cols, min.len = 1, max.len = 10)

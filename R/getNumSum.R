@@ -33,7 +33,12 @@ getNumSum = function(data, features, target, geom.hist.args, geom.dens.args, geo
   assertCharacter(features, min.len = 1L, min.chars = 1L)
 
   num.data = subset(data, select = features)
-  if (any(is.na(num.data))) warning("The data set contains NAs. These values will be removed in the further calculations")
+  #remove NAs
+  if (any(is.na(num.data))) {
+    warning("Missing Values in numeric columns. Rows with NAs will be removed")
+    num.data = na.omit(num.data)
+  }
+
   no.obs = apply(num.data, 2, function(x) sum(!is.na(x)))
   nas = apply(num.data, 2, function(x) sum(is.na(x)))
   nas.perc = nas / nrow(num.data)

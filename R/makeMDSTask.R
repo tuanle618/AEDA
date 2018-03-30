@@ -32,6 +32,9 @@
 #' @param par.vals [\code{list}]\cr
 #'   Additional arguments handled over to MDS algorithm \code{method}.\cr
 #'   Default is empty list \code{par.vals = list()}
+#' @param show.NA.msg [\code{logical(1)}]\cr
+#'  Logical whether to show missing values message\cr
+#'  Default is \code{FALSE}.
 #' @return MDSTask Object
 #' @examples
 #' data(swiss)
@@ -44,7 +47,7 @@
 #' @export
 #'
 makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmdscale",
-  par.vals = list()){
+  par.vals = list(), show.NA.msg = FALSE){
 
   data.types = getDataType(data, target)
   num.features = c(data.types$num, data.types$int)
@@ -64,6 +67,13 @@ makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmds
   }
 
   #target will be checked within GetDataType
+
+  #add warning for NAs:
+  if (any(is.na(data)) & show.NA.msg) {
+    message("The data set contains NAs.
+These values might removed in the further calculations.
+If so, another warning will be displayed.")
+  }
   assertChoice(dist.norm, choices = c("euclidean", "maximum",
     "manhattan", "canberra", "binary", "minkowski"))
   assertChoice(method, choices = c("cmdscale",
@@ -85,6 +95,11 @@ makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmds
 
   #calculate distance:
   num.data = data[, num.features]
+  #remove NAs
+#  if (any(is.na(num.data))) {
+#    warning("Missing Values in numeric columns. Rows with NAs will be removed")
+#    num.data = na.omit(num.data)
+#  }
   dist = dist(num.data, method = dist.norm)
   ####################
   # Encapsulate Data and Data Types into new env
