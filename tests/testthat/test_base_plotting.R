@@ -33,9 +33,10 @@ test_that("plotBar", {
 
 test_that("plotBox", {
   plotBox(airquality, target = "Nominal")
-  plotBox(airquality, target = "Temp")
+  plotBox(airquality, target = NULL)
   plotBox(airquality, target = "Nominal", plot.x.only = TRUE)
   plotBox(airquality, target = NULL, col = "Temp")
+  expect_error(plotBox(airquality, target = "Temp"))
   expect_error(plotBox(airquality, target = "NoFeature"))
 
 })
@@ -53,4 +54,11 @@ test_that("plotFeatDistr", {
   plotFeatDistr(airquality, target = "Nominal", col = "Temp")
   expect_error(plotFeatDistr(airquality, target = "Ozone", col = "Temp"))
   expect_error(plotFeatDistr(airquality, target = "NoFeature", col = "Temp"))
+})
+
+test_that("plotHist", {
+  plotHist(airquality, target = NULL, col = "Temp")
+  plotHist(airquality, target = "Nominal", col = "Temp")
+  expect_error(plotHist(airquality, target = "Ozone", col = "Temp"))
+  expect_error(plotHist(airquality, target = "NoFeature", col = "Temp"))
 })

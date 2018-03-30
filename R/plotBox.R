@@ -38,6 +38,7 @@ plotBox = function(data, target, plot.x.only = FALSE, col = NULL,
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
     assertChoice(target, colnames(data))
+    assertFactor(data[[target]])
   }
 
   types = getDataType(data = data, target = target)
