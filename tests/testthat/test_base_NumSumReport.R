@@ -1,12 +1,12 @@
 context("Numeric Summar Report")
-boston = data("Boston", package = "MASS")
-boston = get(boston)[, c("crim", "zn", "indus", "medv")]
+aids = data("Aids2", package = "MASS")
+aids = get(aids)
 
 test_that("makeNumSumTask", {
-  num.sum.task = makeNumSumTask(id = "test.report", data = boston, target = "medv")
+  num.sum.task = makeNumSumTask(id = "test.report", data = aids, target = "sex")
 
-  expectIdentical(num.sum.task$size, nrow(boston))
-  expectIdentical(num.sum.task$env$data, boston)
+  expectIdentical(num.sum.task$size, nrow(aids))
+  expectIdentical(num.sum.task$env$data, aids)
   expect_class(num.sum.task, "NumSumTask")
   expectIdentical(num.sum.task$id, "test.report")
   expectIdentical(names(num.sum.task$numdatatypes), c("numeric", "integer"))
@@ -14,22 +14,22 @@ test_that("makeNumSumTask", {
   expectIdentical(num.sum.task$geom.dens.args, list(size = 2, alpha = 0.4))
   expectIdentical(num.sum.task$geom.box.args, list())
 
-  num.sum.task = makeNumSumTask(id = "test.report", data = boston, target = NULL)
+  num.sum.task = makeNumSumTask(id = "test.report", data = aids, target = NULL)
 })
 
 test_that("makeNumSum", {
-  num.sum.task = makeNumSumTask(id = "test.report", data = boston, target = "medv")
+  num.sum.task = makeNumSumTask(id = "test.report", data = aids, target = "sex")
   num.sum = makeNumSum(num.sum.task)
 
   expect_class(num.sum, "NumSumObj")
   expectIdentical(num.sum$task, num.sum.task)
   expectIdentical(length(num.sum), 3L)
-  expectIdentical(length(num.sum$num.sum), 4L)
-  expect_matrix(num.sum$num.sum.df, nrows = 4, ncols = 25L)
+  expectIdentical(length(num.sum$num.sum), 3L)
+  expect_matrix(num.sum$num.sum.df, nrows = 3, ncols = 25L)
 })
 
 test_that("makeNumSumReport", {
-  num.sum.task = makeNumSumTask(id = "test.report", data = boston, target = "medv")
+  num.sum.task = makeNumSumTask(id = "test.report", data = aids, target = "sex")
   num.sum = makeNumSum(num.sum.task)
   num.sum.report = makeNumSumReport(num.sum)
 
@@ -39,11 +39,11 @@ test_that("makeNumSumReport", {
   expectIdentical(num.sum.report$type, "NumericReport")
   expect_character(num.sum.report$report.id)
   expectIdentical(num.sum.report$num.sum.df, num.sum$num.sum.df)
-  expect_list(num.sum.report$num.sum.var, len = 4L)
+  expect_list(num.sum.report$num.sum.var, len = 3L)
 })
 
 test_that("writeNumSumReport", {
-  num.sum.task = makeNumSumTask(id = "test.report", data = boston, target = "medv")
+  num.sum.task = makeNumSumTask(id = "test.report", data = aids, target = "sex")
   num.sum = makeNumSum(num.sum.task)
   num.sum.report = makeNumSumReport(num.sum)
 
