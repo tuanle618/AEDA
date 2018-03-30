@@ -21,7 +21,7 @@
 #' @title Plots univariate distribution of a feature.
 
 
-plotFeatDistr = function(data, target, col, geom.hist.args = list(bins = 30, alpha = 0.4), geom.dens.args = list(size = 2, alpha = 0.4)) {
+plotFeatDistr = function(data, target, col, geom.hist.args = list(bins = 30, alpha = 0.4, colour = "black"), geom.dens.args = list(size = 2, alpha = 0.4)) {
   if (is.numeric(col))  {
     col = colnames(data)[col]
   } else {
