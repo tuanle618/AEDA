@@ -15,7 +15,9 @@
 #'   Column names to use for correlation
 #' @param type [\code{character(1)}]\cr
 #'   The type of the Report to create. Example: "CorrPlot"
-#'
+#' @param show.NA.msg [\code{logical(1)}]\cr
+#'  Logical whether to show missing values message\cr
+#'  Default is \code{FALSE}.
 #' @return CorrTask
 #'
 #' @examples
@@ -25,12 +27,19 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeCorrTask = function(id, data, method = "pearson", vars = NULL, type = "CorrPlot"){
+makeCorrTask = function(id, data, method = "pearson", vars = NULL,
+  type = "CorrPlot", show.NA.msg = FALSE){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
   assertSubset(method, c("pearson", "spearman"), empty.ok = FALSE)
   assertSubset(type, choices = "CorrPlot")
+  #add warning for NAs:
+  if (any(is.na(data)) & show.NA.msg) {
+    message("The data set contains NAs.
+These values might removed in the further calculations.
+If so, another warning will be displayed.")
+  }
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
     data.type = getDataType(data[, vars], target = NULL)

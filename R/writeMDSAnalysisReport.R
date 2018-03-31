@@ -62,7 +62,7 @@ writeReport.MDSAnalysisReport = function(report, sub.dir = "Data_Report",
       "$mds.analysis$mds.result.data, class = 'compact', filter = 'bottom', options = list(pageLength = 10),
       caption = htmltools::tags$caption(
       style = 'caption-side: bottom; text-align: center;',
-      'Table : ', 'Numeric Summary'
+      'Table : ', 'Multidimensional Scaling Result'
       ))"), con = report.con)
     writeLines("dt", con = report.con)
     writeLines("```\n", con = report.con)

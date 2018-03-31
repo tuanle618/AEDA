@@ -27,7 +27,11 @@ getCatSum = function(data, features, target, geombar.args = list()) {
   assertCharacter(features, min.len = 1L, min.chars = 1L)
 
   cat.data = subset(data, select = features)
-
+  #remove NAs
+#  if (any(is.na(cat.data))) {
+#    warning("Missing Values in categorical columns. Rows with NAs will be removed")
+#    num.data = na.omit(num.data)
+#  }
   freq = alply(cat.data, 2, table)
   rel.freq = lapply(freq, prop.table)
   nas = as.list(apply(cat.data, 2, function(x) sum(is.na(x))))
