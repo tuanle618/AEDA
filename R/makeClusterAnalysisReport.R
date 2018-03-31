@@ -7,7 +7,7 @@
 #' @import BBmisc
 #' @examples
 #'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
-#'   target = "Species", method = "cluster.kmeans")
+#'    method = "cluster.kmeans")
 #'  cluster.analysis = makeClusterAnalysis(my.cluster.task)
 #'  cluster.report = makeClusterAnalysisReport(cluster.analysis)
 #' @export
@@ -17,8 +17,8 @@ makeClusterAnalysisReport = function(cluster.analysis.obj){
   report.id = reportId()
 
   makeS3Obj("ClusterAnalysisReport",
-    task = cluster.analysis.obj$task,
-    cluster.analysis = cluster.analysis.obj$cluster.analysis,
+    report.task = cluster.analysis$task,
+    cluster.analysis = cluster.analysis$cluster.analysis,
     report.id = report.id,
     type = "ClusterAnalysisReport")
 }

@@ -30,7 +30,11 @@ plotBar = function(data, target, col = NULL, show.plot = FALSE, position = "dodg
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
+    assertChoice(target, choices = colnames(data))
+    #check if column is a factor:
+    assert_factor(data[[target]])
   }
+
 
   #plot for a specific column:
   if (!is.null(col)) {

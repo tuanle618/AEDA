@@ -35,6 +35,7 @@ plotDens = function(data, target, col = NULL, show.plot = FALSE, alpha = 0.4, co
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
+    assertChoice(target, choices = colnames(data))
   }
   #plot for a specific column:
   if (!is.null(col)) {

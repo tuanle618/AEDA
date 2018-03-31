@@ -15,6 +15,7 @@ getDataType = function(data, target) {
   if (exists("target")) {
     if (!is.null(target)) {
       assertCharacter(target, len = 1)
+      assertChoice(target, colnames(data))
     }
   } else if (!exists("target")) {
     stop("You did not specify a target value. If the dataset doesn't contain one, enter NULL as target")

@@ -11,12 +11,12 @@ test_that("getDataType with fake Data", {
   # Apply getDataType funktion
   data.types = getDataType(test.data, target = NULL)
   # Are all col names in the data.type object
-  expect_identical(data.types$X, names(test.data))
+  expectIdentical(data.types$X, names(test.data))
   # Are all columns sorted into the different classes
-  expect_identical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
+  expectIdentical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
     length(data.types$X))
   # Has the object correct length
-  expect_identical(length(data.types), 9L)
+  expectIdentical(length(data.types), 9L)
   # Are the list entries all strings
   not.null.data.types = data.types[!names(data.types) %in% "target"]
   for (i in names(not.null.data.types)) expect_character(data.types[[i]])
@@ -38,12 +38,12 @@ test_that("getDataType with Aids2 Data", {
   # Apply getDataType funktion
   data.types = getDataType(test.data, target = NULL)
   # Are all col names in the data.type object
-  expect_identical(data.types$X, names(test.data))
+  expectIdentical(data.types$X, names(test.data))
   # Are all columns sorted into the different classes
-  expect_identical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
+  expectIdentical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
     length(data.types$X))
   # Has the object correct length
-  expect_identical(length(data.types), 9L)
+  expectIdentical(length(data.types), 9L)
   # Are the list entries all strings
   not.null.data.types = data.types[!names(data.types) %in% "target"]
   for (i in names(not.null.data.types)) expect_character(data.types[[i]])
@@ -64,12 +64,12 @@ test_that("getDataType with Boston Data", {
   # Apply getDataType funktion
   data.types = getDataType(test.data, target = NULL)
   # Are all col names in the data.type object
-  expect_identical(data.types$X, names(test.data))
+  expectIdentical(data.types$X, names(test.data))
   # Are all columns sorted into the different classes
-  expect_identical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
+  expectIdentical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
     length(data.types$X))
   # Has the object correct length
-  expect_identical(length(data.types), 9L)
+  expectIdentical(length(data.types), 9L)
   # Are the list entries all strings
   not.null.data.types = data.types[!names(data.types) %in% "target"]
   for (i in names(not.null.data.types)) expect_character(data.types[[i]])
@@ -90,12 +90,12 @@ test_that("getDataType with Insurance Data", {
   # Apply getDataType funktion
   data.types = getDataType(test.data, target = NULL)
   # Are all col names in the data.type object
-  expect_identical(data.types$X, names(test.data))
+  expectIdentical(data.types$X, names(test.data))
   # Are all columns sorted into the different classes
-  expect_identical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
+  expectIdentical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
     length(data.types$X))
   # Has the object correct length
-  expect_identical(length(data.types), 9L)
+  expectIdentical(length(data.types), 9L)
   # Are the list entries all strings
   not.null.data.types = data.types[!names(data.types) %in% "target"]
   for (i in names(not.null.data.types)) expect_character(data.types[[i]])
@@ -116,12 +116,12 @@ test_that("getDataType with survey Data", {
   # Apply getDataType funktion
   data.types = getDataType(test.data, target = NULL)
   # Are all col names in the data.type object
-  expect_identical(data.types$X, names(test.data))
+  expectIdentical(data.types$X, names(test.data))
   # Are all columns sorted into the different classes
-  expect_identical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
+  expectIdentical(length(unlist(data.types[!names(data.types) %in% c("X", "target")])),
     length(data.types$X))
   # Has the object correct length
-  expect_identical(length(data.types), 9L)
+  expectIdentical(length(data.types), 9L)
   # Are the list entries all strings
   not.null.data.types = data.types[!names(data.types) %in% "target"]
   for (i in names(not.null.data.types)) expect_character(data.types[[i]])
