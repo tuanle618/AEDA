@@ -41,6 +41,10 @@
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom stats cmdscale
+#' @importFrom vegan wcmdscale
+#' @importFrom smacof smacofSym
+#' @importFrom MASS isoMDS
+#' @importFrom MASS sammon
 #' @export
 #'
 makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmdscale",
