@@ -25,8 +25,7 @@ test_that("finishReport Works", {
     data = aids2, target = "sex")
   basic.report = makeReport(my.report.task)
 
-  my.cluster.task = makeClusterTask(id = "aids", data = aids2,
-    target = "T.categ")
+  my.cluster.task = makeClusterTask(id = "aids", data = aids2)
   cluster.analysis = makeClusterAnalysis(my.cluster.task)
   cluster.report = makeReport(cluster.analysis)
 
