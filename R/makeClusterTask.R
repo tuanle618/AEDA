@@ -81,7 +81,7 @@
 #' @export
 #'
 makeClusterTask = function(id, data, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
-  scale.num.data = TRUE, par.vals = list()){
+  scale.num.data = TRUE, par.vals = list(), show.NA.msg = FALSE){
   #check if numeric cols >= 2
   data.types = getDataType(data, target = NULL)
   if (length(c(data.types$num, data.types$int)) < 2) {
