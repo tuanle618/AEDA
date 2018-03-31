@@ -8,8 +8,9 @@
 #' @import checkmate
 #' @import BBmisc
 #' @examples
-#'  data("Boston", package = "MASS")
-#'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#'  data("Aids2", package = "MASS")
+#'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
+#'    target = "sex")
 #'  #get the numeric summary task object
 #'  num.sum = makeNumSum(num.sum.task)
 #'  #create the numeric summary report
@@ -22,7 +23,7 @@ makeNumSumReport = function(num.sum.obj, type = NULL){
   report.id = reportId()
 
   makeS3Obj("NumSumReport",
-    num.sum.task = num.sum.obj$task,
+    report.task = num.sum.obj$task,
     num.sum.df = num.sum.obj$num.sum.df,
     num.sum.var = num.sum.obj$num.sum,
     report.id = report.id,

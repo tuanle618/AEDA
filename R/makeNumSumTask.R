@@ -23,8 +23,9 @@
 #' @import checkmate
 #' @import BBmisc
 #' @examples
-#'  data("Boston", package = "MASS")
-#'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#'  data("Aids2", package = "MASS")
+#'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
+#'    target = "sex")
 #'  #get Data
 #'  num.sum.task$env$data
 #' @export

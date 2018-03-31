@@ -8,8 +8,6 @@
 #'   ID of the Task Object
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables
-#' @param target [\code{character(1)}]\cr
-#'   Target column of the dataset
 #' @param cluster.cols [\code{character()}]\cr
 #'   Named character vector to specify clusters. This only holds for\cr
 #'   not hierarchical cluster methods. Default \code{cluster.cols = NULL}\cr .
@@ -50,12 +48,12 @@
 #' @return ClusterTask Object
 #' @examples
 #' my.cluster.task = makeClusterTask(id = "iris", data = iris,
-#'  target = "Species", method = "cluster.kmeans",
-#'  random.seed = 89L, par.vals = list(iter.max = 15L))
+#'   method = "cluster.kmeans",
+#'   random.seed = 89L, par.vals = list(iter.max = 15L))
 #' my.cluster.task2 = makeClusterTask(id = "iris", data = iris,
-#'  target = "Species", method = "cluster.kmeans",
-#'  random.seed = 89L, cluster.cols = c("Sepal.Length" = "Petal.Length",
-#'  "Sepal.Width" = "Petal.Width"))
+#'   method = "cluster.kmeans", random.seed = 89L,
+#'   cluster.cols = c("Sepal.Length" = "Petal.Length",
+#'   "Sepal.Width" = "Petal.Width"))
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam
@@ -79,10 +77,10 @@
 #' @import factoextra
 #' @export
 #'
-makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
+makeClusterTask = function(id, data, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
   scale.num.data = TRUE, par.vals = list()){
   #check if numeric cols >= 2
-  data.types = getDataType(data, target)
+  data.types = getDataType(data, target = NULL)
   if (length(c(data.types$num, data.types$int)) < 2) {
     stop(paste("Your dataset only contains of",
     length(c(data.types$num, data.types$int))), " numeric columns. Cluster Analysis does not make sense")
@@ -95,8 +93,14 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
   if (!is.null(cluster.cols)) {
     assertCharacter(cluster.cols, min.len = 1, max.len = 10)
     for (i in seq.int(length(cluster.cols))) {
-      assertChoice(cluster.cols[i], choices = colnames(data))
       assertChoice(names(cluster.cols)[i], choices = colnames(data))
+      # check if entry and entryname are the same and throw meaningfull error
+      coll = makeAssertCollection()
+      if (names(cluster.cols)[i] == cluster.cols[i]) {
+        coll$push("One entry in cluster.cols may not have the same feature as name and value")
+      }
+      assertChoice(cluster.cols[i], choices = colnames(data), add = coll)
+      reportAssertions(coll)
     }
   }
   assertChoice(method, choices = paste0("cluster.",
@@ -127,7 +131,7 @@ makeClusterTask = function(id, data, target, cluster.cols = NULL, method = "clus
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
   env$data = data
-  env$datatypes = getDataType(data, target)
+  env$datatypes = getDataType(data, target = NULL)
 
   ##add option for Eps in dbscan and args in kkmeans
   if (length(par.vals) == 0) {

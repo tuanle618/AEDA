@@ -12,9 +12,17 @@
 #' @importFrom grid pushViewport
 #' @importFrom grid viewport
 #' @importFrom grid grid.layout
-multiplot = function(..., plotlist = NULL, file, cols = 1, layout = NULL) {
+multiplot = function(..., plotlist = NULL, cols = 1, layout = NULL) {
   # Make a list from the ... arguments and plotlist
   plots = c(list(...), plotlist)
+  assertList(plotlist, null.ok = TRUE)
+  for (i in seq_along(plots)) {
+    assertClass(plots[[i]], classes = c("gg", "ggplot"))
+  }
+  assertInt(cols, null.ok = FALSE)
+  assertMatrix(layout, null.ok = TRUE)
+
+
 
   num.plots = length(plots)
 
