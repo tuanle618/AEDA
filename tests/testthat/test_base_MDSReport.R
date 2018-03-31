@@ -5,31 +5,28 @@ suppressWarnings(library(MASS))
 suppressWarnings(library(smacof))
 suppressWarnings(library(vegan))
 
-mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality")
+mds.task = makeMDSTask(id = "swiss", data = swiss)
 mds.analysis = getMDSAnalysis(dist = mds.task$dist, method = mds.task$method,
   par.vals = mds.task$par.vals)
 
 test_that("makeMDSTask", {
   #wrong norms
-  expect_warning({makeMDSTask(id = "iris", data = iris, target = "Species")})
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
-    dist.norm = "L2")})
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
-    dist.norm = "L1")})
+  expect_warning({makeMDSTask(id = "iris", data = iris)})
+  expect_error({makeMDSTask(id = "swiss", data = swiss, dist.norm = "L2")})
+  expect_error({makeMDSTask(id = "swiss", data = swiss, dist.norm = "L1")})
   #wrong methods
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
-    method = "isomds")})
+  expect_error({makeMDSTask(id = "swiss", data = swiss, method = "isomds")})
   #wrong par.vals
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  expect_error({makeMDSTask(id = "swiss", data = swiss,
     method = "cmdscale", par.vals = list(eigen = TRUE))})
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  expect_error({makeMDSTask(id = "swiss", data = swiss,
     method = "wcmdscale", par.vals = list(eig = TRUE,
       weights = seq(0, 1, nrow(swiss))))})
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  expect_error({makeMDSTask(id = "swiss", data = swiss,
     method = "smacofSym", par.vals = list(k = 2, itermax = 100L))})
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  expect_error({makeMDSTask(id = "swiss", data = swiss,
     method = "isoMDS", par.vals = list(itermax = 100L))})
-  expect_error({makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  expect_error({makeMDSTask(id = "swiss", data = swiss,
     method = "sammon", par.vals = list(itermax = 100L))})
   #check correct output
   expect_class(mds.task$dist, "dist")
@@ -37,7 +34,7 @@ test_that("makeMDSTask", {
 })
 
 test_that("getMDSAnalysis cmdscale", {
-  mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality")
+  mds.task = makeMDSTask(id = "swiss", data = swiss)
   mds.analysis = getMDSAnalysis(mds.task$dist, method = mds.task$method,
     par.vals = mds.task$par.vals)
   expect_matrix(mds.analysis$mds.result, ncols = 2L, nrows = 47L)
@@ -46,7 +43,7 @@ test_that("getMDSAnalysis cmdscale", {
 })
 
 test_that("getMDSAnalysis wcmdscale", {
-  mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  mds.task = makeMDSTask(id = "swiss", data = swiss,
     method = "wcmdscale")
   mds.analysis = getMDSAnalysis(mds.task$dist, method = mds.task$method,
     par.vals = mds.task$par.vals)
@@ -56,7 +53,7 @@ test_that("getMDSAnalysis wcmdscale", {
 })
 
 test_that("getMDSAnalysis smacofSym", {
-  mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  mds.task = makeMDSTask(id = "swiss", data = swiss,
     method = "smacofSym")
   mds.analysis = getMDSAnalysis(mds.task$dist, method = mds.task$method,
     par.vals = mds.task$par.vals)
@@ -67,7 +64,7 @@ test_that("getMDSAnalysis smacofSym", {
 })
 
 test_that("getMDSAnalysis isoMDS", {
-  mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  mds.task = makeMDSTask(id = "swiss", data = swiss,
     method = "isoMDS", par.vals = list(trace = FALSE))
   mds.analysis = getMDSAnalysis(mds.task$dist, method = mds.task$method,
     par.vals = mds.task$par.vals)
@@ -78,7 +75,7 @@ test_that("getMDSAnalysis isoMDS", {
 })
 
 test_that("getMDSAnalysis sammon", {
-  mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality",
+  mds.task = makeMDSTask(id = "swiss", data = swiss,
     method = "sammon", par.vals = list(trace = FALSE))
   mds.analysis = getMDSAnalysis(mds.task$dist, method = mds.task$method,
     par.vals = mds.task$par.vals)
@@ -88,7 +85,7 @@ test_that("getMDSAnalysis sammon", {
   expect_identical(class(mds.analysis$mds.plot), c("gg", "ggplot"))
 })
 
-mds.task = makeMDSTask(id = "swiss", data = swiss, target = "Infant.Mortality")
+mds.task = makeMDSTask(id = "swiss", data = swiss)
 mds.anaylsis = makeMDSAnalysis(mds.task)
 mds.report = makeReport(mds.anaylsis)
 

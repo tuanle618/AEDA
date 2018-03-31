@@ -8,8 +8,6 @@
 #'   ID of the Task Object
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables
-#' @param target [\code{character(1)}]\cr
-#'   Target column of the dataset
 #' @param dist.norm [\code{character(1)}]\cr
 #'   Character indicating how the distance matrix will be computed.\cr
 #'   Possible values are:"euclidean", "maximum", "manhattan", \cr
@@ -39,17 +37,16 @@
 #' @examples
 #' data(swiss)
 #' my.mds.task = makeMDSTask(id = "swiss", data = swiss,
-#'  target = "Infant.Mortality", dist.norm = "euclidean",
-#'  method = "cmdscale")
+#'  dist.norm = "euclidean", method = "cmdscale", show.NA.msg = TRUE)
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom stats cmdscale
 #' @export
 #'
-makeMDSTask = function(id, data, target, dist.norm = "euclidean", method = "cmdscale",
+makeMDSTask = function(id, data, dist.norm = "euclidean", method = "cmdscale",
   par.vals = list(), show.NA.msg = FALSE){
 
-  data.types = getDataType(data, target)
+  data.types = getDataType(data, target = NULL)
   num.features = c(data.types$num, data.types$int)
   if (length(num.features) < 2) {
     stop(paste("Your dataset only contains of",
@@ -106,7 +103,7 @@ If so, another warning will be displayed.")
   env = new.env(parent = emptyenv())
   env$data = data
   env$num.data = num.data
-  env$datatypes = getDataType(data, target)
+  env$datatypes = data.types
   env$dist = dist
 
   makeS3Obj("MDSTask",
@@ -118,8 +115,7 @@ If so, another warning will be displayed.")
     method = method,
     par.vals = par.vals,
     dist.norm = dist.norm,
-    dist = dist,
-    target = target
+    dist = dist
   )
 }
 

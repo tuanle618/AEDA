@@ -13,8 +13,7 @@
 #'   an existing rmd-file
 #'   Default is \code{TRUE}
 #' @examples
-#'  my.mds.task = makeMDSTask(id = "swiss", data = swiss,
-#'   target = "Infant.Mortality")
+#'  my.mds.task = makeMDSTask(id = "swiss", data = swiss)
 #'  mds.analysis = makeMDSAnalysis(my.mds.task)
 #'  report = makeReport(mds.analysis)
 #'  #write the report

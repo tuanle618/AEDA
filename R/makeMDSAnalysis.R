@@ -8,8 +8,7 @@
 #'   A MDSTask Object
 #' @return MDS Object
 #' @examples
-#' my.mds.task = makeMDSTask(id = "swiss", data = swiss,
-#' target = "Infant.Mortality")
+#' my.mds.task = makeMDSTask(id = "swiss", data = swiss)
 #' mds.analysis = makeMDSAnalysis(my.mds.task)
 #' @import checkmate
 #' @import BBmisc
@@ -20,7 +19,6 @@ makeMDSAnalysis = function(mds.task){
 
   data = mds.task$env$data
   num.features = unlist(mds.task$numdatatypes)
-  target = mds.task$env$datatypes$target
   method = mds.task$method
   par.vals = mds.task$par.vals
   dist = mds.task$dist

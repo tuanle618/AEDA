@@ -32,8 +32,7 @@ test_that("finishReport Works", {
 
   #fake insert rownames as pX
   rownames(aids2) = paste0("p", rownames(aids2))
-  my.mds.task = makeMDSTask(id = "aids",
-    data = aids2, target = "T.categ")
+  my.mds.task = makeMDSTask(id = "aids", data = aids2)
   mds.analysis = makeMDSAnalysis(my.mds.task)
   mds.report = makeReport(mds.analysis)
 

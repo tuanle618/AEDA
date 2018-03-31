@@ -6,8 +6,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @examples
-#'  my.mds.task = makeMDSTask(id = "swiss", data = swiss,
-#'   target = "Infant.Mortality")
+#'  my.mds.task = makeMDSTask(id = "swiss", data = swiss)
 #'  mds.analysis = makeMDSAnalysis(my.mds.task)
 #'  mds.report = makeReport(mds.analysis)
 #' @export
