@@ -16,3 +16,8 @@ PCAReport
 \description{
 Creates an Report object
 }
+\examples{
+test.task = makePCATask(id = "Probe", data = iris, center = TRUE)
+my.pca2 = makePCA(test.task)
+report1 = makePCAReport(my.pca2)
+}

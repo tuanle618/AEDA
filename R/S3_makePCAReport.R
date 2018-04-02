@@ -4,16 +4,18 @@
 #'   A object of the "PCAObj" class
 #' @return PCAReport
 #' @examples
-#' my.task = makePCATask(id = "test", data = cars)
-#' my.pca = makePCA(my.task)
-#' report = makeReport(my.pca)
+#' test.task = makePCATask(id = "Probe", data = iris, center = TRUE)
+#' my.pca2 = makePCA(test.task)
+#' report1 = makePCAReport(my.pca2)
 #' @import checkmate
 #' @export
 makeReport.PCAObj = function(analysis.obj){
   assertClass(analysis.obj, "PCAObj")
   report.id = reportId()
-  plot.code = generatePCAPlot(pca.obj, report.id)
-  makeS3Obj2("PCAReport", analysis.obj,
+  if (analysis.obj$type == "PCAPlot") {
+    plot.code = generatePCAPlot(analysis.obj, report.id)
+  }
+  makeS3Obj("PCAReport", analysis.obj,
    plot.code = plot.code,
    report.id = report.id)
 }
