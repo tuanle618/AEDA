@@ -1,4 +1,4 @@
-context("Numeric Summar Report")
+context("Numeric Summary Report")
 aids = data("Aids2", package = "MASS")
 aids = get(aids)
 

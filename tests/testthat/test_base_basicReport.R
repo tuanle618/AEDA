@@ -15,7 +15,8 @@ test_that("makeReportTask", {
 })
 
 test_that("makeBasicReport", {
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = "Wind")
   basic.report = makeBasicReport(basic.report.task)
   expect_class(basic.report, "BasicReport")
   expectIdentical(basic.report$task, basic.report.task)
@@ -25,12 +26,14 @@ test_that("makeBasicReport", {
   expect_character(basic.report$report.id)
   expectIdentical(basic.report$type, "BasicReport")
 
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = NULL)
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = NULL)
   basic.report = makeBasicReport(basic.report.task)
 })
 
 test_that("writeBasicReport", {
-  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+  basic.report.task = makeBasicReportTask(id = "test.report",
+    data = airquality, target = "Wind")
   basic.report = makeBasicReport(basic.report.task)
   temp.wd = getwd()
   expect_file((rmd.file = writeReport(basic.report)), extension = "rmd")
@@ -39,7 +42,6 @@ test_that("writeBasicReport", {
   rds.obj = readRDS(paste0("Data_Report/", basic.report$report.id, ".rds"))
 
   expect_equal(rds.obj$task, basic.report$task)
-
   expectIdentical(rds.obj$basic.data.summary, basic.report$basic.data.summary)
   expectIdentical(rds.obj$na.summary[!names(rds.obj$na.summary) %in% c("env", "image", "ggplot")],
     basic.report$na.summary[!names(basic.report$na.summary) %in% c("env", "image", "ggplot")])

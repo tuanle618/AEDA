@@ -19,7 +19,8 @@ test_that("makeCatSumTask", {
 })
 
 test_that("makeCatSum", {
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved")
+  cat.sum.task = makeCatSumTask(id = "test.report",
+    data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
 
   expect_class(cat.sum, "CatSumObj")
@@ -29,7 +30,8 @@ test_that("makeCatSum", {
 })
 
 test_that("makeCatSumReport", {
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved")
+  cat.sum.task = makeCatSumTask(id = "test.report",
+    data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
   cat.sum.report = makeCatSumReport(cat.sum)
 
@@ -41,12 +43,14 @@ test_that("makeCatSumReport", {
 })
 
 test_that("writeCatSumReport", {
-  cat.sum.task = makeCatSumTask(id = "test.report", data = Arthritis, target = "Improved")
+  cat.sum.task = makeCatSumTask(id = "test.report",
+    data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
   cat.sum.report = makeCatSumReport(cat.sum)
 
   temp.wd = getwd()
-  expect_file((rmd.file = writeReport(cat.sum.report, save.mode = FALSE, override = TRUE)), extension = "rmd")
+  expect_file((rmd.file = writeReport(cat.sum.report,
+    save.mode = FALSE, override = TRUE)), extension = "rmd")
   expect_file(x = paste0("Data_Report/", cat.sum.report$report.id, ".rds"))
   expectIdentical(getwd(), temp.wd)
   rds.obj = readRDS(paste0("Data_Report/", cat.sum.report$report.id, ".rds"))

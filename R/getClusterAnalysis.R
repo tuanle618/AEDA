@@ -51,6 +51,12 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   #select numeric data
   set.seed(random.seed)
   num.data = data[, num.features]
+  #remove NAs:
+  #remove NAs
+  if (any(is.na(num.data))) {
+    warning("Missing Values in numeric columns. Rows with NAs will be removed")
+    num.data = na.omit(num.data)
+  }
   if (scale.num.data) num.data = scale(num.data)
   #tupel combinations
   if (!is.null(cluster.cols)) {

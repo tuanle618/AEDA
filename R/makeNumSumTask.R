@@ -18,6 +18,9 @@
 #' @param geom.box.args [\code{list()}] \cr
 #'  Other arguments to be passed to \link[ggplot2]{geom_boxplot}.
 #'  Default is \code{NULL}. Default args from \link[ggplot2]{geom_boxplot} will be passed.
+#' @param show.NA.msg [\code{logical(1)}]\cr
+#'  Logical whether to show missing values message\cr
+#'  Default is \code{FALSE}.
 #' @return NumSumTask object
 #'
 #' @import checkmate
@@ -29,7 +32,8 @@
 #'  #get Data
 #'  num.sum.task$env$data
 #' @export
-makeNumSumTask = function(id, data, target, geom.hist.args = list(bins = 30, alpha = 0.4), geom.dens.args = list(size = 2, alpha = 0.4), geom.box.args = list()){
+makeNumSumTask = function(id, data, target, geom.hist.args = list(bins = 30, alpha = 0.4),
+  geom.dens.args = list(size = 2, alpha = 0.4), geom.box.args = list(), show.NA.msg = FALSE){
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -38,6 +42,12 @@ makeNumSumTask = function(id, data, target, geom.hist.args = list(bins = 30, alp
   assertList(geom.box.args)
   #target will be checked within GetDataType
 
+  #add warning for NAs:
+  if (any(is.na(data)) & show.NA.msg) {
+    message("The data set contains NAs.
+These values might removed in the further calculations.
+If so, another warning will be displayed.")
+  }
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
   env$data = data

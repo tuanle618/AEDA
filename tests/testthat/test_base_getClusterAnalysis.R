@@ -29,6 +29,7 @@ test_that("getClusterAnalysis pam", {
   clustered.manhattan = getClusterAnalysis(data = iris, cluster.cols = NULL,
     num.features = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
     random.seed = 1L, par.vals = list(metric = "manhattan"), scale.num.data = TRUE, method = "cluster.pam")
+
   # check if clusters are different -> is par.vals working correctly
   expect_false(isTRUE(all.equal(clustered$cluster.all$cluster.res$clusinfo,
     clustered.manhattan$cluster.all$cluster.res$clusinfo)))
