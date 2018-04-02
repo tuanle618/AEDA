@@ -7,9 +7,10 @@
 #' @export
 makePCAReport = function(pca.obj){
   assertClass(pca.obj, "PCAObj")
-
   report.id = reportId()
-
+  if (pca.obj$type == "PCAPlot") {
+    plot.code = generatePCAPlot(pca.obj, report.id)
+  }
   makeS3Obj("PCAReport",
     task = pca.obj$task,
     pcaResult = pca.obj$pcaResult,
