@@ -26,7 +26,7 @@ makeFA = function(fa.task){
   rotate = fa.task$rotate
   par.vals = fa.task$par.vals
   nfactors = fa.task$nfactors
-  fa.result = getFA(num.data, nfactors, rotate, par.vals)
+  fa.result = do.call(what = fa, args = append(list(r = num.data, nfactors = nfactors), par.vals))
 
   makeS3Obj("FAObj",
     task = fa.task,
