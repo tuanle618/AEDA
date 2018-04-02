@@ -21,6 +21,7 @@ Imports: checkmate,
     gridExtra,
     kernlab,
     mclust,
+    ggfortify,
     vcd
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
