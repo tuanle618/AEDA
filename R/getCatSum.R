@@ -18,16 +18,21 @@
 #' @import checkmate
 #' @import utils
 #' @import stats
+#' @importFrom plyr alply
 #' @export
 
-getCatSum = function(data, features, target, geombar.args) {
+getCatSum = function(data, features, target, geombar.args = list()) {
   assertDataFrame(data)
   if (!is.null(target)) assertCharacter(target, len = 1L)
   assertCharacter(features, min.len = 1L, min.chars = 1L)
 
   cat.data = subset(data, select = features)
-
-  freq = apply(cat.data, 2, table)
+  #remove NAs
+#  if (any(is.na(cat.data))) {
+#    warning("Missing Values in categorical columns. Rows with NAs will be removed")
+#    num.data = na.omit(num.data)
+#  }
+  freq = alply(cat.data, 2, table)
   rel.freq = lapply(freq, prop.table)
   nas = as.list(apply(cat.data, 2, function(x) sum(is.na(x))))
   if (length(features) >= 2) {

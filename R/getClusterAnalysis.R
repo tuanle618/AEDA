@@ -18,11 +18,14 @@
 #' @param scale.num.data [\code{logical(1L)}]\cr
 #'   Logical whether or not so scale numeric data\cr
 #'   for cluster analysis
+#' @param cluster.cols [\code{character()}]\cr
+#'  Selected columns in a named character vector to apply cluster analysis\cr
 #' @return [\code{list()}]
 #'   A list containing the cluster analysis and plot-code
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam
+#' @importFrom cluster agnes
 #' @importFrom cluster diana
 #' @importFrom kernlab kkmeans
 #' @importFrom stats kmeans
@@ -39,16 +42,34 @@
 #' @importFrom stats prcomp
 #' @importFrom factoextra fviz_mclust
 #' @importFrom dbscan dbscan
+#' @importFrom ggpubr ggscatter
 #' @import factoextra
-getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data) {
+#' @import RColorBrewer
+#' @importFrom mclust mclustBIC
+getClusterAnalysis = function(data, num.features, method, par.vals, random.seed, scale.num.data, cluster.cols) {
   ##### http://www.sthda.com/english/wiki/print.php?id=239 #####
   #select numeric data
   set.seed(random.seed)
   num.data = data[, num.features]
+  #remove NAs:
+  #remove NAs
+  if (any(is.na(num.data))) {
+    warning("Missing Values in numeric columns. Rows with NAs will be removed")
+    num.data = na.omit(num.data)
+  }
   if (scale.num.data) num.data = scale(num.data)
   #tupel combinations
-  combinations = combn(x = seq_len(ncol(num.data)), m = 2)
-
+  if (!is.null(cluster.cols)) {
+    combinations.1.row = which(names(cluster.cols) == colnames(num.data))
+    combinations.2.row = which(cluster.cols == colnames(num.data))
+    combinations = matrix(c(combinations.1.row, combinations.2.row), nrow = 2, byrow = TRUE)
+  } else {#randomly take 10 combinations of all combinations
+    combinations = combn(x = seq_len(ncol(num.data)), m = 2)
+    if (ncol(combinations) > 10) {
+      random.idx = sample(seq.int(ncol(combinations)), replace = FALSE, size = 10)
+      combinations = combinations[, random.idx]
+    } #otherwise the number of combinations is below 10 anyways.
+  }
   ##K-Means or PAM:
   if (is.element(method, c("cluster.kmeans", "cluster.pam"))) {
     ###### all numeric colums together: ######
@@ -142,12 +163,19 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     } else if (method == "cluster.diana") {
       cluster.method = "diana"
     }
-    out.clust = do.call(eclust, args = append(list(x = num.data, FUNcluster = cluster.method, verbose = FALSE, k = 4), par.vals))
+    out.clust = do.call(eclust, args = append(list(x = num.data, FUNcluster = cluster.method, verbose = FALSE), par.vals))
     # Visualize using factoextra
-    # Cut in 4 groups and color by groups
+    # Cut in k groups and color by groups
+    if (out.clust$nbclust == 2L) {
+      # brewerpal need at least 3 colors
+      # so these are set manually (first two colors of Set1)
+      sil.color = c("#E41A1C", "#377EB8")
+    } else {
+      sil.color = brewer.pal(out.clust$nbclust, "Set1")
+    }
     dend.plot = fviz_dend(out.clust, k = out.clust$nbclust, # Cut in 4 groups
       cex = 0.5, # label size
-      k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+      k_colors = sil.color,
       color_labels_by_k = TRUE, # color labels by groups
       rect = TRUE, # Add rectangle around groups,
       show_labels = TRUE
@@ -161,7 +189,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     neg.sil.index = which(sil[, "sil_width"] < 0)
     neg.sil.out = sil[neg.sil.index, , drop = FALSE]
     #save results, dont save dist.matrix and neg.sil.out
-    cluster.all = list(clust.diag = list(dist.plot = plot.dist, silh.plot = silh.plot),
+    cluster.all = list(cluster.diag = list(dist.plot = plot.dist, silh.plot = silh.plot),
       cluster.res = out.clust,
       cluster.plot = dend.plot)
     #initialize empty list for combinations
@@ -169,10 +197,10 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   } else if (method == "cluster.dbscan") {
     ###### all numeric colums together: ######
     #apply db scan algorithm, from dbscan pkg since faster implementation
-    db.cluster = do.call(dbscan::dbscan, args = append(list(num.data, eps = 0.15), par.vals))
+    db.cluster = do.call(dbscan, args = append(list(x = num.data), par.vals))
     #plot results
     db.plot = fviz_cluster(db.cluster, data = num.data, stand = FALSE,
-      ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
+      ellipse = FALSE, show.clust.cent = FALSE,
       geom = "point", ggtheme = theme_classic(), main = "DBScan Cluster Plot")
     #mostly no db-cluster because if dim(X) > 2, apply PCA.. No Structure
     #save results
@@ -183,11 +211,13 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
     comb.cluster.list = apply(combinations, 2, function(x) {
       #print(x)
       cols = colnames(num.data)[x]
+      # set suitable eps value
+      par.vals$eps = getEps(num.data[, x])
       #apply db scan algorithm
-      db.cluster = do.call(dbscan::dbscan, args = append(list(num.data[, x], eps = 0.15), par.vals))
+      db.cluster = do.call(dbscan, args = append(list(x = num.data[, x]), par.vals))
       #plot results
       db.plot = fviz_cluster(db.cluster, data = num.data[, x], stand = FALSE,
-        ellipse = TRUE, show.clust.cent = TRUE, ellipse.type = "norm",
+        ellipse = FALSE, show.clust.cent = FALSE,
         geom = "point", ggtheme = theme_classic(), main = "DBScan Cluster Plot")
       #save results
       list(cluster.cols = cols,
@@ -200,14 +230,14 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       #apply kernel k-means algorithm ###DEFAULT centers?? ###ADD additionals params ?
       ###include PCA on num.data::
       pca.data = prcomp(x = num.data, rank. = 2L)
-      kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = pca.data$x, centers = 2L), par.vals)))
+      kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = pca.data$x), par.vals)))
       var.pca1 = pca.data$sdev[1] / sum(pca.data$sdev)
       var.pca2 = pca.data$sdev[2] / sum(pca.data$sdev)
       #plot results ##DO ggplot manually
       proc.data = as.data.frame(cbind(pca.data$x, cluster = kernel.cluster@.Data))
       proc.data$cluster = as.factor(proc.data$cluster)
       ##ggscatter
-      kernel.plot = ggscatter(data = proc.data, x = "PC1", y = "PC2",
+      kernel.plot = ggpubr::ggscatter(data = proc.data, x = "PC1", y = "PC2",
         color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
         ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
         xlab = paste("PC1 explaining", round(var.pca1 * 100, 2), "% of Variance"),
@@ -222,15 +252,15 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         #print(x)
         cols = colnames(num.data)[x]
         #apply kernel k-means algorithm
-        kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = num.data[, x], centers = 2L), par.vals)))
+        kernel.cluster = invisible(do.call(kkmeans, args = append(list(x = num.data[, x]), par.vals)))
         proc.data = as.data.frame(cbind(num.data[, x], cluster = kernel.cluster@.Data))
         proc.data$cluster = as.factor(proc.data$cluster)
         #plot results
-        kernel.plot = ggscatter(data = proc.data, x = colnames(proc.data)[1], y = colnames(proc.data)[2],
+        kernel.plot = ggpubr::ggscatter(data = proc.data, x = colnames(proc.data)[1], y = colnames(proc.data)[2],
           color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
           ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
           xlab = colnames(proc.data)[1],
-          ylab = colnames(proc.data)[1],
+          ylab = colnames(proc.data)[2],
           shape = "cluster")
 
         #save results

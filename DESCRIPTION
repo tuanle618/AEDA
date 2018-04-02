@@ -22,7 +22,21 @@ Imports: checkmate,
     kernlab,
     mclust,
     ggfortify,
-    vcd
+    vcd,
+    plyr,
+    RColorBrewer,
+    ggpubr,
+    pracma,
+	  vegan,
+	  smacof,
+	  devtools,
+	  MASS
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
-  MASS
+  roxygen2 (>= 5.0.0),
+  rmarkdown,
+  DT,
+  knitr,
+  kableExtra,
+  GGally,
+  stats

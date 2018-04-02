@@ -21,5 +21,8 @@ jobs:
       script: true
     - stage: check
       before_script:
-      - Rscript -e 'devtools::document()'
+        - Rscript -e 'devtools::document()'
+
+notifications:
+  email: false
 

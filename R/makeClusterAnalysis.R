@@ -9,11 +9,12 @@
 #' @return ClusterAnalysis Object
 #' @examples
 #'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
-#'   target = "Species", method = "cluster.kmeans")
+#'    method = "cluster.kmeans")
 #'  cluster.summary = makeClusterAnalysis(my.cluster.task)
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam
+#' @importFrom cluster agnes
 #' @importFrom cluster diana
 #' @importFrom kernlab kkmeans
 #' @importFrom stats kmeans
@@ -42,7 +43,8 @@ makeClusterAnalysis = function(cluster.task){
   par.vals = cluster.task$par.vals
   random.seed = cluster.task$random.seed
   scale.num.data = cluster.task$scale.num.data
-  cluster.analysis = getClusterAnalysis(data, num.features, method, par.vals, random.seed, scale.num.data)
+  cluster.cols = cluster.task$cluster.cols
+  cluster.analysis = getClusterAnalysis(data, num.features, method, par.vals, random.seed, scale.num.data, cluster.cols)
 
   makeS3Obj("ClusterAnalysisObj",
     task = cluster.task,

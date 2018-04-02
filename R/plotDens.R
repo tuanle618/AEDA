@@ -35,6 +35,7 @@ plotDens = function(data, target, col = NULL, show.plot = FALSE, alpha = 0.4, co
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
+    assertChoice(target, choices = colnames(data))
   }
   #plot for a specific column:
   if (!is.null(col)) {
@@ -46,7 +47,8 @@ plotDens = function(data, target, col = NULL, show.plot = FALSE, alpha = 0.4, co
     if (!(is.numeric(x) | is.integer(x))) stop("No Numeric Feature")
     #create the plot
     a = aes_string(x = col, colour = target)
-    plot = ggplot(data, a) + geom_density(aes(y = ..density..), alpha = alpha, colour = colour, ...)
+    plot = ggplot(data, a) + geom_density(aes(y = ..density..), alpha = alpha, colour = colour, ...) +
+      theme_classic()
     plot = list(plot = plot)
     names(plot) = col
   } else {
@@ -59,7 +61,8 @@ plotDens = function(data, target, col = NULL, show.plot = FALSE, alpha = 0.4, co
     plot = lapply(1:no.num, FUN = function(y) {
       col = num[y]
       a = aes_string(x = col, colour = target)
-      subplot = ggplot(data, a) + geom_density(aes(y = ..density..), alpha = alpha, colour = colour, ...)
+      subplot = ggplot(data, a) + geom_density(aes(y = ..density..), alpha = alpha, colour = colour, ...) +
+        theme_classic()
       return(subplot)
     })
     names(plot) = num

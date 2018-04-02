@@ -33,36 +33,53 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
   # TryCatch sets wd back and closes all open connections if an error occurs
   tryCatch({
     ##try part:
-    #start the report file
-    #  report.con = file(paste0("basicReport_", basic.report$report.task$dataset.name, ".rmd"), "w") #or include task.id ?
+
     report.con = file(rmd.name, "w", encoding = rmdEncoding())
 
-    writeLines("## Categorical Summary Report from AEDA containing contingency summary as well as plots", con  = report.con)
-    writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+    writeLines("## Categorical Summary Report\n", con  = report.con)
+
+    #Load cat sum object
+    writeLines(writeRChunkOptions(chunkname = "loadCatSumObj", id = getId(report)), con = report.con)
     rmdLibrary("knitr", file = report.con)
     rmdLibrary("kableExtra", file = report.con)
+    writeLines("devtools::load_all() #temporary", con = report.con)
     # save object and write code to load it in the rmd-file
     saveLoadObj(report, getId(report), report.con, override = override)
     writeLines("```", con = report.con)
 
-    writeLines("```{r}", con = report.con)
-    #testing:
-    #vec = c("5+5", "a = TRUE", "print('Hallo')")
-    #rmdWriteLines(vec = vec,  con = report.con)
-    writeLines("# Declaring object for more convenience and clarity:", con = report.con)
-    writeLines(paste0("report.obj = ", report$report.id), con = report.con)
-    writeLines("```", con = report.con)
+    ##show contingency:: use single chunk so windows is not open in browser
+    writeLines("### Categorical Summary Results\n", con = report.con)
+    writeLines("In the following contingency tables for categorical columns will be displayed:", con = report.con)
 
-    writeLines("Some text; Categorical Summary ....", con = report.con)
-    writeLines("```{r, echo=FALSE, warning=FALSE, results='asis'}", con = report.con)
-    #writeLines(paste0(report$report.id, "$cat.sum$freq"), con = report.con)
-    #writeLines(paste0("kable(", report$report.id, "$cat.sum$contg.list)"), con = report.con)
-    writeLines("for (i in 1:length(report.obj$cat.sum$freq)) {
-      print(kable_styling(kable_input = kable(report.obj$cat.sum$freq[[i]], format = 'html', caption = paste('1-D Contingency table', i)), full_width = TRUE))
+    #1-D Contingency
+    for (i in seq_len(length(report$cat.sum$freq))) {
+      #Define Chunk options:
+      writeLines(writeRChunkOptions(chunkname = paste0("contingencyOneD_", i), id = getId(report),
+        options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'")), con = report.con)
+      txt = paste0("kable_styling(kable_input = kable(", getId(report), "$cat.sum$freq[[", i, "]], format = 'html',
+        caption = '1-D Contingency Table ", i, "')", ", full_width = TRUE)")
+      writeLines(txt, con = report.con)
+      #Close chunk
+      writeLines("```", con = report.con)
     }
-    for (i in 1:length(report.obj$cat.sum$contg.list)) {
-      print(kable_styling(kable_input = kable(report.obj$cat.sum$contg.list[[i]], format = 'html', caption = paste('2-D Contingency table', i)), full_width = TRUE))
-    }", con = report.con)
+    #2-D Contingency
+    for (i in seq_len(length(report$cat.sum$contg.list))) {
+      #Define Chunk options:
+      writeLines(writeRChunkOptions(chunkname = paste0("contingencTwoD_", i), id = getId(report),
+        options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'")), con = report.con)
+      txt = paste0("kable_styling(kable_input = kable(", getId(report), "$cat.sum$contg.list[[", i, "]], format = 'html',
+        caption = '2-D Contingency Table ", i, "')", ", full_width = TRUE)")
+      writeLines(txt, con = report.con)
+      #Close chunk
+      writeLines("```", con = report.con)
+    }
+
+    #Show barplots:
+    writeLines("### Categorical Summary Results\n", con = report.con)
+    writeLines("In the following bar plots for categorical columns will be displayed:", con = report.con)
+    writeLines(writeRChunkOptions(chunkname = "showBarPlots", id = getId(report),
+      options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'", out.width = "'100%'")),
+      con = report.con)
     writeLines(paste0("multiplot(plotlist = ", report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
       con = report.con)
     writeLines("```", con = report.con)

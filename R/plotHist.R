@@ -25,9 +25,11 @@
 #' @import BBmisc
 #' @import gridExtra
 #' @examples
-#'  data("Boston", package = "MASS")
-#'  gghistplot = plotHist(Boston, target = "medv", col = "age")
-#'  gghistAllplot = plotHist(Boston, target = "medv", col = NULL)
+#'  data("Aids2", package = "MASS")
+#'  gghistplot = plotHist(Aids2, target = "sex", col = "age")
+#'  gghistAllplot.sex = plotHist(Aids2, target = "sex", col = NULL)
+#'  gghistAllplot2.status = plotHist(Aids2, target = "status")
+#'  gghistAllplot2.T.cat = plotHist(Aids2, target = "T.categ")
 #' @export
 #' @title Creates a histogram plot for one/ all numerical features(s) of a dataset.
 
@@ -41,6 +43,8 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
   assertDataFrame(data, col.names = "strict")
   if (!is.null(target)) {
     assertCharacter(target, min.len = 1)
+    assertChoice(target, choices = colnames(data))
+    assertFactor(data[[target]])
   }
   type = ifelse(absolute, "..count..", "..density..")
   #plot for a specific column:
@@ -52,7 +56,7 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
     #check if column is numerical:
     if (!(is.numeric(x) | is.integer(x))) stop("No Numeric Feature")
     #create the plot
-    a = aes_string(x = col, colour = target)
+    a = aes_string(x = col, fill = target)
     plot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...)
     plot = list(plot = plot)
     names(plot) = col
@@ -65,7 +69,7 @@ plotHist = function(data, target, col = NULL, show.plot = FALSE, absolute = TRUE
     #create plots:
     plot = lapply(1:no.num, FUN = function(y) {
       col = num[y]
-      a = aes_string(x = col, colour = target)
+      a = aes_string(x = col, fill = target)
       subplot = ggplot(data, a) + geom_histogram(aes_string(y = type), bins = bins, alpha = alpha, colour = colour, ...)
       return(subplot)
     })

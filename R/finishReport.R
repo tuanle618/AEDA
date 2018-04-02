@@ -29,7 +29,7 @@
 #' basic.report = makeReport(basic.report.task)
 #'
 #' data("Boston", package = "MASS")
-#' num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#' num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = NULL)
 #' num.sum = makeNumSum(num.sum.task)
 #' num.sum.report = makeReport(num.sum)
 #'
@@ -58,7 +58,8 @@
 finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
   theme = "cosmo", df.print = "paged", override = FALSE){
   x = list(...)
-  assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport", "CatSumReport", "ClusterAnalysisReport"))
+  assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport", "CatSumReport",
+    "ClusterAnalysisReport", "MDSAnalysisReport"))
   assertLogical(save.mode)
   assert_path_for_output(sub.dir, overwrite = !save.mode)
 
@@ -75,8 +76,8 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
 
   # for now load AEDA in mainReport
   writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
-  writeLines("devtools::load_all()", con = report.con)
-  writeLines("#library(AEDA)", con = report.con)
+  writeLines("try(devtools::load_all())", con = report.con)
+  writeLines("try(library(AEDA))", con = report.con)
   writeLines("```", con = report.con)
 
   for (i in seq.int(n)) {

@@ -7,8 +7,9 @@
 #'   A NumSumTask Object
 #' @return NumSumObj
 #' @examples
-#'  data("Boston", package = "MASS")
-#'  num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = "medv")
+#'  data("Aids2", package = "MASS")
+#'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
+#'    target = "sex")
 #'  #get the numeric summary task object
 #'  num.sum = makeNumSum(num.sum.task)
 #' @import checkmate

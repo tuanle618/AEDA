@@ -30,17 +30,20 @@ writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = T
 
       #start the report file
       report.con = file(rmd.name, "w", encoding = rmdEncoding())
-      writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+      writeLines("## Correlation Summary Report\n", con = report.con)
+      #writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
+      writeLines(writeRChunkOptions(chunkname = "loadCorrObj", id = getId(report)), con = report.con)
 
       # load pkgs
       rmdLibrary(needed.pkgs, report.con)
+      writeLines("devtools::load_all() #temporary", con = report.con)
 
       # save object and write code to load it in the rmd-file
-      saveLoadObj(report, paste0(getId(report), report$report.id), report.con, override = override)
+      saveLoadObj(report, report$report.id, report.con, override = override)
 
       writeLines("```", con = report.con)
 
-      writeLines("## Correlation Plot", con = report.con)
+      writeLines("### Correlation Plot", con = report.con)
       writeLines(paste0("This Plot shows the `r ", idWrapper(report, "method"), "` correlation for interval scaled variables. The size and color of the circles indicate the strength of the correlation."), con = report.con)
       writeLines("```{r, echo=FALSE}", con = report.con)
       rmdWriteLines(report$plot.code$code, con = report.con)
