@@ -34,7 +34,7 @@ writeReport.PCAReport = function(report, sub.dir = "Data_Report", save.mode = TR
     writeLines("## Principal Components Analysis Report for numeric data", con  = report.con)
     writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
     #writeLines("```{r, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
-    writeLines(writeRChunkOptions(chunkname = "loadPCAObj", id = getId(report)), con = report.con)
+    writeLines(writeRChunkOptions(chunkname = "loadPCAObj", id = report$report.id), con = report.con)
 
     # load pkgs
     rmdLibrary(needed.pkgs, report.con)
