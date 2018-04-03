@@ -11,7 +11,7 @@ finishReport(fa.report)
 
 test_that("makeFATask", {
   #wrong par.vals
-  expect_message({makeFATask(id = "bfi", data = bfi_small, show.NA.msg = TRUE)})
+  expect_message({makeFATask(id = "bfi", data = bfi.small, show.NA.msg = TRUE)})
   expect_error({makeFATask(id = "bfi", data = bfi.small,
     par.vals = list(nfact = 7))})
   expect_error({makeFATask(id = "bfi", data = bfi.small,
