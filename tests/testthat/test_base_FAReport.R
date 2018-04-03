@@ -21,16 +21,15 @@ test_that("makeFATask", {
 })
 
 test_that("makeFA", {
-  expect_list(fa.res$fa.result, len = 51L)
-  expect_vector(fa.res$fa.result$communalities, len = 28L)
+  expect_equal(length(fa.res$task), 9L)
+  expect_equal(length(fa.res$fa.result), 51L)
+  expect_numeric(fa.res$fa.result$communalities, len = 28L)
   expect_matrix(fa.res$fa.result$r, nrows = 28L, ncols = 28L)
 })
 
 test_that("makeFAReport", {
-  expect_class(fa.report, "FAReport")
-  expect_identical(length(fa.report), 4L)
-  expect_list(fa.report$task, len = 9L)
-  expect_list(fa.report$fa.result, len = 51L)
+  expect_equal(class(fa.report), "FAReport")
+  expect_equal(length(fa.report), 4L)
   expect_character(fa.report$report.id)
   expect_character(fa.report$type)
 })
