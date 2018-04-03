@@ -71,7 +71,7 @@ makeFATask = function(id, data, nfactors = NULL, rotate = "oblimin",
   formals = formals(fa)
   for (arg in names(par.vals)) {
     if (!is.element(el = arg, set = names(formals))) {
-      stop(paste(arg, "is not a parameter argument for MDS method:", method))
+      stop(paste(arg, "is not a parameter argument for psych::fa() function."))
     }
   }
 
@@ -79,7 +79,7 @@ makeFATask = function(id, data, nfactors = NULL, rotate = "oblimin",
   formals = formals(fa.parallel)
   for (arg in names(par.vals.parallel)) {
     if (!is.element(el = arg, set = names(formals))) {
-      stop(paste(arg, "is not a parameter argument for MDS method:", method))
+      stop(paste(arg, "is not a parameter argument for psych::fa.parallel() function."))
     }
   }
   #if user inserted x = data we remove it
