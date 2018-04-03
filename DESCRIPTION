@@ -35,3 +35,4 @@ Suggests: testthat,
   kableExtra,
   GGally,
   stats
+VignetteBuilder: knitr
