@@ -67,23 +67,25 @@ writeReport.FAReport = function(report, sub.dir = "Data_Report",
         con = report.con)
       writeLines(paste0("plot(", report$report.id, "$task$num.fact.analysis)"), con = report.con)
       writeLines("```\n", con = report.con)
-      writeLines(paste0("According to the parallel analysis", " `r ", report$report.id, "$task$num.fact.analysis$nfact ` factors should be taken.\n"),
+      writeLines(paste0("According to the parallel analysis", " `r ", report$report.id,
+        "$task$num.fact.analysis$nfact ` factors should be taken.\n"),
         con = report.con)
     }
 
     ##Add generic text:
     writeLines("#### Factor Loadings",
       con = report.con)
-    writeLines("The following data frame shows the factor loadings for each numeric column:\n Note that the rows are the numeric columns.",
+    writeLines("The following data frame shows the factor loadings for each numeric column.
+      Note that the rows are the numeric columns.",
       con = report.con)
     #Show result dataframe
     writeLines(writeRChunkOptions(chunkname = "showFAloadings", id = getId(report)), con = report.con)
 
     #plot filterable datatable as option:
-    writeLines(paste0("loadingsWithCom = round(cbind.data.frame(as.data.frame(unclass(", getId(report), "$fa.result$loadings)),
-      communalities = ", getId(report), "$fa.result$communalities), 4)"), con = report.con)
-    writeLines("dt = DT::datatable(loadingsWithCom, class = 'compact', filter = 'bottom', options = list(pageLength = 10),
-      caption = htmltools::tags$caption(
+    writeLines(paste0("loadingsWithCom = round(cbind.data.frame(as.data.frame(unclass(", getId(report),
+      "$fa.result$loadings)), communalities = ", getId(report), "$fa.result$communalities), 4)"), con = report.con)
+    writeLines("dt = DT::datatable(loadingsWithCom, class = 'compact', filter = 'bottom',
+      options = list(pageLength = 10), caption = htmltools::tags$caption(
       style = 'caption-side: bottom; text-align: center;',
       'Table : ', 'Factor Loadings'))", con = report.con)
     writeLines("dt", con = report.con)
