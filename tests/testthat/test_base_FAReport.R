@@ -1,6 +1,6 @@
 context("Factor Analysis")
-suppressWarnings(library(vegan))
-data(bfi)
+suppressWarnings(library(psych))
+data("bfi")
 
 set.seed(1)
 bfi.small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
