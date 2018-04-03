@@ -1,13 +1,14 @@
 context("Factor Analysis")
 suppressWarnings(library(psych))
+suppressWarnings(library(checkmate))
+suppressWarnings(library(testthat))
 data("bfi")
 
 set.seed(1)
 bfi.small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
 fa.task = makeFATask(id = "bfi", data = bfi.small)
 fa.res = makeFA(fa.task)
-fa.report = makeFAReport(fa.res)
-finishReport(fa.report)
+fa.report = makeReport(fa.res)
 
 test_that("makeFATask", {
   #wrong par.vals
