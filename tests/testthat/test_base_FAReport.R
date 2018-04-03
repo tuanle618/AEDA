@@ -2,6 +2,8 @@ context("Factor Analysis")
 suppressWarnings(library(psych))
 suppressWarnings(library(checkmate))
 suppressWarnings(library(testthat))
+suppressWarnings(library(GPArotation))
+
 data("bfi")
 
 set.seed(1)
