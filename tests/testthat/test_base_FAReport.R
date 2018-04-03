@@ -4,7 +4,7 @@ data("bfi")
 
 set.seed(1)
 bfi.small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
-fa.task = makeFATask(id = "bfi", data = bfi_small)
+fa.task = makeFATask(id = "bfi", data = bfi.small)
 fa.res = makeFA(fa.task)
 fa.report = makeFAReport(fa.res)
 finishReport(fa.report)
