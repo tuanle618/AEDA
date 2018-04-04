@@ -1,4 +1,5 @@
 #' @title Creates a full report for OpenML data sets
+#' @param data.id [\code{integer()}]\cr
 #'
 #'
 #'
@@ -6,7 +7,7 @@
 #' @importFrom OpenML getOMLDataSet
 #' @export
 openMLReport = function(data.id, reports = c("Basic", "CatSum",
-  "Cluster", "Corr", "NumSum", "MDS"), m.par.vals = list()) {
+  "Corr", "NumSum", "MDS"), m.par.vals = list()) {
   data.set = getOMLDataSet(data.id)
   target = data.set$target.features
   data = data.set$data
@@ -18,6 +19,11 @@ openMLReport = function(data.id, reports = c("Basic", "CatSum",
     report.l[[string]] = do.call(string, args = list(data = data, id = "OpenMLReport",
       target = target))
   }
-
-  finishReport()
+  args = append(report.l, c(save.mode = FALSE, override = TRUE))
+  do.call(finishReport, args = args)
 }
+
+
+#' @examples
+#' openMLReport(61L)
+#'

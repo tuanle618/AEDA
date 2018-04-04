@@ -29,7 +29,8 @@ Imports: checkmate,
 	  vegan,
 	  smacof,
 	  devtools,
-	  MASS
+	  MASS,
+	  OpenML
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   roxygen2 (>= 5.0.0),

@@ -24,5 +24,5 @@ makeClusterAnalysisReport = function(cluster.analysis.obj){
 }
 
 print.ClusterAnalysisReport = function(x, ...) {
-  print(x$task)
+  print(x$report.task)
 }
