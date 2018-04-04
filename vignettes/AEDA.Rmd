@@ -1,0 +1,231 @@
+---
+title: "AEDA - Vignette"
+author: "Darya Bussen, Michael Graber, Tuan Le"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{AEDA - Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+devtools::load_all()
+require(knitr)
+```
+## AEDA - Automated Exploratory Data Analysis
+
+This Vignette is supposed to give you a introductory glance at the key features of `AEDA`. <br>
+It shows you, how to use this package to simplify several task throughout the data exploration process. <br>
+A more detailed in depth and continuously updated examples and wikipedia can be found on the GitHub project page:
+
+* <a href="https://github.com/ptl93/AEDA" target="_blank"> AEDA Project Page </a>
+
+
+### Purpose
+
+Writing exploratory data analysis (EDA) scripts helps in extracting valuable information from the data but can be very time consuming. Often people are producing the same tables and figures again and again which could be automatized with EDA scripts. <br>
+<br>
+With this package we want to automate the process of creating an EDA report by providing functions which, one would normally script for each data type of dataset. Thereby we provide following functionalites:
+
+
+1. **Basic Data Summary**
+2. **Categorical Data Summary**
+3. **Numeric Data Summary**
+4. **Cluster Analysis**
+5. **Principal Component Analysis**
+6. **Multidimensional Scaling Analysis**
+7. **Exploratory Factor Analysis**
+
+<!--
+<ol>
+  <li <a href="#basicDataSummary"> <a>**Basic Data Summary** </a></li>
+  <li id="catergoricalDataSummary">**Categorical Data Summary**</li>
+  <li id="numericDataSummary">**Numeric Data Summary**</li>
+  <li id="clusterinAnalysis">**Clustering Analysis**</li>
+  <li id="pcAnalysis">**Principal Component Analysis**</li>
+  <li id="mdsAnalysis">**Multidimensional Scaling Analysis**</li>
+  <li id="efAnaylsis">**Exploratory Factor Analysis**</li>
+</ol>
+-->
+
+In order to enable the user to either, create a fast EDA report, for the most functions we set default methods/arguments, like *k-means clustering* as method in the unsupervised clustering task. <br>
+Apart from the default methods/arguments for each EDA step the user is able to modify the analysis step, by choosing other analysis algorithm. To come back to the last example, the user might also be interested in doing a hierarchical cluster analysis with *complete-linkage*. In the later subsection 4 we will refer to this again. 
+
+The remaining of this documentation will be organized in accordance with the steps listed above. As the package evolves, more content will be added.
+
+### General `AEDA` Pipeline
+For all *analysis* steps (except) the basic data summary following steps should be executed in order to get an *analysis* into the final report:
+<ol type="a">
+  <li>`my.task = make*Task()`</li>
+  <li>`my.analysis = make*Analysis()`</li>
+  <li>`my.report = makeReport(my.analysis)`</li>
+</ol>
+
+After creating several `report`-objects with `makeReport()` (e.g `cluster.report`, `numeric.report`, `mds.report`) you can pass them over to the function `finishReport(cluster.report, numeric.report, mds.report)`
+to create a final HTML-report, which will be created with `knitr`.
+
+***
+In the following a detailed summary for each analysis step will be displayed:
+
+#### 1) Basic Data Summary
+<!--  <h5 id="basicDataSummary"> 1) Basic Data Summary</h5>  --> 
+
+In the basic data summary column-types like `integer`, `numeric`, or `character` etc. will be identified and according to each type accumulated. In addition to that the basic data summary contains a missing value summary such as listing column which contains `NAs` with absolute and percentage amount. An example will be display with this code snippet:
+
+```{r basicDataSummaryEx1, message=TRUE, echo=TRUE}
+#load Data
+data("airquality")
+#create the task
+basic.report.task = makeBasicReportTask(id = "airquality", data = airquality, target = "Wind")
+#create the report
+basic.report = makeReport(basic.report.task)
+```
+In order to have a look into the `basic.report`-object one can either `print()` the object or just call `basic.report` in the R-commandline.
+```{r basicDataSummaryEx1ShowReportObj, echo=TRUE}
+print(basic.report)
+
+#To gain more insights you can look into the object with the $ operator:
+basic.report$basic.data.summary$basic.summary.list$num
+basic.report$basic.data.summary$basic.summary.list$int
+basic.report$basic.data.summary$basic.summary.list$fact
+```
+
+Since the `airquality` dataset contains `NAs`, a missing value analysis is calculated as well by `makeBasicReportTask`. In order to look into the that simply use the `$`-Operator again:
+
+```{r basicDataSummaryEx1ShowNADF, echo=TRUE}
+basic.report$na.summary$na.df
+
+#kable(basic.report$na.summary$na.df)
+```
+We provide 2 Missing-Value Plots. The first one shows the index of observation in which the value is missing for each column. The second one shows an overall percentage of missing value for each column.
+To call the plots you can execute following lines:
+`basic.report$na.summary$image()`and `basic.report$na.summary$ggplot`
+
+```{r uploadbarNAPlots, echo=FALSE, out.width="45%"}
+include_graphics(c("images/NAindex.png", "images/NApct.png"))
+```
+
+<!--
+```{r basicDataSummaryEx1ShowPlot1, echo=TRUE, fig.cap="Missing Value Plot Index", out.width="40%"}
+basic.report$na.summary$image()
+```
+```{r basicDataSummaryEx1ShowPlot2, echo=TRUE, fig.cap="Missing Value Plot Percentage", out.width="40%"}
+basic.report$na.summary$ggplot
+```
+-->
+
+#### 2) Categorical Data Summary
+
+In the categorical data summary 1-D frequency tables and 2-D contingency tables for categorical variables will be calculated. In addition to that, the internal function `plotBar()`from our package computes a `ggplot` for all categorical variables. The user is able to modify the `geom_bar()` arguments if wanted in within the task initialized by `makeCatSumTask()`.
+For more Information look at `?makeCatSumTask`. <br> 
+In this example we use the default arguments.
+
+```{r CategeoricalDataSummaryEx, echo=TRUE}
+#load data
+data("Arthritis", package = "vcd")
+#create the task
+cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
+#compute the analysis
+cat.sum.analysis = makeCatSum(cat.sum.task)
+#create the report
+cat.sum.report = makeReport(cat.sum.analysis)
+
+#have a look at the 1-D absolute frequency tables
+cat.sum.report$cat.sum$freq
+
+#have a look at the 2-D absolute contingecy tables
+cat.sum.report$cat.sum$contg.list
+```
+
+To access the bar plots we can use the `$`-operator again. Note that in our package we have the internal function `multiplot()` which can plot a `list` of `ggplot`-objects in a grid. To call the `multiplot()` function simply run: `multiplot(plotlist = cat.sum.report$cat.sum$plot.list, cols = 2)` which leads to following plot:
+
+```{r uploadbarPlot1, echo=FALSE, out.width="80%"}
+include_graphics("images/categoricalBar1.png") 
+```
+
+Since we can add `geom_bar` arguments into the `makeCatSumTask` the user can modify the barplot. For example we stack the frequency for a categorical variable instead of dodging it. This can be easily done by the same procedure as the example above, with just one additional parameter:
+`cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved", position = "stack")` leading to the following image after using `multiplot()` :
+
+```{r uploadbarPlot2, echo=FALSE, out.width="80%"}
+include_graphics("images/categoricalBar2.png") 
+```
+
+#### 3) Numeric Data Summary
+
+In the numeric data summary we create a numeric summary data.frame which provides several characteristics for each numeric column. Furthermore for each numeric column a boxplot, histogramm and kernel density plot will be created. In order to to get the numeric report the user must run following functions: 
+
+```{r NumericDataSummaryEx, echo=TRUE}
+#load data
+data("Aids2", package = "MASS")
+#create the task
+task = makeNumSumTask(id = "AidsTask", data = Aids2, target = "sex")
+#compute the analysis
+num.sum = makeNumSum(task)
+#create the report
+num.sum.report = makeNumSumReport(num.sum)
+```
+
+In order to call the numeric summary data.frame execute `num.sum.report$num.sum.df`. <br>
+The characteristics we calculated are:
+
+```{r NumericDataSummaryDF, echo=TRUE}
+colnames(num.sum.report$num.sum.df)
+```
+
+Showing the result after selecting specific columns we receive:
+```{r NumericDataSummaryDFKable, echo=TRUE}
+kable(num.sum.report$num.sum.df[, c(1,2,4,5,6,7,8,10,12,13,14,16,21,22)])
+```
+
+* The sample kurtosis will be calculated via $\frac{1}{n}\sum_{i=1}^{n}(\frac{x_i - \bar{x}}{s})^4$
+* The sample skewness will be calculated via
+$\frac{1}{n}\sum_{i=1}^{n}(\frac{x_i - \bar{x}}{s})^3$
+* `l.bound` is defined as `5% - 1.5*IQR` and `u.bound` is defined as `75% + 1.5*IQR` where `IQR = 75% - 25%`
+
+To show the `ggplot`-objects for a variable, e.g `age` with multiplot it can be done in one grid:
+`multiplot(plotlist = num.sum.report$num.sum.var$age[2:4], cols = 2)`
+leading to the following plot:
+
+```{r uploadNumericPlot1, echo=FALSE, out.width="80%"}
+include_graphics("images/plotNumeric1.png") 
+```
+
+Just like the `makeCatSumTask` in the numeric summary the user can change input parameters for `geom_density()`, `geom_box` or `geom_histogramm()`. with `task = makeNumSumTask(id = "AidsTask", data = Aids2, target = "sex", geom.hist.args = list(bins = 20, alpha = 0.5))`.
+
+#### 4) Cluster Analysis
+
+Cluster analysis is a unsupervised learning task, which mainly focuses on grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters). Cluster analysis itself is not one specific algorithm, but the general task to be solved. It can be achieved by various algorithms that differ significantly in their notion of what constitutes a cluster and how to efficiently find them. Inspired by <a href="http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html#cluster-analysis-9" target="_blank"> mlr's listed clustering algorithms</a> our packages provides following clustering methods:
+
+1. For Hierarchical Clustering:
+ + <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html" target="_blank">classical hierarchical clustering</a>
+ + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.6/topics/agnes" target="_blank">agglomerative nesting</a>
+ + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/diana" target="_blank">divisive analysis</a>
+ 
+2. For Partitioning Clustering:
+ + <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/kmeans" target="_blank">k-nearest-neighbors</a>
+ + <a href="https://www.rdocumentation.org/packages/kernlab/versions/0.9-25/topics/kkmeans" target="_blank">kernel k-means</a>
+ + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/pam" target="_blank">partioning around medoids</a>
+ 
+3. For Model-Based Clustering:
+ + <a href="https://www.rdocumentation.org/packages/dbscan/versions/1.0-0/topics/dbscan" target="_blank">density-based spatial clustering</a>
+ + <a href="https://www.rdocumentation.org/packages/mclust/versions/5.4/topics/Mclust" target="_blank">model-based clustering</a>
+
+By default in the cluster analysis **k-means** clustering will be computed on the numeric columns of a dataset. 
+The structure of the `clusterAnalysisObj`is the following:
+....
+Following code snippets are needed in order to create cluster analysis report:
+
+```{r clusterAnalysisEx1, echo=TRUE}
+#create the task
+task = makeClusterTask(id = "iris", data = iris)
+#compute the analysis
+analysis = makeClusterAnalysis(task)
+#create the report
+report = makeReport(analysis)
+```
