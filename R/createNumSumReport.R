@@ -1,4 +1,8 @@
 #' @title Creates a NumSum Report Object
+#'
+#' @description
+#' Directly creates a report object with one command
+#'
 #' @param id [\code{character(1)}]\cr
 #'   ID of the Task Object. \code{\link{makeNumSumTask}}
 #' @param data [\code{data.frame}]\cr
@@ -10,7 +14,8 @@
 #'
 #' @export
 createNumSumReport = function(id, data, target, ...) {
-  num.sum.task = makeNumSumTask(id = id, data = data, target = target, ...)
+  num.sum.task = makeNumSumTask(id = id, data = data,
+    target = target, ...)
   num.sum = makeNumSum(num.sum.task)
   return(makeNumSumReport(num.sum))
 }

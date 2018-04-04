@@ -42,8 +42,8 @@ openMLReport = function(data.id, reports = c("Basic", "CatSum",
   report.l = list()
   for (string in funs){
     message(string, "...")
-    report.l[[string]] = do.call(string, args = list(data = data, id = "OpenMLReport",
-      target = target))
+    report.l[[string]] = do.call(string, args = list(data = data,
+      id = "OpenMLReport", target = target))
   }
   # finish the report
   args = append(report.l, c(save.mode = FALSE, override = TRUE))
