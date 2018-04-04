@@ -30,7 +30,8 @@ Imports: checkmate,
 	  smacof,
 	  devtools,
 	  MASS,
-	  OpenML
+	  OpenML,
+	  farff
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   roxygen2 (>= 5.0.0),

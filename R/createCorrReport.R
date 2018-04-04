@@ -1,4 +1,8 @@
 #' @title Creates a Correlation Report Object
+#'
+#' @description
+#' Directly creates a report object with one command
+#'
 #' @param id [\code{character(1)}]\cr
 #'   ID of the Task Object. \code{\link{makeCorrTask}}
 #' @param data [\code{data.frame}]\cr

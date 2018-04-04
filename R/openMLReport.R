@@ -1,4 +1,9 @@
 #' @title Creates a full report for OpenML data sets
+#'
+#' @description
+#' Imports a dataset from the openML data base and
+#' creates a rmd report file
+#'
 #' @param data.id [\code{integer(1)}]\cr
 #'   data.id is the id from openML datasets see
 #'   \code{\link[openML]{getOMLDataSet}}
