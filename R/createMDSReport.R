@@ -3,8 +3,6 @@
 #'   ID of the Task Object. \code{\link{makeMDSTask}}
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables
-#' @param target [\code{character(1)}]\cr
-#'   Target column. If not available please insert as \code{NULL}.
 #' @param ...
 #'   For now it does nothing
 #'

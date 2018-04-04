@@ -6,7 +6,7 @@
 #'
 #' @param data.id [\code{integer(1)}]\cr
 #'   data.id is the id from openML datasets see
-#'   \code{\link[openML]{getOMLDataSet}}
+#'   \code{\link[OpenML]{getOMLDataSet}}
 #' @param reports [\code{character()}]\cr
 #'   The report types used on the dataset. Default will use all
 #'   available reports
