@@ -4,9 +4,10 @@
 #' Imports a dataset from the openML data base and
 #' creates a rmd report file
 #'
-#' @param data.id [\code{integer(1)}]\cr
-#'   data.id is the id from openML datasets see
-#'   \code{\link[OpenML]{getOMLDataSet}}
+#' @param data [\code{data.frame}]\cr
+#'   A Dataframe with different variables
+#' @param target [\code{character(1)}]\cr
+#'  Target column. If not available please insert as \code{NULL}.
 #' @param reports [\code{character()}]\cr
 #'   The report types used on the dataset. Default will use all
 #'   available reports
@@ -25,23 +26,33 @@
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet
 #' @export
-openMLReport = function(data.id, reports = c("Basic", "CatSum",
+fastReport = function(data, target = NULL, reports = c("Basic", "CatSum",
   "Corr", "NumSum", "MDS", "Cluster"), m.par.vals = list()) {
   # argument checking
-  assertInteger(data.id, lower = 0L, any.missing = FALSE,
-    all.missing = FALSE, len = 1L, null.ok = FALSE)
+  assertDataFrame(data, col.names = "strict")
+  assertCharacter(target, len = 1L, null.ok = TRUE)
   assertSubset(reports, c("Basic", "CatSum", "Corr", "NumSum", "MDS",
     "Cluster"), empty.ok = FALSE)
   assertList(m.par.vals, names = "unique")
   assertSubset(names(m.par.vals), c("Basic", "CatSum", "Corr",
     "NumSum", "MDS", "Cluster"))
 
-  # load openML data
-  data.set = getOMLDataSet(data.id)
-  target = data.set$target.features
-  data = data.set$data
+  # call create functions and save reports
+  funs = paste0("create", reports, "Report")
+  report.l = list()
+  for (i in seq.int(funs)){
+    string = funs[i]
+    report = reports[i]
+    message(string, "...")
+    dots.arg = m.par.vals[[report]]
 
-  fastReport(data = data, target = target, reports = reports,
-    m.par.vals = m.par.vals)
+    args = append(list(data = data, id = "OpenMLReport",
+      target = target), dots.arg)
+    report.l[[string]] = do.call(string, args = args)
+  }
+  # finish the report
+  args = append(report.l, c(save.mode = FALSE, override = TRUE))
+  message("Write Report rmd ...")
+  do.call(finishReport, args = args)
 }
 
