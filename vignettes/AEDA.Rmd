@@ -164,9 +164,9 @@ In the numeric data summary we create a numeric summary data.frame which provide
 #load data
 data("Aids2", package = "MASS")
 #create the task
-task = makeNumSumTask(id = "AidsTask", data = Aids2, target = "sex")
+num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2, target = "sex")
 #compute the analysis
-num.sum = makeNumSum(task)
+num.sum = makeNumSum(num.sum.task)
 #create the report
 num.sum.report = makeNumSumReport(num.sum)
 ```
@@ -203,29 +203,118 @@ Just like the `makeCatSumTask` in the numeric summary the user can change input 
 Cluster analysis is a unsupervised learning task, which mainly focuses on grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters). Cluster analysis itself is not one specific algorithm, but the general task to be solved. It can be achieved by various algorithms that differ significantly in their notion of what constitutes a cluster and how to efficiently find them. Inspired by <a href="http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html#cluster-analysis-9" target="_blank"> mlr's listed clustering algorithms</a> our packages provides following clustering methods:
 
 1. For Hierarchical Clustering:
- + <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html" target="_blank">classical hierarchical clustering</a>
- + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.6/topics/agnes" target="_blank">agglomerative nesting</a>
- + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/diana" target="_blank">divisive analysis</a>
+ + <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html" target="_blank">Classical hierarchical clustering</a>
+ + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.6/topics/agnes" target="_blank">Agglomerative nesting</a>
+ + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/diana" target="_blank">Divisive analysis</a>
  
 2. For Partitioning Clustering:
- + <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/kmeans" target="_blank">k-nearest-neighbors</a>
- + <a href="https://www.rdocumentation.org/packages/kernlab/versions/0.9-25/topics/kkmeans" target="_blank">kernel k-means</a>
- + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/pam" target="_blank">partioning around medoids</a>
+ + <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/kmeans" target="_blank">K-nearest-neighbors</a>
+ + <a href="https://www.rdocumentation.org/packages/kernlab/versions/0.9-25/topics/kkmeans" target="_blank">Kernel K-means</a>
+ + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/pam" target="_blank">Partioning around medoids</a>
  
 3. For Model-Based Clustering:
- + <a href="https://www.rdocumentation.org/packages/dbscan/versions/1.0-0/topics/dbscan" target="_blank">density-based spatial clustering</a>
- + <a href="https://www.rdocumentation.org/packages/mclust/versions/5.4/topics/Mclust" target="_blank">model-based clustering</a>
+ + <a href="https://www.rdocumentation.org/packages/dbscan/versions/1.0-0/topics/dbscan" target="_blank">Density-based spatial clustering</a>
+ + <a href="https://www.rdocumentation.org/packages/mclust/versions/5.4/topics/Mclust" target="_blank">Model-based clustering</a>
 
 By default in the cluster analysis **k-means** clustering will be computed on the numeric columns of a dataset. 
-The structure of the `clusterAnalysisObj`is the following:
-....
+The components of the `ClusterAnalysisObj` are the following: (in case the method is **not hierarchical**)
+<br>
+
+<ul>
+<li>**`cluster.all`**: considers all numeric columns of a dataset
+<ul>
+<li>`cluster.diag`: a cluster diagnosis depending on the selected algorithm</li>
+<li>`cluster.res`: the cluster result for a selected algorithm</li>
+<li>`cluster.plot`: a plot to the computed cluster</li>
+</ul>
+</li>
+<li>**`comb.cluster.list`**: considers up to 10 tuple-combinations of numeric columns
+<ul>
+<li>`cluster.diag`: a cluster diagnosis depending on the selected algorithm</li>
+<li>`cluster.res`: the cluster result for a selected algorithm</li>
+<li>`cluster.plot`: a plot to the computed cluster</li>
+</ul>
+</li>
+</ul>
+
+The **`comb.cluster.list`** has the purpose to create clusters and grouping relationships between 2 numeric variables. The list is restricted up to 10 cluster analysis. If a dataset contains of 3 numeric columns, there are $\binom{4}{2} =$ `r choose(4,2)` combinations. If the tuple-combinations is above 10, out of the $\binom{k}{2}$ combinations, our function randomly selects 10 of it. <br>
+In case of a **hierarchical clustering algorithmus** the `comb.cluster.list` is an empty list, since the calculation will be done with respect to *all numeric columns* only.
+
 Following code snippets are needed in order to create cluster analysis report:
 
 ```{r clusterAnalysisEx1, echo=TRUE}
 #create the task
-task = makeClusterTask(id = "iris", data = iris)
+cluster.task = makeClusterTask(id = "iris", data = iris)
 #compute the analysis
-analysis = makeClusterAnalysis(task)
+#cluster.analysis = makeClusterAnalysis(cluster.task)
 #create the report
-report = makeReport(analysis)
+#cluster.report = makeReport(cluster.analysis)
+cluster.report = readRDS("cache/clusterEx1.Rds")
 ```
+
+Plotting the diagnosis results for the `cluster.all` section can be done via:
+`multiplot(plotlist = cluster.report$cluster.analysis$cluster.all$cluster.diag, cols = 2)` leading to the diagnos plot:
+
+```{r uploadclusterAllDiag1, echo=FALSE, out.width="80%"}
+include_graphics("images/clusterDiagnosisAll1.png") 
+```
+
+Since the iris dataset contains of 4 numeric columns, the 2 cluster centers $c_1$ and $c_2$ are $\in \mathbb{R}^4$.
+
+```{r showClusterAllRes, echo=TRUE, fig.dim=c(5,5)}
+#show centers
+cluster.report$cluster.analysis$cluster.all$cluster.res$centers
+
+#show plot: Note, before a principal component analysis was conducted in order to map the centers and points into 2 dimensional space
+cluster.report$cluster.analysis$cluster.all$cluster.plot
+```
+
+In case the user wants to perform hierarchical clustering, he can simply choose one of the methods, our function provides:
+
+```{r clusterAnalysisEx2, echo=TRUE, fig.dim=c(7,5)}
+##check available methods
+#?makeClusterTask
+#create the task: hierarchical clustering with average linkage.
+#cluster.task.2 = makeClusterTask(id = "iris", data = iris, method = "cluster.h",
+#  par.vals = list(method = "average"))
+#compute the analysis
+#cluster.analysis.2 = makeClusterAnalysis(cluster.task.2)
+cluster.analysis.2 = readRDS("cache/clusterEx2.Rds")
+#we do not need to create the report, as cluster.analysis.2 already contains the analysis information. If we were to include the cluster.analysis.2 into our final report, then we would have to create the report.
+
+#multiplot one diagnosis plot and the resulting dendogramm
+multiplot(plotlist = list(cluster.analysis.2$cluster.analysis$cluster.all$cluster.plot,
+  cluster.analysis.2$cluster.analysis$cluster.all$cluster.diag[[2]]), cols = 2)
+```
+
+#### 5) Principal Component Analysis
+
+fooo
+
+#### 6) Multidimensional Scaling Analysis
+
+Multidimensional scaling is a **visual representation of distances or dissimilarities between sets of objects**. Objects can be colors, faces, map coordinates, political persuasion, or any kind of real conceptual stimuli <a href="https://books.google.de/books/about/Multidimensional_Scaling.html?id=ZzmIPcEXPf0C&redir_esc=y" target="_blank">(Kruskal and Wish, 1978)</a>.
+Objects that are more similar (or have shorter distances) are closer together on the graph than objects that are less similar (or have linger distances). As well as interpreting dissilarities as distances on a graph, MDS can also serve as a dimension reduction technique for high-dimensional data. An MDS algorithm aims to place each object in $K-$dimensional space such that the between-object distances are preserved as well as possible. In our approach we set $K = 2$ in order to create a two-dimensional scatterplot to represent the objects.
+
+Our MDS-report provides following MDS algorithms:
+
+1. For Metric Scaling:
+ + <a href="https://www.rdocumentation.org/packages/stats/versions/3.4.3/topics/cmdscale" target="_blank">Classical multidimensional scaling</a>
+ + <a href="https://www.rdocumentation.org/packages/vegan/versions/2.4-2/topics/wcmdscale" target="_blank">Weighted classical multidimensional scaling</a>
+ + <a href="https://cran.r-project.org/web/packages/smacof/vignettes/smacof.pdf" target="_blank">Multidimensional scaling on a symmetric dissimilarity matrix using SMACOF</a>
+ 
+2. For Non-Metric Scaling:
+ + <a href="https://www.rdocumentation.org/packages/MASS/versions/7.3-47/topics/isoMDS" target="_blank">Kruskal's Non-metric Multidimensional Scaling</a>
+ + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/pam" target="_blank">Sammon's Non-Linear Mapping</a>
+
+Following code snippets are needed in order to create multidimensional scaling report:
+
+```{r MDSEx1, echo=TRUE}
+#create the task
+mds.task = makeMDSTask(id = "swiss", data = swiss)
+#compute the analysis
+mds.analysis = makeMDSAnalysis(mds.task)
+#create the report
+mds.report = makeReport(mds.analysis)
+```
+
