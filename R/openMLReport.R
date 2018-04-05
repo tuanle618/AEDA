@@ -1,4 +1,4 @@
-#' @title Creates a full report for OpenML data sets
+#' Creates a full report for OpenML data sets
 #'
 #' @description
 #' Imports a dataset from the openML data base and
@@ -16,8 +16,12 @@
 #'
 #' @examples
 #' # Report for the iris dataset
+#' \dontrun{
 #' openMLReport(61L)
-#'
+#' openMLReport(61L, "Cluster",
+#'   m.par.vals = list(Cluster = list(method = "cluster.kmeans",
+#'     par.vals = list(algorithm = "MacQueen"))))
+#' }
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet
 #' @export
@@ -40,13 +44,19 @@ openMLReport = function(data.id, reports = c("Basic", "CatSum",
   # call create functions and save reports
   funs = paste0("create", reports, "Report")
   report.l = list()
-  for (string in funs){
+  for (i in seq.int(funs)){
+    string = funs[i]
+    report = reports[i]
     message(string, "...")
-    report.l[[string]] = do.call(string, args = list(data = data,
-      id = "OpenMLReport", target = target))
+    dots.arg = m.par.vals[[report]]
+
+    args = append(list(data = data, id = "OpenMLReport",
+      target = target), dots.arg)
+    report.l[[string]] = do.call(string, args = args)
   }
   # finish the report
   args = append(report.l, c(save.mode = FALSE, override = TRUE))
   message("Write Report rmd ...")
   do.call(finishReport, args = args)
 }
+

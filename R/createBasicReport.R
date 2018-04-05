@@ -9,9 +9,11 @@
 #'   A Dataframe with different variables
 #' @param target [\code{character(1)}]\cr
 #'   Target column. If not available please insert as \code{NULL}.
+#' @param ...
+#'  For now has no use
 #'
 #' @export
-createBasicReport = function(id, data, target) {
-  task = makeBasicReportTask(id = id, data = data, target = target)
+createBasicReport = function(id, data, target, ...) {
+  task = makeBasicReportTask(id = id, data = data, target = target, ...)
   return(makeReport(task))
 }

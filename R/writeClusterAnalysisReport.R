@@ -13,11 +13,13 @@
 #'   override controls if the function is allowed to override\cr
 #'   an existing rmd-file
 #' @examples
+#' \dontrun{
 #'   my.cluster.task = makeClusterTask(id = "iris", data = iris,
 #'    method = "cluster.kmeans")
 #'   cluster.analysis = makeClusterAnalysis(my.cluster.task)
 #'   report = makeClusterAnalysisReport(cluster.analysis)
 #'   writeReport(report, save.mode = FALSE, override = TRUE)
+#'  }
 #' @return Invisible NULL
 #' @import checkmate
 #' @export

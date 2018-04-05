@@ -12,8 +12,7 @@
 #'
 #' @export
 createClusterReport = function(id, data, ...) {
-  my.cluster.task = makeClusterTask(id = id, data = data,
-   method = "cluster.kmeans")
+  my.cluster.task = makeClusterTask(id = id, data = data, ...)
   cluster.analysis = makeClusterAnalysis(my.cluster.task)
   return(makeClusterAnalysisReport(cluster.analysis))
 }
