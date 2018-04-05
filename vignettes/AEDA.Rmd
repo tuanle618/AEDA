@@ -246,10 +246,10 @@ Following code snippets are needed in order to create cluster analysis report:
 #create the task
 cluster.task = makeClusterTask(id = "iris", data = iris)
 #compute the analysis
-#cluster.analysis = makeClusterAnalysis(cluster.task)
+cluster.analysis = makeClusterAnalysis(cluster.task)
 #create the report
-#cluster.report = makeReport(cluster.analysis)
-cluster.report = readRDS("cache/clusterEx1.Rds")
+cluster.report = makeReport(cluster.analysis)
+#cluster.report = readRDS("cache/clusterEx1.Rds")
 ```
 
 Plotting the diagnosis results for the `cluster.all` section can be done via:
@@ -275,11 +275,11 @@ In case the user wants to perform hierarchical clustering, he can simply choose 
 ##check available methods
 #?makeClusterTask
 #create the task: hierarchical clustering with average linkage.
-#cluster.task.2 = makeClusterTask(id = "iris", data = iris, method = "cluster.h",
-#  par.vals = list(method = "average"))
+cluster.task.2 = makeClusterTask(id = "iris", data = iris, method = "cluster.h",
+  par.vals = list(method = "average"))
 #compute the analysis
-#cluster.analysis.2 = makeClusterAnalysis(cluster.task.2)
-cluster.analysis.2 = readRDS("cache/clusterEx2.Rds")
+cluster.analysis.2 = makeClusterAnalysis(cluster.task.2)
+#cluster.analysis.2 = readRDS("cache/clusterEx2.Rds")
 #we do not need to create the report, as cluster.analysis.2 already contains the analysis information. If we were to include the cluster.analysis.2 into our final report, then we would have to create the report.
 
 #multiplot one diagnosis plot and the resulting dendogramm
