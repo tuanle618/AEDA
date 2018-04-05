@@ -289,11 +289,14 @@ multiplot(plotlist = list(cluster.analysis.2$cluster.analysis$cluster.all$cluste
 
 #### 5) Principal Component Analysis
 
-fooo
+Principial Component Analysis (PCA) is a dimensionality reduction method that uses an an orthogonal transformation to reduce a large set of (numeric) variables to a small set of (numeric) variables, called principal components, that still contain most of the information of the large set. Those computed principal components are linearely independent, and hence uncorrelated. <br>
+
+The first principal component accounts for as much of the variability/variance in the data as possible, and each succeeding component accounts for as much of the remaining variability/variance as possible.
+
 
 #### 6) Multidimensional Scaling Analysis
 
-Multidimensional scaling is a **visual representation of distances or dissimilarities between sets of objects**. Objects can be colors, faces, map coordinates, political persuasion, or any kind of real conceptual stimuli <a href="https://books.google.de/books/about/Multidimensional_Scaling.html?id=ZzmIPcEXPf0C&redir_esc=y" target="_blank">(Kruskal and Wish, 1978)</a>.
+Multidimensional scaling (MDS) is a **visual representation of distances or dissimilarities between sets of objects**. Objects can be colors, faces, map coordinates, political persuasion, or any kind of real conceptual stimuli <a href="https://books.google.de/books/about/Multidimensional_Scaling.html?id=ZzmIPcEXPf0C&redir_esc=y" target="_blank">(Kruskal and Wish, 1978)</a>.
 Objects that are more similar (or have shorter distances) are closer together on the graph than objects that are less similar (or have linger distances). As well as interpreting dissilarities as distances on a graph, MDS can also serve as a dimension reduction technique for high-dimensional data. An MDS algorithm aims to place each object in $K-$dimensional space such that the between-object distances are preserved as well as possible. In our approach we set $K = 2$ in order to create a two-dimensional scatterplot to represent the objects.
 
 Our MDS-report provides following MDS algorithms:
@@ -309,12 +312,49 @@ Our MDS-report provides following MDS algorithms:
 
 Following code snippets are needed in order to create multidimensional scaling report:
 
-```{r MDSEx1, echo=TRUE}
+```{r MDSEx1, echo=TRUE, fig.dim=c(6,6)}
 #create the task
-mds.task = makeMDSTask(id = "swiss", data = swiss)
+mds.task = makeMDSTask(id = "mtcars", data = mtcars)
 #compute the analysis
 mds.analysis = makeMDSAnalysis(mds.task)
 #create the report
 mds.report = makeReport(mds.analysis)
+
+#after computing the distances from following dataframe
+head(mtcars)
+
+#we map the objects (cars) based on dist(mtcars) back into 2-dimensional space
+head(mds.report$mds.analysis$mds.result)
+
+#Plot the MDS results
+mds.report$mds.analysis$mds.plot
 ```
 
+#### 7) Exploratory Factor Analysis
+
+Factor analysis is a way to describe variability among observed, correlated variables in terms of a potentially lower number of unobserved variables, called **factors**. <br>
+Like principal component as well as multidimensioanl scaling its purpose is dimension reduction. It's a way to find hidden patterns, show how those patterns overlap and show what characteristics are seen in multiple patterns.
+These **factors** each embody a set of **observed variables** that have similar response patterns. Our `makeFAReport` computes an exploratory factor analysis, since in the very beginning of the analysis we believe to not have any idea about what structure the data is or how many dimensions are in a set of variables. 
+<br> 
+<br>
+Since we do not specify the number of factors, by `default` our function computes the optimal number of factors according to the <a href="https://www.rdocumentation.org/packages/psych/versions/1.8.3.3/topics/fa.parallel" target="_blank">parallel analysis</a>, A technique that compares the scree of factors of the observed data with that of a random data matrix of the same size as the original. If the user selects the number of factors, the computation will be done with the assigned number of factors.
+
+Following code snippets are needed in order to create a factor analysis report:
+
+```{r faEx, echo=TRUE, fig.dim=c(6,6)}
+if (FALSE) {
+#load data
+library(psych)
+data(bfi)
+#take small sample of size 200L:
+bfi.small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
+#create the task
+fa.task = makeFATask(id = "bfi", data = bfi.small)
+#compute the analysis
+fa.result = makeFA(fa.task)
+#create the report
+fa.report = makeReport(fa.result)
+#Plot the factor analysis results 
+}
+
+```
