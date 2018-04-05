@@ -48,6 +48,7 @@ writeReport.BasicReport = function(report, sub.dir = "Data_Report", save.mode = 
     rmdLibrary("knitr", file = report.con)
     rmdLibrary("kableExtra", file = report.con)
     rmdLibrary("DT", file = report.con)
+    writeLines("devtools::load_all() #temporary", con = report.con)
     writeLines("```", con = report.con)
 
     intro.vec = c(paste("The dataset", writeRinline(paste0(id, "$task$dataset.name")), "is",

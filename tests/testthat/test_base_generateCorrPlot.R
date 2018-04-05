@@ -1,4 +1,4 @@
-context("genaretCorrPlot")
+context("generateCorrPlot")
 data("airquality")
 
 test_that("genrateCorrPlot", {

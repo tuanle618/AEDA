@@ -9,6 +9,9 @@
 #'   A Dataframe with different variables
 #' @param target [\code{character(1)}]\cr
 #'  Target column. If not available please insert as \code{NULL}.
+#' @param show.NA.msg [\code{logical(1)}]\cr
+#'  Logical whether to show missing values message\cr
+#'  Default is \code{FALSE}.
 #'@param \dots other arguments to be passed to \link[ggplot2]{geom_bar}.
 #' @return CatSumTask object
 #'
@@ -21,12 +24,18 @@
 #'  #get Data
 #'  cat.sum.task$env$data
 #' @export
-makeCatSumTask = function(id, data, target, ...){
+makeCatSumTask = function(id, data, target, show.NA.msg = FALSE, ...){
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
   #target will be checked within GetDataType
-
+  #add warning for NAs:
+  #add warning for NAs:
+  if (any(is.na(data)) & show.NA.msg) {
+    message("The data set contains NAs.
+These values might removed in the further calculations.
+If so, another warning will be displayed.")
+  }
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
   env$data = data

@@ -36,6 +36,7 @@ writeReport.CorrReport = function(report, sub.dir = "Data_Report", save.mode = T
 
       # load pkgs
       rmdLibrary(needed.pkgs, report.con)
+      writeLines("devtools::load_all() #temporary", con = report.con)
 
       # save object and write code to load it in the rmd-file
       saveLoadObj(report, report$report.id, report.con, override = override)

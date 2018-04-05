@@ -2,7 +2,7 @@
 #'
 #' @param cluster.analysis.obj [\code{ClusterAnalysisObj} Object]\cr
 #'   A object of the "ClusterAnalysisObj" class
-#' @return ClusterAnalysisObj
+#' @return A ClusterAnalysisReport Object
 #' @import checkmate
 #' @import BBmisc
 #' @examples
@@ -12,7 +12,7 @@
 #'  cluster.report = makeClusterAnalysisReport(cluster.analysis)
 #' @export
 makeClusterAnalysisReport = function(cluster.analysis.obj){
-  assertClass(cluster.analysis, "ClusterAnalysisObj")
+  assertClass(cluster.analysis.obj, "ClusterAnalysisObj")
 
   report.id = reportId()
 
