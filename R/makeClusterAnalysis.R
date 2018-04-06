@@ -8,9 +8,11 @@
 #'   A ClusterTask Object
 #' @return ClusterAnalysis Object
 #' @examples
+#' \dontrun{
 #'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
 #'    method = "cluster.kmeans")
 #'  cluster.summary = makeClusterAnalysis(my.cluster.task)
+#' }
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom cluster pam
