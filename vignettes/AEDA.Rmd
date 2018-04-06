@@ -21,7 +21,7 @@ require(knitr)
 ## AEDA - Automated Exploratory Data Analysis
 
 This Vignette is supposed to give you a introductory glance at the key features of `AEDA`. <br>
-It shows you, how to use this package to simplify several task throughout the data exploration process. <br>
+It shows you, how to use this package to simplifies several task throughout the data exploration process. <br>
 A more detailed in depth and continuously updated examples and wikipedia can be found on the GitHub project page:
 
 * <a href="https://github.com/ptl93/AEDA" target="_blank"> AEDA Project Page </a>
@@ -31,7 +31,7 @@ A more detailed in depth and continuously updated examples and wikipedia can be 
 
 Writing exploratory data analysis (EDA) scripts helps in extracting valuable information from the data but can be very time consuming. Often people are producing the same tables and figures again and again which could be automatized with EDA scripts. <br>
 <br>
-With this package we want to automate the process of creating an EDA report by providing functions which, one would normally script for each data type of dataset. Thereby we provide following functionalites:
+With this package we want to automate the process of creating an EDA report by providing functions which, one would normally script for each data type of dataset. Therefore we provide following functionalites:
 
 
 1. **Basic Data Summary**
@@ -333,7 +333,7 @@ mds.report$mds.analysis$mds.plot
 #### 7) Exploratory Factor Analysis
 
 Factor analysis is a way to describe variability among observed, correlated variables in terms of a potentially lower number of unobserved variables, called **factors**. <br>
-Like principal component as well as multidimensioanl scaling its purpose is dimension reduction. It's a way to find hidden patterns, show how those patterns overlap and show what characteristics are seen in multiple patterns.
+Like principal component analysis as well as multidimensional scaling its purpose is dimension reduction. It's a way to find hidden patterns, show how those patterns overlap and show what characteristics are seen in multiple patterns.
 These **factors** each embody a set of **observed variables** that have similar response patterns. Our `makeFAReport` computes an exploratory factor analysis, since in the very beginning of the analysis we believe to not have any idea about what structure the data is or how many dimensions are in a set of variables. 
 <br> 
 <br>

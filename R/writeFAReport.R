@@ -45,6 +45,13 @@ writeReport.FAReport = function(report, sub.dir = "Data_Report",
 
     writeLines("## Factor Analysis Summary Report",
       con  = report.con)
+    ## add generic text from vignette
+    writeLines('Factor analysis is a way to describe variability among observed, correlated variables in terms of
+a potentially lower number of unobserved variables, called **factors**. <br>
+Like principal component as well as multidimensioanl scaling its purpose is dimension reduction.
+It is a way to find hidden patterns, show how those patterns overlap and show what characteristics are seen
+in multiple patterns.
+These **factors** each embody a set of **observed variables** that have similar response patterns.', con = report.con)
     #Load object and libraries:
     writeLines(writeRChunkOptions(chunkname = "loadFAObj",
       id = getId(report)),

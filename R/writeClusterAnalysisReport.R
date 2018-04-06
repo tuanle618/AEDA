@@ -39,6 +39,13 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
 
     #Load object
     writeLines("## Cluster Summary Report \n", con  = report.con)
+    #insert generic text from vignette:
+    writeLines('Cluster analysis is a unsupervised learning task, which mainly focuses on grouping a set of objects
+in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other
+than to those in other groups (clusters). Cluster analysis itself is not one specific algorithm, but the general
+task to be solved. It can be achieved by various algorithms that differ significantly in their notion of what
+constitutes a cluster and how to efficiently find them.', con = report.con)
+
     #writeLines("```{r loadClusterObj_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
     writeLines(writeRChunkOptions(chunkname = "loadClusterObj", id = getId(report)), con = report.con)
     # save object and write code to load it in the rmd-file
@@ -61,8 +68,8 @@ writeReport.ClusterAnalysisReport = function(report, sub.dir = "Data_Report", sa
     if (!is.element(report$report.task$method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
       if (length(report$report.task$numdatatypes$numeric) + length(report$report.task$numdatatypes$integer) > 2) {
         writeLines("Since the number of numeric columns is greater than 2, for **vizualization**
-        we compute a principal component analysis  ", con = report.con)
-        writeLines("and apply the cluster analysis to the respective two principal components:", con = report.con)
+        we compute a principal component analysis and apply the cluster analysis to the respective two principal components: ",
+          con = report.con)
       }
     }
     #Diagnostics for everything except 'cluster.dbscan' and 'cluster.kkmeans

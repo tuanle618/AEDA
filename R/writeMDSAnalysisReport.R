@@ -39,6 +39,14 @@ writeReport.MDSAnalysisReport = function(report, sub.dir = "Data_Report",
 
     writeLines("## Multidimensional Scaling Summary Report",
       con  = report.con)
+    #add generic text from vignette:
+    writeLines('Multidimensional scaling (MDS) is a **visual representation of distances or dissimilarities between sets of objects**.
+Objects can be colors, faces, map coordinates, political persuasion, or any kind of real conceptual stimuli
+<a href="https://books.google.de/books/about/Multidimensional_Scaling.html?id=ZzmIPcEXPf0C&redir_esc=y" target="_blank">(Kruskal and Wish, 1978)</a>.
+Objects that are more similar (or have shorter distances) are closer together on the graph than objects that are less similar (or have linger distances).
+As well as interpreting dissilarities as distances on a graph, MDS can also serve as a dimension reduction technique for high-dimensional data.
+An MDS algorithm aims to place each object in $K-$dimensional space such that the between-object distances are preserved as well as possible.
+The approach of AEDA is to set $K = 2$ in order to create a two-dimensional scatterplot to represent the objects.', con = report.con)
     #Load object and libraries:
     writeLines(writeRChunkOptions(chunkname = "loadMDSObj",
       id = getId(report)),
