@@ -1,4 +1,5 @@
-#![AEDA](https://github.com/ptl93/AEDA/blob/tle_vignette/man/images/AEDA_logo.png): Automated Exploratory Data Analysis 
+![AEDA](https://github.com/ptl93/AEDA/blob/tle_vignette/man/images/AEDA_logo.png): Automated Exploratory Data Analysis 
+***
 
 [![Build Status](https://travis-ci.org/ptl93/AEDA.svg?branch=master)](https://travis-ci.org/ptl93/AEDA)
 ## Description
