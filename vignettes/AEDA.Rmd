@@ -342,7 +342,6 @@ Since we do not specify the number of factors, by `default` our function compute
 Following code snippets are needed in order to create a factor analysis report:
 
 ```{r faEx, echo=TRUE, fig.dim=c(6,6)}
-if (FALSE) {
 #load data
 library(psych)
 data(bfi)
@@ -355,6 +354,5 @@ fa.result = makeFA(fa.task)
 #create the report
 fa.report = makeReport(fa.result)
 #Plot the factor analysis results 
-}
-
+fa.diagram(fa.report$fa.result)
 ```
