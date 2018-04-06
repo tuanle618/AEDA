@@ -1,4 +1,5 @@
-#![AEDA](http://mlr-org.github.io/mlr-tutorial/img/mlrLogo_blue_141x64.png): Machine Learning in R Automated exploratory data analysis (AEDA)
+#![AEDA](https://github.com/ptl93/AEDA/blob/tle_vignette/man/images/AEDA_logo.png): Automated Exploratory Data Analysis 
+
 [![Build Status](https://travis-ci.org/ptl93/AEDA.svg?branch=master)](https://travis-ci.org/ptl93/AEDA)
 ## Description
 
@@ -20,7 +21,7 @@ This package should help automating the process of creating an EDA report by pro
 devtools::install_github("ptl93/AEDA")
 ```
 
-##Examples
+## Examples
 
 ```R
 #load library
