@@ -13,7 +13,8 @@ fig_caption: yes
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  cache = FALSE
 )
 devtools::load_all()
 require(knitr)
