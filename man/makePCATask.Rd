@@ -2,7 +2,7 @@
 % Please edit documentation in R/makePCATask.R
 \name{makePCATask}
 \alias{makePCATask}
-\title{Creates a PCATask Objects}
+\title{Creates a PCATask Object}
 \usage{
 makePCATask(id, data, target, method = "all", vars = NULL,
   exclude = character(0), ...)
@@ -37,7 +37,7 @@ Principal Components Analysis (PCA). A Task encapsulates the Data with some addi
 }
 \examples{
 data("iris")
-test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
+pca.task = makePCATask(id = "iris.try", data = iris, target = "Petal.Length",
                         tol = 1e-1, center = TRUE)
 # get Data
 test.task$env$data

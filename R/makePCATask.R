@@ -1,4 +1,4 @@
-#' @title Creates a PCATask Objects
+#' @title Creates a PCATask Object
 #'
 #' @description
 #' Principal Components Analysis (PCA). A Task encapsulates the Data with some additional information
@@ -23,7 +23,7 @@
 #'
 #' @examples
 #' data("iris")
-#' test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
+#' pca.task = makePCATask(id = "iris.try", data = iris, target = "Petal.Length",
 #'                         tol = 1e-1, center = TRUE)
 #' # get Data
 #' test.task$env$data
@@ -37,11 +37,27 @@ makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = 
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
   assertSubset(method, c("all", "linear", "nonlinear"), empty.ok = FALSE)
+
+  if (exists("target")) {
+    if (!is.null(target)) {
+      assertCharacter(target, len = 1)
+      assertChoice(target, colnames(data))
+    }
+  } else if (!exists("target")) {
+    stop("You did not specify a target value. If the dataset doesn't contain one, enter NULL as target")
+  }
+
   if (!is.null(vars)) {
     assertCharacter(vars, min.chars = 1L, min.len = 2L)
-    data.type = getDataType(data[, vars], target = NULL)
+    data.type = getDataType(data[, vars], target = target)
   } else{
-    data.type = getDataType(data, target = NULL)
+    data.type = getDataType(data, target = target)
+  }
+
+  #check if at least 3 numeric columns are in the dataset
+  if (length(data.type$num) + length(data.type$int) <= 2) {
+    stop(paste("The dataset only contains", length(data.type$num) + length(data.type$int), "numeric columns.
+      Principal Component Analysis only makes sense for a data set with at least 3 numeric variables."))
   }
 
   #target will be checked within GetDataType
@@ -70,11 +86,12 @@ print.PCATask = function(x, ...) {
   catf("Type: %2s", x$type)
   catf("Selected Features: %s", collapse(unlist(x$features), sep = ", "))
   catf("Method: %s", x$method)
-  catf("Exclude: %s", as.character(x$exclude))
-
+  if (length(x$exclude) > 0) {
+    catf("Exclude: %s", as.character(x$exclude))
+  }
   catf("Observations: %i", x$size)
   catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
-  catf("%s = %s", names(x$pca.args), x$pca.args)
+  catf("%s = %s ", names(x$pca.args), x$pca.args)
 }
 
