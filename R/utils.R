@@ -188,6 +188,11 @@ getId.MDSAnalysisReport = function(x) {
 getId.FAReport = function(x) {
   x$report.id
 }
+
+getId.PCAReport = function(x) {
+  x$report.id
+}
+
 ##
 getType = function(x) UseMethod("getType")
 
@@ -221,6 +226,11 @@ getType.MDSAnalysisReport = function(x){
 getType.FAReport = function(x){
   x$type
 }
+
+getType.PCAReport = function(x){
+  x$type
+}
+
 # Wrapper for concatenate report id with a string
 # idWrapper(report, "method")
 # Jbssgsrsi342j$method

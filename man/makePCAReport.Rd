@@ -17,7 +17,7 @@ PCAReport
 Creates an Report object
 }
 \examples{
-test.task = makePCATask(id = "Probe", data = iris, center = TRUE)
-my.pca2 = makePCA(test.task)
-report1 = makePCAReport(my.pca2)
+pca.task = makePCATask(id = "iris.test", data = iris, center = TRUE, target = "Species")
+pca.result = makePCA(pca.task)
+pca.report = makePCAReport(pca.result)
 }

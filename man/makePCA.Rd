@@ -17,10 +17,7 @@ PCAObject
 Principal components analysis on the given numeric data matrix and returns the results as an object
 }
 \examples{
-my.task = makePCATask(id = "test", data = cars)
-my.pca1 = makePCA(my.task)
-
-test.task = makePCATask(id = "Probe", data = iris, target = "Petal.Length",
+pca.task = makePCATask(id = "iris.test", data = iris, target = "Species",
                         tol = 1e-1, center = TRUE)
-my.pca2 = makePCA(test.task)
+pca.result = makePCA(pca.task)
 }

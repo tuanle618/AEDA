@@ -23,10 +23,10 @@
 #'
 #' @examples
 #' data("iris")
-#' pca.task = makePCATask(id = "iris.try", data = iris, target = "Petal.Length",
+#' pca.task = makePCATask(id = "iris.try", data = iris, target = "Species",
 #'                         tol = 1e-1, center = TRUE)
 #' # get Data
-#' test.task$env$data
+#' pca.task$env$data
 #' @import checkmate
 #' @import BBmisc
 #' @import stats
