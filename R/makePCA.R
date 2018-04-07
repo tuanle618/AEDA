@@ -16,6 +16,7 @@
 #' @import BBmisc
 #' @importFrom stats prcomp
 #' @importFrom factoextra fviz_eig
+#' @importFrom factoextra fviz_pca_ind
 #' @import ggplot2
 #' @import ggfortify
 #' @export
