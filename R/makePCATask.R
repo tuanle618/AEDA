@@ -61,6 +61,9 @@ makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = 
   }
 
   #target will be checked within GetDataType
+  #for target if it is numeric exclude it
+  num.features = data.type[c("num", "int")]
+  num.features = setdiff(unlist(num.features), target)
 
   # Encapsulate Data and Data Types into new env
   env = new.env(parent = emptyenv())
@@ -70,7 +73,7 @@ makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = 
     id = id,
     type = "PCA",
     env = env,
-    features = data.type[c("num", "int")],
+    features = num.features,
     size = nrow(data),
     exclude = exclude,
     method = method,
