@@ -5,6 +5,7 @@ suppressWarnings(library(testthat))
 suppressWarnings(library(GPArotation))
 
 data("bfi")
+data("InsectSprays")
 
 set.seed(1)
 bfi.small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
@@ -13,6 +14,8 @@ fa.res = makeFA(fa.task)
 fa.report = makeReport(fa.res)
 
 test_that("makeFATask", {
+  #too less numeric columns
+  expect_error({makeFATask(id = "insect.fail", data = InsectSprays, show.NA.msg = TRUE)})
   #wrong par.vals
   expect_message({makeFATask(id = "bfi", data = bfi.small, show.NA.msg = TRUE)})
   expect_error({makeFATask(id = "bfi", data = bfi.small,

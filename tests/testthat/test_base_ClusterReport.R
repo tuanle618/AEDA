@@ -3,10 +3,14 @@ data("iris")
 set.seed(1L)
 sub = sample.int(150, 12)
 iris = iris[sub, 1:3]
+data("InsectSprays")
 my.cluster.task = makeClusterTask(id = "test.report", data = iris,
   method = "cluster.kmeans",
   random.seed = 1L, par.vals = list(iter.max = 15L))
 test_that("makeClusterTask", {
+  ##error for too less numeric columns
+  expect_error({makeClusterTask(id = "insect.fail", data = InsectSprays)})
+
   expectIdentical(my.cluster.task$id, "test.report")
   expectIdentical(my.cluster.task$type, "ClusterSummary")
   expectIdentical(my.cluster.task$env$data, iris)

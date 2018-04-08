@@ -59,7 +59,7 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
   theme = "cosmo", df.print = "paged", override = FALSE){
   x = list(...)
   assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport", "CatSumReport",
-    "ClusterAnalysisReport", "MDSAnalysisReport", "FAReport"))
+    "ClusterAnalysisReport", "MDSAnalysisReport", "FAReport", "PCAReport"))
   assertLogical(save.mode)
   assert_path_for_output(sub.dir, overwrite = !save.mode)
 

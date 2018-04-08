@@ -53,9 +53,9 @@ makeMDSTask = function(id, data, dist.norm = "euclidean", method = "cmdscale",
   data.types = getDataType(data, target = NULL)
   num.features = c(data.types$num, data.types$int)
   if (length(num.features) < 2) {
-    stop(paste("Your dataset only contains of",
+    stop(paste("Your dataset only contains",
       length(num.features),
-      " numeric columns. Multidimensional Scaling does not make sense"))
+      " numeric columns. Multidimensional Scaling only makes sense if there are at least 2 numeric variables."))
   }
   #Argument Checks
   assertCharacter(id, min.chars = 1L)

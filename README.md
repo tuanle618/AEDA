@@ -76,7 +76,7 @@ cluster.report = makeReport(cluster.analysis)
 
 ###E - Principal Component Analysis
 #create task
-pca.task = makePCATask(id = "students.survey", data = survey,
+pca.task = makePCATask(id = "students.survey", data = survey, target = "Exer",
   center = TRUE)
 #compute analysis
 pca.result = makePCA(pca.task)
