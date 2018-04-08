@@ -87,8 +87,9 @@ makeClusterTask = function(id, data, cluster.cols = NULL, method = "cluster.kmea
   #check if numeric cols >= 2
   data.types = getDataType(data, target = NULL)
   if (length(c(data.types$num, data.types$int)) < 2) {
-    stop(paste("Your dataset only contains of",
-    length(c(data.types$num, data.types$int))), " numeric columns. Cluster Analysis does not make sense")
+    stop(paste("Your dataset only contains",
+    length(c(data.types$num, data.types$int))), " numeric columns.
+      Cluster Analysis only makes sense if there are at least 2 numeric variables.")
   }
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
