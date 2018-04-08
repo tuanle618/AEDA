@@ -4,8 +4,7 @@
 \alias{makePCATask}
 \title{Creates a PCATask Object}
 \usage{
-makePCATask(id, data, target, method = "all", vars = NULL,
-  exclude = character(0), ...)
+makePCATask(id, data, target, vars = NULL, exclude = character(0), ...)
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -16,10 +15,6 @@ Data for PCA. Only numeric columns will be used and the target column excluded.}
 
 \item{target}{[\code{character(1)}]\cr
 Target column. If not available please insert as \code{NULL}.}
-
-\item{method}{[\code{character(1)}]\cr
-Defines the PCA method
-\dQuote{all}}
 
 \item{vars}{[\code{character(1)}]\cr
 Column names}

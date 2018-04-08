@@ -9,9 +9,6 @@
 #'   Data for PCA. Only numeric columns will be used and the target column excluded.
 #' @param target [\code{character(1)}]\cr
 #'   Target column. If not available please insert as \code{NULL}.
-#' @param method [\code{character(1)}]\cr
-#'   Defines the PCA method
-#'   \dQuote{all}
 #' @param exclude [\code{character}]
 #'   Names of inputs, which should be excluded. Default is none.
 #' @param vars [\code{character(1)}]\cr
@@ -32,11 +29,10 @@
 #' @import stats
 #' @export
 #'
-makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = character(0), ...){
+makePCATask = function(id, data, target, vars = NULL, exclude = character(0), ...){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
-  assertSubset(method, c("all", "linear", "nonlinear"), empty.ok = FALSE)
 
   if (exists("target")) {
     if (!is.null(target)) {
@@ -76,7 +72,6 @@ makePCATask = function(id, data, target, method = "all", vars = NULL, exclude = 
     features = num.features,
     size = nrow(data),
     exclude = exclude,
-    method = method,
     missing.values = sum(is.na(data)),
     pca.args = list(...)
   )
@@ -88,13 +83,12 @@ print.PCATask = function(x, ...) {
   catf("Task: %s", x$id)
   catf("Type: %2s", x$type)
   catf("Selected Features: %s", collapse(unlist(x$features), sep = ", "))
-  catf("Method: %s", x$method)
   if (length(x$exclude) > 0) {
     catf("Exclude: %s", as.character(x$exclude))
   }
   catf("Observations: %i", x$size)
-  catf("Method: %s", x$method)
   catf("Missing Values: %s", x$missing.values)
+  catf("Additional parameters to prcomp:")
   catf("%s = %s ", names(x$pca.args), x$pca.args)
 }
 

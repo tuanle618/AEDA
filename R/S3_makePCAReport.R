@@ -16,7 +16,8 @@ makeReport.PCAObj = function(analysis.obj){
   makeS3Obj("PCAReport",
    task = analysis.obj$task,
    pca.result = analysis.obj,
-   report.id = report.id)
+   report.id = report.id,
+   type = "PCAReport")
 }
 
 print.PCAReport = function(x, ...) {

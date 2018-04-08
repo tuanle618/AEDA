@@ -105,7 +105,7 @@ test_that("writeMDSAnalysisReport", {
   expect_identical(getwd(), temp.wd)
   rds.obj = readRDS(paste0("Data_Report/", mds.report$report.id, ".rds"))
   expect_equal(rds.obj$task, mds.report$task)
-  expect_identical(rds.obj$report.id, rds.obj$report.id)
+  expect_identical(mds.report$report.id, rds.obj$report.id)
   expect_equal(class(rds.obj), class(mds.report))
   expect_error(writeReport(mds.report))
   expect_identical(getwd(), temp.wd)
