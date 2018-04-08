@@ -18,10 +18,8 @@
 #' @examples
 #' # Report for the iris dataset
 #' \dontrun{
-#' openMLReport(61L)
-#' openMLReport(61L, "Cluster",
-#'   m.par.vals = list(Cluster = list(method = "cluster.kmeans",
-#'     par.vals = list(algorithm = "MacQueen"))))
+#' data("iris")
+#' fastReport(iris)
 #' }
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet
