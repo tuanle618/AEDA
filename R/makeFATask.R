@@ -48,9 +48,8 @@ makeFATask = function(id, data, nfactors = NULL, rotate = "oblimin",
   data.types = getDataType(data, target = NULL)
   num.features = c(data.types$num, data.types$int)
   if (length(num.features) < 2) {
-    stop(paste("Your dataset only contains of",
-      length(num.features),
-      " numeric columns. Factor Analysis does not make sense"))
+    stop(paste("Your dataset only contains",
+      length(num.features), " numeric columns. Factor Analysis only makes sense if there are at least 2 numeric variables."))
   }
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
