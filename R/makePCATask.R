@@ -53,7 +53,7 @@ makePCATask = function(id, data, target, vars = NULL, exclude = character(0), ..
   #check if at least 3 numeric columns are in the dataset
   if (length(data.type$num) + length(data.type$int) <= 2) {
     stop(paste("The dataset only contains", length(data.type$num) + length(data.type$int), "numeric columns.
-      Principal Component Analysis only makes sense for a data set with at least 3 numeric variables."))
+      Principal Component Analysis only makes sense if there are at least 3 numeric variables."))
   }
 
   #target will be checked within GetDataType

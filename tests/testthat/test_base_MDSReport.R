@@ -1,6 +1,8 @@
 context("MultiDimensional Scaling Analysis")
 data("swiss")
 data("iris")
+data("InsectSprays")
+
 suppressWarnings(library(MASS))
 suppressWarnings(library(smacof))
 suppressWarnings(library(vegan))
@@ -10,6 +12,8 @@ mds.analysis = getMDSAnalysis(dist = mds.task$dist, method = mds.task$method,
   par.vals = mds.task$par.vals)
 
 test_that("makeMDSTask", {
+  ##too less numerics
+  expect_error({makeMDSTask(id = "insect.fail", data = InsectSprays)})
   #wrong norms
   expect_warning({makeMDSTask(id = "iris", data = iris)})
   expect_error({makeMDSTask(id = "swiss", data = swiss, dist.norm = "L2")})
