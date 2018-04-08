@@ -4,7 +4,8 @@
 \alias{makePCATask}
 \title{Creates a PCATask Object}
 \usage{
-makePCATask(id, data, target, vars = NULL, exclude = character(0), ...)
+makePCATask(id, data, target, vars = NULL, exclude = character(0),
+  show.NA.msg = FALSE, ...)
 }
 \arguments{
 \item{id}{[\code{character(1)}]\cr
@@ -21,6 +22,10 @@ Column names}
 
 \item{exclude}{[\code{character}]
 Names of inputs, which should be excluded. Default is none.}
+
+\item{show.NA.msg}{[\code{logical(1)}]\cr
+Logical whether to show missing values message\cr
+Default is \code{FALSE}.}
 
 \item{...}{Further arguments passed to \code{\link[stats]{prcomp}}}
 }

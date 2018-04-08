@@ -66,8 +66,7 @@ num.sum.report = makeReport(num.sum)
 
 ###D - Cluster Analysis
 #create task
-cluster.task = makeClusterTask(id = "students.survey", data = survey,
-  method = "cluster.pam")
+cluster.task = makeClusterTask(id = "students.survey", data = survey)
 #compute analysis
 cluster.analysis = makeClusterAnalysis(cluster.task)
 #create the report

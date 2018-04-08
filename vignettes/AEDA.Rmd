@@ -241,7 +241,7 @@ The components of the `ClusterAnalysisObj` are the following: (in case the metho
 The **`comb.cluster.list`** has the purpose to create clusters and grouping relationships between 2 numeric variables. The list is restricted up to 10 cluster analysis. If a dataset contains of 3 numeric columns, there are $\binom{4}{2} =$ `r choose(4,2)` combinations. If the tuple-combinations is above 10, out of the $\binom{k}{2}$ combinations, our function randomly selects 10 of it. <br>
 In case of a **hierarchical clustering algorithmus** the `comb.cluster.list` is an empty list, since the calculation will be done with respect to *all numeric columns* only.
 
-Following code snippets are needed in order to create cluster analysis report:
+Following code snippets are needed in order to create a cluster analysis report:
 
 ```{r clusterAnalysisEx1, echo=TRUE}
 #create the task
@@ -288,12 +288,32 @@ multiplot(plotlist = list(cluster.analysis.2$cluster.analysis$cluster.all$cluste
   cluster.analysis.2$cluster.analysis$cluster.all$cluster.diag[[2]]), cols = 2)
 ```
 
+In order to gain more insights into the cluster analysis for all numeric columns you can access `cluster.report$cluster.analysis$cluster.all$cluster.res$`. Since the user can specify the algorithm, the returned values differ for each method. The links for the the cluster clustering algorithm choices forward you to the respective methods in order to have a look at the returned values.
+
 #### 5) Principal Component Analysis
 
 Principial Component Analysis (PCA) is a dimensionality reduction method that uses an an orthogonal transformation to reduce a large set of (numeric) variables to a small set of (numeric) variables, called principal components, that still contain most of the information of the large set. Those computed principal components are linearely independent, and hence uncorrelated. <br>
 
 The first principal component accounts for as much of the variability/variance in the data as possible, and each succeeding component accounts for as much of the remaining variability/variance as possible.
 
+Following code snippets are needed in order to create a principal component analysis report:
+
+```{r pcaEx1, echo=TRUE, fig.dim = c(8,5)}
+#create the task
+pca.task = makePCATask(id = "iris", data = iris, target = NULL)
+#compute the analysis
+pca.result = makePCA(pca.task)
+#create the report
+pca.report = makeReport(pca.result)
+
+#show scree- and scatterplot:
+multiplot(plotlist = list(scree = pca.report$pca.result$plotlist$pca.scree,
+  scatter = pca.report$pca.result$plotlist$pca.scatter.1), cols = 2L)
+```
+
+In order to gain more insights into the principal component analysis you can either access `pca.result` or `pca.report`. For the sake of consistency one can extract the standard deviations of the principal components via:
+`pca.report$pca.result$pca.result$sdev` or the (weighting) loadings via `pca.report$pca.result$pca.result$rotation`.
+For more information have a look at the returned values by <a <href="http://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html" target="_blank">stats::prcomp()</a>.
 
 #### 6) Multidimensional Scaling Analysis
 
@@ -311,7 +331,7 @@ Our MDS-report provides following MDS algorithms:
  + <a href="https://www.rdocumentation.org/packages/MASS/versions/7.3-47/topics/isoMDS" target="_blank">Kruskal's Non-metric Multidimensional Scaling</a>
  + <a href="https://www.rdocumentation.org/packages/cluster/versions/2.0.7/topics/pam" target="_blank">Sammon's Non-Linear Mapping</a>
 
-Following code snippets are needed in order to create multidimensional scaling report:
+Following code snippets are needed in order to create a multidimensional scaling report:
 
 ```{r MDSEx1, echo=TRUE, fig.dim=c(6,6)}
 #create the task
@@ -330,6 +350,8 @@ head(mds.report$mds.analysis$mds.result)
 #Plot the MDS results
 mds.report$mds.analysis$mds.plot
 ```
+
+In order to gain more insights into the multidimensional scaling analysis you can access `mds.report.mds.anylsis`. Since the user can specify the algorithm, the returned values differ for each method. The links for the metric and non-metric forward you to the respective methods in order to have a look at the returned values.
 
 #### 7) Exploratory Factor Analysis
 
@@ -357,3 +379,8 @@ fa.report = makeReport(fa.result)
 #Plot the factor analysis results 
 fa.diagram(fa.report$fa.result)
 ```
+
+In order to gain more insights into the exploratory factor analysis you can either access `fa.result` or `fa.report` object. For the sake of consistency we will show an example with the report object.
+One can extract the loadings of thefactor analysis via:
+`fa.report$fa.result$Structure`.
+For more information have a look at the returned values by <a <href="https://www.rdocumentation.org/packages/psych/versions/1.7.8/topics/fa" target="_blank">psych::fa()</a>.

@@ -58,7 +58,7 @@
 finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
   theme = "cosmo", df.print = "paged", override = FALSE){
   x = list(...)
-  assertList(x, types = c("CorrReport", "PcaReport", "NumSumReport", "BasicReport", "CatSumReport",
+  assertList(x, types = c("CorrReport", "NumSumReport", "BasicReport", "CatSumReport",
     "ClusterAnalysisReport", "MDSAnalysisReport", "FAReport", "PCAReport"))
   assertLogical(save.mode)
   assert_path_for_output(sub.dir, overwrite = !save.mode)
@@ -73,6 +73,11 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
   # Organize Childs
   report.con = file("MainReport.rmd", "w", encoding = rmdEncoding())
   writeHeader("AEDA Report", report.con, theme = theme, df.print = df.print)
+
+  #Write Abstract
+  writeLines("## Abstract\n", con = report.con)
+  writeLines("This exploratory data analysis report was created by the R package
+<a href='https://github.com/ptl93/AEDA' target='_blank'>AEDA</a>.\n", con = report.con)
 
   # for now load AEDA in mainReport
   writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
