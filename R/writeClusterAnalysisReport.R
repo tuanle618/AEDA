@@ -20,7 +20,6 @@
 #'   report = makeClusterAnalysisReport(cluster.analysis)
 #'   writeReport(report, save.mode = FALSE, override = TRUE)
 #' }
->>>>>>> db26f6fd616b6d5f21dfa6b172563d5cd527cd56
 #' @return Invisible NULL
 #' @import checkmate
 #' @export

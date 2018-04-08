@@ -9,7 +9,7 @@
 #'   \code{\link[OpenML]{getOMLDataSet}}
 #' @param reports [\code{character()}]\cr
 #'   The report types used on the dataset. Default will use all
-#'   available reports
+#'   available reports if they are applicable
 #' @param m.par.vals [\code{list()}]\cr
 #'   A names list containing parameters which will be passed to
 #'   the corressponding report function. [WIP]
@@ -26,15 +26,15 @@
 #' @importFrom OpenML getOMLDataSet
 #' @export
 openMLReport = function(data.id, reports = c("Basic", "CatSum",
-  "Corr", "NumSum", "MDS", "Cluster"), m.par.vals = list()) {
+  "Corr", "NumSum", "MDS", "Cluster", "FA", "PCA"), m.par.vals = list()) {
   # argument checking
   assertInteger(data.id, lower = 0L, any.missing = FALSE,
     all.missing = FALSE, len = 1L, null.ok = FALSE)
   assertSubset(reports, c("Basic", "CatSum", "Corr", "NumSum", "MDS",
-    "Cluster"), empty.ok = FALSE)
+    "Cluster", "FA", "PCA"), empty.ok = FALSE)
   assertList(m.par.vals, names = "unique")
   assertSubset(names(m.par.vals), c("Basic", "CatSum", "Corr",
-    "NumSum", "MDS", "Cluster"))
+    "NumSum", "MDS", "Cluster", "FA", "PCA"))
 
   # load openML data
   data.set = getOMLDataSet(data.id)
