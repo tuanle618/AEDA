@@ -38,8 +38,7 @@ test_that("fastReport", {
     CatSum = list(position = "error")
   )
   # indirect testing by producing an warining or error
-  expect_error(fastReport(iris, reports = "CatSum", m.par.vals = m.par.vals),
-    "No position called 'error'.")
+  expect_error(fastReport(iris, reports = "CatSum", m.par.vals = m.par.vals))
 
   ## Test m.par.vals for Corr
   m.par.vals = list(
@@ -65,8 +64,7 @@ test_that("fastReport", {
     NumSum = list(geom.box.args = list(position = "error"))
   )
   # indirect testing by producing an warining or error
-  expect_error(fastReport(iris, reports = "NumSum", m.par.vals = m.par.vals),
-    "No position called 'error'.")
+  expect_error(fastReport(iris, reports = "NumSum", m.par.vals = m.par.vals))
 
   ## Test m.par.vals for FA
   ##toDo
