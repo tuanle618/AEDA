@@ -38,7 +38,8 @@ test_that("fastReport", {
     CatSum = list(position = "error")
   )
   # indirect testing by producing an warining or error
-  expect_error(fastReport(iris, reports = "CatSum", m.par.vals = m.par.vals))
+  expect_error(fastReport(iris, reports = "CatSum", m.par.vals = m.par.vals),
+    "No position called 'error'.")
 
   ## Test m.par.vals for Corr
   m.par.vals = list(
