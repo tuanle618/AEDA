@@ -21,6 +21,8 @@
 #' @param show.NA.msg [\code{logical(1)}]\cr
 #'  Logical whether to show missing values message\cr
 #'  Default is \code{FALSE}.
+#' @param ...
+#'  For now has no use
 #' @return NumSumTask object
 #'
 #' @import checkmate
@@ -33,7 +35,8 @@
 #'  num.sum.task$env$data
 #' @export
 makeNumSumTask = function(id, data, target, geom.hist.args = list(bins = 30, alpha = 0.4),
-  geom.dens.args = list(size = 2, alpha = 0.4), geom.box.args = list(), show.NA.msg = FALSE){
+  geom.dens.args = list(size = 2, alpha = 0.4), geom.box.args = list(),
+  show.NA.msg = FALSE, ...){
   #Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")

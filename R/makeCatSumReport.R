@@ -28,5 +28,5 @@ makeCatSumReport = function(cat.sum.obj, type = NULL){
 }
 
 print.CatSumReport = function(x, ...) {
-  print(x$cat.sum.task)
+  print(x$report.task)
 }

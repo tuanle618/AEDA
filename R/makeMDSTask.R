@@ -33,6 +33,8 @@
 #' @param show.NA.msg [\code{logical(1)}]\cr
 #'  Logical whether to show missing values message\cr
 #'  Default is \code{FALSE}.
+#' @param ...
+#'  For now has no use
 #' @return MDSTask Object
 #' @examples
 #' data(swiss)
@@ -48,7 +50,7 @@
 #' @export
 #'
 makeMDSTask = function(id, data, dist.norm = "euclidean", method = "cmdscale",
-  par.vals = list(), show.NA.msg = FALSE){
+  par.vals = list(), show.NA.msg = FALSE, ...){
 
   data.types = getDataType(data, target = NULL)
   num.features = c(data.types$num, data.types$int)
