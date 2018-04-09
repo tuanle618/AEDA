@@ -72,14 +72,12 @@ functionality there is a shortcut to get a report:
 <ul style="list-style-type:none">
   `my.report = create*Report()`
 </ul>
-After creating several `report`-objects with `makeReport()` (e.g `cluster.report`, `numeric.report`, `mds.report`) you can pass them over to the function `finishReport(cluster.report, numeric.report, mds.report)`
-to create a final rmd-report which can be converted to HTML with
-`rmarkdown::render`
+After creating several `report`-objects with `makeReport()` (e.g `cluster.report`, `numeric.report`, `mds.report`) you can pass them over to the function `finishReport(cluster.report, numeric.report, mds.report)` to create a final rmd-file which can be converted to HTML with `rmarkdown::render`
 
 Further shortcuts are:
 <ul style="list-style-type:none">
-  <li>`fastReport()`</li>
-  <li>`openMLReport()`</li>
+  `fastReport()` <br>
+  `openMLReport()`
 </ul>
 `fastReport()`: Provided with a `data.frame` this function will create a finished rmd-file, which is ready to be convertetd to HTML. This function will use all available report types by default if the needed data types are available. The user can still define arguments to each report function via `m.par.vals` but since every report needs different arguments this paramter can get unhandy.
 `openMLReport()`: This function has the same functionality as `fastReport()` but instead of a `data.frame` it takes the ID of an openML dataset.
