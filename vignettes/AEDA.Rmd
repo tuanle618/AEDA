@@ -67,9 +67,14 @@ For all *analysis* steps (except) the basic data summary following steps should 
   <li>`my.analysis = make*Analysis()`</li>
   <li>`my.report = makeReport(my.analysis)`</li>
 </ol>
-
+Or since these multiple function calls do not prvide much additinal
+functionality there is a shortcut to get a report:
+<ul style="list-style-type:none">
+  `my.report = create*Report()`
+</ul>
 After creating several `report`-objects with `makeReport()` (e.g `cluster.report`, `numeric.report`, `mds.report`) you can pass them over to the function `finishReport(cluster.report, numeric.report, mds.report)`
-to create a final HTML-report, which will be created with `knitr`.
+to create a final rmd-report which can be converted to HTML with
+`rmarkdown::render`
 
 ***
 In the following a detailed summary for each analysis step will be displayed:
