@@ -1,4 +1,6 @@
-# Automated exploratory data analysis (AEDA)
+# ![AEDA](https://github.com/ptl93/AEDA/blob/tle_vignette/man/images/AEDA_logo.png) Automated Exploratory Data Analysis 
+***
+
 [![Build Status](https://travis-ci.org/ptl93/AEDA.svg?branch=master)](https://travis-ci.org/ptl93/AEDA)
 ## Description
 
@@ -19,7 +21,9 @@ This package should help automating the process of creating an EDA report by pro
 # Install the development version from GitHub
 devtools::install_github("ptl93/AEDA")
 ```
-##Examples
+
+## Examples
+
 ```R
 #load library
 library(AEDA)
@@ -62,8 +66,7 @@ num.sum.report = makeReport(num.sum)
 
 ###D - Cluster Analysis
 #create task
-cluster.task = makeClusterTask(id = "students.survey", data = survey,
-  method = "cluster.pam")
+cluster.task = makeClusterTask(id = "students.survey", data = survey)
 #compute analysis
 cluster.analysis = makeClusterAnalysis(cluster.task)
 #create the report

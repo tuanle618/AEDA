@@ -15,6 +15,9 @@
 #'  Column names
 #' @param ...
 #' Further arguments passed to \code{\link[stats]{prcomp}}
+#' @param show.NA.msg [\code{logical(1)}]\cr
+#'  Logical whether to show missing values message\cr
+#'  Default is \code{FALSE}.
 #'
 #' @return PCATask
 #'
@@ -29,7 +32,7 @@
 #' @import stats
 #' @export
 #'
-makePCATask = function(id, data, target, vars = NULL, exclude = character(0), ...){
+makePCATask = function(id, data, target, vars = NULL, exclude = character(0), show.NA.msg = FALSE, ...){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
@@ -54,6 +57,13 @@ makePCATask = function(id, data, target, vars = NULL, exclude = character(0), ..
   if (length(data.type$num) + length(data.type$int) <= 2) {
     stop(paste("The dataset only contains", length(data.type$num) + length(data.type$int), "numeric columns.
       Principal Component Analysis only makes sense if there are at least 3 numeric variables."))
+  }
+
+  #add warning for NAs:
+  if (any(is.na(data)) & show.NA.msg) {
+    message("The data set contains NAs.
+      These values might removed in the further calculations.
+      If so, another warning will be displayed.")
   }
 
   #target will be checked within GetDataType

@@ -6,10 +6,12 @@
 #' @import checkmate
 #' @import BBmisc
 #' @examples
+#' \dontrun{
 #'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
 #'   method = "cluster.kmeans")
 #'  cluster.analysis = makeClusterAnalysis(my.cluster.task)
 #'  cluster.report = makeReport(cluster.analysis)
+#' }
 #' @export
 makeReport.ClusterAnalysisObj = function(analysis.obj){
   assertClass(analysis.obj, "ClusterAnalysisObj")

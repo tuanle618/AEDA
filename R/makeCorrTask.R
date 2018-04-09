@@ -18,6 +18,8 @@
 #' @param show.NA.msg [\code{logical(1)}]\cr
 #'  Logical whether to show missing values message\cr
 #'  Default is \code{FALSE}.
+#' @param ...
+#'  For now has no use
 #' @return CorrTask
 #'
 #' @examples
@@ -28,7 +30,7 @@
 #' @import BBmisc
 #' @export
 makeCorrTask = function(id, data, method = "pearson", vars = NULL,
-  type = "CorrPlot", show.NA.msg = FALSE){
+  type = "CorrPlot", show.NA.msg = FALSE, ...){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")

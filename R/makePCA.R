@@ -25,6 +25,13 @@ makePCA = function(pca.task){
   data = pca.task$env$data
   num.cols = pca.task$features
   selected.data = subset(data, select = num.cols)
+
+  #remove NAs if in numeric data:
+  if (any(is.na(selected.data))) {
+    warning("The numeric columns contain missing values. In order to perform PCA rows with NAs will be removed.")
+    selected.data = na.omit(selected.data)
+  }
+
   all.args = append(list(x = selected.data), pca.task$pca.args)
   pca.result = do.call(prcomp, all.args)
 
