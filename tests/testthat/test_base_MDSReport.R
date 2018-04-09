@@ -15,7 +15,7 @@ test_that("makeMDSTask", {
   ##too less numerics
   expect_error({makeMDSTask(id = "insect.fail", data = InsectSprays)})
   #wrong norms
-  expect_warning({makeMDSTask(id = "iris", data = iris)})
+  expect_warning({makeMDSTask(id = "iris", data = iris, show.NA.msg = TRUE)})
   expect_error({makeMDSTask(id = "swiss", data = swiss, dist.norm = "L2")})
   expect_error({makeMDSTask(id = "swiss", data = swiss, dist.norm = "L1")})
   #wrong methods
