@@ -243,9 +243,6 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         xlab = paste("PC1 explaining", round(var.pca1 * 100, 2), "% of Variance"),
         ylab = paste("PC2 explaining", round(var.pca2 * 100, 2), "% of Variance"),
         shape = "cluster")
-      # ggscatter seems to be buged and sets a seed
-      # until fixed: set new always difderent seed.
-      set.seed(Sys.time())
       #save results
       cluster.all = list(cluster.diag = list(),
         cluster.res  = kernel.cluster,
@@ -265,9 +262,6 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
           xlab = colnames(proc.data)[1],
           ylab = colnames(proc.data)[2],
           shape = "cluster")
-        # ggscatter seems to be buged and sets a seed
-        # until fixed: set new always difderent seed.
-        set.seed(Sys.time())
 
         #save results
         list(cluster.cols = cols,

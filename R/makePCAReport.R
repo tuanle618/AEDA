@@ -10,7 +10,6 @@
 #' @import checkmate
 #' @export
 makePCAReport = function(pca.obj){
-  set.seed(89)
   assertClass(pca.obj, "PCAObj")
   report.id = reportId()
 
