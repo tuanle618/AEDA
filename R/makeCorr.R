@@ -21,6 +21,11 @@ makeCorr = function(corr.task){
   assertClass(corr.task, "CorrTask")
 
   data = corr.task$env$data
+  ord = corr.task$features$ord
+  # Convert ordered data to integer
+  for (string in ord) {
+    data[string] = xtfrm(data[string])
+  }
   features = unlist(corr.task$features)
   corr.matrix = cor(x = data[, features], method = corr.task$method)
   corr.task$needed.pkgs = c(corr.task$needed.pkgs, "stats")
