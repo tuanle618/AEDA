@@ -25,8 +25,6 @@
 #' @import moments
 #' @import stats
 #' @import checkmate
-#'
-
 getNumSum = function(data, features, target, geom.hist.args, geom.dens.args, geom.box.args) {
   assertDataFrame(data)
   if (!is.null(target)) assertCharacter(target, len = 1L)
@@ -79,3 +77,4 @@ getNumSum = function(data, features, target, geom.hist.args, geom.dens.args, geo
   out.list = list(num.sum.df = num.sum.df, merged.list = merged.list)
   return(out.list)
 }
+

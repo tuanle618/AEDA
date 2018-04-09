@@ -17,9 +17,9 @@
 #' @return [\code{BasicReportTask}]
 #'
 #' @examples
-#' my.basic.report.task = makeBasicReportTask(id = "report.test", data = iris, target = "Species")
+#' basic.report.task = makeBasicReportTask(id = "report.test", data = iris, target = "Species")
 #' # Extract Data
-#' my.basic.report.task$env$data
+#' basic.report.task$env$data
 #' @import checkmate
 #' @import BBmisc
 #' @export
@@ -60,3 +60,4 @@ print.BasicReportTask = function(x, ...) {
   catf("Observations: %i", x$size)
   catf("Missing Values: %s", x$missing.values)
 }
+

@@ -30,26 +30,26 @@
 #'
 #' data("Boston", package = "MASS")
 #' num.sum.task = makeNumSumTask(id = "BostonTask", data = Boston, target = NULL)
-#' num.sum = makeNumSum(num.sum.task)
-#' num.sum.report = makeReport(num.sum)
+#' num.sum.result = makeNumSum(num.sum.task)
+#' num.sum.report = makeReport(num.sum.result)
 #'
-#' my.task = makeCorrTask(id = "test", data = cars)
-#' my.corr = makeCorr(my.task)
-#' corr.report = makeReport(my.corr)
+#' corr.task = makeCorrTask(id = "test", data = cars)
+#' corr.result = makeCorr(corr.task)
+#' corr.report = makeReport(corr.result)
 #
 #' data(diamonds, package = "ggplot2")
-#' my.task = makeCorrTask(id = "test2", data = diamonds)
-#' my.corr = makeCorr(my.task)
-#' report2 = makeReport(my.corr)
+#' corr.task2 = makeCorrTask(id = "test2", data = diamonds)
+#' corr.result2 = makeCorr(corr.task2)
+#' corr.report2 = makeReport(corr.result2)
 #'
 #' data("Arthritis", package = "vcd")
 #' cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis,
 #'   target = "Improved", na.rm = TRUE)
-#' cat.sum = makeCatSum(cat.sum.task)
-#' cat.sum.report = makeReport(cat.sum)
+#' cat.sum.result = makeCatSum(cat.sum.task)
+#' cat.sum.report = makeReport(cat.sum.result)
 #'
 #' #combine all reports
-#' finishReport(basic.report, num.sum.report, corr.report,
+#' finishReport(basic.report, num.sum.report, corr.report, corr.report2,
 #'   cat.sum.report, save.mode = FALSE, override = TRUE)
 #'
 #' @import checkmate

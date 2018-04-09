@@ -52,7 +52,6 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
   set.seed(random.seed)
   num.data = data[, num.features]
   #remove NAs:
-  #remove NAs
   if (any(is.na(num.data))) {
     warning("Missing Values in numeric columns. Rows with NAs will be removed")
     num.data = na.omit(num.data)
@@ -308,3 +307,4 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
 out.list = list(cluster.all = cluster.all, comb.cluster.list = comb.cluster.list)
 return(out.list)
 }
+

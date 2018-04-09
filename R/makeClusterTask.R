@@ -52,10 +52,10 @@
 #'  For now has no use
 #' @return ClusterTask Object
 #' @examples
-#' my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#' cluster.task = makeClusterTask(id = "iris", data = iris,
 #'   method = "cluster.kmeans",
 #'   random.seed = 89L, par.vals = list(iter.max = 15L))
-#' my.cluster.task2 = makeClusterTask(id = "iris", data = iris,
+#' cluster.task2 = makeClusterTask(id = "iris", data = iris,
 #'   method = "cluster.kmeans", random.seed = 89L,
 #'   cluster.cols = c("Sepal.Length" = "Petal.Length",
 #'   "Sepal.Width" = "Petal.Width"))
@@ -192,3 +192,4 @@ print.ClusterTask = function(x, ...) {
   }
   catf("Scale numeric data: %s", x$scale.num.data)
 }
+

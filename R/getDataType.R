@@ -68,11 +68,3 @@ getDataType = function(data, target) {
   return(typelist)
 }
 
-##Testing:
-#data("diamonds", package = "ggplot2")
-#dlist1 = getDataType(diamonds, target = "price")
-##look ok
-#diamonds$cut = as.factor(as.character(diamonds$cut))
-#diamonds$clarity = as.character(diamonds$clarity)
-#dlist2 = getDataType(diamonds, target = "price")
-#ok

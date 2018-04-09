@@ -9,6 +9,10 @@
 #'   make(Corr)Report function generates a random string for this.
 #' @return R Code as string
 #'
+#' @examples
+#' corr.task = makeCorrTask(id = "test", data = cars)
+#' corr.result = makeCorr(corr.task)
+#' generateCorrPlot(corr.result, "test")
 #' @import checkmate
 generateCorrPlot = function(corr.object, obj.name) {
   assertClass(corr.object, "CorrObj")
@@ -18,7 +22,4 @@ generateCorrPlot = function(corr.object, obj.name) {
     needed.pkg = "GGally",
     code = plot.code)
 }
-# Intern example
-# my.task = makeCorrTask(id = "test", data = cars)
-# my.corr = makeCorr(my.task)
-# generateCorrPlot(my.corr, "test")
+

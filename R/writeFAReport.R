@@ -17,12 +17,12 @@
 #'  data(bfi)
 #'  #take small sample of size 200L:
 #'  bfi_small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
-#'  my.FA.task = makeFATask(id = "bfi", data = bfi_small)
-#'  my.FA = makeFA(my.FA.task)
+#'  FA.task = makeFATask(id = "bfi", data = bfi_small)
+#'  FA.result = makeFA(FA.task)
 #'  #create the report
-#'  report = makeReport(my.FA)
+#'  FA.report = makeReport(FA.result)
 #'  #write the report
-#'  writeReport(report, save.mode = FALSE, override = TRUE)
+#'  writeReport(FA.report, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export
@@ -113,3 +113,4 @@ These **factors** each embody a set of **observed variables** that have similar 
   })
   return(file.path(sub.dir, rmd.name))
 }
+

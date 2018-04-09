@@ -11,10 +11,10 @@
 #'   override controls if the function is allowed to override
 #'   an existing rmd-file
 #' @examples
-#'   my.task = makeCorrTask(id = "test", data = cars)
-#'   my.corr = makeCorr(my.task)
-#'   report1 = makeCorrReport(my.corr)
-#'   writeReport(report1, save.mode = FALSE, override = TRUE)
+#'   corr.task = makeCorrTask(id = "test", data = cars)
+#'   corr.result = makeCorr(corr.task)
+#'   corr.report = makeCorrReport(corr.result)
+#'   writeReport(corr.report, save.mode = FALSE, override = TRUE)
 #' @return rmd-file location
 #' @import checkmate
 #' @export

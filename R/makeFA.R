@@ -11,8 +11,8 @@
 #'  data(bfi)
 #'  #take small sample of size 200L:
 #'  bfi_small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
-#'  my.FA.task = makeFATask(id = "bfi", data = bfi_small)
-#'  my.FA = makeFA(my.FA.task)
+#'  FA.task = makeFATask(id = "bfi", data = bfi_small)
+#'  FA.result = makeFA(FA.task)
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom psych fa

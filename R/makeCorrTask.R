@@ -23,9 +23,9 @@
 #' @return CorrTask
 #'
 #' @examples
-#' my.task = makeCorrTask(id = "test", data = cars)
+#' corr.task = makeCorrTask(id = "test", data = cars)
 #' # Extract Data
-#' my.task$env$data
+#' corr.task$env$data
 #' @import checkmate
 #' @import BBmisc
 #' @export

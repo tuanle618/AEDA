@@ -8,9 +8,9 @@
 #' @examples
 #'  data("Arthritis", package = "vcd")
 #'  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
-#'  cat.sum = makeCatSum(cat.sum.task)
+#'  cat.sum.result = makeCatSum(cat.sum.task)
 #'  #create the numeric summary report
-#'  cat.sum.report = makeReport(cat.sum)
+#'  cat.sum.report = makeReport(cat.sum.result)
 #' @export
 makeReport.CatSumObj = function(analysis.obj){
   assertClass(analysis.obj, "CatSumObj")

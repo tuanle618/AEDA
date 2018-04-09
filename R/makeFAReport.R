@@ -10,9 +10,9 @@
 #'  data(bfi)
 #'  #take small sample of size 200L:
 #'  bfi_small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
-#'  my.FA.task = makeFATask(id = "bfi", data = bfi_small)
-#'  my.FA = makeFA(my.FA.task)
-#'  my.FA.report = makeFAReport(my.FA)
+#'  FA.task = makeFATask(id = "bfi", data = bfi_small)
+#'  FA.result = makeFA(FA.task)
+#'  FA.report = makeFAReport(FA.result)
 #' @export
 makeFAReport = function(fa.obj){
   assertClass(fa.obj, "FAObj")

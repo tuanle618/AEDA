@@ -15,13 +15,13 @@
 #'   an existing rmd-file
 #' @examples
 #'   data("airquality")
-#'   my.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-#'   basic.report = makeBasicReport(my.report.task)
+#'   report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'   basic.report = makeBasicReport(report.task)
 #'   writeReport(basic.report, save.mode = FALSE, override = TRUE)
 #'
-#'   my.creport.task = makeCorrTask(id = "corr.report", data = airquality, type = "CorrPlot")
-#'   my.creport = makeCorr(my.creport.task)
-#'   corr.report = makeCorrReport(my.creport)
+#'   corr.report.task = makeCorrTask(id = "corr.report", data = airquality, type = "CorrPlot")
+#'   corr.report.result = makeCorr(corr.report.task)
+#'   corr.report = makeCorrReport(corr.report.result)
 #'   writeReport(corr.report, save.mode = FALSE, override = TRUE)
 #'
 #'   # Or put the reports together
@@ -38,3 +38,4 @@ writeReport.default = function(report, sub.dir = NULL, save.mode = NULL){
   warning(paste0("writeReport does not know how to handle object of class \"",
     class(report), "\""))
 }
+

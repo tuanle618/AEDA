@@ -4,9 +4,9 @@
 #'   A object of the "CorrObj" class
 #' @return CorrReport
 #' @examples
-#' my.task = makeCorrTask(id = "test", data = cars)
-#' my.corr = makeCorr(my.task)
-#' report = makeCorrReport(my.corr)
+#' corr.task = makeCorrTask(id = "test", data = cars)
+#' corr.result = makeCorr(corr.task)
+#' corr.report = makeCorrReport(corr.result)
 #' @import checkmate
 #' @export
 makeCorrReport = function(corr.obj){
@@ -20,6 +20,4 @@ makeCorrReport = function(corr.obj){
     report.id = report.id)
 }
 
-# my.task = makeCorrTask(id = "test", data = cars)
-# my.corr = makeCorr(my.task)
-# report1 = makeCorrReport(my.corr, type = "CorrPlot")
+

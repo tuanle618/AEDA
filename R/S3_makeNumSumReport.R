@@ -10,9 +10,9 @@
 #'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
 #'    target = "sex")
 #'  #get the numeric summary task object
-#'  num.sum = makeNumSum(num.sum.task)
+#'  num.sum.result = makeNumSum(num.sum.task)
 #'  #create the numeric summary report
-#'  num.sum.report = makeReport(num.sum)
+#'  num.sum.report = makeReport(num.sum.result)
 #' @export
 makeReport.NumSumObj = function(analysis.obj){
   assertClass(analysis.obj, "NumSumObj")

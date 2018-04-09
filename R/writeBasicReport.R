@@ -13,14 +13,14 @@
 #'   an existing rmd-file
 #' @examples
 #'   data("airquality")
-#'   my.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-#'   report = makeReport(my.report.task)
-#'   writeReport(report, save.mode = FALSE, override = TRUE)
+#'   report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'   report.result = makeReport(report.task)
+#'   writeReport(report.result, save.mode = FALSE, override = TRUE)
 #'
 #'   data("iris")
-#'   my.report.task2 = makeBasicReportTask(id = "test.report2", data = iris, target = "Species")
-#'   report2 = makeReport(my.report.task2)
-#'   writeReport(report2, save.mode = FALSE, override = TRUE)
+#'   report.task2 = makeBasicReportTask(id = "test.report2", data = iris, target = "Species")
+#'   report.result2 = makeReport(report.task2)
+#'   writeReport(report.result2, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate
 #' @importFrom BBmisc catf
@@ -81,3 +81,4 @@ writeReport.BasicReport = function(report, sub.dir = "Data_Report", save.mode = 
   })
   return(file.path(sub.dir, rmd.name))
 }
+

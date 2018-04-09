@@ -11,7 +11,7 @@
 #'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
 #'    target = "sex")
 #'  #get the numeric summary task object
-#'  num.sum = makeNumSum(num.sum.task)
+#'  num.sum.result = makeNumSum(num.sum.task)
 #' @import checkmate
 #' @import BBmisc
 #' @import moments

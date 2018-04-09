@@ -34,7 +34,7 @@
 #'  data(bfi)
 #'  #take small sample of size 200L:
 #'  bfi_small = bfi[sample(seq_len(nrow(bfi)), size = 200L), ]
-#'  my.FA.task = makeFATask(id = "bfi", data = bfi_small)
+#'  FA.task = makeFATask(id = "bfi", data = bfi_small)
 #' @return FATask Object
 #' @import checkmate
 #' @import BBmisc
