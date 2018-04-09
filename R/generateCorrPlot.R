@@ -10,9 +10,11 @@
 #' @return R Code as string
 #'
 #' @examples
-#' corr.task = makeCorrTask(id = "test", data = cars)
+#' \dontrun{
+#' corr.task = makeCorrTask(id = "cars", data = cars)
 #' corr.result = makeCorr(corr.task)
-#' generateCorrPlot(corr.result, "test")
+#' generateCorrPlot(corr.result, "cars")
+#' }
 #' @import checkmate
 generateCorrPlot = function(corr.object, obj.name) {
   assertClass(corr.object, "CorrObj")
