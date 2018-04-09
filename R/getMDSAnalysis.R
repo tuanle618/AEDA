@@ -56,6 +56,9 @@ getMDSAnalysis = function(dist, method, par.vals) {
       label = rownames(mds.result.data),
       size = 1,
       repel = TRUE) + theme_classic(base_size = 10) + ggtitle(title)
+    # ggscatter seems to be buged and sets a seed
+    # until fixed: set new always difderent seed.
+    set.seed(Sys.time())
   } else {
     mds.plot = NULL
   }
