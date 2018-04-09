@@ -42,6 +42,7 @@ With this package we want to automate the process of creating an EDA report by p
 5. [**Principal Component Analysis**](#pca)
 6. [**Multidimensional Scaling Analysis**](#mds)
 7. [**Exploratory Factor Analysis**](#fa)
+8. [**Correlation Analysis**](#corr)
 
 <!--
 <ol>
@@ -79,8 +80,8 @@ Further shortcuts are:
   `fastReport()` <br>
   `openMLReport()`
 </ul>
-`fastReport()`: Provided with a `data.frame` this function will create a finished rmd-file, which is ready to be convertetd to HTML. This function will use all available report types by default if the needed data types are available. The user can still define arguments to each report function via `m.par.vals` but since every report needs different arguments this paramter can get unhandy.
-`openMLReport()`: This function has the same functionality as `fastReport()` but instead of a `data.frame` it takes the ID of an openML dataset.
+`fastReport()`: Provided with a `data.frame` this function will create a finished rmd-file, which is ready to be convertetd to HTML. This function will use all available report types by default if the needed data types are available. The user can still define arguments to each report function via `m.par.vals` but since every report needs different arguments this paramter can get unhandy. <br>
+`openMLReport()`: This function has the same functionality as `fastReport()` but instead of a `data.frame` it takes the ID of an [openML dataset](https://www.openml.org/search?type=data).
 
 ***
 In the following a detailed summary for each analysis step will be displayed:
@@ -395,3 +396,50 @@ In order to gain more insights into the exploratory factor analysis you can eith
 One can extract the loadings of thefactor analysis via:
 `fa.report$fa.result$Structure`.
 For more information have a look at the returned values by <a <href="https://www.rdocumentation.org/packages/psych/versions/1.7.8/topics/fa" target="_blank">psych::fa()</a>.
+
+#### <a id="corr"></a> 8) Correlation Analysis
+Correlation describes the relationship between two features. Depending on the used method num and ordered features can be used in the analysis. The default option is to use all suitable features, but the user can specify which columns should be included. <br>
+The resulting correlation matrix is calculated with the `base::cor`
+
+```{r CorrEx, echo=TRUE}
+data("survey", package = "MASS")
+# Since Exer and Smoke are ordinal, encode them as ordered
+survey$Exer = factor(survey$Exer,levels(survey$Exer)[c(2,3,1)], ordered = TRUE)
+survey$Smoke = factor(survey$Smoke,levels(survey$Smoke)[c(2,3,4,1)], ordered = TRUE)
+
+#create the task
+corr.task = makeCorrTask(id = "survey", data = survey)
+#compute the analysis
+corr.result = makeCorr(corr.task)
+#create the report
+corr.report = makeReport(corr.result)
+
+#default method is "pearson"
+corr.report$method
+#print the correlation matrix
+corr.report$corr.matrix
+```
+The correlation report will create a circle shaped correlation plot:
+
+```{r CorrPlot, echo=FALSE, warning=FALSE, fig.height=2.5, fig.width=4}
+library(GGally)
+ggcorr(data = NULL, cor_matrix = corr.report$corr.matrix, 
+geom = "circle", nbreaks = 10)
+```
+
+To include the ordered features use the method `spearman` or `kendall`:
+
+```{r SCorrEx, echo=TRUE, eval=FALSE}
+# As mentioned there is shortcut to get a report
+s.corr.report = createCorrReport(data = survey, method = "spearman")
+
+#method is now ...
+corr.report$method
+#correlation matrix includes ordered features
+corr.report$corr.matrix
+```
+The resulting plot:
+```{r SCorrPlot, echo=FALSE, eval=FALSE}
+ggcorr(data = NULL, cor_matrix = s.corr.report$corr.matrix, 
+geom = "circle", nbreaks = 10)
+```
