@@ -12,8 +12,8 @@
 #'
 #' @export
 createFAReport = function(id, data, ...) {
-  FA.task = makeFATask(id = id, data = data)
-  FA.result = makeFA(FA.task)
-  return(makeReport(FA.result))
+  fa.task = makeFATask(id = id, data = data)
+  fa.result = makeFA(fa.task)
+  return(makeReport(fa.result))
 }
 
