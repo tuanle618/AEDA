@@ -11,6 +11,7 @@
 #' @export
 makeReport.PCAObj = function(analysis.obj){
   assertClass(analysis.obj, "PCAObj")
+  set.seed(89)
   report.id = reportId()
 
   makeS3Obj("PCAReport",

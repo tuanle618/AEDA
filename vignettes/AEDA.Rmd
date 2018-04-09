@@ -44,6 +44,7 @@ With this package we want to automate the process of creating an EDA report by p
 7. [**Exploratory Factor Analysis**](#fa)
 8. [**Correlation Analysis**](#corr)
 
+
 <!--
 <ol>
   <li <a href="#basicDataSummary"> <a>**Basic Data Summary** </a></li>
@@ -68,7 +69,8 @@ For all *analysis* steps (except) the basic data summary following steps should 
   <li>`my.analysis = make*Analysis()`</li>
   <li>`my.report = makeReport(my.analysis)`</li>
 </ol>
-Or since these multiple function calls do not prvide much additinal
+
+Or since these multiple function calls do not prvide much additional
 functionality there is a shortcut to get a report:
 <ul style="list-style-type:none">
   `my.report = create*Report()`
@@ -83,11 +85,16 @@ Further shortcuts are:
 `fastReport()`: Provided with a `data.frame` this function will create a finished rmd-file, which is ready to be convertetd to HTML. This function will use all available report types by default if the needed data types are available. The user can still define arguments to each report function via `m.par.vals` but since every report needs different arguments this paramter can get unhandy. <br>
 `openMLReport()`: This function has the same functionality as `fastReport()` but instead of a `data.frame` it takes the ID of an [openML dataset](https://www.openml.org/search?type=data).
 
+
+After creating several `report`-objects with `makeReport()` (e.g `cluster.report`, `numeric.report`, `mds.report`) you can pass them over to the function `finishReport(cluster.report, numeric.report, mds.report)`
+to create a final HTML-report, which will be created with `knitr`.
+>>>>>>> master
+
 ***
 In the following a detailed summary for each analysis step will be displayed:
 
+
 #### <a id="basic"></a> 1) Basic Data Summary
-<!--  <h5 id="basicDataSummary"> 1) Basic Data Summary</h5>  --> 
 
 In the basic data summary column-types like `integer`, `numeric`, or `character` etc. will be identified and according to each type accumulated. In addition to that the basic data summary contains a missing value summary such as listing column which contains `NAs` with absolute and percentage amount. An example will be display with this code snippet:
 
@@ -133,6 +140,7 @@ basic.report$na.summary$ggplot
 ```
 -->
 
+
 #### <a id="cat"></a> 2) Categorical Data Summary
 
 In the categorical data summary 1-D frequency tables and 2-D contingency tables for categorical variables will be calculated. In addition to that, the internal function `plotBar()`from our package computes a `ggplot` for all categorical variables. The user is able to modify the `geom_bar()` arguments if wanted in within the task initialized by `makeCatSumTask()`.
@@ -168,6 +176,7 @@ Since we can add `geom_bar` arguments into the `makeCatSumTask` the user can mod
 ```{r uploadbarPlot2, echo=FALSE, out.width="80%"}
 include_graphics("images/categoricalBar2.png") 
 ```
+
 
 #### <a id="num"></a> 3) Numeric Data Summary
 
@@ -211,7 +220,9 @@ include_graphics("images/plotNumeric1.png")
 
 Just like the `makeCatSumTask` in the numeric summary the user can change input parameters for `geom_density()`, `geom_box` or `geom_histogramm()`. with `task = makeNumSumTask(id = "AidsTask", data = Aids2, target = "sex", geom.hist.args = list(bins = 20, alpha = 0.5))`.
 
+
 #### <a id="clust"></a> 4) Cluster Analysis
+
 
 Cluster analysis is a unsupervised learning task, which mainly focuses on grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters). Cluster analysis itself is not one specific algorithm, but the general task to be solved. It can be achieved by various algorithms that differ significantly in their notion of what constitutes a cluster and how to efficiently find them. Inspired by <a href="http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html#cluster-analysis-9" target="_blank"> mlr's listed clustering algorithms</a> our packages provides following clustering methods:
 
@@ -302,6 +313,7 @@ multiplot(plotlist = list(cluster.analysis.2$cluster.analysis$cluster.all$cluste
 
 In order to gain more insights into the cluster analysis for all numeric columns you can access `cluster.report$cluster.analysis$cluster.all$cluster.res$`. Since the user can specify the algorithm, the returned values differ for each method. The links for the the cluster clustering algorithm choices forward you to the respective methods in order to have a look at the returned values.
 
+
 #### <a id="pca"></a> 5) Principal Component Analysis
 
 Principial Component Analysis (PCA) is a dimensionality reduction method that uses an an orthogonal transformation to reduce a large set of (numeric) variables to a small set of (numeric) variables, called principal components, that still contain most of the information of the large set. Those computed principal components are linearely independent, and hence uncorrelated. <br>
@@ -326,6 +338,7 @@ multiplot(plotlist = list(scree = pca.report$pca.result$plotlist$pca.scree,
 In order to gain more insights into the principal component analysis you can either access `pca.result` or `pca.report`. For the sake of consistency one can extract the standard deviations of the principal components via:
 `pca.report$pca.result$pca.result$sdev` or the (weighting) loadings via `pca.report$pca.result$pca.result$rotation`.
 For more information have a look at the returned values by <a <href="http://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html" target="_blank">stats::prcomp()</a>.
+
 
 #### <a id="mds"></a> 6) Multidimensional Scaling Analysis
 
@@ -364,6 +377,7 @@ mds.report$mds.analysis$mds.plot
 ```
 
 In order to gain more insights into the multidimensional scaling analysis you can access `mds.report.mds.anylsis`. Since the user can specify the algorithm, the returned values differ for each method. The links for the metric and non-metric forward you to the respective methods in order to have a look at the returned values.
+
 
 #### <a id="fa"></a> 7) Exploratory Factor Analysis
 

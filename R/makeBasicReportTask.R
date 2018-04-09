@@ -12,6 +12,8 @@
 #' @param show.NA.msg [\code{logical(1)}]\cr
 #'  Logical whether to show missing values message\cr
 #'  Default is \code{TRUE}.
+#' @param ...
+#'  For now has no use
 #' @return [\code{BasicReportTask}]
 #'
 #' @examples
@@ -21,7 +23,7 @@
 #' @import checkmate
 #' @import BBmisc
 #' @export
-makeBasicReportTask = function(id, data, target, show.NA.msg = TRUE){
+makeBasicReportTask = function(id, data, target, show.NA.msg = TRUE, ...){
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
