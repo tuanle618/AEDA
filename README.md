@@ -45,6 +45,11 @@ In order to render the final EDA HTML-report simply run `knitr::render("MainRepo
 
 #### `openMLReport()`
 With the function `openMLReport()` you can create a full EDA Report for a data set stored in the [openML Database](https://www.openml.org/search?type=data). The approach is similar to the `fastReport()` call above.
+```r 
+openMLReport(data.id = 61L) 
+#data.id = 61L is the iris data set in the openML database
+knitr::render("MainReport.rmd")
+```
 
 ### Create a customized `AEDA`-Report
 In order to select different methods for each report we provide the user the possibility to choose between several methods and algorithms. In general, to conduct a `AEDA`-Pipeline for each step 3 functions need to be called (except for the basic data summary):
@@ -54,11 +59,6 @@ In order to select different methods for each report we provide the user the pos
 * `my.report = makeReport(my.analysis)`
 
 In the following code chunk we will show you how to modify the automated exploratory data analysis:
-
-```r 
-openMLReport(data.id = 61L) 
-#data.id = 61L is the iris data set in the openML database
-```r
 
 ### Create a customized report using `AEDA`-Pipeline
 
@@ -158,4 +158,4 @@ finishReport(basic.report, cat.sum.report, num.sum.report, cluster.report,
 knitr::render("MainReport.rmd")
 ``` 
 
-For more information, you can check out our [Wiki](https://github.com/ptl93/AEDA/wiki)
+For more information, you can check out our [Wiki](https://github.com/ptl93/AEDA/wiki).
