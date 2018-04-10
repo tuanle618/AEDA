@@ -24,6 +24,7 @@
 #' }
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet
+#' @importFrom farff readARFF
 #' @export
 openMLReport = function(data.id, reports = c("Basic", "CatSum",
   "Corr", "NumSum", "Cluster", "MDS", "PCA", "FA"), m.par.vals = list()) {
