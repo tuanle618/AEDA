@@ -113,7 +113,8 @@ corr.report = makeReport(corr.result)
 
 ###5 - Cluster Analysis
 #create task
-cluster.task = makeClusterTask(id = "students.survey", data = survey)
+cluster.task = makeClusterTask(id = "students.survey", data = survey,
+  method = "cluster.h", par.vals = list(method = "average"))
 #compute analysis
 cluster.analysis = makeClusterAnalysis(cluster.task)
 #create the report
@@ -148,6 +149,7 @@ fa.task = makeFATask(id = "students.survey", data = survey,
 fa.result = makeFA(fa.task)
 #create report
 fa.report = makeReport(fa.result)
+
 
 ###9 - create the HTML-report
 finishReport(basic.report, cat.sum.report, num.sum.report, cluster.report,
