@@ -64,7 +64,7 @@ makeMDSTask = function(id, data, dist.norm = "euclidean", method = "cmdscale",
   assertDataFrame(data, col.names = "strict")
   #Check rownames
   check = any((rownames(data) == as.character(seq_len(nrow(data)))))
-  if (check) {
+  if (check & show.NA.msg) {
     warning(paste0("The dataset ", deparse(substitute(data)),
       " does not contain specific rownames."))
   }

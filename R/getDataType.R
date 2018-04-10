@@ -61,11 +61,18 @@ getDataType = function(data, target) {
     X = colnames(data)[-targetidx]
   } else X = colnames(data)
 
-  typelist = list(X = X, target = target,
-    num = num, int = int, ord = ord, fact = fact,
-    char = char, logic = logic, date = date)
-  addClasses(typelist, "reportDataType")
-  return(typelist)
+
+  makeS3Obj("reportDataType",
+    X = X,
+    target = target,
+    num = num,
+    int = int,
+    ord = ord,
+    fact = fact,
+    char = char,
+    logic = logic,
+    date = date
+  )
 }
 
 ##Testing:
@@ -76,3 +83,17 @@ getDataType = function(data, target) {
 #diamonds$clarity = as.character(diamonds$clarity)
 #dlist2 = getDataType(diamonds, target = "price")
 #ok
+
+##Include print method for reportDataType
+#' @export
+print.reportDataType = function(x, ...) {
+  catf("X-Variables: %s", collapse(unlist(x$X), sep = ", "))
+  catf("Target: %2s", x$target)
+  if (length(x$num > 0)) catf("Numeric Variables: %s", collapse(unlist(x$num), sep = ", "))
+  if (length(x$int > 0)) catf("Integer Variables: %s", collapse(unlist(x$int), sep = ", "))
+  if (length(x$ord > 0)) catf("Ordered Variables: %s", collapse(unlist(x$ord), sep = ", "))
+  if (length(x$fact > 0)) catf("Categorical Variables: %s", collapse(unlist(x$fact), sep = ", "))
+  if (length(x$char > 0)) catf("Character Variables: %s", collapse(unlist(x$char), sep = ", "))
+  if (length(x$logic > 0)) catf("Logic Variables: %s", collapse(unlist(x$logic), sep = ", "))
+  if (length(x$date > 0)) catf("Date Variables: %s", collapse(unlist(x$date), sep = ", "))
+}

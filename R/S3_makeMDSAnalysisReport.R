@@ -10,8 +10,8 @@
 #'  mds.analysis = makeMDSAnalysis(my.mds.task)
 #'  mds.report = makeReport(mds.analysis)
 #' @export
-makeReport.MDSAnalyisObj = function(analysis.obj){
-  assertClass(analysis.obj, "MDSAnalyisObj")
+makeReport.MDSAnalysisObj = function(analysis.obj){
+  assertClass(analysis.obj, "MDSAnalysisObj")
 
   report.id = reportId()
 

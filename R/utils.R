@@ -12,14 +12,25 @@ createDir = function(sub.dir, save.mode = TRUE) {
   }
   return(temp.wd)
 }
-
+# nolint start
 # creates a random generated Variable name.
 reportId = function(length = 16) {
+  old = .Random.seed
+  on.exit({.Random.seed <<- old})
+  ## Hacky solution for high precision time as integer
+  # Shorten time since only small values are of interest
+  f.5 = signif(as.numeric(as.POSIXct(Sys.time())), digits = 5)
+  sh.time = (as.numeric(as.POSIXct(Sys.time())) - f.5)
+  # this is now convertable to integer in ms
+  ms.time = as.integer(sh.time * 1000)
+  # set seed with ms time stamp
+  set.seed(ms.time)
   collapse(c(sample(c(letters, LETTERS), 1),
     sample(c(letters, LETTERS, 0:9), size = length - 1, replace = TRUE)),
     sep = "")
   # chance for some id: 62^length to 1; ~ 10^28 to 1
 }
+# nolint end
 
 # Takes an object and adds more attributes
 addAttToObj = function(object, ...){

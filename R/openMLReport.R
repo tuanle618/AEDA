@@ -24,9 +24,10 @@
 #' }
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet
+#' @importFrom farff readARFF
 #' @export
 openMLReport = function(data.id, reports = c("Basic", "CatSum",
-  "Corr", "NumSum", "MDS", "Cluster", "FA", "PCA"), m.par.vals = list()) {
+  "Corr", "NumSum", "Cluster", "MDS", "PCA", "FA"), m.par.vals = list()) {
   # argument checking
   assertInteger(data.id, lower = 0L, any.missing = FALSE,
     all.missing = FALSE, len = 1L, null.ok = FALSE)
