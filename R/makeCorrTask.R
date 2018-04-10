@@ -34,7 +34,7 @@ makeCorrTask = function(id, data, method = "pearson", vars = NULL,
   # Argument Checks
   assertCharacter(id, min.chars = 1L)
   assertDataFrame(data, col.names = "strict")
-  assertSubset(method, c("pearson", "spearman"), empty.ok = FALSE)
+  assertSubset(method, c("pearson", "spearman", "kendall"), empty.ok = FALSE)
   assertSubset(type, choices = "CorrPlot")
   #add warning for NAs:
   if (any(is.na(data)) & show.NA.msg) {
@@ -52,11 +52,17 @@ If so, another warning will be displayed.")
   env = new.env(parent = emptyenv())
   env$data = data
 
+  # For pearson no ordinal features
+  if (method == "pearson") {
+    data.types = data.type[c("num", "int")]
+  } else {
+    data.types = data.type[c("num", "int", "ord")]
+  }
 
   makeS3Obj("CorrTask",
     id = id,
     env = env,
-    features = data.type[c("num", "int")],
+    features = data.types,
     size = nrow(data),
     method = method,
     data.name = deparse(substitute(data)),
