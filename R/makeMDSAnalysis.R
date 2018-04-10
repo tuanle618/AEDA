@@ -4,7 +4,7 @@
 #' makeMDS calculates a multidimensional scaling and\cr
 #' wrapes an object around it
 #'
-#' @param mds.task [\code{ClusterTask}]\cr
+#' @param mds.task [\code{MDSTask}]\cr
 #'   A MDSTask Object
 #' @return MDS Object
 #' @examples
@@ -24,7 +24,7 @@ makeMDSAnalysis = function(mds.task){
   dist = mds.task$dist
   mds.analysis = getMDSAnalysis(dist, method, par.vals)
 
-  makeS3Obj("MDSAnalyisObj",
+  makeS3Obj("MDSAnalysisObj",
     task = mds.task,
     mds.analysis = mds.analysis
   )
@@ -32,7 +32,7 @@ makeMDSAnalysis = function(mds.task){
 
 #' @export
 # Print function for ClusterAnalysis Object
-print.MDSAnalyisObj = function(x, ...) {
+print.MDSAnalysisObj = function(x, ...) {
   print(x$task)
   print(x$mds.analysis$mds.plot)
 }

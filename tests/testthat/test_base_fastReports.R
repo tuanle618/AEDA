@@ -20,7 +20,7 @@ test_that("fastReport", {
   expect_file("Data_Report/NumSumReport1.rmd")
   expect_file("Data_Report/PCAReport1.rmd")
   expect_file("Data_Report/FactorAnalysisReport1.rmd")
-  rmarkdown::render("MainReport.rmd")
+  rmarkdown::render("MainReport.rmd", quiet = TRUE)
 
   ## Test m.par.vals for Cluster
   m.par.vals = list(
@@ -46,7 +46,7 @@ test_that("fastReport", {
   )
   # indirect testing by producing an warining or error
   expect_error(fastReport(iris, reports = "Corr", m.par.vals = m.par.vals),
-    "[Assertion on 'method' failed: Must be a subset of] \\{'pearson','spearman'\\}")
+    "[Assertion on 'method' failed: Must be a subset of] \\{'pearson','spearman','kendall'\\}")
 
   ## Test m.par.vals for MDS
   m.par.vals = list(
@@ -97,7 +97,7 @@ test_that("openMLReport", {
   expect_file("Data_Report/NumSumReport1.rmd")
   expect_file("Data_Report/FactorAnalysisReport1.rmd")
   expect_file("Data_Report/PCAReport1.rmd")
-  rmarkdown::render("MainReport.rmd")
+  rmarkdown::render("MainReport.rmd", quiet = TRUE)
   setwd(start.wd)
   unlink("test_folder", recursive = TRUE, force = TRUE)
 })

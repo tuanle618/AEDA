@@ -236,7 +236,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
       proc.data = as.data.frame(cbind(pca.data$x, cluster = kernel.cluster@.Data))
       proc.data$cluster = as.factor(proc.data$cluster)
       ##ggscatter
-      kernel.plot = ggpubr::ggscatter(data = proc.data, x = "PC1", y = "PC2",
+      kernel.plot = ggscatter(data = proc.data, x = "PC1", y = "PC2",
         color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
         ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
         xlab = paste("PC1 explaining", round(var.pca1 * 100, 2), "% of Variance"),
@@ -255,7 +255,7 @@ getClusterAnalysis = function(data, num.features, method, par.vals, random.seed,
         proc.data = as.data.frame(cbind(num.data[, x], cluster = kernel.cluster@.Data))
         proc.data$cluster = as.factor(proc.data$cluster)
         #plot results
-        kernel.plot = ggpubr::ggscatter(data = proc.data, x = colnames(proc.data)[1], y = colnames(proc.data)[2],
+        kernel.plot = ggscatter(data = proc.data, x = colnames(proc.data)[1], y = colnames(proc.data)[2],
           color = "cluster", size = 1, mean.point = TRUE, ellipse = TRUE, ellipse.type = "norm",
           ggtheme = theme_classic(), main = "Kernel K-Means Cluster Plot",
           xlab = colnames(proc.data)[1],

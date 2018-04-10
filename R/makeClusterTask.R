@@ -38,7 +38,7 @@
 #'   }
 #'   Default is \code{method = "cluster.kmeans"}
 #' @param random.seed [\code{integer(1)}]\cr
-#'   Default is \code{random.seed = 89L}
+#'   Default is \code{random.seed = set.seed(Sys.time())}
 #' @param scale.num.data [\code{logical(1L)}]\cr
 #'   Logical whether to scale numeric data or not.\cr
 #'   Default is \code{scale= TRUE}
@@ -82,7 +82,7 @@
 #' @import factoextra
 #' @export
 #'
-makeClusterTask = function(id, data, cluster.cols = NULL, method = "cluster.kmeans", random.seed = 89L,
+makeClusterTask = function(id, data, cluster.cols = NULL, method = "cluster.kmeans", random.seed = set.seed(Sys.time()),
   scale.num.data = TRUE, par.vals = list(), show.NA.msg = FALSE, ...){
   #check if numeric cols >= 2
   data.types = getDataType(data, target = NULL)
