@@ -12,7 +12,7 @@ createDir = function(sub.dir, save.mode = TRUE) {
   }
   return(temp.wd)
 }
-
+# nolint start
 # creates a random generated Variable name.
 reportId = function(length = 16) {
   old = .Random.seed
@@ -30,6 +30,7 @@ reportId = function(length = 16) {
     sep = "")
   # chance for some id: 62^length to 1; ~ 10^28 to 1
 }
+# nolint end
 
 # Takes an object and adds more attributes
 addAttToObj = function(object, ...){
