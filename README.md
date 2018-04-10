@@ -152,8 +152,8 @@ fa.report = makeReport(fa.result)
 
 
 ###9 - create the HTML-report
-finishReport(basic.report, cat.sum.report, num.sum.report, cluster.report,
-  pca.report, mds.report, fa.report)
+finishReport(basic.report, cat.sum.report, num.sum.report, corr.report,
+  cluster.report, pca.report, mds.report, fa.report)
   
   
 ###10 - render the final HTML-report
