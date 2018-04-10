@@ -443,17 +443,19 @@ geom = "circle", nbreaks = 10)
 
 To include the ordered features use the method `spearman` or `kendall`:
 
-```{r SCorrEx, echo=TRUE, eval=FALSE}
+```{r SCorrEx, echo=TRUE}
 # As mentioned there is shortcut to get a report
 s.corr.report = createCorrReport(data = survey, method = "spearman")
 
 #method is now ...
-corr.report$method
+s.corr.report$method
 #correlation matrix includes ordered features
-corr.report$corr.matrix
+s.corr.report$corr.matrix
 ```
+
 The resulting plot:
-```{r SCorrPlot, echo=FALSE, eval=FALSE}
+
+```{r SCorrPlot, echo=FALSE, fig.height=3, fig.width=6}
 ggcorr(data = NULL, cor_matrix = s.corr.report$corr.matrix, 
 geom = "circle", nbreaks = 10)
 ```
