@@ -10,7 +10,8 @@
 #' @param method [\code{character(1)}]\cr
 #'   Defines the correlation method
 #'   Possible choices are:
-#'   \dQuote{pearson}
+#'   \dQuote{pearson}, \dQuote{spearman}, \dQuote{kendall} \cr
+#'   Default method is \code{method = "pearson"}
 #' @param vars [\code{character(1)}]\cr
 #'   Column names to use for correlation
 #' @param type [\code{character(1)}]\cr
