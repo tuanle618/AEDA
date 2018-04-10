@@ -1,6 +1,6 @@
 ---
 title: "AEDA - Vignette"
-author: "Darya Bussen, Michael Graber, Tuan Le"
+author: "Darya Busen, Michael Graber, Tuan Le"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
