@@ -20,7 +20,7 @@
 #' # Report for the iris dataset
 #' \dontrun{
 #' data("iris")
-#' fastReport(iris)
+#' fastReport(data = iris, target = "Species")
 #' }
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet
