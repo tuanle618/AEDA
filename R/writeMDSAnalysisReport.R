@@ -13,11 +13,11 @@
 #'   an existing rmd-file
 #'   Default is \code{TRUE}
 #' @examples
-#'  my.mds.task = makeMDSTask(id = "swiss", data = swiss)
-#'  mds.analysis = makeMDSAnalysis(my.mds.task)
-#'  report = makeReport(mds.analysis)
+#'  mds.task = makeMDSTask(id = "swiss", data = swiss)
+#'  mds.analysis.result = makeMDSAnalysis(mds.task)
+#'  mds.analysis.report = makeReport(mds.analysis.result)
 #'  #write the report
-#'  writeReport(report, save.mode = FALSE, override = TRUE)
+#'  writeReport(mds.analysis.report, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export

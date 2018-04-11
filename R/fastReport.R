@@ -26,7 +26,7 @@
 #' @importFrom OpenML getOMLDataSet
 #' @export
 fastReport = function(data, target = NULL, reports = c("Basic", "CatSum",
-  "Corr", "NumSum", "Cluster", "MDS", "PCA", "FA"), m.par.vals = list()) {
+  "NumSum", "Corr", "Cluster", "PCA", "MDS", "FA"), m.par.vals = list()) {
   # argument checking
   assertDataFrame(data, col.names = "strict")
   assertCharacter(target, len = 1L, null.ok = TRUE)

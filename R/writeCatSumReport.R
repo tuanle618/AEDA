@@ -14,10 +14,10 @@
 #' @examples
 #'  data("Arthritis", package = "vcd")
 #'  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
-#'  cat.sum = makeCatSum(cat.sum.task)
+#'  cat.sum.result = makeCatSum(cat.sum.task)
 #'  #create the numeric summary report
-#'  report = makeCatSumReport(cat.sum)
-#'  writeReport(report, save.mode = FALSE, override = TRUE)
+#'  cat.sum.report = makeCatSumReport(cat.sum.result)
+#'  writeReport(cat.sum.report, save.mode = FALSE, override = TRUE)
 #' @return rmd-file location
 #' @import checkmate
 #' @export

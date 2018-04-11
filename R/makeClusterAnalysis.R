@@ -9,9 +9,9 @@
 #' @return ClusterAnalysis Object
 #' @examples
 #' \dontrun{
-#'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#'  cluster.task = makeClusterTask(id = "iris", data = iris,
 #'    method = "cluster.kmeans")
-#'  cluster.summary = makeClusterAnalysis(my.cluster.task)
+#'  cluster.analysis.result = makeClusterAnalysis(cluster.task)
 #' }
 #' @import checkmate
 #' @import BBmisc

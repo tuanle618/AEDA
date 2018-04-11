@@ -19,3 +19,4 @@ createPCAReport = function(id, data, target, ...) {
   pca.result = makePCA(pca.task)
   return(makeReport(pca.result))
 }
+

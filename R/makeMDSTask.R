@@ -38,7 +38,7 @@
 #' @return MDSTask Object
 #' @examples
 #' data(swiss)
-#' my.mds.task = makeMDSTask(id = "swiss", data = swiss,
+#' mds.task = makeMDSTask(id = "swiss", data = swiss,
 #'  dist.norm = "euclidean", method = "cmdscale", show.NA.msg = TRUE)
 #' @import checkmate
 #' @import BBmisc

@@ -4,12 +4,12 @@
 #'   An Analysis Object or in case of basic summary it is a basic.report.task
 #' @examples
 #'   data("airquality")
-#'   my.basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-#'   basic.report = makeReport(my.basic.report.task)
+#'   basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'   basic.report.result = makeReport(basic.report.task)
 #'
-#'   my.creport.task = makeCorrTask(id = "corr.report", data = airquality)
-#'   my.creport = makeCorr(my.creport.task)
-#'   corr.report = makeReport(my.creport)
+#'   corr.report.task = makeCorrTask(id = "corr.report", data = airquality)
+#'   corr.report.result = makeCorr(corr.report.task)
+#'   corr.report = makeReport(corr.report.result)
 
 #' @return a report.analysis.obj
 #' @export

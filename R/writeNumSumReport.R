@@ -16,11 +16,11 @@
 #'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
 #'    target = "sex")
 #'  #get the numeric summary task object
-#'  num.sum = makeNumSum(num.sum.task)
+#'  num.sum.result = makeNumSum(num.sum.task)
 #'  #create the numeric summary report
-#'  report = makeNumSumReport(num.sum)
+#'  num.sum.report = makeNumSumReport(num.sum.result)
 #'  #write the report
-#'  writeReport(report, save.mode = FALSE, override = TRUE)
+#'  writeReport(num.sum.report, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL
 #' @import checkmate
 #' @export

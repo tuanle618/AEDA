@@ -12,9 +12,9 @@
 #'  num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2,
 #'    target = "sex")
 #'  #get the numeric summary task object
-#'  num.sum = makeNumSum(num.sum.task)
+#'  num.sum.result = makeNumSum(num.sum.task)
 #'  #create the numeric summary report
-#'  num.sum.report = makeNumSumReport(num.sum)
+#'  num.sum.report = makeNumSumReport(num.sum.result)
 #' @export
 makeNumSumReport = function(num.sum.obj, type = NULL){
   assertClass(num.sum.obj, "NumSumObj")
@@ -33,3 +33,4 @@ makeNumSumReport = function(num.sum.obj, type = NULL){
 print.NumSumReport = function(x, ...) {
   print(x$num.sum.task)
 }
+

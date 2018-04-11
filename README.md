@@ -41,14 +41,14 @@ fastReport(data = survey, target = "Exer")
 After executing the last line, you should see a **MainReport.rmd** file in your current directory and a subdirectory **Data_Report/** which has all subreport rmd files and analysis result stored as .rds files :
 <img src="https://github.com/ptl93/AEDA/blob/master/man/tutorial/0_childRMDs.PNG" width="500" height="400" />
 
-In order to render the final EDA HTML-report simply run `knitr::render("MainReport.rmd")` or open the MainReport.rmd file and hit the knitr button, if you use RStudio.
+In order to render the final EDA HTML-report simply run `rmarkdown::render("MainReport.rmd")` or open the MainReport.rmd file and hit the knitr button, if you use RStudio.
 
 #### `openMLReport()`
 With the function `openMLReport()` you can create a full EDA Report for a data set stored in the [openML Database](https://www.openml.org/search?type=data). The approach is similar to the `fastReport()` call above.
 ```r 
 openMLReport(data.id = 61L) 
 #data.id = 61L is the iris data set in the openML database
-knitr::render("MainReport.rmd")
+rmarkdown::render("MainReport.rmd")
 ```
 
 ### Create a customized `AEDA`-Report
@@ -157,7 +157,7 @@ finishReport(basic.report, cat.sum.report, num.sum.report, corr.report,
   
   
 ###10 - render the final HTML-report
-knitr::render("MainReport.rmd")
+rmarkdown::render("MainReport.rmd")
 ``` 
 
 For more information, you can check out our [Wiki](https://github.com/ptl93/AEDA/wiki).

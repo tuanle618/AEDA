@@ -1,7 +1,7 @@
 #' @title Calculates the Correlation Matrix
 #'
 #' @description
-#' makeCorr claculates the corr matrix with the predefines methode and wrapes an object around it
+#' makeCorr calculates the correlation matrix with the predefines methode and wrapes an object around it
 #'
 #' @param corr.task [\code{CorrTask}]\cr
 #'   A corrTask Object
@@ -10,9 +10,9 @@
 #' @return CorrObject
 #'
 #' @examples
-#' my.task = makeCorrTask(id = "test", data = cars)
-#' my.corr = makeCorr(my.task)
-#' my.corr$corr.matrix
+#' corr.task = makeCorrTask(id = "test", data = cars)
+#' corr.result = makeCorr(corr.task)
+#' corr.result$corr.matrix
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom stats cor

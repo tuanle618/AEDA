@@ -16,3 +16,4 @@ createFAReport = function(id, data, ...) {
   fa.result = makeFA(fa.task)
   return(makeReport(fa.result))
 }
+

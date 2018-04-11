@@ -16,10 +16,10 @@ test_that("fastReport", {
   expect_file("Data_Report/BasicReport1.rmd")
   expect_file("Data_Report/CatSumReport1.rmd")
   expect_file("Data_Report/CorrReport1.rmd")
-  expect_file("Data_Report/MDSAnalysisReport1.rmd")
   expect_file("Data_Report/NumSumReport1.rmd")
-  expect_file("Data_Report/PCAReport1.rmd")
+  expect_file("Data_Report/MDSAnalysisReport1.rmd")
   expect_file("Data_Report/FactorAnalysisReport1.rmd")
+  expect_file("Data_Report/PCAReport1.rmd")
   rmarkdown::render("MainReport.rmd", quiet = TRUE)
 
   ## Test m.par.vals for Cluster
@@ -93,8 +93,8 @@ test_that("openMLReport", {
   expect_file("Data_Report/BasicReport1.rmd")
   expect_file("Data_Report/CatSumReport1.rmd")
   expect_file("Data_Report/CorrReport1.rmd")
-  expect_file("Data_Report/MDSAnalysisReport1.rmd")
   expect_file("Data_Report/NumSumReport1.rmd")
+  expect_file("Data_Report/MDSAnalysisReport1.rmd")
   expect_file("Data_Report/FactorAnalysisReport1.rmd")
   expect_file("Data_Report/PCAReport1.rmd")
   rmarkdown::render("MainReport.rmd", quiet = TRUE)

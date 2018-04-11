@@ -6,9 +6,9 @@
 #' @import checkmate
 #' @import BBmisc
 #' @examples
-#'  my.mds.task = makeMDSTask(id = "swiss", data = swiss)
-#'  mds.analysis = makeMDSAnalysis(my.mds.task)
-#'  mds.report = makeReport(mds.analysis)
+#'  mds.task = makeMDSTask(id = "swiss", data = swiss)
+#'  mds.analysis.result = makeMDSAnalysis(mds.task)
+#'  mds.analysis.report = makeReport(mds.analysis.result)
 #' @export
 makeReport.MDSAnalysisObj = function(analysis.obj){
   assertClass(analysis.obj, "MDSAnalysisObj")

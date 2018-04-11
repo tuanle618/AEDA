@@ -27,7 +27,7 @@
 #' @importFrom farff readARFF
 #' @export
 openMLReport = function(data.id, reports = c("Basic", "CatSum",
-  "Corr", "NumSum", "Cluster", "MDS", "PCA", "FA"), m.par.vals = list()) {
+  "NumSum", "Corr", "Cluster", "PCA", "MDS", "FA"), m.par.vals = list()) {
   # argument checking
   assertInteger(data.id, lower = 0L, any.missing = FALSE,
     all.missing = FALSE, len = 1L, null.ok = FALSE)

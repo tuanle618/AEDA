@@ -8,8 +8,8 @@
 #'   A MDSTask Object
 #' @return MDS Object
 #' @examples
-#' my.mds.task = makeMDSTask(id = "swiss", data = swiss)
-#' mds.analysis = makeMDSAnalysis(my.mds.task)
+#' mds.task = makeMDSTask(id = "swiss", data = swiss)
+#' mds.analysis.result = makeMDSAnalysis(mds.task)
 #' @import checkmate
 #' @import BBmisc
 #' @importFrom stats cmdscale

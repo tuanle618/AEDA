@@ -11,8 +11,8 @@
 #' @import BBmisc
 #' @examples
 #'  data("airquality")
-#'  my.basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-#'  basic.report = makeBasicReport(my.basic.report.task)
+#'  basic.report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
+#'  basic.report.result = makeBasicReport(basic.report.task)
 #'
 #' @export
 makeBasicReport = function(basic.report.task){

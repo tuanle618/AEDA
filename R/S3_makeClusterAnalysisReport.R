@@ -7,10 +7,10 @@
 #' @import BBmisc
 #' @examples
 #' \dontrun{
-#'  my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#'  cluster.task = makeClusterTask(id = "iris", data = iris,
 #'   method = "cluster.kmeans")
-#'  cluster.analysis = makeClusterAnalysis(my.cluster.task)
-#'  cluster.report = makeReport(cluster.analysis)
+#'  cluster.analysis.result = makeClusterAnalysis(cluster.task)
+#'  cluster.analysis.report = makeReport(cluster.analysis.result)
 #' }
 #' @export
 makeReport.ClusterAnalysisObj = function(analysis.obj){

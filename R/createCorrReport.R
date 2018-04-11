@@ -12,7 +12,8 @@
 #'
 #' @export
 createCorrReport = function(id, data, ...) {
-  my.task = makeCorrTask(id = "OpenMLReport", data = data, ...)
-  my.corr = makeCorr(my.task)
- return(makeCorrReport(my.corr))
+  corr.task = makeCorrTask(id = "OpenMLReport", data = data, ...)
+  corr.result = makeCorr(corr.task)
+ return(makeCorrReport(corr.result))
 }
+

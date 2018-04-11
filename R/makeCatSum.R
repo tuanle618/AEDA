@@ -10,7 +10,7 @@
 #'  data("Arthritis", package = "vcd")
 #'  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
 #'  #get the categorical summary task object
-#'  cat.sum = makeCatSum(cat.sum.task)
+#'  cat.sum.result = makeCatSum(cat.sum.task)
 #' @import checkmate
 #' @import BBmisc
 #' @import moments

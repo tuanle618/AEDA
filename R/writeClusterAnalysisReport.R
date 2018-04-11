@@ -14,10 +14,10 @@
 #'   an existing rmd-file
 #' @examples
 #' \dontrun{
-#'   my.cluster.task = makeClusterTask(id = "iris", data = iris,
+#'   cluster.task = makeClusterTask(id = "iris", data = iris,
 #'    method = "cluster.kmeans")
-#'   cluster.analysis = makeClusterAnalysis(my.cluster.task)
-#'   report = makeClusterAnalysisReport(cluster.analysis)
+#'   cluster.analysis.result = makeClusterAnalysis(cluster.task)
+#'   cluster.analysis.report = makeClusterAnalysisReport(cluster.analysis)
 #'   writeReport(report, save.mode = FALSE, override = TRUE)
 #' }
 #' @return Invisible NULL
@@ -149,3 +149,4 @@ handle multidimensional data we receive after transforming the centers from the 
   })
   return(file.path(sub.dir, rmd.name))
 }
+
