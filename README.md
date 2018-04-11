@@ -1,4 +1,4 @@
-# ![AEDA](https://github.com/ptl93/AEDA/blob/tle_vignette/man/images/AEDA_logo.png) Automated Exploratory Data Analysis in R
+# ![AEDA](https://github.com/ptl93/AEDA/blob/master/man/images/AEDA_logo.png) Automated Exploratory Data Analysis in R
 ***
 
 [![Build Status](https://travis-ci.org/ptl93/AEDA.svg?branch=master)](https://travis-ci.org/ptl93/AEDA)
@@ -164,7 +164,7 @@ rmarkdown::render("MainReport.rmd")
 For more information, you can check out our [Wiki](https://github.com/ptl93/AEDA/wiki).
 
 ## Contributing
-We are very happy about feedback and contributions from you in order to improve this package.
+We are happy about feedback and contributions from you in order to improve this package.
 
 ### Issue
 If you believe that our package lacks several analysis steps or should enhance more methods/algorithms for each report, do not hesitate and let us know by opening a [new issue](https://github.com/ptl93/AEDA/issues).
