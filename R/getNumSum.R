@@ -1,9 +1,15 @@
 #' @title Computes the components and plots for the Numeric Summary
 #'
 #' @description
-#'  getNumSum applies function over columns in order to extract location- and scale parameters.
+#'  getNumSum applies function over columns in order to extract location- and scale parameters.\cr
+#'  \cr
 #'  In Addition to that, for each column, a ggplot object will be implemented.
+#'  For the numeric summary data.frame following columns will be explained:\cr
 #'
+#'  The sample kurtosis will be calculated via \eqn{1/n * \sum_{i=1}^{n}(x_i - \bar{x} / s)^{4}}\cr
+#'  The sample skewness will be calculated via \eqn{1/n * \sum_{i=1}^{n}(x_i - \bar{x}  /s)^{3}}\cr
+#'  l.bound is defined as \eqn{q_{0.25}} - 1.5IQR and lbound is defined as \eqn{q_{0.75}} + 1.5IQR \cr
+#'  where IQR = \eqn{q_{0.75} - q{0.25}}\cr
 #' @param data [\code{data.frame}]\cr
 #'   A Dataframe with different variables.
 #' @param features [\code{character(length(numeric.features))}]\cr
@@ -21,7 +27,7 @@
 #'  Other arguments to be passed to \link[ggplot2]{geom_boxplot}.
 #'  Inserted in \link[AEDA]{makeNumSumTask}
 #' @return [\code{list()}]
-#'   A list containing the numeric summary and ggplot for each numeric column
+#'  A list containing the numeric summary and ggplot for each numeric column
 #' @import moments
 #' @import stats
 #' @import checkmate
