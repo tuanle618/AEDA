@@ -1,4 +1,4 @@
-# ![AEDA](https://github.com/ptl93/AEDA/blob/tle_vignette/man/images/AEDA_logo.png) Automated Exploratory Data Analysis 
+# ![AEDA](https://github.com/ptl93/AEDA/blob/tle_vignette/man/images/AEDA_logo.png) Automated Exploratory Data Analysis in R
 ***
 
 [![Build Status](https://travis-ci.org/ptl93/AEDA.svg?branch=master)](https://travis-ci.org/ptl93/AEDA)
@@ -20,7 +20,7 @@ This package should help automating the process of creating an EDA report by pro
 ## Installation
 ```R
 # Install the development version from GitHub
-devtools::install_github("ptl93/AEDA")
+devtools::install_github("ptl93/AEDA", build_vignettes = TRUE)
 ```
 
 ## Examples
@@ -31,7 +31,7 @@ The second version gives you, as user of the package, the freedom to choose betw
 ### Create a fast report
 
 #### `fastReport()`
-With the `fastReport()` function you can create a full EDA Report for a data set stored in your current R environment with two lines of code.  
+With the `fastReport()` function you can create a full EDA report for a data set stored in your current R environment with two lines of code.  
 ```r 
 #load library
 library(AEDA)
@@ -57,6 +57,11 @@ In order to select different methods for each report we provide the user the pos
 * `my.task = make*Task()`
 * `my.analysis = make*Analysis()`
 * `my.report = makeReport(my.analysis)`
+
+Or since these three multiple function calls do not provide much additional
+functionality, if the user does not modify the parameters for a few reports in the `AEDA`-Pipeline, there is a shortcut to get a report:
+* `my.report = create*Report()`
+
 
 In the following code chunk we will show you how to modify the automated exploratory data analysis:
 
@@ -103,12 +108,8 @@ num.sum.report = makeReport(num.sum)
 
 
 ###4 - Correlation Analysis
-#create the task
-corr.task = makeCorrTask(id = "students.survey", data = survey)
-#compute the analysis
-corr.result = makeCorr(corr.task)
-#create the report
-corr.report = makeReport(corr.result)
+#Since we do not modify the default paramters we will call the shortcut version:
+corr.report = createCorrReport(data = survey)
 
 
 ###5 - Cluster Analysis
@@ -161,3 +162,19 @@ rmarkdown::render("MainReport.rmd")
 ``` 
 
 For more information, you can check out our [Wiki](https://github.com/ptl93/AEDA/wiki).
+
+## Contributing
+We are very happy about feedback and contributions from you in order to improve this package.
+
+### Issue
+If you believe that our package lacks several analysis steps or should enhance more methods/algorithms for each report, do not hesitate and let us know by opening a [new issue](https://github.com/ptl93/AEDA/issues).
+
+### Contribute
+In case you want to contribute please go after our styleguide. We are following the styleguide from [mlr](https://github.com/rdatsci/PackagesInfo/wiki/R-Style-Guide). In general, we follow the "fork-and-pull" Git workflow.
+
+1. **Fork** the repo on GitHub
+2. **Clone** the project to your own machine
+3. **Commit** changes to your own branch
+4. **Push** your work back up to your fork
+5. **Submit** a Pull request so that we can review your changes
+NOTE: Be sure to merge the latest from "upstream" before making a pull request!
