@@ -4,7 +4,7 @@ Version: 0.0.1
 Date: 2018-04-11
 Authors@R: c(
 	person("Tuan", "Le", email = "tuanle@hotmail.de", role = c("aut", "cre")),
-	person("Michael", "Graber", email = "m.graber@campus.lmu.de", role = c("aut", "cre")),
+	person("Michael", "Graber", email = "m.graber@campus.lmu.de", role = "aut"),
 	person("Darya", "Busen", email = "darya.busen@gmail.com", role = "aut")
 	)
 Description: Writing exploratory data analysis (EDA) scripts helps in extracting valuable information
