@@ -52,5 +52,6 @@ Suggests: testthat,
   knitr,
   kableExtra,
   GGally,
-  stats
+  stats,
+  devtools
 VignetteBuilder: knitr
