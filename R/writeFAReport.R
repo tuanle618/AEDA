@@ -58,7 +58,7 @@ These **factors** each embody a set of **observed variables** that have similar 
       con = report.con)
     rmdLibrary("DT", file = report.con)
     rmdLibrary("psych", file = report.con)
-    writeLines("devtools::load_all() #temporary", con = report.con)
+    #writeLines("devtools::load_all() #temporary", con = report.con)
     # save object and write code to load it in the rmd-file
     saveLoadObj(report, getId(report), report.con, override = override)
     writeLines("```", con = report.con)

@@ -57,7 +57,7 @@ constitutes a cluster and how to efficiently find them.", con = report.con)
     rmdLibrary("knitr", file = report.con)
     rmdLibrary("kableExtra", file = report.con)
     #temporary:
-    writeLines("devtools::load_all() #temporary", con = report.con)
+    #writeLines("devtools::load_all() #temporary", con = report.con)
     writeLines("```\n", con = report.con)
 
     ### Overview: All numeric columns
