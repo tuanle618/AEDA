@@ -1,17 +1,23 @@
-# Multiple plot function
-#
-# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
-# - cols:   Number of columns in layout
-# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
-#
-# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
-# then plot 1 will go in the upper left, 2 will go in the upper right, and
-# 3 will go all the way across the bottom.
-# http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
+#' @title Multiplot for ggplot
+#'
+#' @description
+#' Arranges ggplot objects into a grid
+#'
+#' @param plotlist [\code{list()}]\cr
+#'   A list of ggplot objects. Default is \code{plotlist = NULL}
+#' @param cols [\code{integer(1)}]\cr
+#'   Number of columns for the grid
+#' @param layout [\code{matrix()}]\cr
+#'   A matrix specifying the layout. If present, \code{cols} is ignored.
+#' @param ...
+#' If ggplot objects are not handed over as a list, insert them manually
+#'
+#' @return NULL
 #' @importFrom grid grid.newpage
 #' @importFrom grid pushViewport
 #' @importFrom grid viewport
 #' @importFrom grid grid.layout
+#' @export
 multiplot = function(..., plotlist = NULL, cols = 1, layout = NULL) {
   # Make a list from the ... arguments and plotlist
   plots = c(list(...), plotlist)
@@ -44,7 +50,7 @@ multiplot = function(..., plotlist = NULL, cols = 1, layout = NULL) {
     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
 
     # Make each plot, in the correct location
-    for (i in 1:num.plots) {
+    for (i in seq.int(num.plots)) {
       # Get the i,j matrix positions of the regions that contain this subplot
       matchidx = as.data.frame(which(layout == i, arr.ind = TRUE))
 
