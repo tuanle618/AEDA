@@ -11,8 +11,8 @@
 #' @export
 makeReport.PCAObj = function(analysis.obj){
   assertClass(analysis.obj, "PCAObj")
-  report.id = reportId()
-
+  #report.id = reportId()
+  report.id = deparse(substitute(analysis.obj))
   makeS3Obj("PCAReport",
    task = analysis.obj$task,
    pca.result = analysis.obj,

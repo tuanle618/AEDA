@@ -13,7 +13,8 @@
 makeReport.MDSAnalysisObj = function(analysis.obj){
   assertClass(analysis.obj, "MDSAnalysisObj")
 
-  report.id = reportId()
+  #report.id = reportId()
+  report.id = deparse(substitute(analysis.obj))
 
   makeS3Obj("MDSAnalysisReport",
     task = analysis.obj$task,
