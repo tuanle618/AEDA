@@ -8,8 +8,7 @@ finishReport(..., sub.dir = "Data_Report", save.mode = TRUE,
   theme = "cosmo", df.print = "paged", override = FALSE)
 }
 \arguments{
-\item{...}{\cr
-Report objects}
+\item{...}{Report objects}
 
 \item{sub.dir}{[\code{path}]\cr
 The path where the child rmd files will be created}

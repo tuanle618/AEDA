@@ -4,7 +4,7 @@
 #' The function writes the MainReport rmd file and write the child rmd files and
 #' organize them together in one report
 #'
-#' @param ... \cr
+#' @param ...
 #'   Report objects
 #' @param sub.dir [\code{path}]\cr
 #'   The path where the child rmd files will be created

@@ -11,7 +11,7 @@
 A Report Task object containing general information of the data analysis problem}
 }
 \value{
-[\code{BasicReport}]\cr
+[\code{BasicReport}]
 }
 \description{
 A Basic Report Object will be calculated containing the report task, a basic data summary and missing value summary

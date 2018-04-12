@@ -5,7 +5,7 @@
 #'
 #' @param analysis.obj [\code{ReportTask}]\cr
 #'   A Report Task object containing general information of the data analysis problem
-#' @return [\code{BasicReport}]\cr
+#' @return [\code{BasicReport}]
 #' @import checkmate
 #' @import BBmisc
 #' @examples
