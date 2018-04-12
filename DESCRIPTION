@@ -48,7 +48,8 @@ Imports: checkmate,
   GGally,
   DT, 
   kableExtra,
-  xtable
+  xtable,
+  knitr
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
   roxygen2 (>= 5.0.0),
