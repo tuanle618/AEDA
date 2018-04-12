@@ -44,15 +44,16 @@ Imports: checkmate,
   psych,
   GPArotation,
   OpenML,
-  farff
+  farff,
+  GGally,
+  DT, 
+  kableExtra,
+  xtable,
+  knitr,
+  roxygen2 (>= 5.0.0)
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
-  roxygen2 (>= 5.0.0),
   rmarkdown,
-  DT,
-  knitr,
-  kableExtra,
-  GGally,
   stats,
   devtools
 VignetteBuilder: knitr
