@@ -9,7 +9,7 @@ test_that("finishReport Works", {
   num.sum.task = makeNumSumTask(id = "aids",
     data = aids2, target = "T.categ")
   num.sum = makeNumSum(num.sum.task)
-  num.sum.report = makeNumSumReport(num.sum)
+  num.sum.report = makeReport(num.sum)
 
   my.task = makeCorrTask(id = "aids",
     data = aids2, type = "CorrPlot")

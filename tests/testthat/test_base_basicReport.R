@@ -17,7 +17,7 @@ test_that("makeReportTask", {
 test_that("makeBasicReport", {
   basic.report.task = makeBasicReportTask(id = "test.report",
     data = airquality, target = "Wind")
-  basic.report = makeBasicReport(basic.report.task)
+  basic.report = makeReport(basic.report.task)
   expect_class(basic.report, "BasicReport")
   expectIdentical(basic.report$task, basic.report.task)
   expectIdentical(length(basic.report), 5L)
@@ -28,13 +28,13 @@ test_that("makeBasicReport", {
 
   basic.report.task = makeBasicReportTask(id = "test.report",
     data = airquality, target = NULL)
-  basic.report = makeBasicReport(basic.report.task)
+  basic.report = makeReport(basic.report.task)
 })
 
 test_that("writeBasicReport", {
   basic.report.task = makeBasicReportTask(id = "test.report",
     data = airquality, target = "Wind")
-  basic.report = makeBasicReport(basic.report.task)
+  basic.report = makeReport(basic.report.task)
   temp.wd = getwd()
   expect_file((rmd.file = writeReport(basic.report)), extension = "rmd")
   expect_file(x = paste0("Data_Report/", basic.report$report.id, ".rds"))
@@ -52,7 +52,7 @@ test_that("writeBasicReport", {
   expectIdentical(getwd(), temp.wd)
 
   setwd(paste0(temp.wd, "/Data_Report"))
-  knitr::knit2html(gsub("Data_Report/", "", rmd.file), quiet = TRUE)
+  rmarkdown::render(gsub("Data_Report/", "", rmd.file), quiet = TRUE)
   setwd(temp.wd)
   unlink("Data_Report", recursive = TRUE)
 })

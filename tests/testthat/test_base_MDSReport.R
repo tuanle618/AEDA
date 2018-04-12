@@ -115,7 +115,7 @@ test_that("writeMDSAnalysisReport", {
   expect_identical(getwd(), temp.wd)
 
   setwd(paste0(temp.wd, "/Data_Report"))
-  knitr::knit2html(gsub("Data_Report/", "", rmd.file), quiet = TRUE)
+  rmarkdown::render(gsub("Data_Report/", "", rmd.file), quiet = TRUE)
   setwd(temp.wd)
   unlink("Data_Report", recursive = TRUE)
 })

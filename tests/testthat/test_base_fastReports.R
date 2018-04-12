@@ -10,7 +10,7 @@ test_that("fastReport", {
   setwd("test_folder/")
   tmp.wd = getwd()
   suppressWarnings(fastReport(iris, reports = c("Basic", "CatSum", "Corr", "NumSum",
-    "MDS", "FA", "PCA")))
+    "MDS", "PCA", "FA", "Cluster")))
   expectIdentical(getwd(), tmp.wd)
   expect_file("MainReport.rmd")
   expect_file("Data_Report/BasicReport1.rmd")
@@ -18,8 +18,9 @@ test_that("fastReport", {
   expect_file("Data_Report/CorrReport1.rmd")
   expect_file("Data_Report/NumSumReport1.rmd")
   expect_file("Data_Report/MDSAnalysisReport1.rmd")
-  expect_file("Data_Report/FactorAnalysisReport1.rmd")
   expect_file("Data_Report/PCAReport1.rmd")
+  expect_file("Data_Report/FAReport1.rmd")
+  expect_file("Data_Report/ClusterReport1.rmd")
   rmarkdown::render("MainReport.rmd", quiet = TRUE)
 
   ## Test m.par.vals for Cluster
