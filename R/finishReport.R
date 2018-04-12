@@ -81,8 +81,8 @@ finishReport = function(..., sub.dir = "Data_Report", save.mode = TRUE,
 
   # for now load AEDA in mainReport
   writeLines("```{r, echo=FALSE, warning=FALSE, message=FALSE}", con = report.con)
-  writeLines("try(devtools::load_all())", con = report.con)
   writeLines("try(library(AEDA))", con = report.con)
+  writeLines("try(devtools::load_all())", con = report.con)
   writeLines("```", con = report.con)
 
   for (i in seq.int(n)) {

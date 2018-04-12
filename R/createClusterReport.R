@@ -14,6 +14,6 @@
 createClusterReport = function(id, data, ...) {
   cluster.task = makeClusterTask(id = id, data = data, ...)
   cluster.analysis.result = makeClusterAnalysis(cluster.task)
-  return(makeClusterAnalysisReport(cluster.analysis.result))
+  return(makeReport(cluster.analysis.result))
 }
 

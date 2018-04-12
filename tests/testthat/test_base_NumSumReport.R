@@ -31,7 +31,7 @@ test_that("makeNumSum", {
 test_that("makeNumSumReport", {
   num.sum.task = makeNumSumTask(id = "test.report", data = aids, target = "sex")
   num.sum = makeNumSum(num.sum.task)
-  num.sum.report = makeNumSumReport(num.sum)
+  num.sum.report = makeReportnum.sum)
 
   expect_class(num.sum.report, "NumSumReport")
   expectIdentical(num.sum.report$report.task, num.sum.task)
@@ -45,7 +45,7 @@ test_that("makeNumSumReport", {
 test_that("writeNumSumReport", {
   num.sum.task = makeNumSumTask(id = "test.report", data = aids, target = "sex")
   num.sum = makeNumSum(num.sum.task)
-  num.sum.report = makeNumSumReport(num.sum)
+  num.sum.report = makeReportnum.sum)
 
   temp.wd = getwd()
   expect_file((rmd.file = writeReport(num.sum.report, save.mode = FALSE, override = TRUE)), extension = "rmd")
