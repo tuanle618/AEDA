@@ -16,7 +16,8 @@
 makeReport.ClusterAnalysisObj = function(analysis.obj){
   assertClass(analysis.obj, "ClusterAnalysisObj")
 
-  report.id = reportId()
+  #report.id = reportId()
+  report.id = deparse(substitute(analysis.obj))
 
   makeS3Obj("ClusterAnalysisReport",
     report.task = analysis.obj$task,

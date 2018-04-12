@@ -34,7 +34,7 @@
 #'   For Model-Based Clustering:
 #'   \itemize{
 #'   \item{\code{cluster.dbscan}} - for more information @seealso \link[dbscan]{dbscan}
-#'   \item{\code{cluster.mod}} - for more information @seealso \link[mclust]{mclust}
+#'   \item{\code{cluster.mod}} - for more information @seealso \link[mclust]{Mclust}
 #'   }
 #'   Default is \code{method = "cluster.kmeans"}
 #' @param random.seed [\code{integer(1)}]\cr

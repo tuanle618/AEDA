@@ -16,8 +16,8 @@ makeReport.CatSumObj = function(analysis.obj){
   assertClass(analysis.obj, "CatSumObj")
   #assertCharacter(type, min.chars = 1)
 
-  report.id = reportId()
-
+  #report.id = reportId()
+  report.id = deparse(substitute(analysis.obj))
   makeS3Obj("CatSumReport",
     cat.sum.task = analysis.obj$task,
     cat.sum = analysis.obj$cat.sum,

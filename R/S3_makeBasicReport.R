@@ -16,7 +16,8 @@
 #' @export
 makeReport.BasicReportTask = function(analysis.obj){
   assertClass(analysis.obj, "BasicReportTask")
-  report.id = reportId()
+  #report.id = reportId()
+  report.id = deparse(substitute(analysis.obj))
   basic.data.summary = basicDataSummary(data = analysis.obj$env$data, target = analysis.obj$env$target)
   na.summary = naSummary(data = analysis.obj$env$data, dataset.name = analysis.obj$dataset.name)
 
