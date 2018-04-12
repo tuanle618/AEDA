@@ -27,6 +27,7 @@ reportId = function(length = 16) {
   # this is now convertable to integer in ms
   ms.time = as.integer(sh.time * 1000)
   # set seed with ms time stamp
+  Sys.sleep(0.01)
   set.seed(ms.time)
   # start rng string with z so its listed last when files sorted by name
   collapse(c("z",
