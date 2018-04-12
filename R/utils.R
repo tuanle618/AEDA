@@ -126,23 +126,6 @@ splitGGplotList = function(mylist, k) {
 }
 
 
-##wrapper for multiplot with further plotlist splitting
-multiplotPages = function(plotlist, k, no.cols, ...) {
-  #create sublists which act as page
-  splitted.list = splitGGplotList(plotlist, k)
-  for (page in seq_len(length(splitted.list))) {
-    ##call multiplot with further arguments
-    #calculate optimal no. of cols
-    if (length(splitted.list[[page]]) < no.cols) {
-      sel.cols = length(splitted.list[[page]])
-    } else {
-      sel.cols = no.cols
-    }
-    multiplot(plotlist = splitted.list[[page]],
-      cols = sel.cols, ...)
-  }
-}
-
 #helper to split a plot.list which is divided into
 #plot.list_col1_col_1_ggplot into plot.list_col1_ggplot
 split.list.gg.helper = function(nested.gg.list) {
