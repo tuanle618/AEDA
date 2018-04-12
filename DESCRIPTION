@@ -49,10 +49,10 @@ Imports: checkmate,
   DT, 
   kableExtra,
   xtable,
-  knitr
+  knitr,
+  roxygen2 (>= 5.0.0)
 Suggests: testthat,
   lintr (>= 1.0.0.9001),
-  roxygen2 (>= 5.0.0),
   rmarkdown,
   stats,
   devtools
