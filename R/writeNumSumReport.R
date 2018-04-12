@@ -18,7 +18,7 @@
 #'  #get the numeric summary task object
 #'  num.sum.result = makeNumSum(num.sum.task)
 #'  #create the numeric summary report
-#'  num.sum.report = makeNumSumReport(num.sum.result)
+#'  num.sum.report = makeReport(num.sum.result)
 #'  #write the report
 #'  writeReport(num.sum.report, save.mode = FALSE, override = TRUE)
 #' @return Invisible NULL

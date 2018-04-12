@@ -1,0 +1,34 @@
+## Basic Summary Report
+
+```{r loadBasicSumObj_zfbTrn3rV6oIcmHs, echo = FALSE, message = FALSE, warning = FALSE}
+zfbTrn3rV6oIcmHs = readRDS("zfbTrn3rV6oIcmHs.rds")
+if (!require("knitr",character.only = TRUE)) {
+    install.packages("knitr",dep=TRUE)
+    if(!require("knitr",character.only = TRUE)) stop("Package not found")
+    }
+if (!require("kableExtra",character.only = TRUE)) {
+    install.packages("kableExtra",dep=TRUE)
+    if(!require("kableExtra",character.only = TRUE)) stop("Package not found")
+    }
+if (!require("DT",character.only = TRUE)) {
+    install.packages("DT",dep=TRUE)
+    if(!require("DT",character.only = TRUE)) stop("Package not found")
+    }
+```
+### Basic Summary
+
+The dataset `r zfbTrn3rV6oIcmHs$task$dataset.name ` is `r object.size(zfbTrn3rV6oIcmHs$task$env$data) `  megabytes in size.
+In total there are `r zfbTrn3rV6oIcmHs$task$size ` observations, `r zfbTrn3rV6oIcmHs$basic.data.summary$basic.summary.list$NAs ` missing values and `r zfbTrn3rV6oIcmHs$basic.data.summary$basic.summary.list$dim ` columns.
+
+```{r NA_summary_zfbTrn3rV6oIcmHs, echo = FALSE, message = FALSE, warning = FALSE}
+if (!is.null(zfbTrn3rV6oIcmHs$na.summary$na.df)) {
+#kable(zfbTrn3rV6oIcmHs$na.summary$na.df, caption = 'Missing Value Summary', format = 'html') %>% kable_styling(full_width = TRUE)
+datatable(zfbTrn3rV6oIcmHs$na.summary$na.df, rownames = FALSE, filter = 'bottom', options = list(
+  pageLength = 5, autoWidth = TRUE))
+} 
+
+if (!is.null(zfbTrn3rV6oIcmHs$na.summary$image)) {
+print(zfbTrn3rV6oIcmHs$na.summary$ggplot)
+  zfbTrn3rV6oIcmHs$na.summary$image()
+}
+```

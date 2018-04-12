@@ -1,0 +1,54 @@
+## Principal Components Analysis Report for numeric data
+
+Principial Component Analysis (PCA) is a dimensionality reduction method that uses an an orthogonal transformation
+to reduce a large set of (numeric) variables to a small set of (numeric) variables, called principal components, that still contain
+most of the information of the large set. Those computed principal components are linearely independent, and hence uncorrelated.
+The first principal component accounts for as much of the variability/variance in the data as possible, and each succeeding component
+accounts for as much of the remaining variability/variance as possible.
+
+```{r loadPCAObj_zpcU1OpxESKXhm0j, echo = FALSE, message = FALSE, warning = FALSE}
+
+
+if (!require("DT",character.only = TRUE)) {
+    install.packages("DT",dep=TRUE)
+    if(!require("DT",character.only = TRUE)) stop("Package not found")
+    }
+zpcU1OpxESKXhm0j = readRDS("zpcU1OpxESKXhm0j.rds")
+```
+
+### Prinicipal Component Analysis Summary Results
+
+In the following the principal component rotation (loadings) and the corresponding scree as well as
+      scatterplot will be displayed. 
+
+#### Rotation Loadings and Standard Deviation
+
+The following datatable shows the matrix of variable loadings:
+```{r showRotationAndSD_zpcU1OpxESKXhm0j, echo = FALSE, message = FALSE, warning = FALSE}
+dt = DT::datatable(zpcU1OpxESKXhm0j$pca.result$pca.result$rotation, class = 'compact', filter = 'bottom', options = list(pageLength = 5),
+      caption = htmltools::tags$caption(
+      style = 'caption-side: bottom; text-align: center;',
+      'Table : ', 'Principal Component Rotation Loadings'
+      ))
+dt
+```
+
+The variances of the 1. to 4. principial component are: `r head(zpcU1OpxESKXhm0j$pca.result$pca.result$sdev) ` .
+
+#### Screeplot for principal component analysis
+
+The following plot shows the percentage amount of variance each principal component explaines
+      in descending order:
+
+```{r showScreePlot_zpcU1OpxESKXhm0j, echo = FALSE, message = FALSE, warning = FALSE, out.width = '90%'}
+zpcU1OpxESKXhm0j$pca.result$plotlist$pca.scree
+```
+
+#### Scatterplot for individual observations
+
+The following plot shows how the observations are transformed onto a 2-dimensional space
+      using the rotation/loadings for the first two principal components applied to each origin numeric variable:
+
+```{r showScatterPlot_zpcU1OpxESKXhm0j, echo = FALSE, message = FALSE, warning = FALSE, out.width = '90%'}
+zpcU1OpxESKXhm0j$pca.result$plotlist$pca.scatter.1
+```

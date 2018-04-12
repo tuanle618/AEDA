@@ -12,7 +12,7 @@
 
 <meta name="author" content="Tuan Le, Michael Graber, Darya Busen" />
 
-<meta name="date" content="2018-04-11" />
+<meta name="date" content="2018-04-12" />
 
 <title>AEDA - Vignette</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">AEDA - Vignette</h1>
 <h4 class="author"><em>Tuan Le, Michael Graber, Darya Busen</em></h4>
-<h4 class="date"><em>2018-04-11</em></h4>
+<h4 class="date"><em>2018-04-12</em></h4>
 
 
 
@@ -136,12 +136,7 @@ basic.report.task =<span class="st"> </span><span class="kw">makeBasicReportTask
 basic.report =<span class="st"> </span><span class="kw">makeReport</span>(basic.report.task)</code></pre></div>
 <p>In order to have a look into the <code>basic.report</code>-object one can either <code>print()</code> the object or just call <code>basic.report</code> in the R-commandline.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(basic.report)
-<span class="co">#&gt; Task: airquality</span>
-<span class="co">#&gt; Dataset: airquality</span>
-<span class="co">#&gt; Target: Wind</span>
-<span class="co">#&gt; Features: Ozone, Solar.R, Wind, Temp, Month, Day</span>
-<span class="co">#&gt; Observations: 153</span>
-<span class="co">#&gt; Missing Values: 44</span>
+<span class="co">#&gt; NULL</span>
 
 <span class="co">#To gain more insights you can look into the object with the $ operator:</span>
 basic.report<span class="op">$</span>basic.data.summary<span class="op">$</span>basic.summary.list<span class="op">$</span>num
@@ -236,7 +231,7 @@ num.sum.task =<span class="st"> </span><span class="kw">makeNumSumTask</span>(<s
 <span class="co">#compute the analysis</span>
 num.sum =<span class="st"> </span><span class="kw">makeNumSum</span>(num.sum.task)
 <span class="co">#create the report</span>
-num.sum.report =<span class="st"> </span><span class="kw">makeNumSumReport</span>(num.sum)</code></pre></div>
+num.sum.report =<span class="st"> </span><span class="kw">makeReport</span>(num.sum)</code></pre></div>
 <p>In order to call the numeric summary data.frame execute <code>num.sum.report$num.sum.df</code>. <br> The characteristics we calculated are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(num.sum.report<span class="op">$</span>num.sum.df)
 <span class="co">#&gt;  [1] &quot;no.obs&quot;      &quot;nas&quot;         &quot;nas.perc&quot;    &quot;mean&quot;        &quot;kurtosis&quot;   </span>
@@ -557,6 +552,7 @@ mds.report<span class="op">$</span>mds.analysis<span class="op">$</span>mds.plot
 <p>Following code snippets are needed in order to create a factor analysis report:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load data</span>
 <span class="kw">library</span>(psych)
+<span class="co">#&gt; Warning: package 'psych' was built under R version 3.4.4</span>
 <span class="kw">data</span>(bfi)
 <span class="co">#take small sample of size 200L:</span>
 bfi.small =<span class="st"> </span>bfi[<span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">nrow</span>(bfi)), <span class="dt">size =</span> 200L), ]

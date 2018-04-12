@@ -6,7 +6,7 @@
 #' @examples
 #' pca.task = makePCATask(id = "iris.test", data = iris, center = TRUE, target = "Species")
 #' pca.result = makePCA(pca.task)
-#' pca.report = makePCAReport(pca.result)
+#' pca.report = makeReport(pca.result)
 #' @import checkmate
 #' @export
 makeReport.PCAObj = function(analysis.obj){

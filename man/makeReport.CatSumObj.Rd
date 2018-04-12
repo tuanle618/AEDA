@@ -20,6 +20,6 @@ Creates an Categorical Summary Report object
  data("Arthritis", package = "vcd")
  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
  cat.sum.result = makeCatSum(cat.sum.task)
- #create the numeric summary report
+ #create the categorical summary report
  cat.sum.report = makeReport(cat.sum.result)
 }

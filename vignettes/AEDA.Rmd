@@ -167,7 +167,7 @@ num.sum.task = makeNumSumTask(id = "AidsTask", data = Aids2, target = "sex")
 #compute the analysis
 num.sum = makeNumSum(num.sum.task)
 #create the report
-num.sum.report = makeNumSumReport(num.sum)
+num.sum.report = makeReport(num.sum)
 ```
 
 In order to call the numeric summary data.frame execute `num.sum.report$num.sum.df`. <br>

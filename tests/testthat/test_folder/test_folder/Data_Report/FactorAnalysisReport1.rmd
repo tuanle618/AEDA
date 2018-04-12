@@ -1,0 +1,48 @@
+## Factor Analysis Summary Report
+Factor analysis is a way to describe variability among observed, correlated variables
+in terms of a potentially lower number of unobserved variables, called **factors**. <br>
+Like principal component as well as multidimensioanl scaling its purpose is dimension reduction.
+It is a way to find hidden patterns, show how those patterns overlap and show what characteristics are
+seen in multiple patterns.
+These **factors** each embody a set of **observed variables** that have similar response patterns.
+```{r loadFAObj_zHFhUyDSnnhDov6t, echo = FALSE, message = FALSE, warning = FALSE}
+if (!require("DT",character.only = TRUE)) {
+    install.packages("DT",dep=TRUE)
+    if(!require("DT",character.only = TRUE)) stop("Package not found")
+    }
+if (!require("psych",character.only = TRUE)) {
+    install.packages("psych",dep=TRUE)
+    if(!require("psych",character.only = TRUE)) stop("Package not found")
+    }
+zHFhUyDSnnhDov6t = readRDS("zHFhUyDSnnhDov6t.rds")
+```
+### Factor Analysis Summary Results
+
+#### Pre-Analysis for optimal number of factors
+In the following a pre analysis for the optimal number of factors will be displayed:
+
+```{r showParallelAnalysis_zHFhUyDSnnhDov6t, echo = FALSE, message = FALSE, warning = FALSE, out.width = '90%'}
+plot(zHFhUyDSnnhDov6t$task$num.fact.analysis)
+```
+
+According to the parallel analysis `r zHFhUyDSnnhDov6t$task$num.fact.analysis$nfact ` factors should be taken.
+
+#### Factor Loadings
+The following data frame shows the factor loadings for each numeric column.
+      Note that the rows are the numeric columns.
+```{r showFAloadings_zHFhUyDSnnhDov6t, echo = FALSE, message = FALSE, warning = FALSE}
+loadingsWithCom = round(cbind.data.frame(as.data.frame(unclass(zHFhUyDSnnhDov6t$fa.result$loadings)), communalities = zHFhUyDSnnhDov6t$fa.result$communalities), 4)
+dt = DT::datatable(loadingsWithCom, class = 'compact', filter = 'bottom',
+      options = list(pageLength = 10), caption = htmltools::tags$caption(
+      style = 'caption-side: bottom; text-align: center;',
+      'Table : ', 'Factor Loadings'))
+dt
+```
+
+#### Factor Analysis Graph
+The following graphs visualizes the factor loadings. A cutoff of 0.3 will be applied:
+
+```{r showFAgraph_zHFhUyDSnnhDov6t, echo = FALSE, message = FALSE, warning = FALSE}
+fa.diagram(zHFhUyDSnnhDov6t$fa.result, cut = 0.3)
+```
+
