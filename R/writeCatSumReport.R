@@ -80,8 +80,14 @@ writeReport.CatSumReport = function(report, sub.dir = "Data_Report", save.mode =
     writeLines(writeRChunkOptions(chunkname = "showBarPlots", id = getId(report),
       options = list(echo = FALSE, message = FALSE, warning = FALSE, results = "'asis'", out.width = "'100%'")),
       con = report.con)
-    writeLines(paste0("multiplot(plotlist = ", report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
-      con = report.con)
+    #multiplot only if at least 2 ggplots
+    if (length(report$cat.sum$plot.list) > 1) {
+      writeLines(paste0("multiplot(plotlist = ", report$report.id, "$cat.sum$plot.list", ", cols = 2)"),
+        con = report.con)
+    } else {
+      writeLines(paste0(report$report.id, "$cat.sum$plot.list"), con = report.con)
+    }
+
     writeLines("```", con = report.con)
 
   }, finally = {

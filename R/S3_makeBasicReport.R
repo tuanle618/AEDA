@@ -30,5 +30,5 @@ makeReport.BasicReportTask = function(analysis.obj){
 }
 
 print.BasicReport = function(x, ...) {
-  print(x$report.task)
+  print(x$task)
 }

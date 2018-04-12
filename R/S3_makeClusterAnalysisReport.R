@@ -20,7 +20,7 @@ makeReport.ClusterAnalysisObj = function(analysis.obj){
   report.id = deparse(substitute(analysis.obj))
 
   makeS3Obj("ClusterAnalysisReport",
-    report.task = analysis.obj$task,
+    task = analysis.obj$task,
     cluster.analysis = analysis.obj$cluster.analysis,
     report.id = report.id,
     type = "ClusterAnalysisReport")

@@ -49,7 +49,7 @@ test_that("makeClusterAnalysis", {
 cluster.report = makeReport(cluster.summary)
 test_that("makeClusterAnalysisReport", {
   expect_class(cluster.report, "ClusterAnalysisReport")
-  expectIdentical(cluster.report$report.task, my.cluster.task)
+  expectIdentical(cluster.report$task, my.cluster.task)
   expectIdentical(length(cluster.report), 4L)
   expectIdentical(cluster.report$type, "ClusterAnalysisReport")
   expect_character(cluster.report$report.id)

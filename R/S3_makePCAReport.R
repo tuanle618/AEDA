@@ -21,6 +21,5 @@ makeReport.PCAObj = function(analysis.obj){
 }
 
 print.PCAReport = function(x, ...) {
-  print(paste("report.id: ", x$report.id))
   print(x$task)
 }

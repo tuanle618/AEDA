@@ -63,20 +63,20 @@ constitutes a cluster and how to efficiently find them.", con = report.con)
     ### Overview: All numeric columns
     writeLines("### Overview: All numeric columns \n", con  = report.con)
     txt = paste0("The dataset contains of `r ", "length(", getId(report),
-      "$report.task$numdatatypes$numeric) + length(", getId(report),
-      "$report.task$numdatatypes$integer)`")
+      "$task$numdatatypes$numeric) + length(", getId(report),
+      "$task$numdatatypes$integer)`")
     txt = paste(txt, "numeric columns.")
     writeLines(txt, con = report.con)
     #PCA text only for not hierarchical methods:
-    if (!is.element(report$report.task$method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
-      if (length(report$report.task$numdatatypes$numeric) + length(report$report.task$numdatatypes$integer) > 2) {
+    if (!is.element(report$task$method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
+      if (length(report$task$numdatatypes$numeric) + length(report$task$numdatatypes$integer) > 2) {
         writeLines("Since the number of numeric columns is greater than 2, for **vizualization**
         we compute a principal component analysis and apply the cluster analysis to the respective two principal components: ",
           con = report.con)
       }
     }
     #Diagnostics for everything except 'cluster.dbscan' and 'cluster.kkmeans
-    if (!is.element(report$report.task$method, c("cluster.kkmeans", "cluster.dbscan"))) {
+    if (!is.element(report$task$method, c("cluster.kkmeans", "cluster.dbscan"))) {
       writeLines("\n", con = report.con)
       writeLines("#### Diagnostics \n", con = report.con)
       writeLines("The following diagnostic plots show how the optimal number of cluster is selected:", con = report.con)
@@ -102,9 +102,9 @@ constitutes a cluster and how to efficiently find them.", con = report.con)
     writeLines("```\n", con = report.con)
 
     #Cluster Result only for kmeans and pam algorithm
-    if (is.element(report$report.task$method, c("cluster.kmeans", "cluster.pam"))) {
+    if (is.element(report$task$method, c("cluster.kmeans", "cluster.pam"))) {
       writeLines("#### Cluster Result \n", con = report.con)
-      if (length(report$report.task$numdatatypes$numeric) + length(report$report.task$numdatatypes$integer) > 2) {
+      if (length(report$task$numdatatypes$numeric) + length(report$task$numdatatypes$integer) > 2) {
         txt = "Since Prinicipal components was only for **vizualization** but the clustering algorithm still can
 handle multidimensional data we receive after transforming the centers from the principal components clusters:"
         writeLines(txt, con = report.con)
@@ -114,7 +114,7 @@ handle multidimensional data we receive after transforming the centers from the 
       #write R-Chunk:
       #writeLines("```{r ClusterRes_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)
       writeLines(writeRChunkOptions(chunkname = "ClusterRes", id = getId(report)), con = report.con)
-      if (report$report.task$method == "cluster.kmeans") {
+      if (report$task$method == "cluster.kmeans") {
         caption = "Clustering Centers"
         txt = paste0("kable(", getId(report), "$cluster.analysis$cluster.all$cluster.res$centers,
         format = 'html', caption = ", "'", caption, "')", "%>% kable_styling(full_width = F, position = 'left')")
@@ -127,7 +127,7 @@ handle multidimensional data we receive after transforming the centers from the 
       writeLines("```\n", con = report.con)
     }
     #Combinations only for not-hierarchical methods:
-    if (!is.element(report$report.task$method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
+    if (!is.element(report$task$method, c("cluster.h", "cluster.agnes", "cluster.diana"))) {
       ### Overview: Combinations for numeric columns of dataset
       writeLines("### Overview: Combinations for numeric columns of dataset \n", con = report.con)
       #writeLines("```{r clusterCombPlots_XYZid, echo=FALSE, warning=FALSE, message = FALSE}", con = report.con)

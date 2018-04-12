@@ -19,7 +19,7 @@ makeReport.CatSumObj = function(analysis.obj){
   #report.id = reportId()
   report.id = deparse(substitute(analysis.obj))
   makeS3Obj("CatSumReport",
-    cat.sum.task = analysis.obj$task,
+    task = analysis.obj$task,
     cat.sum = analysis.obj$cat.sum,
     report.id = report.id,
     type = "CategoricalReport")

@@ -36,7 +36,7 @@ test_that("makeCatSumReport", {
   cat.sum.report = makeReport(cat.sum)
 
   expect_class(cat.sum.report, "CatSumReport")
-  expectIdentical(cat.sum.report$cat.sum.task, cat.sum.task)
+  expectIdentical(cat.sum.report$task, cat.sum.task)
   expectIdentical(length(cat.sum.report), 4L)
   expectIdentical(cat.sum.report$type, "CategoricalReport")
   expect_character(cat.sum.report$report.id)

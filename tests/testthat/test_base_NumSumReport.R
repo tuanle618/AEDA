@@ -34,7 +34,7 @@ test_that("makeNumSumReport", {
   num.sum.report = makeReport(num.sum)
 
   expect_class(num.sum.report, "NumSumReport")
-  expectIdentical(num.sum.report$num.sum.task, num.sum.task)
+  expectIdentical(num.sum.report$task, num.sum.task)
   expectIdentical(length(num.sum.report), 5L)
   expectIdentical(num.sum.report$type, "NumericReport")
   expect_character(num.sum.report$report.id)

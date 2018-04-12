@@ -22,7 +22,7 @@ makeReport.NumSumObj = function(analysis.obj){
   report.id = deparse(substitute(analysis.obj))
 
   makeS3Obj("NumSumReport",
-    num.sum.task = analysis.obj$task,
+    task = analysis.obj$task,
     num.sum.df = analysis.obj$num.sum.df,
     num.sum.var = analysis.obj$num.sum,
     report.id = report.id,
@@ -30,5 +30,5 @@ makeReport.NumSumObj = function(analysis.obj){
 }
 
 print.NumSumReport = function(x, ...) {
-  print(x$num.sum.task)
+  print(x$task)
 }
