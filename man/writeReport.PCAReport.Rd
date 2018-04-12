@@ -32,6 +32,6 @@ Writes a rmd file for the report [WIP]
   pca.task = makePCATask(id = "Probe", data = iris, target = "Species",
                         tol = 1e-1, center = TRUE)
   pca.result = makePCA(pca.task)
-  pca.report = makePCAReport(pca.result)
+  pca.report = makeReport(pca.result)
   writeReport(pca.report, save.mode = FALSE, override = TRUE)
 }

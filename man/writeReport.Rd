@@ -34,12 +34,12 @@ Writes a rmd file Report [WIP]
 \examples{
   data("airquality")
   report.task = makeBasicReportTask(id = "test.report", data = airquality, target = "Wind")
-  basic.report = makeBasicReport(report.task)
+  basic.report = makeReport(report.task)
   writeReport(basic.report, save.mode = FALSE, override = TRUE)
 
   corr.report.task = makeCorrTask(id = "corr.report", data = airquality, type = "CorrPlot")
   corr.report.result = makeCorr(corr.report.task)
-  corr.report = makeCorrReport(corr.report.result)
+  corr.report = makeReport(corr.report.result)
   writeReport(corr.report, save.mode = FALSE, override = TRUE)
 
   # Or put the reports together

@@ -1,9 +1,7 @@
 #' Creates an Categorical Summary Report object
 #'
-#' @param cat.sum.obj [\code{CatSumObj} Object]\cr
+#' @param analysis.obj [\code{CatSumObj} Object]\cr
 #'   A object of the "CatSumObj" class
-#' @param type [\code{character(1)} Object]\cr
-#'   The type of the Report to create. AS of now the default is \code{NULL}
 #' @return CatSumReport
 #' @import checkmate
 #' @import BBmisc
@@ -11,18 +9,18 @@
 #'  data("Arthritis", package = "vcd")
 #'  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
 #'  cat.sum.result = makeCatSum(cat.sum.task)
-#'  #create the numeric summary report
-#'  cat.sum.report = makeCatSumReport(cat.sum.result)
+#'  #create the categorical summary report
+#'  cat.sum.report = makeReport(cat.sum.result)
 #' @export
-makeReport.CatSumObj = function(cat.sum.obj, type = NULL){
-  assertClass(cat.sum.obj, "CatSumObj")
+makeReport.CatSumObj = function(analysis.obj){
+  assertClass(analysis.obj, "CatSumObj")
   #assertCharacter(type, min.chars = 1)
 
   report.id = reportId()
 
   makeS3Obj("CatSumReport",
-    report.task = cat.sum.obj$task,
-    cat.sum = cat.sum.obj$cat.sum,
+    cat.sum.task = analysis.obj$task,
+    cat.sum = analysis.obj$cat.sum,
     report.id = report.id,
     type = "CategoricalReport")
 }

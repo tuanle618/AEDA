@@ -34,6 +34,6 @@ Writes a rmd file for the Categorical Summary Report [WIP]
  cat.sum.task = makeCatSumTask(id = "Arthritis.Task", data = Arthritis, target = "Improved")
  cat.sum.result = makeCatSum(cat.sum.task)
  #create the numeric summary report
- cat.sum.report = makeCatSumReport(cat.sum.result)
+ cat.sum.report = makeReport(cat.sum.result)
  writeReport(cat.sum.report, save.mode = FALSE, override = TRUE)
 }

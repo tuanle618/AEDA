@@ -6,8 +6,7 @@ suppressWarnings(library(MASS))
 
 pca.task = makePCATask(id = "iris.test", data = iris, target = "Species")
 pca.result = makePCA(pca.task)
-pca.report = makePCAReport(pca.result)
-pca.report.s3 = makeReport(pca.result)
+pca.report = makeReport(pca.result)
 
 test_that("makePCATask", {
   #error if no target is specified
@@ -42,12 +41,6 @@ test_that("makePCAReport", {
   expect_list(pca.report$pca.result, len = 3L)
   expect_character(pca.report$report.id)
   expect_character(pca.report$type)
-
-  expect_class(pca.report.s3, "PCAReport")
-  expect_identical(length(pca.report.s3), 4L)
-  expect_list(pca.report.s3$pca.result, len = 3L)
-  expect_character(pca.report.s3$report.id)
-  expect_character(pca.report.s3$type)
 })
 
 test_that("writePCAReport", {

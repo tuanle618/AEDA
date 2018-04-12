@@ -19,5 +19,5 @@ Creates an PCA Report object
 \examples{
 pca.task = makePCATask(id = "iris.test", data = iris, center = TRUE, target = "Species")
 pca.result = makePCA(pca.task)
-pca.report = makePCAReport(pca.result)
+pca.report = makeReport(pca.result)
 }

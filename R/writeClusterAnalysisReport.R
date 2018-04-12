@@ -17,7 +17,7 @@
 #'   cluster.task = makeClusterTask(id = "iris", data = iris,
 #'    method = "cluster.kmeans")
 #'   cluster.analysis.result = makeClusterAnalysis(cluster.task)
-#'   cluster.analysis.report = makeClusterAnalysisReport(cluster.analysis)
+#'   cluster.analysis.report = makeReport(cluster.analysis)
 #'   writeReport(report, save.mode = FALSE, override = TRUE)
 #' }
 #' @return Invisible NULL
