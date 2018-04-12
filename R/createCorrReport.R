@@ -14,6 +14,6 @@
 createCorrReport = function(id, data, ...) {
   corr.task = makeCorrTask(id = "OpenMLReport", data = data, ...)
   corr.result = makeCorr(corr.task)
- return(makeCorrReport(corr.result))
+ return(makeReport(corr.result))
 }
 

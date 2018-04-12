@@ -33,10 +33,10 @@ test_that("makeCatSumReport", {
   cat.sum.task = makeCatSumTask(id = "test.report",
     data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
-  cat.sum.report = makeCatSumReport(cat.sum)
+  cat.sum.report = makeReport(cat.sum)
 
   expect_class(cat.sum.report, "CatSumReport")
-  expectIdentical(cat.sum.report$report.task, cat.sum.task)
+  expectIdentical(cat.sum.report$task, cat.sum.task)
   expectIdentical(length(cat.sum.report), 4L)
   expectIdentical(cat.sum.report$type, "CategoricalReport")
   expect_character(cat.sum.report$report.id)
@@ -46,7 +46,7 @@ test_that("writeCatSumReport", {
   cat.sum.task = makeCatSumTask(id = "test.report",
     data = Arthritis, target = "Improved")
   cat.sum = makeCatSum(cat.sum.task)
-  cat.sum.report = makeCatSumReport(cat.sum)
+  cat.sum.report = makeReport(cat.sum)
 
   temp.wd = getwd()
   expect_file((rmd.file = writeReport(cat.sum.report,

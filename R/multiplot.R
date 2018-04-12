@@ -1,17 +1,51 @@
-# Multiple plot function
-#
-# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
-# - cols:   Number of columns in layout
-# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
-#
-# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
-# then plot 1 will go in the upper left, 2 will go in the upper right, and
-# 3 will go all the way across the bottom.
-# http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
+#' @title Multiplot for ggplot
+#'
+#' @description
+#' Arranges ggplot objects into a grid
+#'
+#' @param plotlist [\code{list()}]\cr
+#'   A list of ggplot objects. Default is \code{plotlist = NULL}
+#' @param cols [\code{integer(1)}]\cr
+#'   Number of columns for the grid
+#' @param layout [\code{matrix()}]\cr
+#'   A matrix specifying the layout. If present, \code{cols} is ignored.
+#' @param ...
+#' If ggplot objects are not handed over as a list, insert them manually
+#'
+#' @return NULL
+#' @import checkmate
+#' @import BBmisc
 #' @importFrom grid grid.newpage
 #' @importFrom grid pushViewport
 #' @importFrom grid viewport
 #' @importFrom grid grid.layout
+#' @examples
+#' library(ggplot2)
+#' p1 = ggplot(ChickWeight, aes(x = Time, y = weight, colour = Diet, group=Chick)) +
+#'   geom_line() +
+#'   ggtitle("Growth curve for individual chicks")
+#'
+#' # Second plot
+#' p2 = ggplot(ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
+#'   geom_point(alpha = 0.3) +
+#'   geom_smooth(alpha = 0.2, size = 1) +
+#'   ggtitle("Fitted growth curve per diet")
+#'
+#' # Third plot
+#' p3 = ggplot(subset(ChickWeight, Time == 21), aes(x = weight, colour = Diet)) +
+#'   geom_density() +
+#'   ggtitle("Final weight, by diet")
+#'
+#' # Fourth plot
+#' p4 = ggplot(subset(ChickWeight, Time == 21), aes(x = weight, fill = Diet)) +
+#'  geom_histogram(colour = "black", binwidth = 50) +
+#'  facet_grid(Diet ~ .) +
+#'  ggtitle("Final weight, by diet") +
+#'  theme(legend.position="none")
+#' #multiplot the ggplots
+#' multiplot(p1, p2, p3, p4, cols = 2)
+#'
+#' @export
 multiplot = function(..., plotlist = NULL, cols = 1, layout = NULL) {
   # Make a list from the ... arguments and plotlist
   plots = c(list(...), plotlist)
@@ -44,7 +78,7 @@ multiplot = function(..., plotlist = NULL, cols = 1, layout = NULL) {
     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
 
     # Make each plot, in the correct location
-    for (i in 1:num.plots) {
+    for (i in seq.int(num.plots)) {
       # Get the i,j matrix positions of the regions that contain this subplot
       matchidx = as.data.frame(which(layout == i, arr.ind = TRUE))
 

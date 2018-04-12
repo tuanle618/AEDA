@@ -17,7 +17,8 @@
 makeReport.FAObj = function(analysis.obj){
   assertClass(analysis.obj, "FAObj")
 
-  report.id = reportId()
+  #report.id = reportId()
+  report.id = deparse(substitute(analysis.obj))
 
   makeS3Obj("FAReport",
     task = analysis.obj$task,

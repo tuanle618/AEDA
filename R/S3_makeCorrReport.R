@@ -11,7 +11,9 @@
 #' @export
 makeReport.CorrObj = function(analysis.obj){
   assertClass(analysis.obj, "CorrObj")
-  report.id = reportId()
+  #report.id = reportId()
+  report.id = deparse(substitute(analysis.obj))
+
   if (analysis.obj$type == "CorrPlot") {
     plot.code = generateCorrPlot(analysis.obj, report.id)
   }

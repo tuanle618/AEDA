@@ -19,7 +19,11 @@ This package should help automating the process of creating an EDA report by pro
 
 ## Installation
 ```R
-# Install the development version from GitHub
+#Install the development version from GitHub without our vignette:
+devtools::install_github("ptl93/AEDA")
+
+# Or install the development version from GitHub with our vignette:
+devtools::install_github("jimhester/lintr") #this is needed to compile the vignette
 devtools::install_github("ptl93/AEDA", build_vignettes = TRUE)
 ```
 

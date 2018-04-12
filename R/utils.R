@@ -27,6 +27,7 @@ reportId = function(length = 16) {
   # this is now convertable to integer in ms
   ms.time = as.integer(sh.time * 1000)
   # set seed with ms time stamp
+  Sys.sleep(0.01)
   set.seed(ms.time)
   # start rng string with z so its listed last when files sorted by name
   collapse(c("z",
@@ -124,23 +125,6 @@ splitGGplotList = function(mylist, k) {
   out.list = split(mylist, fact.vec, use.names)
 }
 
-
-##wrapper for multiplot with further plotlist splitting
-multiplotPages = function(plotlist, k, no.cols, ...) {
-  #create sublists which act as page
-  splitted.list = splitGGplotList(plotlist, k)
-  for (page in seq_len(length(splitted.list))) {
-    ##call multiplot with further arguments
-    #calculate optimal no. of cols
-    if (length(splitted.list[[page]]) < no.cols) {
-      sel.cols = length(splitted.list[[page]])
-    } else {
-      sel.cols = no.cols
-    }
-    multiplot(plotlist = splitted.list[[page]],
-      cols = sel.cols, ...)
-  }
-}
 
 #helper to split a plot.list which is divided into
 #plot.list_col1_col_1_ggplot into plot.list_col1_ggplot
