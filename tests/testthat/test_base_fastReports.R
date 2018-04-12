@@ -19,9 +19,9 @@ test_that("fastReport", {
   expect_file("Data_Report/NumSumReport1.rmd")
   expect_file("Data_Report/MDSAnalysisReport1.rmd")
   expect_file("Data_Report/PCAReport1.rmd")
-  expect_file("Data_Report/FAReport1.rmd")
-  expect_file("Data_Report/ClusterReport1.rmd")
-  rmarkdown::render("MainReport.rmd", quiet = TRUE)
+  expect_file("Data_Report/FactorAnalysisReport1.rmd")
+  expect_file("Data_Report/ClusterAnalysisReport1.rmd")
+  rmarkdown::render("MainReport.rmd", quiet = TRUE) ##@Michael: manually executing in RShell works..
 
   ## Test m.par.vals for Cluster
   m.par.vals = list(
@@ -99,7 +99,7 @@ test_that("openMLReport", {
   expect_file("Data_Report/MDSAnalysisReport1.rmd")
   expect_file("Data_Report/FactorAnalysisReport1.rmd")
   expect_file("Data_Report/PCAReport1.rmd")
-  rmarkdown::render("MainReport.rmd", quiet = TRUE)
+  rmarkdown::render("MainReport.rmd", quiet = TRUE) ##@michael here some random.id problem. instead of categorical it is a corr report
   setwd(start.wd)
   unlink("test_folder", recursive = TRUE, force = TRUE)
 })
