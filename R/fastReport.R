@@ -21,6 +21,20 @@
 #' \dontrun{
 #' data("iris")
 #' fastReport(data = iris, target = "Species")
+#'
+#' # Specify different parameters
+#' m.par.vals = list(
+#'   Cluster = list(
+#'     method = "cluster.kmeans",
+#'     par.vals = list(algorithm = "MacQueen")
+#'   ),
+#'   Corr = list(method = "pearson")
+#' )
+#' fastReport(data = iris,
+#'   target = "Species",
+#'   reports = c("Basic", "CatSum", "NumSum", "Corr", "Cluster"),
+#'   m.par.vals = m.par.vals
+#' )
 #' }
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet

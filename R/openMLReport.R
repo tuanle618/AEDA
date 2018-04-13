@@ -18,9 +18,16 @@
 #' # Report for the iris dataset
 #' \dontrun{
 #' openMLReport(61L)
-#' openMLReport(61L, "Cluster",
-#'   m.par.vals = list(Cluster = list(method = "cluster.kmeans",
-#'     par.vals = list(algorithm = "MacQueen"))))
+#'
+#' # Specify different parameters
+#' m.par.vals = list(
+#'   Cluster = list(
+#'     method = "cluster.kmeans",
+#'     par.vals = list(algorithm = "MacQueen")
+#'   ),
+#'   Corr = list(method = "pearson")
+#' )
+#' openMLReport(61L, m.par.vals = m.par.vals)
 #' }
 #' @import checkmate
 #' @importFrom OpenML getOMLDataSet
