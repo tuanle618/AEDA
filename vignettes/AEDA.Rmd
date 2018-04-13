@@ -185,7 +185,7 @@ kable(num.sum.report$num.sum.df[, c(1,2,4,5,6,7,8,10,12,13,14,16,21,22)])
 * The sample kurtosis will be calculated via $\frac{1}{n}\sum_{i=1}^{n}(\frac{x_i - \bar{x}}{s})^4$
 * The sample skewness will be calculated via
 $\frac{1}{n}\sum_{i=1}^{n}(\frac{x_i - \bar{x}}{s})^3$
-* `l.bound` is defined as `5% - 1.5*IQR` and `u.bound` is defined as `75% + 1.5*IQR` where `IQR = 75% - 25%`
+* `l.bound` is defined as `25% - 1.5*IQR` and `u.bound` is defined as `75% + 1.5*IQR` where `IQR = 75% - 25%`
 
 To show the `ggplot`-objects for a variable, e.g `age` with multiplot it can be done in one grid:
 `multiplot(plotlist = num.sum.report$num.sum.var$age[2:4], cols = 2)`
@@ -433,4 +433,4 @@ fa.diagram(fa.report$fa.result)
 In order to gain more insights into the exploratory factor analysis you can either access `fa.result` or `fa.report` object. For the sake of consistency we will show an example with the report object.
 One can extract the loadings of thefactor analysis via:
 `fa.report$fa.result$Structure`.
-For more information have a look at the returned values by <a <href="https://www.rdocumentation.org/packages/psych/versions/1.7.8/topics/fa" target="_blank">psych::fa()</a>.
+For more information have a look at the returned values by <a href="https://www.rdocumentation.org/packages/psych/versions/1.7.8/topics/fa" target="_blank">psych::fa()</a>.
