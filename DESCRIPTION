@@ -12,7 +12,7 @@ Description: Writing exploratory data analysis (EDA) scripts helps in extracting
  again and again which could be automatized with EDA scripts. 
  This package automates the process of creating an EDA report by providing analysis & plot functions
  which, one would normally script for each data type of dataset.
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.2.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
